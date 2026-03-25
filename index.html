@@ -2273,7 +2273,14 @@
             try {
                 const snaps = await Promise.all(promises);
                 snaps.forEach((snap, i) => {
-                    fsCache[mk][keys[i]] = snap.exists() ? (snap.data().slots || []) : [];
+                    if (snap.exists()) {
+                        const d = snap.data();
+                        // Merge manual bookings + nightly GCal sync slots
+                        const all = [...(d.slots || []), ...(d.gcal_slots || [])];
+                        fsCache[mk][keys[i]] = [...new Set(all)];
+                    } else {
+                        fsCache[mk][keys[i]] = [];
+                    }
                 });
             } catch (e) {
                 console.warn('[Firebase] prefetch failed — using localStorage', e);
@@ -2319,20 +2326,45 @@
 
         let calYear, calMonth;
 
+        // Bounds: current month and the next month only
+        const _now0      = new Date();
+        const CAL_MIN_Y  = _now0.getFullYear();
+        const CAL_MIN_M  = _now0.getMonth();
+        const CAL_MAX_Y  = _now0.getMonth() === 11 ? _now0.getFullYear() + 1 : _now0.getFullYear();
+        const CAL_MAX_M  = _now0.getMonth() === 11 ? 0 : _now0.getMonth() + 1;
+
+        function updateNavBtns() {
+            const atMin = calYear === CAL_MIN_Y && calMonth === CAL_MIN_M;
+            const atMax = calYear === CAL_MAX_Y && calMonth === CAL_MAX_M;
+            const prev  = document.getElementById('cal-prev');
+            const next  = document.getElementById('cal-next');
+            prev.disabled      = atMin;
+            prev.style.opacity = atMin ? '0.25' : '';
+            prev.style.cursor  = atMin ? 'not-allowed' : '';
+            next.disabled      = atMax;
+            next.style.opacity = atMax ? '0.25' : '';
+            next.style.cursor  = atMax ? 'not-allowed' : '';
+        }
+
         async function initCalendar() {
             const now = new Date();
-            calYear = now.getFullYear();
+            calYear  = now.getFullYear();
             calMonth = now.getMonth();
             await renderCalendar();
+            updateNavBtns();
             document.getElementById('cal-prev').addEventListener('click', async () => {
+                if (calYear === CAL_MIN_Y && calMonth === CAL_MIN_M) return;
                 calMonth--;
                 if (calMonth < 0) { calMonth = 11; calYear--; }
                 await renderCalendar();
+                updateNavBtns();
             });
             document.getElementById('cal-next').addEventListener('click', async () => {
+                if (calYear === CAL_MAX_Y && calMonth === CAL_MAX_M) return;
                 calMonth++;
                 if (calMonth > 11) { calMonth = 0; calYear++; }
                 await renderCalendar();
+                updateNavBtns();
             });
         }
 
