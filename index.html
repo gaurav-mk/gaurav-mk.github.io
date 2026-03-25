@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Gaurav Mishra – Developer Portfolio" />
-    <title>Gaurav Mishra | Portfolio</title>
+    <meta name="description" content="Gaurav Kumar Mishra – Hardware Developer & ICT Engineer Portfolio" />
+    <title>Gaurav Kumar Mishra | Portfolio</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -467,6 +467,38 @@
             line-height: 1.6;
         }
 
+        /* === SKILLS BAR SECTION === */
+        .skills-section {
+            margin-top: 2rem;
+        }
+
+        .skills-section-title {
+            font-size: 0.75rem;
+            font-family: 'Fira Code', monospace;
+            color: var(--accent-l);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .skill-group {
+            margin-bottom: 1.4rem;
+        }
+
+        .skill-group-label {
+            font-size: 0.78rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            margin-bottom: 0.6rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
         /* === EXPERIENCE / TIMELINE === */
         .timeline {
             display: flex;
@@ -540,6 +572,13 @@
             color: var(--text2);
             line-height: 1.7;
             margin-bottom: 0.8rem;
+        }
+
+        .tl-desc ul {
+            padding-left: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
         }
 
         .tag-list {
@@ -629,6 +668,21 @@
             font-size: 0.83rem;
             color: var(--text2);
             line-height: 1.6;
+        }
+
+        .edu-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-bottom: 0.6rem;
+            padding: 0.2rem 0.6rem;
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.25);
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #facc15;
+            font-family: 'Fira Code', monospace;
         }
 
         /* === PROJECTS === */
@@ -735,6 +789,88 @@
         .proj-link:hover {
             border-color: var(--accent-l);
             color: var(--accent-l);
+        }
+
+        .proj-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.15rem 0.55rem;
+            border-radius: 4px;
+            font-size: 0.68rem;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+        }
+
+        .proj-status.ongoing {
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            color: var(--cyan);
+        }
+
+        .proj-status.published {
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+        }
+
+        /* === LANGUAGES === */
+        .languages-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 500px;
+        }
+
+        .lang-card {
+            padding: 1.2rem 1.5rem;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            transition: all var(--ease);
+        }
+
+        .lang-card:hover {
+            border-color: var(--border-h);
+            background: var(--bg4);
+        }
+
+        .lang-flag {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .lang-info {
+            flex: 1;
+        }
+
+        .lang-name {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.15rem;
+        }
+
+        .lang-level {
+            font-size: 0.78rem;
+            color: var(--text2);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .lang-bar-wrap {
+            height: 4px;
+            background: var(--bg4);
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .lang-bar {
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--cyan));
         }
 
         /* === COMMUNITY === */
@@ -875,10 +1011,6 @@
         }
 
         @media (max-width: 480px) {
-            .hobbies-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
             .projects-grid {
                 grid-template-columns: 1fr;
             }
@@ -897,9 +1029,13 @@
     <aside id="sidebar">
 
         <div class="sb-profile">
-            <div class="sb-avatar">GM</div>
-            <div class="sb-name">Gaurav Mishra</div>
-            <div class="sb-role">&lt;Full Stack Developer /&gt;</div>
+            <div class="sb-avatar">
+                <img src="profile_pic.jpg" alt="Gaurav Kumar Mishra"
+                    style="width:100%;height:100%;object-fit:cover;border-radius:50%;"
+                    onerror="this.style.display='none';this.parentElement.textContent='GK';" />
+            </div>
+            <div class="sb-name">Gaurav Kumar Mishra</div>
+            <div class="sb-role">&lt;HW Developer / ICT Engineer&gt;</div>
             <div class="sb-status">Open to Work</div>
         </div>
 
@@ -928,22 +1064,27 @@
                 <span class="icon">🎮</span> Hobbies
                 <span class="bar"></span>
             </div>
+            <div class="sb-link" onclick="showPanel('contact')" id="nav-contact">
+                <span class="icon">✉️</span> Contact Me
+                <span class="bar"></span>
+            </div>
         </nav>
 
         <div class="sb-footer">
-            <a href="https://github.com/GuarXzee" target="_blank" rel="noopener" class="sb-social" title="GitHub">
+            <a href="https://github.com/gaurav-25" target="_blank" rel="noopener" class="sb-social" title="GitHub">
                 <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
                 </svg>
             </a>
-            <a href="https://linkedin.com/in/" target="_blank" rel="noopener" class="sb-social" title="LinkedIn">
+            <a href="https://linkedin.com/in/gaurav-25" target="_blank" rel="noopener" class="sb-social"
+                title="LinkedIn">
                 <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
             </a>
-            <a href="mailto:gaurav@example.com" class="sb-social" title="Email">
+            <a href="mailto:mgaurav682@gmail.com" class="sb-social" title="Email">
                 <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -964,54 +1105,146 @@
             <div class="panel-label">// about me</div>
             <h1 class="panel-title">Hi, I'm <span class="hl">Gaurav.</span></h1>
             <p class="panel-sub">
-                Full Stack Developer &amp; Software Engineer who loves crafting elegant, performant, and user-centred
-                digital experiences. Based in Germany 🇩🇪, open to remote &amp; relocation.
+                Ambitious tech professional bridging hardware engineering and software development.
+                M.S. ICT student at FAU Erlangen 🇩🇪 — passionate about advancing technology and positively impacting
+                society and the environment.
             </p>
 
             <div class="about-grid">
                 <div>
                     <p style="color:var(--text2);font-size:0.95rem;line-height:1.8;margin-bottom:1rem;">
-                        I thrive at the intersection of <strong style="color:var(--text)">engineering and
-                            design</strong>. Whether it's building robust APIs or crafting pixel-perfect UIs, I care
-                        deeply about the quality of what I create.
+                        I thrive at the intersection of <strong style="color:var(--text)">hardware and
+                            software</strong>.
+                        From designing RF isolation circuits at Siemens Healthineers to building Salesforce supply-chain
+                        systems at Deloitte,
+                        I bring a full-stack perspective to every challenge.
                     </p>
                     <p style="color:var(--text2);font-size:0.95rem;line-height:1.8;">
-                        When I'm not coding I'm exploring open source, sharpening my problem-solving skills, or
-                        mentoring the next generation of developers.
+                        Gold Medalist (9.8/10 GPA) in my bachelor's, Star of Excellence awardee, and 2× Applause awardee
+                        at Deloitte.
+                        I lead with ownership and deliver with precision.
                     </p>
                     <div class="info-chips">
                         <div class="chip">
                             <div class="chip-label">Location</div>
-                            <div class="chip-val">📍 Germany</div>
+                            <div class="chip-val">📍 Erlangen, Germany</div>
                         </div>
                         <div class="chip">
                             <div class="chip-label">Status</div>
                             <div class="chip-val">🟢 Open to Work</div>
                         </div>
                         <div class="chip">
-                            <div class="chip-label">Role</div>
-                            <div class="chip-val">🎯 Full Stack Dev</div>
+                            <div class="chip-label">Focus</div>
+                            <div class="chip-val">⚡ HW + SW Engineering</div>
                         </div>
                         <div class="chip">
-                            <div class="chip-label">Education</div>
-                            <div class="chip-val">🎓 CS Graduate</div>
+                            <div class="chip-label">Contact</div>
+                            <div class="chip-val">📧 mgaurav682</div>
                         </div>
                     </div>
                 </div>
                 <div class="about-highlights">
                     <div class="highlight-card">
-                        <div class="hc-title">⚛️ Frontend Craft</div>
-                        <div class="hc-desc">React, TypeScript, CSS — building interfaces that feel alive and accessible
-                            on every device.</div>
+                        <div class="hc-title">🔌 Hardware Development</div>
+                        <div class="hc-desc">Circuit design, PCB layout, RF isolation, VHDL — building reliable hardware
+                            systems at Siemens Healthineers.</div>
                     </div>
                     <div class="highlight-card">
-                        <div class="hc-title">🖥️ Backend Engineering</div>
-                        <div class="hc-desc">Node.js, Python, REST & GraphQL APIs — scalable systems with clean
-                            architecture.</div>
+                        <div class="hc-title">☁️ Cloud & CRM Engineering</div>
+                        <div class="hc-desc">Salesforce (Apex, LWC, SOQL), Snowflake, Mulesoft, Azure — enterprise-scale
+                            supply chain systems for Pfizer.</div>
                     </div>
                     <div class="highlight-card">
-                        <div class="hc-title">☁️ Cloud & DevOps</div>
-                        <div class="hc-desc">Docker, AWS, GitHub Actions — shipping reliably with automated pipelines.
+                        <div class="hc-title">🔬 IC Design & Research</div>
+                        <div class="hc-desc">7nm FinFET standard cell libraries, PDK, radiation hardening — bridging
+                            semiconductor theory and real-world application.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="skills-section">
+                <div class="skills-section-title">// skills & tools</div>
+                <div class="skill-group">
+                    <div class="skill-group-label">Hardware & EDA</div>
+                    <div class="skill-tags">
+                        <span class="tag tag-purple">PSpice</span>
+                        <span class="tag tag-purple">KiCad</span>
+                        <span class="tag tag-purple">Xpedition</span>
+                        <span class="tag tag-purple">Tina TI</span>
+                        <span class="tag tag-cyan">VHDL</span>
+                        <span class="tag tag-cyan">MATLAB</span>
+                        <span class="tag tag-cyan">PDK</span>
+                        <span class="tag tag-cyan">LabVIEW</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="skill-group-label">Salesforce & Cloud</div>
+                    <div class="skill-tags">
+                        <span class="tag tag-purple">Apex</span>
+                        <span class="tag tag-purple">LWC</span>
+                        <span class="tag tag-purple">Visualforce</span>
+                        <span class="tag tag-cyan">Snowflake</span>
+                        <span class="tag tag-cyan">Mulesoft</span>
+                        <span class="tag tag-cyan">Azure</span>
+                        <span class="tag tag-purple">Power BI</span>
+                        <span class="tag tag-cyan">REST/SOAP</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="skill-group-label">Programming & DevOps</div>
+                    <div class="skill-tags">
+                        <span class="tag tag-purple">Python</span>
+                        <span class="tag tag-purple">C/C++</span>
+                        <span class="tag tag-purple">JavaScript</span>
+                        <span class="tag tag-cyan">HTML/CSS</span>
+                        <span class="tag tag-cyan">SOQL</span>
+                        <span class="tag tag-purple">Git</span>
+                        <span class="tag tag-cyan">Jenkins</span>
+                        <span class="tag tag-purple">Java</span>
+                    </div>
+                </div>
+                <div class="skill-group">
+                    <div class="skill-group-label">Certifications</div>
+                    <div class="skill-tags">
+                        <span class="tag tag-cyan">Salesforce Certified Platform Developer I</span>
+                        <span class="tag tag-cyan">Salesforce Certified Associate</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Languages inline -->
+            <div class="skills-section" style="margin-top:2.5rem;">
+                <div class="skills-section-title">// spoken languages</div>
+                <div class="languages-grid">
+                    <div class="lang-card">
+                        <div class="lang-flag">🇮🇳</div>
+                        <div class="lang-info">
+                            <div class="lang-name">Hindi</div>
+                            <div class="lang-level">Native Speaker</div>
+                            <div class="lang-bar-wrap">
+                                <div class="lang-bar" style="width:100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lang-card">
+                        <div class="lang-flag">🇬🇧</div>
+                        <div class="lang-info">
+                            <div class="lang-name">English</div>
+                            <div class="lang-level">Fluent — Professional Proficiency</div>
+                            <div class="lang-bar-wrap">
+                                <div class="lang-bar" style="width:90%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lang-card">
+                        <div class="lang-flag">🇩🇪</div>
+                        <div class="lang-info">
+                            <div class="lang-name">German</div>
+                            <div class="lang-level">Elementary (A1/A2) — Currently Learning</div>
+                            <div class="lang-bar-wrap">
+                                <div class="lang-bar" style="width:20%;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1027,63 +1260,107 @@
             <div class="timeline">
 
                 <div class="tl-item">
-                    <div class="tl-date">2024<br />Present</div>
+                    <div class="tl-date">Sep 2024<br />Current</div>
                     <div class="tl-line">
                         <div class="tl-dot"></div>
                         <div class="tl-connector"></div>
                     </div>
                     <div class="tl-body">
-                        <div class="tl-company">// Acme Corp · Berlin</div>
-                        <div class="tl-role">Senior Full Stack Developer</div>
-                        <div class="tl-desc">Led development of a customer-facing SaaS platform serving 50 k+ users.
-                            Reduced load times by 40% via code splitting and CDN optimisation. Mentored 3 junior
-                            developers.</div>
+                        <div class="tl-company">// Siemens Healthineers · Erlangen, Germany</div>
+                        <div class="tl-role">Working Student — Hardware Developer</div>
+                        <div class="tl-desc">
+                            <ul>
+                                <li>POCs using circuit design simulations for gate drivers and MOSFETs</li>
+                                <li>High-voltage RF isolation for monolithic integration</li>
+                                <li>PCB design and component placement</li>
+                                <li>Programmed analog RF receivers in VHDL</li>
+                            </ul>
+                        </div>
                         <div class="tag-list">
-                            <span class="tag tag-purple">React</span>
-                            <span class="tag tag-purple">Node.js</span>
-                            <span class="tag tag-cyan">PostgreSQL</span>
-                            <span class="tag tag-cyan">AWS</span>
-                            <span class="tag tag-purple">Docker</span>
+                            <span class="tag tag-purple">PSpice</span>
+                            <span class="tag tag-purple">KiCad</span>
+                            <span class="tag tag-cyan">VHDL</span>
+                            <span class="tag tag-cyan">MATLAB</span>
+                            <span class="tag tag-purple">Xpedition</span>
+                            <span class="tag tag-cyan">Tina TI</span>
+                            <span class="tag tag-purple">Python</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="tl-item">
-                    <div class="tl-date">2022<br />2024</div>
+                    <div class="tl-date">Jun 2022<br />Feb 2024</div>
                     <div class="tl-line">
                         <div class="tl-dot"></div>
                         <div class="tl-connector"></div>
                     </div>
                     <div class="tl-body">
-                        <div class="tl-company">// Startup XYZ · Remote</div>
-                        <div class="tl-role">Full Stack Developer</div>
-                        <div class="tl-desc">Built and shipped 4 greenfield products end-to-end. Implemented real-time
-                            features using WebSockets and designed a micro-service architecture using Node.js.</div>
+                        <div class="tl-company">// Deloitte US–India · Bengaluru, India</div>
+                        <div class="tl-role">Analyst — Application Developer</div>
+                        <div class="tl-desc">
+                            <ul>
+                                <li>Built supply chain systems using Salesforce for Pfizer</li>
+                                <li>Led team and served as Salesforce Integration contact</li>
+                                <li>2× Applause Awardee — recognized for performance and independence</li>
+                            </ul>
+                        </div>
                         <div class="tag-list">
-                            <span class="tag tag-purple">TypeScript</span>
-                            <span class="tag tag-purple">Express</span>
-                            <span class="tag tag-cyan">MongoDB</span>
-                            <span class="tag tag-cyan">Socket.io</span>
+                            <span class="tag tag-purple">Apex</span>
+                            <span class="tag tag-purple">LWC</span>
+                            <span class="tag tag-cyan">Snowflake</span>
+                            <span class="tag tag-cyan">Mulesoft</span>
+                            <span class="tag tag-purple">SOQL</span>
+                            <span class="tag tag-cyan">Azure</span>
+                            <span class="tag tag-purple">Power BI</span>
+                            <span class="tag tag-cyan">Jenkins</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="tl-item">
-                    <div class="tl-date">2021<br />2022</div>
+                    <div class="tl-date">Nov 2021<br />Jun 2022</div>
                     <div class="tl-line">
                         <div class="tl-dot"></div>
                         <div class="tl-connector"></div>
                     </div>
                     <div class="tl-body">
-                        <div class="tl-company">// FreelanceHub · Freelance</div>
-                        <div class="tl-role">Frontend Developer</div>
-                        <div class="tl-desc">Delivered 10+ client websites and e-commerce stores. Focused on
-                            performance, SEO, and pixel-perfect responsive design across all major browsers.</div>
+                        <div class="tl-company">// Epical Layouts Pvt. Ltd. · Chennai, India</div>
+                        <div class="tl-role">Intern — IC Design</div>
+                        <div class="tl-desc">
+                            <ul>
+                                <li>Created standard cell library to analyze radiation hardening of circuits for space
+                                    applications</li>
+                            </ul>
+                        </div>
                         <div class="tag-list">
-                            <span class="tag tag-purple">HTML/CSS</span>
-                            <span class="tag tag-purple">JavaScript</span>
-                            <span class="tag tag-cyan">Shopify</span>
-                            <span class="tag tag-cyan">WordPress</span>
+                            <span class="tag tag-purple">Analog IC Design</span>
+                            <span class="tag tag-cyan">Digital IC Design</span>
+                            <span class="tag tag-purple">PDK</span>
+                            <span class="tag tag-cyan">Standard Cell</span>
+                            <span class="tag tag-purple">Semiconductor Fab</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-date">Jun 2021<br />Jul 2021</div>
+                    <div class="tl-line">
+                        <div class="tl-dot"></div>
+                        <div class="tl-connector"></div>
+                    </div>
+                    <div class="tl-body">
+                        <div class="tl-company">// Government of India · New Delhi, India</div>
+                        <div class="tl-role">Intern — Equipment Safety Testing</div>
+                        <div class="tl-desc">
+                            <ul>
+                                <li>Developed safety manuals for electronic component testing (ISO standards)</li>
+                            </ul>
+                        </div>
+                        <div class="tag-list">
+                            <span class="tag tag-purple">Circuit Testing</span>
+                            <span class="tag tag-cyan">ISO Standards</span>
+                            <span class="tag tag-purple">Consumer Electronics</span>
+                            <span class="tag tag-cyan">Technical Writing</span>
                         </div>
                     </div>
                 </div>
@@ -1099,48 +1376,45 @@
 
             <div class="edu-grid">
                 <div class="edu-card">
+                    <div class="edu-icon">🏫</div>
+                    <div>
+                        <div class="edu-degree">M.S. Information and Communication Technology</div>
+                        <div class="edu-school">Friedrich-Alexander-Universität Erlangen-Nürnberg · Germany</div>
+                        <div class="edu-year">Apr 2024 – Ongoing</div>
+                        <div class="edu-desc">
+                            GPA: 1.9/5.0 (1.0 highest).<br />
+                            Coursework: Information Theory, Approximate Computing, Communication Systems, Mobile
+                            Communication, QoS in Communications, Cybersecurity, Machine Learning, Advanced C++.
+                        </div>
+                        <div class="tag-list" style="margin-top:0.7rem;">
+                            <span class="tag tag-purple">Machine Learning</span>
+                            <span class="tag tag-cyan">Cybersecurity</span>
+                            <span class="tag tag-purple">Communication Systems</span>
+                            <span class="tag tag-cyan">Advanced C++</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="edu-card">
                     <div class="edu-icon">🎓</div>
                     <div>
-                        <div class="edu-degree">B.Sc. Computer Science</div>
-                        <div class="edu-school">University of Example · Germany</div>
-                        <div class="edu-year">2018 – 2022</div>
-                        <div class="edu-desc">Focused on algorithms, data structures, software engineering, and
-                            distributed systems. Graduated with distinction. Thesis on real-time collaborative systems.
+                        <div class="edu-badge">🥇 Gold Medalist — 1st in Batch</div>
+                        <div class="edu-degree">B.E. Electronics &amp; Communication Engineering</div>
+                        <div class="edu-school">Sathyabama Institute of Science &amp; Technology · Chennai, India</div>
+                        <div class="edu-year">Aug 2018 – Mar 2022</div>
+                        <div class="edu-desc">
+                            GPA: 9.8/10 · Dean's List · Star of Excellence Award (Best Outgoing Student 2022).<br />
+                            Coursework: Computer Architecture, Embedded Systems, IoT, VLSI.<br />
+                            <br />
+                            🎖️ Class Representative — Represented class in student unions.<br />
+                            🤖 Secretary, Robotics Club — Led meetings, organized competitions, Arduino, Raspberry Pi,
+                            C/C++, LabVIEW.
                         </div>
                         <div class="tag-list" style="margin-top:0.7rem;">
-                            <span class="tag tag-purple">Algorithms</span>
-                            <span class="tag tag-cyan">Systems</span>
-                            <span class="tag tag-purple">Networking</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="edu-card">
-                    <div class="edu-icon">📜</div>
-                    <div>
-                        <div class="edu-degree">AWS Certified Solutions Architect</div>
-                        <div class="edu-school">Amazon Web Services</div>
-                        <div class="edu-year">2023</div>
-                        <div class="edu-desc">Certified in designing distributed systems on AWS — covering compute,
-                            storage, networking, and security best practices.</div>
-                        <div class="tag-list" style="margin-top:0.7rem;">
-                            <span class="tag tag-cyan">AWS</span>
-                            <span class="tag tag-cyan">Cloud</span>
-                            <span class="tag tag-purple">Security</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="edu-card">
-                    <div class="edu-icon">⚡</div>
-                    <div>
-                        <div class="edu-degree">Full Stack Web Development</div>
-                        <div class="edu-school">The Odin Project &amp; Personal Study</div>
-                        <div class="edu-year">2020 – Ongoing</div>
-                        <div class="edu-desc">Self-directed deep dive into modern web technologies — React, Node.js,
-                            databases, DevOps, and software design patterns.</div>
-                        <div class="tag-list" style="margin-top:0.7rem;">
-                            <span class="tag tag-purple">React</span>
-                            <span class="tag tag-purple">Node.js</span>
-                            <span class="tag tag-cyan">Self-Taught</span>
+                            <span class="tag tag-purple">VLSI</span>
+                            <span class="tag tag-cyan">Embedded Systems</span>
+                            <span class="tag tag-purple">IoT</span>
+                            <span class="tag tag-cyan">C/C++</span>
+                            <span class="tag tag-purple">LabVIEW</span>
                         </div>
                     </div>
                 </div>
@@ -1151,82 +1425,80 @@
         <section class="panel" id="panel-projects">
             <div class="panel-label">// what i've built</div>
             <h2 class="panel-title"><span class="hl">Projects</span></h2>
-            <p class="panel-sub">A selection of projects I've designed and shipped from scratch.</p>
+            <p class="panel-sub">Research, engineering, and applied projects spanning hardware, firmware, and software.
+            </p>
 
             <div class="projects-grid">
                 <div class="proj-card">
                     <div class="proj-head">
-                        <div class="proj-ico">🛒</div>
+                        <div class="proj-ico">📡</div>
                         <div>
-                            <div class="proj-title">E-Commerce Platform</div>
-                            <div class="proj-type">// full-stack</div>
+                            <div class="proj-title">Joint BLE &amp; mioty Localization Module</div>
+                            <div class="proj-type">// embedded · hardware · firmware</div>
                         </div>
                     </div>
-                    <div class="proj-body">Feature-rich store with real-time inventory, Stripe payments, OAuth auth, and
-                        a live admin dashboard.</div>
+                    <div class="proj-body">
+                        Low-power localization module combining Bluetooth Low Energy (BLE) and mioty within the 2.4 GHz
+                        band. BLE enables precise short-range tracking; mioty ensures long-range communication without
+                        nearby receivers. Includes hardware design, firmware, localization algorithms, and a web-based
+                        visualization interface.
+                    </div>
                     <div class="proj-foot">
                         <div class="tag-list" style="flex:1;">
-                            <span class="tag tag-purple">React</span><span class="tag tag-cyan">Node.js</span><span
-                                class="tag tag-purple">PostgreSQL</span>
+                            <span class="tag tag-purple">BLE</span>
+                            <span class="tag tag-cyan">mioty</span>
+                            <span class="tag tag-purple">Firmware</span>
+                            <span class="tag tag-cyan">Embedded</span>
                         </div>
-                        <a href="#" class="proj-link">GitHub ↗</a>
+                        <span class="proj-status ongoing">● Ongoing</span>
                     </div>
                 </div>
 
                 <div class="proj-card">
                     <div class="proj-head">
-                        <div class="proj-ico">💬</div>
+                        <div class="proj-ico">⚛️</div>
                         <div>
-                            <div class="proj-title">Real-Time Chat</div>
-                            <div class="proj-type">// websockets</div>
+                            <div class="proj-title">7nm FinFET Standard Cell Library</div>
+                            <div class="proj-type">// IC design · ASAP7 PDK</div>
                         </div>
                     </div>
-                    <div class="proj-body">Messaging platform with rooms, DMs, typing indicators, and read receipts
-                        powered by Socket.io.</div>
+                    <div class="proj-body">
+                        Designed and assessed a 7nm FinFET standard cell library using the ASAP7 PDK. Features adaptable
+                        logic gates, optimized layouts, minimal footprint, and strong performance characteristics.
+                        Published in IEEE.
+                    </div>
                     <div class="proj-foot">
                         <div class="tag-list" style="flex:1;">
-                            <span class="tag tag-purple">React</span><span class="tag tag-cyan">Socket.io</span><span
-                                class="tag tag-purple">MongoDB</span>
+                            <span class="tag tag-purple">FinFET</span>
+                            <span class="tag tag-cyan">ASAP7 PDK</span>
+                            <span class="tag tag-purple">Standard Cell</span>
+                            <span class="tag tag-cyan">VLSI</span>
                         </div>
-                        <a href="#" class="proj-link">GitHub ↗</a>
+                        <span class="proj-status published">✓ IEEE</span>
                     </div>
                 </div>
 
                 <div class="proj-card">
                     <div class="proj-head">
-                        <div class="proj-ico">📊</div>
+                        <div class="proj-ico">🏠</div>
                         <div>
-                            <div class="proj-title">Analytics Dashboard</div>
-                            <div class="proj-type">// data-viz</div>
+                            <div class="proj-title">Smart Home Automation + UPS</div>
+                            <div class="proj-type">// IoT · embedded · power electronics</div>
                         </div>
                     </div>
-                    <div class="proj-body">Interactive live-data dashboard with custom D3 charts and configurable
-                        reporting for business intelligence.</div>
+                    <div class="proj-body">
+                        Developed an automatic LED emergency lamp with an online UPS for low-power household appliances.
+                        Includes full circuit design, simulation, testing, and IoT integration for remote monitoring.
+                        Published in IEEE.
+                    </div>
                     <div class="proj-foot">
                         <div class="tag-list" style="flex:1;">
-                            <span class="tag tag-purple">TypeScript</span><span class="tag tag-cyan">D3.js</span><span
-                                class="tag tag-purple">FastAPI</span>
+                            <span class="tag tag-purple">IoT</span>
+                            <span class="tag tag-cyan">Power Electronics</span>
+                            <span class="tag tag-purple">Arduino</span>
+                            <span class="tag tag-cyan">Circuit Design</span>
                         </div>
-                        <a href="#" class="proj-link">GitHub ↗</a>
-                    </div>
-                </div>
-
-                <div class="proj-card">
-                    <div class="proj-head">
-                        <div class="proj-ico">🤖</div>
-                        <div>
-                            <div class="proj-title">AI Writing Assistant</div>
-                            <div class="proj-type">// ai-tool</div>
-                        </div>
-                    </div>
-                    <div class="proj-body">Browser extension that uses OpenAI to provide inline writing suggestions,
-                        grammar corrections, and tone adjustments.</div>
-                    <div class="proj-foot">
-                        <div class="tag-list" style="flex:1;">
-                            <span class="tag tag-purple">JavaScript</span><span class="tag tag-cyan">OpenAI</span><span
-                                class="tag tag-purple">Chrome API</span>
-                        </div>
-                        <a href="#" class="proj-link">GitHub ↗</a>
+                        <span class="proj-status published">✓ IEEE</span>
                     </div>
                 </div>
             </div>
@@ -1236,43 +1508,47 @@
         <section class="panel" id="panel-community">
             <div class="panel-label">// giving back</div>
             <h2 class="panel-title"><span class="hl">Community</span></h2>
-            <p class="panel-sub">How I contribute beyond code — speaking, writing, mentoring, and open source.</p>
+            <p class="panel-sub">Leadership, teamwork, and technical advocacy — inside and outside academia.</p>
 
             <div class="comm-grid">
                 <div class="comm-card">
-                    <div class="comm-ico">🎤</div>
+                    <div class="comm-ico">🤖</div>
                     <div>
-                        <div class="comm-title">Tech Talks &amp; Meetups</div>
-                        <div class="comm-role">// Speaker</div>
-                        <div class="comm-desc">Presented at 5+ local and online developer meetups on topics including
-                            WebSockets, React performance, and full-stack architecture patterns.</div>
+                        <div class="comm-title">Robotics Club</div>
+                        <div class="comm-role">// Secretary · Sathyabama Institute</div>
+                        <div class="comm-desc">Led club meetings, organized inter-college competitions, and delivered
+                            technical talks. Developed hands-on expertise in Arduino, Raspberry Pi, C/C++, LabVIEW, and
+                            Java alongside fellow members.</div>
                     </div>
                 </div>
                 <div class="comm-card">
-                    <div class="comm-ico">📝</div>
+                    <div class="comm-ico">🎖️</div>
                     <div>
-                        <div class="comm-title">Technical Blogging</div>
-                        <div class="comm-role">// Writer · Dev.to / Medium</div>
-                        <div class="comm-desc">Published 20+ articles on web development best practices, tutorials, and
-                            project breakdowns. Collectively 50k+ reads.</div>
+                        <div class="comm-title">Class Representative</div>
+                        <div class="comm-role">// Student Union · Sathyabama Institute</div>
+                        <div class="comm-desc">Represented the class in student union assemblies, bridging communication
+                            between peers and faculty. Advocated for student interests and coordinated academic events.
+                        </div>
                     </div>
                 </div>
                 <div class="comm-card">
-                    <div class="comm-ico">🧑‍🏫</div>
+                    <div class="comm-ico">📡</div>
                     <div>
-                        <div class="comm-title">Mentorship</div>
-                        <div class="comm-role">// Mentor · CodeNewbie</div>
-                        <div class="comm-desc">Mentoring 5 aspiring developers through career transitions — covering
-                            code reviews, mock interviews, and portfolio guidance.</div>
+                        <div class="comm-title">IEEE Publications</div>
+                        <div class="comm-role">// Author</div>
+                        <div class="comm-desc">Published two peer-reviewed IEEE papers: one on 7nm FinFET standard cell
+                            library design using ASAP7 PDK, and another on smart home automation with UPS integration
+                            for IoT devices.</div>
                     </div>
                 </div>
                 <div class="comm-card">
-                    <div class="comm-ico">🔓</div>
+                    <div class="comm-ico">🏆</div>
                     <div>
-                        <div class="comm-title">Open Source</div>
-                        <div class="comm-role">// Contributor</div>
-                        <div class="comm-desc">Active contributor to several open source projects on GitHub — bug fixes,
-                            documentation improvements, and new features.</div>
+                        <div class="comm-title">2× Applause Award</div>
+                        <div class="comm-role">// Deloitte · Recognition for Excellence</div>
+                        <div class="comm-desc">Recognized twice by Deloitte leadership for outstanding performance,
+                            independence, and contributions to the Pfizer supply chain project — one of the highest
+                            performance honors at the firm.</div>
                     </div>
                 </div>
             </div>
@@ -1280,57 +1556,99 @@
 
         <!-- ── HOBBIES ── -->
         <section class="panel" id="panel-hobbies">
-            <div class="panel-label">// outside the editor</div>
-            <h2 class="panel-title">When I'm <span class="hl">not coding</span></h2>
+            <div class="panel-label">// outside the lab</div>
+            <h2 class="panel-title">When I'm <span class="hl">not engineering</span></h2>
             <p class="panel-sub">The things that keep me balanced, inspired, and curious about the world.</p>
 
             <div class="hobbies-grid">
                 <div class="hobby-card">
-                    <div class="hobby-ico">🎮</div>
-                    <div class="hobby-name">Gaming</div>
-                    <div class="hobby-desc">Strategy &amp; indie games — love the design thinking behind good game
-                        mechanics.</div>
+                    <div class="hobby-ico">🤖</div>
+                    <div class="hobby-name">Robotics</div>
+                    <div class="hobby-desc">Building and tinkering with embedded systems — Arduino, Raspberry Pi, and
+                        custom circuits.</div>
                 </div>
                 <div class="hobby-card">
                     <div class="hobby-ico">📚</div>
                     <div class="hobby-name">Reading</div>
-                    <div class="hobby-desc">Tech books, sci-fi, and biographies. Currently: <em>The Pragmatic
-                            Programmer</em>.</div>
+                    <div class="hobby-desc">Tech books, engineering papers, and sci-fi. Always exploring new frontiers
+                        of thought.</div>
                 </div>
                 <div class="hobby-card">
-                    <div class="hobby-ico">🤸</div>
-                    <div class="hobby-name">Fitness</div>
-                    <div class="hobby-desc">Gym sessions and cycling keep the energy levels up for long coding sessions.
-                    </div>
+                    <div class="hobby-ico">🌍</div>
+                    <div class="hobby-name">Travelling</div>
+                    <div class="hobby-desc">Exploring new cultures across India, Germany and beyond — each trip adds a
+                        new perspective.</div>
                 </div>
                 <div class="hobby-card">
-                    <div class="hobby-ico">✈️</div>
-                    <div class="hobby-name">Travel</div>
-                    <div class="hobby-desc">Exploring new cultures and collecting perspectives from around the world.
-                    </div>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-ico">📷</div>
-                    <div class="hobby-name">Photography</div>
-                    <div class="hobby-desc">Street and landscape photography — trained eye for composition and detail.
-                    </div>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-ico">🎵</div>
-                    <div class="hobby-name">Music</div>
-                    <div class="hobby-desc">Guitar player and playlist curator. Lo-fi beats are my coding soundtrack.
-                    </div>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-ico">🍳</div>
-                    <div class="hobby-name">Cooking</div>
-                    <div class="hobby-desc">Experimenting with recipes is not unlike debugging — patience pays off!
-                    </div>
+                    <div class="hobby-ico">🎮</div>
+                    <div class="hobby-name">Gaming</div>
+                    <div class="hobby-desc">Strategy and simulation games — the design thinking behind good game
+                        mechanics fascinates me.</div>
                 </div>
                 <div class="hobby-card">
                     <div class="hobby-ico">🌱</div>
                     <div class="hobby-name">Sustainability</div>
-                    <div class="hobby-desc">Passionate about green tech and reducing my environmental footprint.</div>
+                    <div class="hobby-desc">Passionate about green tech, low-power design, and reducing engineering's
+                        environmental footprint.</div>
+                </div>
+                <div class="hobby-card">
+                    <div class="hobby-ico">🎵</div>
+                    <div class="hobby-name">Music</div>
+                    <div class="hobby-desc">Music keeps me focused during long research and coding sessions — from lo-fi
+                        to Indian classical.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CONTACT ── -->
+        <section class="panel" id="panel-contact">
+            <div class="panel-label">// get in touch</div>
+            <h2 class="panel-title">Contact <span class="hl">Me</span></h2>
+            <p class="panel-sub">Open to working student roles, research collaborations, and full-time opportunities.
+                Let's connect!</p>
+
+            <div style="display:flex;flex-direction:column;gap:1rem;max-width:560px;">
+                <a href="mailto:mgaurav682@gmail.com" class="comm-card" style="text-decoration:none;cursor:pointer;">
+                    <div class="comm-ico">📧</div>
+                    <div>
+                        <div class="comm-title">Email</div>
+                        <div class="comm-role">// Primary Contact</div>
+                        <div class="comm-desc">mgaurav682@gmail.com</div>
+                    </div>
+                </a>
+                <a href="tel:+4915213603906" class="comm-card" style="text-decoration:none;cursor:pointer;">
+                    <div class="comm-ico">📞</div>
+                    <div>
+                        <div class="comm-title">Phone</div>
+                        <div class="comm-role">// Germany</div>
+                        <div class="comm-desc">+49 152 1360 3906</div>
+                    </div>
+                </a>
+                <a href="https://github.com/gaurav-25" target="_blank" rel="noopener" class="comm-card"
+                    style="text-decoration:none;cursor:pointer;">
+                    <div class="comm-ico">💻</div>
+                    <div>
+                        <div class="comm-title">GitHub</div>
+                        <div class="comm-role">// Projects &amp; Code</div>
+                        <div class="comm-desc">github.com/gaurav-25</div>
+                    </div>
+                </a>
+                <a href="https://linkedin.com/in/gaurav-25" target="_blank" rel="noopener" class="comm-card"
+                    style="text-decoration:none;cursor:pointer;">
+                    <div class="comm-ico">🔗</div>
+                    <div>
+                        <div class="comm-title">LinkedIn</div>
+                        <div class="comm-role">// Professional Network</div>
+                        <div class="comm-desc">linkedin.com/in/gaurav-25</div>
+                    </div>
+                </a>
+                <div class="comm-card">
+                    <div class="comm-ico">📍</div>
+                    <div>
+                        <div class="comm-title">Location</div>
+                        <div class="comm-role">// Based In</div>
+                        <div class="comm-desc">Erlangen, Germany 🇩🇪 — Open to remote &amp; relocation</div>
+                    </div>
                 </div>
             </div>
         </section>
