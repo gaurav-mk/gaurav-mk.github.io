@@ -2176,10 +2176,9 @@
          *  EMAILJS CONFIG — fill these in after creating your account
          *  at https://emailjs.com (free, 200 emails/month)
          * ============================================================ */
-        const EMAILJS_SERVICE_ID = 'service_xmfyxyu';    // e.g. 'service_abc123'
-        const EMAILJS_TO_TEMPLATE = 'YOUR_TO_ME_TEMPLATE';// template that emails YOU
-        const EMAILJS_CC_TEMPLATE = 'YOUR_TO_VISITOR_TEMPLATE'; // template that emails the VISITOR
-        const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';    // e.g. 'user_xyz...'
+        const EMAILJS_SERVICE_ID = 'service_xmfyxyu';
+        const EMAILJS_TEMPLATE_ID = 'template_4v4mdmg'; // single template used for both emails
+        const EMAILJS_PUBLIC_KEY = 'uPYHhFFerXMirfZxK';
         const GOOGLE_MEET_LINK = 'https://meet.google.com/daj-xcoc-xtj';
         const MY_EMAIL = 'mgaurav682@gmail.com';
         const MY_TZ = 'Europe/Berlin';
@@ -2451,14 +2450,35 @@
             };
 
             // Send emails only if EmailJS is configured
-            const configured = EMAILJS_SERVICE_ID !== 'YOUR_SERVICE_ID';
+            const configured = EMAILJS_SERVICE_ID !== 'YOUR_SERVICE_ID' &&
+                EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID';
             if (configured) {
+                emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+                // Email 1 → Gaurav (notification of new booking)
                 try {
-                    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TO_TEMPLATE, params);
-                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CC_TEMPLATE, params);
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                        ...params,
+                        to_email: MY_EMAIL,
+                        to_name: 'Gaurav Kumar Mishra',
+                        subject: 'New Appointment: ' + name + ' on ' + dateStr,
+                    });
+                    console.log('[EmailJS] Notification sent to Gaurav ✓');
                 } catch (err) {
-                    console.warn('EmailJS error:', err);
+                    console.error('[EmailJS] Failed to send notification to Gaurav:', err);
+                }
+
+                // Email 2 → Visitor (booking confirmation)
+                try {
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                        ...params,
+                        to_email: email,
+                        to_name: name,
+                        subject: 'Your appointment with Gaurav is confirmed!',
+                    });
+                    console.log('[EmailJS] Confirmation sent to visitor (' + email + ') ✓');
+                } catch (err) {
+                    console.error('[EmailJS] Failed to send confirmation to visitor:', err);
                 }
             }
 
