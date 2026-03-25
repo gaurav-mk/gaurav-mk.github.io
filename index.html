@@ -1053,6 +1053,7 @@
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 4px;
+            min-height: 280px;
         }
 
         .cal-day-name {
@@ -2280,21 +2281,62 @@
         }
 
         /** Write a booking to Firestore and update local cache. */
-        async function saveBookingFS(dateKey, slot) {
+        async function saveBookingFS(dateKey, slot, visitorEmail) {
             if (!window._GK) return;
             const { db, doc, setDoc, arrayUnion } = window._GK;
             try {
                 await setDoc(doc(db, 'bookings', dateKey),
-                    { slots: arrayUnion(slot) }, { merge: true });
+                    { slots: arrayUnion(slot), bookers: arrayUnion(visitorEmail) },
+                    { merge: true });
                 // Update session cache
                 const mk = dateKey.substring(0, 7);
                 if (!fsCache[mk]) fsCache[mk] = {};
                 if (!fsCache[mk][dateKey]) fsCache[mk][dateKey] = [];
                 if (!fsCache[mk][dateKey].includes(slot)) fsCache[mk][dateKey].push(slot);
-                console.log('[Firebase] Booking saved:', dateKey, slot);
+                console.log('[Firebase] Booking saved:', dateKey, slot, visitorEmail);
             } catch (e) {
                 console.warn('[Firebase] Write failed:', e);
             }
+        }
+
+        /** Check if this email has already booked any slot this month. */
+        async function hasBookedThisMonth(email) {
+            if (!window._GK) return false;
+            const { db, doc, getDoc } = window._GK;
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth();
+            const mk = year + '-' + String(month + 1).padStart(2, '0');
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Also check next month (since calendar shows 2 months)
+            const nextMonth = month === 11 ? 0 : month + 1;
+            const nextYear = month === 11 ? year + 1 : year;
+            const mk2 = nextYear + '-' + String(nextMonth + 1).padStart(2, '0');
+            const daysInMonth2 = new Date(nextYear, nextMonth + 1, 0).getDate();
+
+            const promises = [];
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dk = mk + '-' + String(d).padStart(2, '0');
+                promises.push(getDoc(doc(db, 'bookings', dk)));
+            }
+            for (let d = 1; d <= daysInMonth2; d++) {
+                const dk = mk2 + '-' + String(d).padStart(2, '0');
+                promises.push(getDoc(doc(db, 'bookings', dk)));
+            }
+
+            try {
+                const snaps = await Promise.all(promises);
+                for (const snap of snaps) {
+                    if (snap.exists()) {
+                        const bookers = snap.data().bookers || [];
+                        if (bookers.includes(email)) return true;
+                    }
+                }
+            } catch (e) {
+                console.warn('[Firebase] Dedup check failed:', e);
+            }
+            return false;
         }
 
         /* ============================================================
@@ -2532,6 +2574,19 @@
 
             const btn = document.getElementById('btn-book-submit');
             btn.disabled = true;
+            btn.textContent = 'Checking…';
+
+            // Check if this email already booked in current/next month
+            const alreadyBooked = await hasBookedThisMonth(email);
+            if (alreadyBooked) {
+                btn.disabled = false;
+                btn.textContent = '📅 Book Appointment';
+                emailEl.classList.add('error');
+                document.getElementById('err-email').textContent = 'This email already has a booking. Only one appointment per person is allowed.';
+                document.getElementById('err-email').classList.add('show');
+                return;
+            }
+
             btn.textContent = 'Sending…';
 
             const msg = document.getElementById('book-msg').value.trim();
@@ -2541,7 +2596,7 @@
 
             // Persist to localStorage (always) + Firestore (shared)
             saveBookingLS(currentDateKey, selectedSlot, { name, email });
-            await saveBookingFS(currentDateKey, selectedSlot);
+            await saveBookingFS(currentDateKey, selectedSlot, email);
 
             // EmailJS params
             const params = {
@@ -2554,23 +2609,21 @@
                 my_email: MY_EMAIL,
             };
 
-            // Send ONE email to visitor, CC Gaurav — saves monthly quota
+            // Send ONE email to visitor, CC Gaurav
             let emailsOk = false;
-            if (configured) {
-                emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-                try {
-                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                        ...params,
-                        to_email: email,       // → visitor's inbox
-                        to_name: name,
-                        cc_email: MY_EMAIL,    // → Gaurav's inbox as CC
-                        subject: 'Your appointment with Gaurav Kumar Mishra is confirmed!',
-                    });
-                    emailsOk = true;
-                    console.log('[EmailJS] Confirmation sent to ' + email + ', CC: ' + MY_EMAIL + ' ✓');
-                } catch (err) {
-                    console.error('[EmailJS] Send failed:', err);
-                }
+            emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+            try {
+                await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+                    ...params,
+                    to_email: email,       // → visitor's inbox
+                    to_name: name,
+                    cc_email: MY_EMAIL,    // → Gaurav's inbox as CC
+                    subject: 'Your appointment with Gaurav Kumar Mishra is confirmed!',
+                });
+                emailsOk = true;
+                console.log('[EmailJS] Confirmation sent to ' + email + ', CC: ' + MY_EMAIL + ' ✓');
+            } catch (err) {
+                console.error('[EmailJS] Send failed:', err);
             }
 
             // Build Google Calendar URL
@@ -2586,11 +2639,9 @@
                 '&details=' + encodeURIComponent('Google Meet: ' + GOOGLE_MEET_LINK + (msg ? '\n\nNote: ' + msg : '')) +
                 '&location=' + encodeURIComponent(GOOGLE_MEET_LINK);
 
-            const emailStatusMsg = !configured
-                ? '<br><br><span style="color:#facc15;">⚠ Email service not configured — your slot is still reserved.</span>'
-                : emailsOk
-                    ? '<br><br>Confirmation emails have been sent to you and Gaurav.'
-                    : '<br><br><span style="color:#facc15;">⚠ Email delivery failed (quota may be exceeded) — but your slot is reserved. Please contact Gaurav directly.</span>';
+            const emailStatusMsg = emailsOk
+                ? '<br><br>Confirmation emails have been sent to you and Gaurav.'
+                : '<br><br><span style="color:#facc15;">⚠ Email delivery failed (quota may be exceeded) — but your slot is reserved. Please contact Gaurav directly.</span>';
 
             document.getElementById('gcal-link').href = gcalUrl;
             document.getElementById('success-desc').innerHTML =
