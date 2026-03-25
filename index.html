@@ -7,6 +7,8 @@
     <meta name="description" content="Gaurav Kumar Mishra – Hardware Developer & ICT Engineer Portfolio" />
     <title>Gaurav Kumar Mishra | Portfolio</title>
 
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -972,7 +974,425 @@
             line-height: 1.5;
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ===== CALENDAR ===== */
+        .booking-section {
+            margin-top: 2.5rem;
+            max-width: 780px;
+        }
+
+        .booking-section-title {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-l);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .cal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .cal-month-label {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .cal-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .cal-nav-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg3);
+            color: var(--text2);
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--ease);
+        }
+
+        .cal-nav-btn:hover {
+            border-color: var(--border-h);
+            color: var(--accent-l);
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .cal-day-name {
+            text-align: center;
+            font-size: 0.7rem;
+            font-family: 'Fira Code', monospace;
+            color: var(--text3);
+            padding: 0.4rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .cal-cell {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.83rem;
+            font-weight: 500;
+            cursor: default;
+            transition: all var(--ease);
+            border: 1px solid transparent;
+            position: relative;
+        }
+
+        .cal-cell.empty {
+            background: transparent;
+        }
+
+        .cal-cell.past {
+            color: var(--text3);
+            background: transparent;
+        }
+
+        .cal-cell.weekend {
+            color: var(--text3);
+            background: transparent;
+        }
+
+        .cal-cell.today {
+            border-color: var(--accent);
+            color: var(--accent-l);
+            font-weight: 700;
+        }
+
+        .cal-cell.available {
+            background: var(--bg3);
+            border-color: var(--border);
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .cal-cell.available:hover {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: var(--border-h);
+            color: var(--accent-l);
+            transform: scale(1.07);
+            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.2);
+        }
+
+        .cal-cell.booked {
+            background: rgba(34, 211, 238, 0.07);
+            border-color: rgba(34, 211, 238, 0.15);
+            color: var(--cyan);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .cal-cell .booked-dot {
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--cyan);
+        }
+
+        .cal-legend {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.72rem;
+            color: var(--text2);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+        }
+
+        /* ===== BOOKING MODAL ===== */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: var(--bg2);
+            border: 1px solid var(--border-h);
+            border-radius: 18px;
+            width: min(480px, 90vw);
+            padding: 2rem;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(124, 58, 237, 0.1);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-backdrop.open .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .modal-date {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-l);
+            margin-top: 0.2rem;
+        }
+
+        .modal-close {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            color: var(--text2);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--ease);
+            flex-shrink: 0;
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+            border-color: var(--border-h);
+        }
+
+        .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .slot-btn {
+            padding: 0.55rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg3);
+            color: var(--text2);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all var(--ease);
+            text-align: center;
+        }
+
+        .slot-btn:hover:not(:disabled) {
+            border-color: var(--border-h);
+            color: var(--accent-l);
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .slot-btn.selected {
+            border-color: var(--accent);
+            background: rgba(124, 58, 237, 0.2);
+            color: var(--accent-l);
+            font-weight: 700;
+        }
+
+        .slot-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.4rem;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.7rem 0.9rem;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            transition: border-color var(--ease);
+            outline: none;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border-color: var(--border-h);
+        }
+
+        .form-input.error,
+        .form-textarea.error {
+            border-color: #f87171;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-error {
+            font-size: 0.72rem;
+            color: #f87171;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .form-error.show {
+            display: block;
+        }
+
+        .btn-book {
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, var(--accent), #5b21b6);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--ease);
+            margin-top: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-book:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-book:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .modal-success {
+            display: none;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .modal-success.show {
+            display: block;
+        }
+
+        .success-ico {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-desc {
+            font-size: 0.85rem;
+            color: var(--text2);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-gcal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.3rem;
+            border-radius: 8px;
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            background: rgba(34, 211, 238, 0.08);
+            color: var(--cyan);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: all var(--ease);
+        }
+
+        .btn-gcal:hover {
+            background: rgba(34, 211, 238, 0.15);
+            border-color: rgba(34, 211, 238, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .slot-required-msg {
+            font-size: 0.75rem;
+            color: #f87171;
+            margin-bottom: 0.8rem;
+            display: none;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .slot-required-msg.show {
+            display: block;
+        }
+
+        /* ===== RESPONSIVE =====
+ */
         @media (max-width: 860px) {
             #menu-toggle {
                 display: flex;
@@ -1607,7 +2027,9 @@
             <p class="panel-sub">Open to working student roles, research collaborations, and full-time opportunities.
                 Let's connect!</p>
 
-            <div style="display:flex;flex-direction:column;gap:1rem;max-width:560px;">
+            <!-- Contact cards row -->
+            <div
+                style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.8rem;max-width:780px;margin-bottom:2.5rem;">
                 <a href="mailto:mgaurav682@gmail.com" class="comm-card" style="text-decoration:none;cursor:pointer;">
                     <div class="comm-ico">📧</div>
                     <div>
@@ -1624,13 +2046,13 @@
                         <div class="comm-desc">+49 152 1360 3906</div>
                     </div>
                 </a>
-                <a href="https://github.com/gaurav-25" target="_blank" rel="noopener" class="comm-card"
+                <a href="https://github.com/gaurav-mk" target="_blank" rel="noopener" class="comm-card"
                     style="text-decoration:none;cursor:pointer;">
                     <div class="comm-ico">💻</div>
                     <div>
                         <div class="comm-title">GitHub</div>
                         <div class="comm-role">// Projects &amp; Code</div>
-                        <div class="comm-desc">github.com/gaurav-25</div>
+                        <div class="comm-desc">github.com/gaurav-mk</div>
                     </div>
                 </a>
                 <a href="https://linkedin.com/in/gaurav-25" target="_blank" rel="noopener" class="comm-card"
@@ -1651,19 +2073,125 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Booking Calendar -->
+            <div class="booking-section">
+                <div class="booking-section-title">// book an appointment</div>
+
+                <div class="cal-header">
+                    <div class="cal-month-label" id="cal-month-label"></div>
+                    <div class="cal-nav">
+                        <button class="cal-nav-btn" id="cal-prev" title="Previous month">&#8249;</button>
+                        <button class="cal-nav-btn" id="cal-next" title="Next month">&#8250;</button>
+                    </div>
+                </div>
+
+                <div class="cal-grid" id="cal-grid">
+                    <div class="cal-day-name">Mon</div>
+                    <div class="cal-day-name">Tue</div>
+                    <div class="cal-day-name">Wed</div>
+                    <div class="cal-day-name">Thu</div>
+                    <div class="cal-day-name">Fri</div>
+                    <div class="cal-day-name" style="color:var(--text3);opacity:0.5;">Sat</div>
+                    <div class="cal-day-name" style="color:var(--text3);opacity:0.5;">Sun</div>
+                </div>
+
+                <div class="cal-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:rgba(124,58,237,0.4);border:1px solid var(--accent);">
+                        </div> Available
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot"
+                            style="background:rgba(34,211,238,0.15);border:1px solid rgba(34,211,238,0.3);"></div>
+                        Booked
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="border:1px solid var(--accent); background:transparent;"></div>
+                        Today
+                    </div>
+                </div>
+            </div>
         </section>
+
+        <!-- ── BOOKING MODAL ── -->
+        <div class="modal-backdrop" id="modal-backdrop">
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
+
+                <!-- Form view -->
+                <div id="modal-form-view">
+                    <div class="modal-header">
+                        <div>
+                            <div class="modal-title" id="modal-title-el">Book an Appointment</div>
+                            <div class="modal-date" id="modal-date-display"></div>
+                        </div>
+                        <button class="modal-close" id="modal-close-btn" aria-label="Close">&times;</button>
+                    </div>
+
+                    <p style="font-size:0.8rem;color:var(--text2);margin-bottom:1rem;">Pick a time slot (CET):</p>
+                    <div class="slots-grid" id="slots-grid"></div>
+                    <div class="slot-required-msg" id="slot-required-msg">⚠ Please select a time slot</div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="book-name">Your Name *</label>
+                        <input class="form-input" id="book-name" type="text" placeholder="e.g. Jane Smith"
+                            autocomplete="name" />
+                        <div class="form-error" id="err-name">Name is required</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="book-email">Your Email *</label>
+                        <input class="form-input" id="book-email" type="email" placeholder="e.g. jane@example.com"
+                            autocomplete="email" />
+                        <div class="form-error" id="err-email">A valid email is required</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="book-msg">Message <span
+                                style="color:var(--text3)">(optional)</span></label>
+                        <textarea class="form-textarea" id="book-msg"
+                            placeholder="Briefly describe what you'd like to discuss…"></textarea>
+                    </div>
+
+                    <button class="btn-book" id="btn-book-submit">📅 Book Appointment</button>
+                    <p style="font-size:0.72rem;color:var(--text3);text-align:center;margin-top:0.8rem;">A Google Meet
+                        confirmation will be sent to both parties.</p>
+                </div>
+
+                <!-- Success view -->
+                <div class="modal-success" id="modal-success-view">
+                    <div class="success-ico">🎉</div>
+                    <div class="success-title">Appointment Booked!</div>
+                    <div class="success-desc" id="success-desc"></div>
+                    <a class="btn-gcal" id="gcal-link" href="#" target="_blank" rel="noopener">
+                        📅 Add to Google Calendar
+                    </a>
+                </div>
+
+            </div>
+        </div>
 
     </div><!-- /content -->
 
     <script>
+        /* ============================================================
+         *  EMAILJS CONFIG — fill these in after creating your account
+         *  at https://emailjs.com (free, 200 emails/month)
+         * ============================================================ */
+        const EMAILJS_SERVICE_ID = 'service_xmfyxyu';    // e.g. 'service_abc123'
+        const EMAILJS_TO_TEMPLATE = 'YOUR_TO_ME_TEMPLATE';// template that emails YOU
+        const EMAILJS_CC_TEMPLATE = 'YOUR_TO_VISITOR_TEMPLATE'; // template that emails the VISITOR
+        const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';    // e.g. 'user_xyz...'
+        const GOOGLE_MEET_LINK = 'https://meet.google.com/daj-xcoc-xtj';
+        const MY_EMAIL = 'mgaurav682@gmail.com';
+        const MY_TZ = 'Europe/Berlin';
+
+        /* ============================================================
+         *  SIDEBAR NAV
+         * ============================================================ */
         function showPanel(id) {
-            // hide all
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
-            // show selected
             document.getElementById('panel-' + id).classList.add('active');
             document.getElementById('nav-' + id).classList.add('active');
-            // close sidebar on mobile
             if (window.innerWidth <= 860) document.getElementById('sidebar').classList.remove('open');
         }
 
@@ -1671,10 +2199,304 @@
             document.getElementById('sidebar').classList.toggle('open');
         }
 
-        // Close sidebar when clicking outside on mobile
         document.getElementById('content').addEventListener('click', () => {
             if (window.innerWidth <= 860) document.getElementById('sidebar').classList.remove('open');
         });
+
+        /* ============================================================
+         *  BOOKING DATA  (persisted to localStorage)
+         * ============================================================ */
+        const STORAGE_KEY = 'gk_bookings_v1';
+
+        function loadBookings() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+            catch { return {}; }
+        }
+
+        function saveBooking(dateKey, slot, visitor) {
+            const b = loadBookings();
+            if (!b[dateKey]) b[dateKey] = [];
+            b[dateKey].push({ slot, visitor, ts: Date.now() });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(b));
+        }
+
+        function bookedSlotsFor(dateKey) {
+            const b = loadBookings();
+            return (b[dateKey] || []).map(e => e.slot);
+        }
+
+        /* ============================================================
+         *  CALENDAR
+         * ============================================================ */
+        const TIME_SLOTS = [
+            '09:00', '10:00', '11:00', '12:00', '13:00',
+            '14:00', '15:00', '16:00', '17:00'
+        ];
+
+        const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'];
+
+        let calYear, calMonth;
+
+        function initCalendar() {
+            const now = new Date();
+            calYear = now.getFullYear();
+            calMonth = now.getMonth();
+            renderCalendar();
+            document.getElementById('cal-prev').addEventListener('click', () => {
+                calMonth--;
+                if (calMonth < 0) { calMonth = 11; calYear--; }
+                renderCalendar();
+            });
+            document.getElementById('cal-next').addEventListener('click', () => {
+                calMonth++;
+                if (calMonth > 11) { calMonth = 0; calYear++; }
+                renderCalendar();
+            });
+        }
+
+        function renderCalendar() {
+            const grid = document.getElementById('cal-grid');
+            // remove old cells (keep 7 day-name headers)
+            while (grid.children.length > 7) grid.removeChild(grid.lastChild);
+
+            document.getElementById('cal-month-label').textContent =
+                MONTHS[calMonth] + ' ' + calYear;
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const bookings = loadBookings();
+
+            // 1st of month — what weekday? (0=Sun … 6=Sat) → convert to Mon-based
+            const firstDay = new Date(calYear, calMonth, 1);
+            let startOffset = firstDay.getDay(); // 0=Sun
+            startOffset = (startOffset === 0) ? 6 : startOffset - 1; // Mon=0
+
+            const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+            // empty cells before 1st
+            for (let i = 0; i < startOffset; i++) {
+                const el = document.createElement('div');
+                el.className = 'cal-cell empty';
+                grid.appendChild(el);
+            }
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const date = new Date(calYear, calMonth, d);
+                const dow = date.getDay(); // 0=Sun,6=Sat
+                const isPast = date < today;
+                const isToday = date.getTime() === today.getTime();
+                const isWeekend = dow === 0 || dow === 6;
+
+                // date key: YYYY-MM-DD
+                const dk = calYear + '-' +
+                    String(calMonth + 1).padStart(2, '0') + '-' +
+                    String(d).padStart(2, '0');
+
+                const bookedSlots = bookedSlotsFor(dk);
+                const fullyBooked = bookedSlots.length >= TIME_SLOTS.length;
+
+                const el = document.createElement('div');
+                el.textContent = d;
+
+                if (isWeekend || isPast) {
+                    el.className = 'cal-cell ' + (isToday ? 'today' : (isWeekend ? 'weekend' : 'past'));
+                } else if (fullyBooked) {
+                    el.className = 'cal-cell booked';
+                    const dot = document.createElement('div');
+                    dot.className = 'booked-dot';
+                    el.appendChild(dot);
+                } else {
+                    el.className = 'cal-cell available' + (isToday ? ' today' : '');
+                    if (bookedSlots.length > 0) {
+                        const dot = document.createElement('div');
+                        dot.className = 'booked-dot';
+                        el.appendChild(dot);
+                    }
+                    el.addEventListener('click', () => openModal(date, dk));
+                }
+
+                grid.appendChild(el);
+            }
+        }
+
+        /* ============================================================
+         *  BOOKING MODAL
+         * ============================================================ */
+        let selectedSlot = null;
+        let currentDateKey = null;
+        let currentDate = null;
+
+        function openModal(date, dk) {
+            currentDate = date;
+            currentDateKey = dk;
+            selectedSlot = null;
+
+            // header
+            document.getElementById('modal-date-display').textContent =
+                date.toLocaleDateString('en-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            // reset ui
+            document.getElementById('modal-form-view').style.display = 'block';
+            document.getElementById('modal-success-view').classList.remove('show');
+            ['book-name', 'book-email', 'book-msg'].forEach(id => {
+                document.getElementById(id).value = '';
+                document.getElementById(id).classList.remove('error');
+            });
+            document.getElementById('err-name').classList.remove('show');
+            document.getElementById('err-email').classList.remove('show');
+            document.getElementById('slot-required-msg').classList.remove('show');
+
+            // build slots
+            buildSlots(dk);
+
+            document.getElementById('modal-backdrop').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function buildSlots(dk) {
+            const booked = bookedSlotsFor(dk);
+            const grid = document.getElementById('slots-grid');
+            grid.innerHTML = '';
+            TIME_SLOTS.forEach(t => {
+                const btn = document.createElement('button');
+                btn.className = 'slot-btn';
+                btn.textContent = t + ' – ' + String(Number(t.split(':')[0]) + 1).padStart(2, '0') + ':00';
+                if (booked.includes(t)) {
+                    btn.disabled = true;
+                    btn.title = 'Already booked';
+                } else {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+                        btn.classList.add('selected');
+                        selectedSlot = t;
+                        document.getElementById('slot-required-msg').classList.remove('show');
+                    });
+                }
+                grid.appendChild(btn);
+            });
+        }
+
+        function closeModal() {
+            document.getElementById('modal-backdrop').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+        document.getElementById('modal-backdrop').addEventListener('click', e => {
+            if (e.target === document.getElementById('modal-backdrop')) closeModal();
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        /* ============================================================
+         *  FORM SUBMIT + EMAILJS
+         * ============================================================ */
+        document.getElementById('btn-book-submit').addEventListener('click', async () => {
+            let valid = true;
+
+            if (!selectedSlot) {
+                document.getElementById('slot-required-msg').classList.add('show');
+                valid = false;
+            }
+
+            const nameEl = document.getElementById('book-name');
+            const emailEl = document.getElementById('book-email');
+            const name = nameEl.value.trim();
+            const email = emailEl.value.trim();
+
+            if (!name) {
+                nameEl.classList.add('error');
+                document.getElementById('err-name').classList.add('show');
+                valid = false;
+            } else {
+                nameEl.classList.remove('error');
+                document.getElementById('err-name').classList.remove('show');
+            }
+
+            const emailOk = email && /^[^@]+@[^@]+\.[^@]+$/.test(email);
+            if (!emailOk) {
+                emailEl.classList.add('error');
+                document.getElementById('err-email').classList.add('show');
+                valid = false;
+            } else {
+                emailEl.classList.remove('error');
+                document.getElementById('err-email').classList.remove('show');
+            }
+
+            if (!valid) return;
+
+            const btn = document.getElementById('btn-book-submit');
+            btn.disabled = true;
+            btn.textContent = 'Sending…';
+
+            const msg = document.getElementById('book-msg').value.trim();
+            const dateStr = currentDate.toLocaleDateString('en-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const endHour = String(Number(selectedSlot.split(':')[0]) + 1).padStart(2, '0') + ':00';
+            const timeStr = selectedSlot + ' – ' + endHour + ' CET';
+
+            // Persist booking
+            saveBooking(currentDateKey, selectedSlot, { name, email });
+
+            // EmailJS params
+            const params = {
+                visitor_name: name,
+                visitor_email: email,
+                message: msg || '(no message)',
+                date: dateStr,
+                time: timeStr,
+                meet_link: GOOGLE_MEET_LINK,
+                my_email: MY_EMAIL,
+            };
+
+            // Send emails only if EmailJS is configured
+            const configured = EMAILJS_SERVICE_ID !== 'YOUR_SERVICE_ID';
+            if (configured) {
+                try {
+                    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TO_TEMPLATE, params);
+                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CC_TEMPLATE, params);
+                } catch (err) {
+                    console.warn('EmailJS error:', err);
+                }
+            }
+
+            // Build Google Calendar URL
+            const gcalDate = currentDate;
+            const [sh, sm] = selectedSlot.split(':').map(Number);
+            const startDT = new Date(gcalDate);
+            startDT.setHours(sh, sm, 0, 0);
+            const endDT = new Date(startDT.getTime() + 60 * 60 * 1000);
+            const fmt = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+            const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+                '&text=' + encodeURIComponent('Meeting with Gaurav Kumar Mishra') +
+                '&dates=' + fmt(startDT) + '/' + fmt(endDT) +
+                '&details=' + encodeURIComponent('Google Meet: ' + GOOGLE_MEET_LINK + (msg ? '\n\nNote: ' + msg : '')) +
+                '&location=' + encodeURIComponent(GOOGLE_MEET_LINK);
+
+            document.getElementById('gcal-link').href = gcalUrl;
+            document.getElementById('success-desc').innerHTML =
+                '<strong>' + name + '</strong>, your appointment on <strong>' + dateStr + '</strong> at <strong>' + timeStr + '</strong> is confirmed!' +
+                (configured
+                    ? '<br><br>Confirmation emails have been sent to you and Gaurav.'
+                    : '<br><br><span style="color:#facc15;">⚠ EmailJS not yet configured — no email was sent, but your slot is reserved.</span>') +
+                '<br><br>Google Meet: <a href="' + GOOGLE_MEET_LINK + '" target="_blank" style="color:var(--cyan);">' + GOOGLE_MEET_LINK + '</a>';
+
+            document.getElementById('modal-form-view').style.display = 'none';
+            document.getElementById('modal-success-view').classList.add('show');
+
+            // re-render calendar so booked dot appears
+            renderCalendar();
+
+            btn.disabled = false;
+            btn.textContent = '📅 Book Appointment';
+        });
+
+        /* ============================================================
+         *  INIT
+         * ============================================================ */
+        initCalendar();
     </script>
 
 </body>
