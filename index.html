@@ -9,6 +9,27 @@
 
     <!-- EmailJS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- Firebase: initialise Firestore and expose helpers globally (module = deferred, fires before DOMContentLoaded) -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js';
+        import { getFirestore, doc, getDoc, setDoc, arrayUnion }
+            from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js';
+
+        const app = initializeApp({
+            apiKey: 'AIzaSyCv4ttjCV0EZZ8j5-ZpljTF03ephWFISIQ',
+            authDomain: 'gaurav-mk.firebaseapp.com',
+            projectId: 'gaurav-mk',
+            storageBucket: 'gaurav-mk.firebasestorage.app',
+            messagingSenderId: '279801707825',
+            appId: '1:279801707825:web:78804309acb10bac29c410',
+        });
+
+        // Expose on window so the non-module main script can access
+        window._GK = { db: getFirestore(app), doc, getDoc, setDoc, arrayUnion };
+        document.dispatchEvent(new Event('gk-firebase-ready'));
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -2203,25 +2224,86 @@
         });
 
         /* ============================================================
-         *  BOOKING DATA  (persisted to localStorage)
+         *  BOOKING DATA — Firestore (shared) + localStorage (fallback)
          * ============================================================ */
         const STORAGE_KEY = 'gk_bookings_v1';
 
-        function loadBookings() {
+        // Per-session cache:  'YYYY-MM' → { 'YYYY-MM-DD': ['09:00', ...], ... }
+        const fsCache = {};
+
+        function loadBookingsLS() {
             try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
             catch { return {}; }
         }
 
-        function saveBooking(dateKey, slot, visitor) {
-            const b = loadBookings();
+        function saveBookingLS(dateKey, slot, visitor) {
+            const b = loadBookingsLS();
             if (!b[dateKey]) b[dateKey] = [];
             b[dateKey].push({ slot, visitor, ts: Date.now() });
             localStorage.setItem(STORAGE_KEY, JSON.stringify(b));
         }
 
-        function bookedSlotsFor(dateKey) {
-            const b = loadBookings();
+        function lsSlotsFor(dateKey) {
+            const b = loadBookingsLS();
             return (b[dateKey] || []).map(e => e.slot);
+        }
+
+        /** Fetch all booked slots for every future weekday in the month — one batch. */
+        async function prefetchMonth(year, month) {
+            const mk = year + '-' + String(month + 1).padStart(2, '0');
+            if (fsCache[mk] !== undefined) return;           // already cached
+            fsCache[mk] = {};                                 // mark as loading
+
+            if (!window._GK) return;
+            const { db, doc, getDoc } = window._GK;
+
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const keys = [], promises = [];
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dt = new Date(year, month, d);
+                const dow = dt.getDay();
+                if (dow === 0 || dow === 6 || dt < today) continue; // skip weekends/past
+                const dk = mk + '-' + String(d).padStart(2, '0');
+                keys.push(dk);
+                promises.push(getDoc(doc(db, 'bookings', dk)));
+            }
+
+            try {
+                const snaps = await Promise.all(promises);
+                snaps.forEach((snap, i) => {
+                    fsCache[mk][keys[i]] = snap.exists() ? (snap.data().slots || []) : [];
+                });
+            } catch (e) {
+                console.warn('[Firebase] prefetch failed — using localStorage', e);
+            }
+        }
+
+        /** Merge Firestore cache + localStorage for a date. */
+        function bookedSlotsFor(dateKey) {
+            const mk = dateKey.substring(0, 7);
+            const fs = (fsCache[mk] || {})[dateKey] || [];
+            const ls = lsSlotsFor(dateKey);
+            return [...new Set([...fs, ...ls])];
+        }
+
+        /** Write a booking to Firestore and update local cache. */
+        async function saveBookingFS(dateKey, slot) {
+            if (!window._GK) return;
+            const { db, doc, setDoc, arrayUnion } = window._GK;
+            try {
+                await setDoc(doc(db, 'bookings', dateKey),
+                    { slots: arrayUnion(slot) }, { merge: true });
+                // Update session cache
+                const mk = dateKey.substring(0, 7);
+                if (!fsCache[mk]) fsCache[mk] = {};
+                if (!fsCache[mk][dateKey]) fsCache[mk][dateKey] = [];
+                if (!fsCache[mk][dateKey].includes(slot)) fsCache[mk][dateKey].push(slot);
+                console.log('[Firebase] Booking saved:', dateKey, slot);
+            } catch (e) {
+                console.warn('[Firebase] Write failed:', e);
+            }
         }
 
         /* ============================================================
@@ -2237,36 +2319,42 @@
 
         let calYear, calMonth;
 
-        function initCalendar() {
+        async function initCalendar() {
             const now = new Date();
             calYear = now.getFullYear();
             calMonth = now.getMonth();
-            renderCalendar();
-            document.getElementById('cal-prev').addEventListener('click', () => {
+            await renderCalendar();
+            document.getElementById('cal-prev').addEventListener('click', async () => {
                 calMonth--;
                 if (calMonth < 0) { calMonth = 11; calYear--; }
-                renderCalendar();
+                await renderCalendar();
             });
-            document.getElementById('cal-next').addEventListener('click', () => {
+            document.getElementById('cal-next').addEventListener('click', async () => {
                 calMonth++;
                 if (calMonth > 11) { calMonth = 0; calYear++; }
-                renderCalendar();
+                await renderCalendar();
             });
         }
 
-        function renderCalendar() {
+        async function renderCalendar() {
             const grid = document.getElementById('cal-grid');
-            // remove old cells (keep 7 day-name headers)
-            while (grid.children.length > 7) grid.removeChild(grid.lastChild);
 
+            // Show shimmer while fetching
+            while (grid.children.length > 7) grid.removeChild(grid.lastChild);
             document.getElementById('cal-month-label').textContent =
                 MONTHS[calMonth] + ' ' + calYear;
+            const shimmer = document.createElement('div');
+            shimmer.style.cssText = 'grid-column:1/-1;text-align:center;padding:2rem;font-size:0.75rem;color:var(--text3);font-family:"Fira Code",monospace;letter-spacing:0.08em;';
+            shimmer.textContent = '// loading availability…';
+            grid.appendChild(shimmer);
 
+            // Prefetch this month from Firestore
+            await prefetchMonth(calYear, calMonth);
+
+            // Re-clear and build
+            while (grid.children.length > 7) grid.removeChild(grid.lastChild);
             const today = new Date();
             today.setHours(0, 0, 0, 0);
-            const bookings = loadBookings();
-
-            // 1st of month — what weekday? (0=Sun … 6=Sat) → convert to Mon-based
             const firstDay = new Date(calYear, calMonth, 1);
             let startOffset = firstDay.getDay(); // 0=Sun
             startOffset = (startOffset === 0) ? 6 : startOffset - 1; // Mon=0
@@ -2435,8 +2523,9 @@
             const endHour = String(Number(selectedSlot.split(':')[0]) + 1).padStart(2, '0') + ':00';
             const timeStr = selectedSlot + ' – ' + endHour + ' CET';
 
-            // Persist booking
-            saveBooking(currentDateKey, selectedSlot, { name, email });
+            // Persist to localStorage (always) + Firestore (shared)
+            saveBookingLS(currentDateKey, selectedSlot, { name, email });
+            await saveBookingFS(currentDateKey, selectedSlot);
 
             // EmailJS params
             const params = {
@@ -2449,36 +2538,22 @@
                 my_email: MY_EMAIL,
             };
 
-            // Send emails only if EmailJS is configured
-            const configured = EMAILJS_SERVICE_ID !== 'YOUR_SERVICE_ID' &&
-                EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID';
+            // Send ONE email to visitor, CC Gaurav — saves monthly quota
+            let emailsOk = false;
             if (configured) {
                 emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
-                // Email 1 → Gaurav (notification of new booking)
                 try {
                     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                         ...params,
-                        to_email: MY_EMAIL,
-                        to_name: 'Gaurav Kumar Mishra',
-                        subject: 'New Appointment: ' + name + ' on ' + dateStr,
-                    });
-                    console.log('[EmailJS] Notification sent to Gaurav ✓');
-                } catch (err) {
-                    console.error('[EmailJS] Failed to send notification to Gaurav:', err);
-                }
-
-                // Email 2 → Visitor (booking confirmation)
-                try {
-                    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                        ...params,
-                        to_email: email,
+                        to_email: email,       // → visitor's inbox
                         to_name: name,
-                        subject: 'Your appointment with Gaurav is confirmed!',
+                        cc_email: MY_EMAIL,    // → Gaurav's inbox as CC
+                        subject: 'Your appointment with Gaurav Kumar Mishra is confirmed!',
                     });
-                    console.log('[EmailJS] Confirmation sent to visitor (' + email + ') ✓');
+                    emailsOk = true;
+                    console.log('[EmailJS] Confirmation sent to ' + email + ', CC: ' + MY_EMAIL + ' ✓');
                 } catch (err) {
-                    console.error('[EmailJS] Failed to send confirmation to visitor:', err);
+                    console.error('[EmailJS] Send failed:', err);
                 }
             }
 
@@ -2495,12 +2570,16 @@
                 '&details=' + encodeURIComponent('Google Meet: ' + GOOGLE_MEET_LINK + (msg ? '\n\nNote: ' + msg : '')) +
                 '&location=' + encodeURIComponent(GOOGLE_MEET_LINK);
 
+            const emailStatusMsg = !configured
+                ? '<br><br><span style="color:#facc15;">⚠ Email service not configured — your slot is still reserved.</span>'
+                : emailsOk
+                    ? '<br><br>Confirmation emails have been sent to you and Gaurav.'
+                    : '<br><br><span style="color:#facc15;">⚠ Email delivery failed (quota may be exceeded) — but your slot is reserved. Please contact Gaurav directly.</span>';
+
             document.getElementById('gcal-link').href = gcalUrl;
             document.getElementById('success-desc').innerHTML =
                 '<strong>' + name + '</strong>, your appointment on <strong>' + dateStr + '</strong> at <strong>' + timeStr + '</strong> is confirmed!' +
-                (configured
-                    ? '<br><br>Confirmation emails have been sent to you and Gaurav.'
-                    : '<br><br><span style="color:#facc15;">⚠ EmailJS not yet configured — no email was sent, but your slot is reserved.</span>') +
+                emailStatusMsg +
                 '<br><br>Google Meet: <a href="' + GOOGLE_MEET_LINK + '" target="_blank" style="color:var(--cyan);">' + GOOGLE_MEET_LINK + '</a>';
 
             document.getElementById('modal-form-view').style.display = 'none';
@@ -2514,9 +2593,16 @@
         });
 
         /* ============================================================
-         *  INIT
+         *  INIT — wait for Firebase, fall back after 4 s if offline
          * ============================================================ */
-        initCalendar();
+        let _calInited = false;
+        function _startCalendar() {
+            if (_calInited) return;
+            _calInited = true;
+            initCalendar();
+        }
+        document.addEventListener('gk-firebase-ready', _startCalendar);
+        setTimeout(_startCalendar, 4000); // fallback if Firebase fails to load
     </script>
 
 </body>
