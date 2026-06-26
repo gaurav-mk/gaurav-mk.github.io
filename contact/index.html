@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Contact | Gaurav Kumar Mishra</title>
+  <meta name="author" content="Gaurav Kumar Mishra" />
+  <meta name="description" content="Get in touch with Gaurav Kumar Mishra — book an appointment or reach out via email, GitHub, or LinkedIn." />
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js';
+    import { getFirestore, doc, getDoc, setDoc, arrayUnion }
+      from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js';
+    const app = initializeApp({
+      apiKey: 'AIzaSyCv4ttjCV0EZZ8j5-ZpljTF03ephWFISIQ',
+      authDomain: 'gaurav-mk.firebaseapp.com',
+      projectId: 'gaurav-mk',
+      storageBucket: 'gaurav-mk.firebasestorage.app',
+      messagingSenderId: '279801707825',
+      appId: '1:279801707825:web:78804309acb10bac29c410',
+    });
+    window._GK = { db: getFirestore(app), doc, getDoc, setDoc, arrayUnion };
+    document.dispatchEvent(new Event('gk-firebase-ready'));
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..900&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1f3a57; --primary-hover: #173049; --on-primary: #fff;
+      --primary-container: #d9e5f2; --on-primary-container: #0a2540;
+      --secondary: #2e5c8a; --surface: #fafbfd;
+      --surface-container-lowest: #fff; --surface-container-low: #f5f7fa;
+      --surface-container: #edf1f6; --surface-container-high: #e5ebf2;
+      --on-surface: #14181e; --on-surface-variant: #4b5663; --on-surface-faint: #8693a3;
+      --outline: #b7bfc8; --outline-variant: #d9dee5; --success: #1e7f4f;
+      --font-display: 'Roboto Flex','Roboto',system-ui,sans-serif;
+      --font-body: 'Roboto',system-ui,sans-serif;
+      --font-mono: 'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+      --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+    }
+    html, body { margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--on-surface); -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.55; }
+    a { color: inherit; text-decoration: none !important; }
+
+    .grid-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(to right, rgba(31,58,87,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(31,58,87,0.04) 1px, transparent 1px); background-size: 96px 96px; mask-image: linear-gradient(to bottom, black 0, black 60%, transparent 100%); }
+
+    /* TOPBAR */
+    .topbar { position: sticky; top: 0; z-index: 50; }
+    .topbar-inner { max-width: 1240px; margin: 0 auto; padding: 14px 32px; display: flex; justify-content: center; align-items: center; }
+    .nav { display: inline-flex; gap: 2px; padding: 5px; background: var(--surface-container); border-radius: 999px; box-shadow: 0 10px 28px -18px rgba(31,58,87,0.45); }
+    .nav a { padding: 10px 22px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--on-surface-variant); transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .nav a:hover { color: var(--on-surface); background: color-mix(in oklab, var(--primary) 10%, transparent); }
+    .nav a.active { background: var(--primary-container); color: var(--on-primary-container); }
+
+    main { position: relative; z-index: 1; }
+
+    /* PAGE HEADER */
+    .page-header { max-width: 1240px; margin: 0 auto; padding: 52px 32px 44px; border-bottom: 1px solid var(--outline-variant); }
+    .page-header .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 10px; display: inline-flex; align-items: center; gap: 10px; }
+    .page-header .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--on-surface-faint); display: inline-block; }
+    .page-header h1 { font-family: var(--font-display); font-variation-settings: "opsz" 96, "wght" 600; font-size: clamp(32px, 4.5vw, 54px); line-height: 1.05; letter-spacing: -0.02em; color: var(--on-surface); margin: 0 0 12px; }
+    .page-header p { color: var(--on-surface-variant); max-width: 55ch; font-size: 16px; line-height: 1.6; }
+
+    /* CONTACT LAYOUT */
+    .contact-wrap { max-width: 1240px; margin: 0 auto; padding: 48px 32px 80px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start; }
+
+    /* LINKS PANEL */
+    .contact-links { display: grid; gap: 1px; background: var(--outline-variant); border: 1px solid var(--outline-variant); border-radius: var(--r-sm); overflow: hidden; margin-bottom: 28px; }
+    .contact-link { display: grid; grid-template-columns: 88px 1fr auto; gap: 16px; padding: 13px 16px; background: var(--surface-container-lowest); align-items: center; transition: background 0.15s; }
+    .contact-link:hover { background: var(--surface-container); }
+    .contact-link .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; color: var(--on-surface-faint); text-transform: uppercase; }
+    .contact-link .v { font-size: 14px; color: var(--on-surface); font-weight: 500; }
+    .contact-link .arrow { font-family: var(--font-mono); color: var(--on-surface-faint); }
+    .contact-link:hover .arrow { color: var(--primary); }
+
+    .availability-note { font-family: var(--font-mono); font-size: 11px; color: var(--on-surface-faint); line-height: 1.6; padding: 14px 16px; background: var(--surface-container-low); border: 1px solid var(--outline-variant); border-radius: var(--r-sm); }
+    .availability-note .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: blink 2s ease-in-out infinite; margin-right: 6px; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+    /* CALENDAR */
+    .booking-section { }
+    .booking-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 1.2rem; }
+    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .cal-month-label { font-family: var(--font-display); font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+    .cal-nav { display: flex; gap: 0.5rem; }
+    .cal-nav-btn { width: 32px; height: 32px; border-radius: var(--r-sm); border: 1px solid var(--outline-variant); background: var(--surface-container-lowest); color: var(--on-surface-variant); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .cal-nav-btn:hover { border-color: var(--primary); color: var(--primary); background: color-mix(in oklab, var(--primary) 8%, transparent); }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; min-height: 240px; }
+    .cal-day-name { text-align: center; font-family: var(--font-mono); font-size: 10px; color: var(--on-surface-faint); padding: 0.4rem 0; text-transform: uppercase; letter-spacing: 0.06em; }
+    .cal-cell { aspect-ratio: 1; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; cursor: default; transition: all 0.15s; border: 1px solid transparent; position: relative; }
+    .cal-cell.empty { background: transparent; }
+    .cal-cell.past, .cal-cell.weekend { color: var(--outline); background: transparent; }
+    .cal-cell.today { border-color: var(--primary); color: var(--primary); font-weight: 700; }
+    .cal-cell.available { background: var(--surface-container-lowest); border-color: var(--outline-variant); color: var(--on-surface); cursor: pointer; }
+    .cal-cell.available:hover { background: var(--primary-container); border-color: color-mix(in oklab, var(--primary) 30%, transparent); color: var(--on-primary-container); transform: scale(1.07); }
+    .cal-cell.booked { background: var(--surface-container); border-color: var(--outline-variant); color: var(--on-surface-faint); cursor: not-allowed; opacity: 0.6; }
+    .cal-cell .booked-dot { position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--secondary); }
+    .cal-legend { display: flex; gap: 1.2rem; margin-top: 0.8rem; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 0.35rem; font-size: 11px; color: var(--on-surface-faint); font-family: var(--font-mono); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+    /* MODAL */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(20,24,30,0.6); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(4px); }
+    .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+    .modal { background: var(--surface-container-lowest); border: 1px solid var(--outline-variant); border-radius: 18px; width: min(480px, 90vw); padding: 2rem; box-shadow: 0 24px 80px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
+    .modal-backdrop.open .modal { transform: translateY(0); }
+    .modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; }
+    .modal-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--on-surface); }
+    .modal-date { font-family: var(--font-mono); font-size: 11px; color: var(--primary); margin-top: 0.2rem; }
+    .modal-close { width: 30px; height: 30px; border-radius: var(--r-sm); background: var(--surface-container); border: 1px solid var(--outline-variant); color: var(--on-surface-variant); cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .modal-close:hover { color: var(--on-surface); border-color: var(--outline); }
+    .slots-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1.5rem; }
+    .slot-btn { padding: 0.55rem 0; border-radius: var(--r-sm); border: 1px solid var(--outline-variant); background: var(--surface-container-lowest); color: var(--on-surface-variant); font-family: var(--font-mono); font-size: 12px; cursor: pointer; transition: all 0.15s; text-align: center; }
+    .slot-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: var(--primary-container); }
+    .slot-btn.selected { border-color: var(--primary); background: var(--primary-container); color: var(--on-primary-container); font-weight: 700; }
+    .slot-btn:disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
+    .form-group { margin-bottom: 1rem; }
+    .form-label { display: block; font-size: 11px; color: var(--on-surface-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; font-family: var(--font-mono); }
+    .form-input, .form-textarea { width: 100%; background: var(--surface-container-lowest); border: 1px solid var(--outline-variant); border-radius: var(--r-sm); padding: 0.7rem 0.9rem; color: var(--on-surface); font-family: var(--font-body); font-size: 14px; transition: border-color 0.15s; outline: none; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--primary); }
+    .form-input.error, .form-textarea.error { border-color: #dc2626; }
+    .form-textarea { resize: vertical; min-height: 80px; }
+    .form-error { font-size: 11px; color: #dc2626; margin-top: 0.3rem; display: none; }
+    .form-error.show { display: block; }
+    .btn-book { width: 100%; padding: 0.85rem; border-radius: var(--r-md); border: none; background: var(--primary); color: var(--on-primary); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s; margin-top: 0.5rem; }
+    .btn-book:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-1px); }
+    .btn-book:disabled { opacity: 0.6; cursor: not-allowed; }
+    .modal-success { display: none; text-align: center; padding: 1rem 0; }
+    .modal-success.show { display: block; }
+    .success-ico { font-size: 2.5rem; margin-bottom: 1rem; }
+    .success-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--on-surface); }
+    .success-desc { font-size: 13px; color: var(--on-surface-variant); line-height: 1.7; margin-bottom: 1.5rem; }
+    .btn-gcal { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.3rem; border-radius: var(--r-sm); border: 1px solid color-mix(in oklab, var(--primary) 30%, transparent); background: var(--primary-container); color: var(--on-primary-container); font-size: 13px; font-weight: 600; transition: all 0.15s; }
+    .btn-gcal:hover { background: color-mix(in oklab, var(--primary-container) 70%, var(--primary)); }
+    .slot-required-msg { font-size: 11px; color: #dc2626; margin-bottom: 0.8rem; display: none; font-family: var(--font-mono); }
+    .slot-required-msg.show { display: block; }
+
+    /* FOOTER */
+    .footer { border-top: 1px solid var(--outline-variant); padding: 28px 0; background: var(--surface-container-low); }
+    .footnote { max-width: 1240px; margin: 0 auto; padding: 0 32px; font-family: var(--font-mono); font-size: 11px; color: var(--on-surface-faint); letter-spacing: 0.04em; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .footnote a { color: var(--primary); }
+
+    @media (max-width: 900px) { .contact-wrap { grid-template-columns: 1fr; gap: 40px; } }
+    @media (max-width: 640px) {
+      .topbar-inner { padding: 10px 16px; }
+      .nav a { padding: 9px 14px; font-size: 13px; }
+      .page-header { padding: 36px 20px 32px; }
+      .contact-wrap { padding: 32px 20px 60px; }
+      .footnote { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/projects/">Projects</a>
+      <a href="/courses/">Courses</a>
+      <a href="/community/">Community</a>
+      <a href="/contact/" class="active">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page-header">
+    <div class="eyebrow">Get in Touch</div>
+    <h1>Contact</h1>
+    <p>Open to thesis collaborations, working-student roles, and contract gigs around hardware design, embedded systems, or Salesforce. Based in Erlangen — remote within the EU is fine.</p>
+  </div>
+
+  <div class="contact-wrap">
+
+    <!-- Left: links + availability -->
+    <div>
+      <h2 style="font-family:var(--font-display);font-variation-settings:'opsz' 96,'wght' 500;font-size:clamp(22px,2.8vw,36px);line-height:1.1;letter-spacing:-0.02em;color:var(--on-surface);margin:0 0 20px;">
+        Got a thesis idea, a hardware problem, or just want to connect?
+        <a href="mailto:mgaurav682@gmail.com" style="color:var(--primary);border-bottom:2px solid color-mix(in oklab,var(--primary) 40%,transparent);">Send me a note.</a>
+      </h2>
+
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:mgaurav682@gmail.com"><span class="k">EMAIL</span><span class="v">mgaurav682@gmail.com</span><span class="arrow">→</span></a>
+        <a class="contact-link" href="https://github.com/gaurav-mk" rel="external nofollow noopener" target="_blank"><span class="k">GITHUB</span><span class="v">@gaurav-mk</span><span class="arrow">→</span></a>
+        <a class="contact-link" href="https://linkedin.com/in/gaurav-25" rel="external nofollow noopener" target="_blank"><span class="k">LINKEDIN</span><span class="v">/in/gaurav-25</span><span class="arrow">→</span></a>
+        <a class="contact-link" href="tel:+4915213603906"><span class="k">PHONE</span><span class="v">+49 152 1360 3906</span><span class="arrow">→</span></a>
+      </div>
+
+      <div class="availability-note">
+        <span class="dot"></span>Currently available · Erlangen, DE · CET timezone
+        <br><br>
+        Best for: hardware design, embedded systems, RF/wireless, IC design, Salesforce, thesis supervision.
+      </div>
+    </div>
+
+    <!-- Right: calendar -->
+    <div>
+      <div class="booking-section">
+        <div class="booking-title">// book an appointment</div>
+        <div class="cal-header">
+          <div class="cal-month-label" id="cal-month-label"></div>
+          <div class="cal-nav">
+            <button class="cal-nav-btn" id="cal-prev">&#8249;</button>
+            <button class="cal-nav-btn" id="cal-next">&#8250;</button>
+          </div>
+        </div>
+        <div class="cal-grid" id="cal-grid">
+          <div class="cal-day-name">Mon</div><div class="cal-day-name">Tue</div><div class="cal-day-name">Wed</div>
+          <div class="cal-day-name">Thu</div><div class="cal-day-name">Fri</div>
+          <div class="cal-day-name" style="opacity:0.4;">Sat</div><div class="cal-day-name" style="opacity:0.4;">Sun</div>
+        </div>
+        <div class="cal-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--primary-container);border:1px solid var(--primary);"></div> Available</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--surface-container);border:1px solid var(--outline-variant);"></div> Booked</div>
+          <div class="legend-item"><div class="legend-dot" style="border:1px solid var(--primary);background:transparent;"></div> Today</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- BOOKING MODAL -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
+    <div id="modal-form-view">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="modal-title-el">Book an Appointment</div>
+          <div class="modal-date" id="modal-date-display"></div>
+        </div>
+        <button class="modal-close" id="modal-close-btn" aria-label="Close">&times;</button>
+      </div>
+      <p style="font-size:12px;color:var(--on-surface-faint);margin-bottom:1rem;font-family:var(--font-mono);">Pick a time slot (CET):</p>
+      <div class="slots-grid" id="slots-grid"></div>
+      <div class="slot-required-msg" id="slot-required-msg">⚠ Please select a time slot</div>
+      <div class="form-group">
+        <label class="form-label" for="book-name">Your Name *</label>
+        <input class="form-input" id="book-name" type="text" placeholder="e.g. Jane Smith" autocomplete="name" />
+        <div class="form-error" id="err-name">Name is required</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="book-email">Your Email *</label>
+        <input class="form-input" id="book-email" type="email" placeholder="e.g. jane@example.com" autocomplete="email" />
+        <div class="form-error" id="err-email">A valid email is required</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="book-msg">Message <span style="color:var(--on-surface-faint)">(optional)</span></label>
+        <textarea class="form-textarea" id="book-msg" placeholder="Briefly describe what you'd like to discuss…"></textarea>
+      </div>
+      <button class="btn-book" id="btn-book-submit">📅 Book Appointment</button>
+      <p style="font-size:11px;color:var(--on-surface-faint);text-align:center;margin-top:0.8rem;">A Google Meet confirmation will be sent to both parties.</p>
+    </div>
+    <div class="modal-success" id="modal-success-view">
+      <div class="success-ico">🎉</div>
+      <div class="success-title">Appointment Booked!</div>
+      <div class="success-desc" id="success-desc"></div>
+      <a class="btn-gcal" id="gcal-link" href="#" target="_blank" rel="noopener">📅 Add to Google Calendar</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footnote">
+    <span>© 2026 Gaurav Kumar Mishra</span>
+    <span><a href="/">Home</a> · <a href="/projects/">Projects</a> · <a href="/courses/">Courses</a></span>
+  </div>
+</footer>
+
+<script>
+  const EMAILJS_SERVICE_ID = 'service_xmfyxyu';
+  const EMAILJS_TEMPLATE_ID = 'template_4v4mdmg';
+  const EMAILJS_PUBLIC_KEY = 'uPYHhFFerXMirfZxK';
+  const GOOGLE_MEET_LINK = 'https://meet.google.com/daj-xcoc-xtj';
+  const MY_EMAIL = 'mgaurav682@gmail.com';
+
+  const STORAGE_KEY = 'gk_bookings_v1';
+  const fsCache = {};
+
+  function loadBookingsLS() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } }
+  function saveBookingLS(dk, slot, visitor) { const b = loadBookingsLS(); if (!b[dk]) b[dk] = []; b[dk].push({ slot, visitor, ts: Date.now() }); localStorage.setItem(STORAGE_KEY, JSON.stringify(b)); }
+  function lsSlotsFor(dk) { const b = loadBookingsLS(); return (b[dk] || []).map(e => e.slot); }
+
+  async function prefetchMonth(year, month) {
+    const mk = year + '-' + String(month + 1).padStart(2, '0');
+    if (fsCache[mk] !== undefined) return;
+    fsCache[mk] = {};
+    if (!window._GK) return;
+    const { db, doc, getDoc } = window._GK;
+    const today = new Date(); today.setHours(0,0,0,0);
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const keys = [], promises = [];
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dt = new Date(year, month, d);
+      if (dt.getDay() === 0 || dt.getDay() === 6 || dt < today) continue;
+      const dk = mk + '-' + String(d).padStart(2, '0'); keys.push(dk); promises.push(getDoc(doc(db, 'bookings', dk)));
+    }
+    try {
+      const snaps = await Promise.all(promises);
+      snaps.forEach((snap, i) => { fsCache[mk][keys[i]] = snap.exists() ? [...new Set([...(snap.data().slots||[]), ...(snap.data().gcal_slots||[])])] : []; });
+    } catch(e) { console.warn('[Firebase] prefetch failed', e); }
+  }
+
+  function bookedSlotsFor(dk) { const mk = dk.substring(0,7); return [...new Set([...((fsCache[mk]||{})[dk]||[]), ...lsSlotsFor(dk)])]; }
+
+  async function saveBookingFS(dk, slot, email) {
+    if (!window._GK) return;
+    const { db, doc, setDoc, arrayUnion } = window._GK;
+    try {
+      await setDoc(doc(db,'bookings',dk), { slots: arrayUnion(slot), bookers: arrayUnion(email) }, { merge: true });
+      const mk = dk.substring(0,7); if (!fsCache[mk]) fsCache[mk] = {}; if (!fsCache[mk][dk]) fsCache[mk][dk] = []; if (!fsCache[mk][dk].includes(slot)) fsCache[mk][dk].push(slot);
+    } catch(e) { console.warn('[Firebase] Write failed', e); }
+  }
+
+  async function hasBookedThisMonth(email) {
+    if (!window._GK) return false;
+    const { db, doc, getDoc } = window._GK;
+    const now = new Date(); const months = [[now.getFullYear(), now.getMonth()]];
+    const nm = now.getMonth() === 11 ? 0 : now.getMonth() + 1; const ny = now.getMonth() === 11 ? now.getFullYear() + 1 : now.getFullYear(); months.push([ny, nm]);
+    const promises = [];
+    for (const [y, m] of months) { const days = new Date(y, m+1, 0).getDate(); for (let d = 1; d <= days; d++) promises.push(getDoc(doc(db,'bookings', y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0')))); }
+    try { const snaps = await Promise.all(promises); for (const snap of snaps) { if (snap.exists() && (snap.data().bookers||[]).includes(email)) return true; } } catch(e) {}
+    return false;
+  }
+
+  const TIME_SLOTS = ['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'];
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  let calYear, calMonth;
+  const _now0 = new Date(); const CAL_MIN_Y = _now0.getFullYear(), CAL_MIN_M = _now0.getMonth();
+  const CAL_MAX_Y = CAL_MIN_M === 11 ? CAL_MIN_Y+1 : CAL_MIN_Y; const CAL_MAX_M = CAL_MIN_M === 11 ? 0 : CAL_MIN_M+1;
+
+  function updateNavBtns() {
+    const atMin = calYear===CAL_MIN_Y && calMonth===CAL_MIN_M, atMax = calYear===CAL_MAX_Y && calMonth===CAL_MAX_M;
+    const prev = document.getElementById('cal-prev'), next = document.getElementById('cal-next');
+    prev.disabled = atMin; prev.style.opacity = atMin ? '0.3' : ''; next.disabled = atMax; next.style.opacity = atMax ? '0.3' : '';
+  }
+
+  async function initCalendar() {
+    const now = new Date(); calYear = now.getFullYear(); calMonth = now.getMonth();
+    await renderCalendar(); updateNavBtns();
+    document.getElementById('cal-prev').addEventListener('click', async () => { if (calYear===CAL_MIN_Y && calMonth===CAL_MIN_M) return; calMonth--; if (calMonth<0) { calMonth=11; calYear--; } await renderCalendar(); updateNavBtns(); });
+    document.getElementById('cal-next').addEventListener('click', async () => { if (calYear===CAL_MAX_Y && calMonth===CAL_MAX_M) return; calMonth++; if (calMonth>11) { calMonth=0; calYear++; } await renderCalendar(); updateNavBtns(); });
+  }
+
+  async function renderCalendar() {
+    const grid = document.getElementById('cal-grid');
+    while (grid.children.length > 7) grid.removeChild(grid.lastChild);
+    document.getElementById('cal-month-label').textContent = MONTHS[calMonth] + ' ' + calYear;
+    const shimmer = document.createElement('div'); shimmer.style.cssText = 'grid-column:1/-1;text-align:center;padding:1.5rem;font-size:11px;color:var(--on-surface-faint);font-family:var(--font-mono);'; shimmer.textContent = '// loading availability…'; grid.appendChild(shimmer);
+    await prefetchMonth(calYear, calMonth);
+    while (grid.children.length > 7) grid.removeChild(grid.lastChild);
+    const today = new Date(); today.setHours(0,0,0,0);
+    const firstDay = new Date(calYear, calMonth, 1); let startOffset = firstDay.getDay(); startOffset = startOffset === 0 ? 6 : startOffset - 1;
+    const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+    for (let i = 0; i < startOffset; i++) { const el = document.createElement('div'); el.className = 'cal-cell empty'; grid.appendChild(el); }
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(calYear, calMonth, d); const dow = date.getDay();
+      const isPast = date < today, isToday = date.getTime()===today.getTime(), isWeekend = dow===0||dow===6;
+      const dk = calYear+'-'+String(calMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+      const bookedSlots = bookedSlotsFor(dk); const fullyBooked = bookedSlots.length >= TIME_SLOTS.length;
+      const el = document.createElement('div'); el.textContent = d;
+      if (isWeekend || isPast) { el.className = 'cal-cell '+(isToday?'today':(isWeekend?'weekend':'past')); }
+      else if (fullyBooked) { el.className='cal-cell booked'; const dot=document.createElement('div'); dot.className='booked-dot'; el.appendChild(dot); }
+      else { el.className='cal-cell available'+(isToday?' today':''); if (bookedSlots.length>0) { const dot=document.createElement('div'); dot.className='booked-dot'; el.appendChild(dot); } el.addEventListener('click', () => openModal(date, dk)); }
+      grid.appendChild(el);
+    }
+  }
+
+  let selectedSlot=null, currentDateKey=null, currentDate=null;
+
+  function openModal(date, dk) {
+    currentDate=date; currentDateKey=dk; selectedSlot=null;
+    document.getElementById('modal-date-display').textContent = date.toLocaleDateString('en-DE',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    document.getElementById('modal-form-view').style.display='block'; document.getElementById('modal-success-view').classList.remove('show');
+    ['book-name','book-email','book-msg'].forEach(id => { document.getElementById(id).value=''; document.getElementById(id).classList.remove('error'); });
+    document.getElementById('err-name').classList.remove('show'); document.getElementById('err-email').classList.remove('show'); document.getElementById('slot-required-msg').classList.remove('show');
+    buildSlots(dk); document.getElementById('modal-backdrop').classList.add('open'); document.body.style.overflow='hidden';
+  }
+
+  function buildSlots(dk) {
+    const booked = bookedSlotsFor(dk); const grid = document.getElementById('slots-grid'); grid.innerHTML='';
+    TIME_SLOTS.forEach(t => {
+      const btn = document.createElement('button'); btn.className='slot-btn';
+      btn.textContent = t + ' – ' + String(Number(t.split(':')[0])+1).padStart(2,'0') + ':00';
+      if (booked.includes(t)) { btn.disabled=true; } else { btn.addEventListener('click', () => { document.querySelectorAll('.slot-btn').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); selectedSlot=t; document.getElementById('slot-required-msg').classList.remove('show'); }); }
+      grid.appendChild(btn);
+    });
+  }
+
+  function closeModal() { document.getElementById('modal-backdrop').classList.remove('open'); document.body.style.overflow=''; }
+  document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+  document.getElementById('modal-backdrop').addEventListener('click', e => { if (e.target===document.getElementById('modal-backdrop')) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+
+  document.getElementById('btn-book-submit').addEventListener('click', async () => {
+    let valid = true;
+    if (!selectedSlot) { document.getElementById('slot-required-msg').classList.add('show'); valid=false; }
+    const nameEl=document.getElementById('book-name'), emailEl=document.getElementById('book-email');
+    const name=nameEl.value.trim(), email=emailEl.value.trim();
+    if (!name) { nameEl.classList.add('error'); document.getElementById('err-name').classList.add('show'); valid=false; } else { nameEl.classList.remove('error'); document.getElementById('err-name').classList.remove('show'); }
+    const emailOk = email && /^[^@]+@[^@]+\.[^@]+$/.test(email);
+    if (!emailOk) { emailEl.classList.add('error'); document.getElementById('err-email').classList.add('show'); valid=false; } else { emailEl.classList.remove('error'); document.getElementById('err-email').classList.remove('show'); }
+    if (!valid) return;
+    const btn = document.getElementById('btn-book-submit'); btn.disabled=true; btn.textContent='Checking…';
+    const alreadyBooked = await hasBookedThisMonth(email);
+    if (alreadyBooked) { btn.disabled=false; btn.textContent='📅 Book Appointment'; emailEl.classList.add('error'); document.getElementById('err-email').textContent='This email already has a booking. Only one per person is allowed.'; document.getElementById('err-email').classList.add('show'); return; }
+    btn.textContent='Sending…';
+    const msg=document.getElementById('book-msg').value.trim();
+    const dateStr=currentDate.toLocaleDateString('en-DE',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    const endHour=String(Number(selectedSlot.split(':')[0])+1).padStart(2,'0')+':00'; const timeStr=selectedSlot+' – '+endHour+' CET';
+    saveBookingLS(currentDateKey, selectedSlot, {name,email});
+    await saveBookingFS(currentDateKey, selectedSlot, email);
+    let emailsOk=false; emailjs.init({publicKey: EMAILJS_PUBLIC_KEY});
+    try { await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, { visitor_name:name, visitor_email:email, message:msg||'(no message)', date:dateStr, time:timeStr, meet_link:GOOGLE_MEET_LINK, my_email:MY_EMAIL, to_email:email, to_name:name, cc_email:MY_EMAIL, subject:'Your appointment with Gaurav Kumar Mishra is confirmed!' }); emailsOk=true; } catch(err) { console.error('[EmailJS] Send failed:', err); }
+    const [sh] = selectedSlot.split(':').map(Number);
+    const startDT=new Date(currentDate); startDT.setHours(sh,0,0,0); const endDT=new Date(startDT.getTime()+60*60*1000);
+    const fmt = d => d.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+    const gcalUrl='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent('Meeting with Gaurav Kumar Mishra')+'&dates='+fmt(startDT)+'/'+fmt(endDT)+'&details='+encodeURIComponent('Google Meet: '+GOOGLE_MEET_LINK+(msg?'\n\nNote: '+msg:''))+'&location='+encodeURIComponent(GOOGLE_MEET_LINK);
+    const emailMsg = emailsOk ? '<br><br>Confirmation emails sent.' : '<br><br><span style="color:#b45309;">⚠ Email may have failed — your slot is reserved.</span>';
+    document.getElementById('gcal-link').href=gcalUrl;
+    document.getElementById('success-desc').innerHTML='<strong>'+name+'</strong>, your appointment on <strong>'+dateStr+'</strong> at <strong>'+timeStr+'</strong> is confirmed!'+emailMsg+'<br><br>Google Meet: <a href="'+GOOGLE_MEET_LINK+'" target="_blank" style="color:var(--primary);">'+GOOGLE_MEET_LINK+'</a>';
+    document.getElementById('modal-form-view').style.display='none'; document.getElementById('modal-success-view').classList.add('show');
+    renderCalendar(); btn.disabled=false; btn.textContent='📅 Book Appointment';
+  });
+
+  let _calInited=false;
+  function _startCalendar() { if (_calInited) return; _calInited=true; initCalendar(); }
+  document.addEventListener('gk-firebase-ready', _startCalendar);
+  setTimeout(_startCalendar, 4000);
+</script>
+
+</body>
+</html>

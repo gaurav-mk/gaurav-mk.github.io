@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Courses | Gaurav Kumar Mishra</title>
+  <meta name="author" content="Gaurav Kumar Mishra" />
+  <meta name="description" content="Graduate coursework, certifications, and self-paced learning by Gaurav Kumar Mishra." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..900&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1f3a57; --primary-hover: #173049; --on-primary: #fff;
+      --primary-container: #d9e5f2; --on-primary-container: #0a2540;
+      --secondary: #2e5c8a; --surface: #fafbfd;
+      --surface-container-lowest: #fff; --surface-container-low: #f5f7fa;
+      --surface-container: #edf1f6; --surface-container-high: #e5ebf2;
+      --on-surface: #14181e; --on-surface-variant: #4b5663; --on-surface-faint: #8693a3;
+      --outline: #b7bfc8; --outline-variant: #d9dee5; --success: #1e7f4f;
+      --font-display: 'Roboto Flex','Roboto',system-ui,sans-serif;
+      --font-body: 'Roboto',system-ui,sans-serif;
+      --font-mono: 'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+      --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+    }
+    html, body { margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--on-surface); -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.55; }
+    a { color: inherit; text-decoration: none !important; }
+
+    .grid-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(to right, rgba(31,58,87,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(31,58,87,0.04) 1px, transparent 1px); background-size: 96px 96px; mask-image: linear-gradient(to bottom, black 0, black 60%, transparent 100%); }
+
+    /* TOPBAR */
+    .topbar { position: sticky; top: 0; z-index: 50; }
+    .topbar-inner { max-width: 1240px; margin: 0 auto; padding: 14px 32px; display: flex; justify-content: center; align-items: center; }
+    .nav { display: inline-flex; gap: 2px; padding: 5px; background: var(--surface-container); border-radius: 999px; box-shadow: 0 10px 28px -18px rgba(31,58,87,0.45); }
+    .nav a { padding: 10px 22px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--on-surface-variant); transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .nav a:hover { color: var(--on-surface); background: color-mix(in oklab, var(--primary) 10%, transparent); }
+    .nav a.active { background: var(--primary-container); color: var(--on-primary-container); }
+
+    main { position: relative; z-index: 1; }
+
+    /* PAGE HEADER */
+    .page-header { max-width: 1240px; margin: 0 auto; padding: 52px 32px 44px; border-bottom: 1px solid var(--outline-variant); }
+    .page-header .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 10px; display: inline-flex; align-items: center; gap: 10px; }
+    .page-header .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--on-surface-faint); display: inline-block; }
+    .page-header h1 { font-family: var(--font-display); font-variation-settings: "opsz" 96, "wght" 600; font-size: clamp(32px, 4.5vw, 54px); line-height: 1.05; letter-spacing: -0.02em; color: var(--on-surface); margin: 0 0 12px; }
+    .page-header p { color: var(--on-surface-variant); max-width: 55ch; font-size: 16px; line-height: 1.6; }
+
+    /* FILTER BAR */
+    .filter-bar { max-width: 1240px; margin: 0 auto; padding: 24px 32px 0; display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--outline-variant); background: var(--surface-container-lowest); color: var(--on-surface-variant); cursor: pointer; transition: all 0.15s; }
+    .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .filter-btn.active { background: var(--primary-container); border-color: color-mix(in oklab, var(--primary) 30%, transparent); color: var(--on-primary-container); }
+
+    /* COURSES WRAP */
+    .courses-wrap { max-width: 1240px; margin: 0 auto; padding: 32px 32px 80px; }
+
+    /* CATEGORY SECTION */
+    .cat-section { margin-bottom: 52px; }
+    .category-label { display: flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 20px; }
+    .category-label::after { content: ''; flex: 1; height: 1px; background: var(--outline-variant); }
+
+    /* COURSE GROUP GRID */
+    .courses-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .course-group { border: 1px solid var(--outline-variant); border-radius: var(--r-lg); background: var(--surface-container-lowest); overflow: hidden; }
+    .course-group-head { padding: 14px 18px; background: var(--surface-container-low); border-bottom: 1px solid var(--outline-variant); display: flex; align-items: center; gap: 10px; }
+    .course-group-head .cg-icon { font-size: 1.3rem; }
+    .course-group-head .cg-title { font-family: var(--font-display); font-variation-settings: "opsz" 32, "wght" 600; font-size: 15px; color: var(--on-surface); flex: 1; }
+    .course-group-head .cg-sub { font-family: var(--font-mono); font-size: 10px; color: var(--on-surface-faint); letter-spacing: 0.06em; white-space: nowrap; }
+    .course-list { padding: 6px 0; }
+    .course-item { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 10px 18px; border-bottom: 1px solid var(--outline-variant); align-items: start; transition: background 0.15s; }
+    .course-item:last-child { border-bottom: none; }
+    .course-item:hover { background: var(--surface-container-low); }
+    .course-item.has-link { cursor: pointer; }
+    .course-name { font-size: 13.5px; color: var(--on-surface); font-weight: 500; line-height: 1.4; }
+    .course-name .course-sub { display: block; font-size: 12px; font-weight: 400; color: var(--on-surface-variant); margin-top: 2px; }
+    .course-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .course-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; padding: 2px 7px; border-radius: var(--r-xs); background: var(--surface-container); border: 1px solid var(--outline-variant); color: var(--on-surface-faint); white-space: nowrap; }
+    .course-tag.done { background: var(--primary-container); border-color: color-mix(in oklab, var(--primary) 22%, transparent); color: var(--on-primary-container); }
+    .course-tag.current { background: color-mix(in oklab, #2e5c8a 12%, transparent); border-color: color-mix(in oklab, #2e5c8a 28%, transparent); color: var(--secondary); }
+    .course-tag.planned { background: var(--surface-container-high); border-color: var(--outline-variant); color: var(--on-surface-faint); }
+    .course-grade { font-family: var(--font-mono); font-size: 11px; color: var(--on-surface-faint); }
+
+    /* STATS BAR */
+    .stats-bar { display: flex; gap: 32px; padding: 20px 32px; background: var(--surface-container-low); border-top: 1px solid var(--outline-variant); border-bottom: 1px solid var(--outline-variant); max-width: 100%; }
+    .stats-wrap { max-width: 1240px; margin: 0 auto; width: 100%; display: flex; gap: 40px; }
+    .stat { display: flex; flex-direction: column; gap: 2px; }
+    .stat-value { font-family: var(--font-display); font-variation-settings: "opsz" 32, "wght" 700; font-size: 28px; color: var(--on-surface); line-height: 1; }
+    .stat-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-surface-faint); }
+
+    /* FOOTER */
+    .footer { border-top: 1px solid var(--outline-variant); padding: 28px 0; background: var(--surface-container-low); }
+    .footnote { max-width: 1240px; margin: 0 auto; padding: 0 32px; font-family: var(--font-mono); font-size: 11px; color: var(--on-surface-faint); letter-spacing: 0.04em; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    .footnote a { color: var(--primary); }
+
+    @media (max-width: 900px) { .courses-grid { grid-template-columns: 1fr; } .stats-wrap { flex-wrap: wrap; gap: 24px; } }
+    @media (max-width: 640px) {
+      .topbar-inner { padding: 10px 16px; }
+      .nav a { padding: 9px 14px; font-size: 13px; }
+      .page-header { padding: 36px 20px 32px; }
+      .filter-bar { padding: 20px 20px 0; }
+      .courses-wrap { padding: 24px 20px 60px; }
+      .stats-wrap { padding: 0 20px; }
+      .footnote { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/projects/">Projects</a>
+      <a href="/courses/" class="active">Courses</a>
+      <a href="/community/">Community</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="page-header">
+    <div class="eyebrow">Academic &amp; Professional Learning</div>
+    <h1>Courses</h1>
+    <p>Graduate coursework, professional certifications, and self-paced learning across hardware, software, and communications engineering.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stats-wrap">
+      <div class="stat"><div class="stat-value">21</div><div class="stat-label">Completed</div></div>
+      <div class="stat"><div class="stat-value">2</div><div class="stat-label">In Progress</div></div>
+      <div class="stat"><div class="stat-value">3</div><div class="stat-label">Planned</div></div>
+      <div class="stat"><div class="stat-value">4</div><div class="stat-label">Institutions</div></div>
+    </div>
+  </div>
+
+  <div class="courses-wrap">
+
+    <!-- Graduate -->
+    <div class="cat-section" data-category="graduate">
+      <div class="category-label">Graduate</div>
+      <div class="courses-grid">
+
+        <div class="course-group">
+          <div class="course-group-head">
+            <span class="cg-icon">🏫</span>
+            <span class="cg-title">M.Sc. ICT — FAU Erlangen-Nürnberg</span>
+            <span class="cg-sub">APR 2024 – ONGOING</span>
+          </div>
+          <div class="course-list">
+            <div class="course-item">
+              <div class="course-name">Information Theory</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Approximate Computing</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Communication Systems</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Mobile Communication</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">QoS in Communications</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Cybersecurity</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Machine Learning</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Advanced C++</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Localisation &amp; IoT</div>
+              <div class="course-right"><span class="course-tag current">Current</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">5G-Advanced &amp; 6G</div>
+              <div class="course-right"><span class="course-tag planned">Planned</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-group">
+          <div class="course-group-head">
+            <span class="cg-icon">🎓</span>
+            <span class="cg-title">B.E. ECE — Sathyabama Institute</span>
+            <span class="cg-sub">AUG 2018 – MAR 2022</span>
+          </div>
+          <div class="course-list">
+            <div class="course-item">
+              <div class="course-name">VLSI Design</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Embedded Systems</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Computer Architecture</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Internet of Things</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Digital Signal Processing</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Microcontrollers &amp; Microprocessors</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Control Systems</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Circuit Theory</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="cat-section" data-category="certifications">
+      <div class="category-label">Certifications</div>
+      <div class="courses-grid">
+
+        <div class="course-group">
+          <div class="course-group-head">
+            <span class="cg-icon">☁️</span>
+            <span class="cg-title">Salesforce Certifications</span>
+            <span class="cg-sub">TRAILHEAD</span>
+          </div>
+          <div class="course-list">
+            <div class="course-item">
+              <div class="course-name">Salesforce Certified Platform Developer I</div>
+              <div class="course-right"><span class="course-tag done">Certified</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Salesforce Certified Associate</div>
+              <div class="course-right"><span class="course-tag done">Certified</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Salesforce Platform Developer II</div>
+              <div class="course-right"><span class="course-tag current">In Progress</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Self-Paced -->
+    <div class="cat-section" data-category="self-paced">
+      <div class="category-label">Self-Paced &amp; Online</div>
+      <div class="courses-grid">
+
+        <div class="course-group">
+          <div class="course-group-head">
+            <span class="cg-icon">🔧</span>
+            <span class="cg-title">Tools &amp; Engineering</span>
+            <span class="cg-sub">SELF-PACED</span>
+          </div>
+          <div class="course-list">
+            <div class="course-item">
+              <div class="course-name">KiCad PCB Design
+                <span class="course-sub">Udemy</span>
+              </div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Zephyr RTOS Fundamentals</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Python for Engineers</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Docker &amp; DevOps Basics</div>
+              <div class="course-right"><span class="course-tag done">Done</span></div>
+            </div>
+            <div class="course-item">
+              <div class="course-name">Deep Learning Specialization
+                <span class="course-sub">Coursera / DeepLearning.AI</span>
+              </div>
+              <div class="course-right"><span class="course-tag planned">Planned</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footnote">
+    <span>© 2026 Gaurav Kumar Mishra</span>
+    <span><a href="/">Home</a> · <a href="/projects/">Projects</a> · <a href="/contact/">Contact</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

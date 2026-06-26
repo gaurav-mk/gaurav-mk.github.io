@@ -1,2677 +1,638 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Gaurav Kumar Mishra – Hardware Developer Portfolio" />
-    <title>Gaurav Kumar Mishra | Portfolio</title>
-
-    <!-- EmailJS SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-    <!-- Firebase: initialise Firestore and expose helpers globally (module = deferred, fires before DOMContentLoaded) -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js';
-        import { getFirestore, doc, getDoc, setDoc, arrayUnion }
-            from 'https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js';
-
-        const app = initializeApp({
-            apiKey: 'AIzaSyCv4ttjCV0EZZ8j5-ZpljTF03ephWFISIQ',
-            authDomain: 'gaurav-mk.firebaseapp.com',
-            projectId: 'gaurav-mk',
-            storageBucket: 'gaurav-mk.firebasestorage.app',
-            messagingSenderId: '279801707825',
-            appId: '1:279801707825:web:78804309acb10bac29c410',
-        });
-
-        // Expose on window so the non-module main script can access
-        window._GK = { db: getFirestore(app), doc, getDoc, setDoc, arrayUnion };
-        document.dispatchEvent(new Event('gk-firebase-ready'));
-    </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap"
-        rel="stylesheet" />
-
-    <style>
-        /* ===== RESET & VARS ===== */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg: #09090f;
-            --bg2: #111118;
-            --bg3: #17171f;
-            --bg4: #1f1f2a;
-            --sidebar-w: 280px;
-            --accent: #7c3aed;
-            --accent-l: #a970ff;
-            --accent-glow: rgba(124, 58, 237, 0.3);
-            --cyan: #22d3ee;
-            --cyan-glow: rgba(34, 211, 238, 0.2);
-            --text: #eeeeff;
-            --text2: #8888aa;
-            --text3: #55556a;
-            --border: rgba(255, 255, 255, 0.07);
-            --border-h: rgba(124, 58, 237, 0.45);
-            --r: 12px;
-            --ease: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        html,
-        body {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            display: flex;
-        }
-
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 3px;
-        }
-
-        /* ===== SIDEBAR ===== */
-        #sidebar {
-            width: var(--sidebar-w);
-            min-width: var(--sidebar-w);
-            height: 100vh;
-            background: var(--bg2);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 2rem 0 1.5rem;
-            position: relative;
-            z-index: 10;
-            transition: transform var(--ease), min-width var(--ease);
-        }
-
-        /* avatar + name block */
-        .sb-profile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0 1.5rem 2rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .sb-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--cyan));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.9rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 0.9rem;
-            position: relative;
-        }
-
-        .sb-avatar::after {
-            content: '';
-            position: absolute;
-            inset: -3px;
-            border-radius: 50%;
-            background: conic-gradient(var(--accent), var(--cyan), var(--accent));
-            z-index: -1;
-            animation: spin 6s linear infinite;
-            opacity: 0.7;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .sb-name {
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            text-align: center;
-        }
-
-        .sb-role {
-            font-size: 0.75rem;
-            color: var(--text2);
-            margin-top: 0.2rem;
-            font-family: 'Fira Code', monospace;
-            text-align: center;
-        }
-
-        .sb-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            margin-top: 0.7rem;
-            padding: 0.25rem 0.7rem;
-            background: rgba(124, 58, 237, 0.14);
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            border-radius: 999px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--accent-l);
-        }
-
-        .sb-status::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #4ade80;
-            animation: blink 2s ease-in-out infinite;
-        }
-
-        @keyframes blink {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.4;
-            }
-        }
-
-        /* nav links */
-        .sb-nav {
-            flex: 1;
-            padding: 1.5rem 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-            overflow-y: auto;
-        }
-
-        .sb-link {
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.88rem;
-            font-weight: 500;
-            color: var(--text2);
-            transition: all var(--ease);
-            border: 1px solid transparent;
-            user-select: none;
-        }
-
-        .sb-link .icon {
-            font-size: 1.15rem;
-            width: 24px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .sb-link:hover {
-            color: var(--text);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .sb-link.active {
-            color: var(--accent-l);
-            background: rgba(124, 58, 237, 0.14);
-            border-color: rgba(124, 58, 237, 0.28);
-        }
-
-        .sb-link.active .icon {
-            filter: drop-shadow(0 0 6px var(--accent));
-        }
-
-        /* indicator bar */
-        .sb-link .bar {
-            margin-left: auto;
-            width: 3px;
-            height: 18px;
-            border-radius: 2px;
-            background: linear-gradient(180deg, var(--accent), var(--cyan));
-            opacity: 0;
-            transition: opacity var(--ease);
-        }
-
-        .sb-link.active .bar {
-            opacity: 1;
-        }
-
-        /* footer socials */
-        .sb-footer {
-            padding: 1rem 1.5rem 0;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 0.7rem;
-            justify-content: center;
-        }
-
-        .sb-social {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 34px;
-            height: 34px;
-            border-radius: 8px;
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            color: var(--text2);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: all var(--ease);
-        }
-
-        .sb-social:hover {
-            border-color: var(--border-h);
-            color: var(--accent-l);
-            background: rgba(124, 58, 237, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* ===== HAMBURGER (mobile) ===== */
-        #menu-toggle {
-            display: none;
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            z-index: 200;
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            width: 38px;
-            height: 38px;
-            cursor: pointer;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        #menu-toggle span {
-            display: block;
-            width: 18px;
-            height: 2px;
-            background: var(--text2);
-            border-radius: 2px;
-            transition: var(--ease);
-        }
-
-        /* ===== CONTENT AREA ===== */
-        #content {
-            flex: 1;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* background blobs */
-        .blobs {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(110px);
-            opacity: 0.12;
-            animation: drift 14s ease-in-out infinite alternate;
-        }
-
-        .b1 {
-            width: 500px;
-            height: 500px;
-            background: var(--accent);
-            top: -150px;
-            left: -100px;
-        }
-
-        .b2 {
-            width: 400px;
-            height: 400px;
-            background: var(--cyan);
-            bottom: -80px;
-            right: -80px;
-            animation-delay: -7s;
-        }
-
-        @keyframes drift {
-            from {
-                transform: translate(0, 0) scale(1);
-            }
-
-            to {
-                transform: translate(30px, 20px) scale(1.07);
-            }
-        }
-
-        /* panels */
-        .panel {
-            position: absolute;
-            inset: 0;
-            padding: 3rem 4rem;
-            overflow-y: auto;
-            opacity: 0;
-            transform: translateX(40px);
-            pointer-events: none;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            z-index: 1;
-        }
-
-        .panel.active {
-            opacity: 1;
-            transform: translateX(0);
-            pointer-events: auto;
-        }
-
-        /* ===== SHARED PANEL STYLES ===== */
-        .panel-label {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.75rem;
-            color: var(--accent-l);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 0.6rem;
-        }
-
-        .panel-title {
-            font-size: clamp(2rem, 4vw, 3.2rem);
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-        }
-
-        .panel-title .hl {
-            background: linear-gradient(135deg, var(--accent-l), var(--cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .panel-sub {
-            color: var(--text2);
-            max-width: 560px;
-            font-size: 1rem;
-            line-height: 1.75;
-            margin-bottom: 2.5rem;
-        }
-
-        /* === ABOUT PAGE === */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
-            align-items: start;
-        }
-
-        .info-chips {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.8rem;
-            margin-top: 1.8rem;
-        }
-
-        .chip {
-            padding: 0.85rem 1rem;
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-        }
-
-        .chip-label {
-            font-size: 0.68rem;
-            color: var(--text3);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.25rem;
-        }
-
-        .chip-val {
-            font-size: 0.88rem;
-            font-weight: 600;
-        }
-
-        .about-highlights {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .highlight-card {
-            padding: 1.4rem 1.5rem;
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            border-left: 3px solid var(--accent);
-            border-radius: var(--r);
-            transition: border-color var(--ease), background var(--ease);
-        }
-
-        .highlight-card:hover {
-            background: var(--bg4);
-            border-left-color: var(--cyan);
-        }
-
-        .hc-title {
-            font-size: 0.92rem;
-            font-weight: 700;
-            margin-bottom: 0.35rem;
-        }
-
-        .hc-desc {
-            font-size: 0.83rem;
-            color: var(--text2);
-            line-height: 1.6;
-        }
-
-        /* === SKILLS BAR SECTION === */
-        .skills-section {
-            margin-top: 2rem;
-        }
-
-        .skills-section-title {
-            font-size: 0.75rem;
-            font-family: 'Fira Code', monospace;
-            color: var(--accent-l);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .skill-group {
-            margin-bottom: 1.4rem;
-        }
-
-        .skill-group-label {
-            font-size: 0.78rem;
-            color: var(--text3);
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
-            margin-bottom: 0.6rem;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
-
-        /* === EXPERIENCE / TIMELINE === */
-        .timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            max-width: 720px;
-        }
-
-        .tl-item {
-            display: grid;
-            grid-template-columns: 120px 1px 1fr;
-            gap: 0 1.5rem;
-        }
-
-        .tl-date {
-            padding-top: 1.6rem;
-            text-align: right;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.75rem;
-            color: var(--text3);
-            line-height: 1.4;
-        }
-
-        .tl-line {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .tl-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: 2px solid var(--bg);
-            box-shadow: 0 0 0 3px var(--accent-glow);
-            flex-shrink: 0;
-            margin-top: 1.6rem;
-        }
-
-        .tl-connector {
-            width: 1px;
-            flex: 1;
-            background: linear-gradient(180deg, var(--accent), transparent);
-            margin-top: 4px;
-        }
-
-        .tl-item:last-child .tl-connector {
-            display: none;
-        }
-
-        .tl-body {
-            padding: 1rem 0 2.5rem;
-        }
-
-        .tl-company {
-            font-size: 0.72rem;
-            color: var(--accent-l);
-            font-family: 'Fira Code', monospace;
-            margin-bottom: 0.2rem;
-        }
-
-        .tl-role {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .tl-desc {
-            font-size: 0.85rem;
-            color: var(--text2);
-            line-height: 1.7;
-            margin-bottom: 0.8rem;
-        }
-
-        .tl-desc ul {
-            padding-left: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-        }
-
-        .tag {
-            padding: 0.18rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.72rem;
-            font-family: 'Fira Code', monospace;
-        }
-
-        .tag-purple {
-            background: rgba(124, 58, 237, 0.14);
-            border: 1px solid rgba(124, 58, 237, 0.25);
-            color: var(--accent-l);
-        }
-
-        .tag-cyan {
-            background: rgba(34, 211, 238, 0.1);
-            border: 1px solid rgba(34, 211, 238, 0.2);
-            color: var(--cyan);
-        }
-
-        /* === EDUCATION === */
-        .edu-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-            max-width: 680px;
-        }
-
-        .edu-card {
-            padding: 1.6rem;
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            border-radius: var(--r);
-            display: grid;
-            grid-template-columns: 56px 1fr;
-            gap: 1.2rem;
-            align-items: start;
-            transition: all var(--ease);
-        }
-
-        .edu-card:hover {
-            border-color: var(--border-h);
-            background: var(--bg4);
-            transform: translateX(4px);
-        }
-
-        .edu-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(34, 211, 238, 0.12));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            border: 1px solid var(--border);
-        }
-
-        .edu-degree {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-        }
-
-        .edu-school {
-            font-size: 0.85rem;
-            color: var(--accent-l);
-            margin-bottom: 0.4rem;
-            font-weight: 600;
-        }
-
-        .edu-year {
-            font-size: 0.75rem;
-            color: var(--text3);
-            font-family: 'Fira Code', monospace;
-            margin-bottom: 0.7rem;
-        }
-
-        .edu-desc {
-            font-size: 0.83rem;
-            color: var(--text2);
-            line-height: 1.6;
-        }
-
-        .edu-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            margin-bottom: 0.6rem;
-            padding: 0.2rem 0.6rem;
-            background: rgba(250, 204, 21, 0.1);
-            border: 1px solid rgba(250, 204, 21, 0.25);
-            border-radius: 4px;
-            font-size: 0.72rem;
-            font-weight: 600;
-            color: #facc15;
-            font-family: 'Fira Code', monospace;
-        }
-
-        /* === PROJECTS === */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.3rem;
-        }
-
-        .proj-card {
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            border-radius: var(--r);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: all var(--ease);
-            position: relative;
-        }
-
-        .proj-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent), var(--cyan));
-            transform: scaleX(0);
-            transition: transform var(--ease);
-        }
-
-        .proj-card:hover {
-            border-color: var(--border-h);
-            transform: translateY(-4px);
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .proj-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .proj-head {
-            padding: 1.4rem 1.5rem 1rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.9rem;
-        }
-
-        .proj-ico {
-            font-size: 1.6rem;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(124, 58, 237, 0.15);
-            border-radius: 8px;
-            flex-shrink: 0;
-        }
-
-        .proj-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-        }
-
-        .proj-type {
-            font-size: 0.72rem;
-            color: var(--text3);
-            font-family: 'Fira Code', monospace;
-        }
-
-        .proj-body {
-            padding: 0 1.5rem 1rem;
-            flex: 1;
-            font-size: 0.83rem;
-            color: var(--text2);
-            line-height: 1.65;
-        }
-
-        .proj-foot {
-            padding: 0.9rem 1.5rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .proj-link {
-            padding: 0.25rem 0.7rem;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            color: var(--text2);
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 600;
-            transition: all var(--ease);
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .proj-link:hover {
-            border-color: var(--accent-l);
-            color: var(--accent-l);
-        }
-
-        .proj-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            padding: 0.15rem 0.55rem;
-            border-radius: 4px;
-            font-size: 0.68rem;
-            font-family: 'Fira Code', monospace;
-            font-weight: 600;
-        }
-
-        .proj-status.ongoing {
-            background: rgba(34, 211, 238, 0.1);
-            border: 1px solid rgba(34, 211, 238, 0.2);
-            color: var(--cyan);
-        }
-
-        .proj-status.published {
-            background: rgba(74, 222, 128, 0.1);
-            border: 1px solid rgba(74, 222, 128, 0.2);
-            color: #4ade80;
-        }
-
-        /* === LANGUAGES === */
-        .languages-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 500px;
-        }
-
-        .lang-card {
-            padding: 1.2rem 1.5rem;
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            border-radius: var(--r);
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            transition: all var(--ease);
-        }
-
-        .lang-card:hover {
-            border-color: var(--border-h);
-            background: var(--bg4);
-        }
-
-        .lang-flag {
-            font-size: 2rem;
-            flex-shrink: 0;
-        }
-
-        .lang-info {
-            flex: 1;
-        }
-
-        .lang-name {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.15rem;
-        }
-
-        .lang-level {
-            font-size: 0.78rem;
-            color: var(--text2);
-            font-family: 'Fira Code', monospace;
-        }
-
-        .lang-bar-wrap {
-            height: 4px;
-            background: var(--bg4);
-            border-radius: 2px;
-            margin-top: 0.5rem;
-            overflow: hidden;
-        }
-
-        .lang-bar {
-            height: 100%;
-            border-radius: 2px;
-            background: linear-gradient(90deg, var(--accent), var(--cyan));
-        }
-
-        /* === COMMUNITY === */
-        .comm-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-            max-width: 700px;
-        }
-
-        .comm-card {
-            padding: 1.6rem;
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            border-radius: var(--r);
-            display: flex;
-            gap: 1.2rem;
-            align-items: flex-start;
-            transition: all var(--ease);
-        }
-
-        .comm-card:hover {
-            border-color: var(--border-h);
-            background: var(--bg4);
-        }
-
-        .comm-ico {
-            font-size: 1.8rem;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(34, 211, 238, 0.15), rgba(124, 58, 237, 0.1));
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            flex-shrink: 0;
-        }
-
-        .comm-title {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .comm-role {
-            font-size: 0.75rem;
-            color: var(--cyan);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            font-family: 'Fira Code', monospace;
-        }
-
-        .comm-desc {
-            font-size: 0.83rem;
-            color: var(--text2);
-            line-height: 1.65;
-        }
-
-        /* === HOBBIES === */
-        .hobbies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 1rem;
-            max-width: 760px;
-        }
-
-        .hobby-card {
-            padding: 1.8rem 1.4rem;
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            border-radius: var(--r);
-            text-align: center;
-            transition: all var(--ease);
-            cursor: default;
-        }
-
-        .hobby-card:hover {
-            border-color: var(--border-h);
-            background: var(--bg4);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-        }
-
-        .hobby-ico {
-            font-size: 2.4rem;
-            margin-bottom: 0.7rem;
-        }
-
-        .hobby-name {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 0.3rem;
-        }
-
-        .hobby-desc {
-            font-size: 0.77rem;
-            color: var(--text2);
-            line-height: 1.5;
-        }
-
-        /* ===== CALENDAR ===== */
-        .booking-section {
-            margin-top: 2.5rem;
-            max-width: 780px;
-        }
-
-        .booking-section-title {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.75rem;
-            color: var(--accent-l);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 1.2rem;
-        }
-
-        .cal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-
-        .cal-month-label {
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-
-        .cal-nav {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .cal-nav-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg3);
-            color: var(--text2);
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--ease);
-        }
-
-        .cal-nav-btn:hover {
-            border-color: var(--border-h);
-            color: var(--accent-l);
-            background: rgba(124, 58, 237, 0.1);
-        }
-
-        .cal-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-            min-height: 280px;
-        }
-
-        .cal-day-name {
-            text-align: center;
-            font-size: 0.7rem;
-            font-family: 'Fira Code', monospace;
-            color: var(--text3);
-            padding: 0.4rem 0;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-
-        .cal-cell {
-            aspect-ratio: 1;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.83rem;
-            font-weight: 500;
-            cursor: default;
-            transition: all var(--ease);
-            border: 1px solid transparent;
-            position: relative;
-        }
-
-        .cal-cell.empty {
-            background: transparent;
-        }
-
-        .cal-cell.past {
-            color: var(--text3);
-            background: transparent;
-        }
-
-        .cal-cell.weekend {
-            color: var(--text3);
-            background: transparent;
-        }
-
-        .cal-cell.today {
-            border-color: var(--accent);
-            color: var(--accent-l);
-            font-weight: 700;
-        }
-
-        .cal-cell.available {
-            background: var(--bg3);
-            border-color: var(--border);
-            color: var(--text);
-            cursor: pointer;
-        }
-
-        .cal-cell.available:hover {
-            background: rgba(124, 58, 237, 0.15);
-            border-color: var(--border-h);
-            color: var(--accent-l);
-            transform: scale(1.07);
-            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.2);
-        }
-
-        .cal-cell.booked {
-            background: rgba(34, 211, 238, 0.07);
-            border-color: rgba(34, 211, 238, 0.15);
-            color: var(--cyan);
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        .cal-cell .booked-dot {
-            position: absolute;
-            bottom: 5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: var(--cyan);
-        }
-
-        .cal-legend {
-            display: flex;
-            gap: 1.2rem;
-            margin-top: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-            font-size: 0.72rem;
-            color: var(--text2);
-            font-family: 'Fira Code', monospace;
-        }
-
-        .legend-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 3px;
-        }
-
-        /* ===== BOOKING MODAL ===== */
-        .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.75);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(4px);
-        }
-
-        .modal-backdrop.open {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal {
-            background: var(--bg2);
-            border: 1px solid var(--border-h);
-            border-radius: 18px;
-            width: min(480px, 90vw);
-            padding: 2rem;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(124, 58, 237, 0.1);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-backdrop.open .modal {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-        }
-
-        .modal-date {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.75rem;
-            color: var(--accent-l);
-            margin-top: 0.2rem;
-        }
-
-        .modal-close {
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            color: var(--text2);
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--ease);
-            flex-shrink: 0;
-        }
-
-        .modal-close:hover {
-            color: var(--text);
-            border-color: var(--border-h);
-        }
-
-        .slots-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .slot-btn {
-            padding: 0.55rem 0;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg3);
-            color: var(--text2);
-            font-family: 'Fira Code', monospace;
-            font-size: 0.78rem;
-            cursor: pointer;
-            transition: all var(--ease);
-            text-align: center;
-        }
-
-        .slot-btn:hover:not(:disabled) {
-            border-color: var(--border-h);
-            color: var(--accent-l);
-            background: rgba(124, 58, 237, 0.1);
-        }
-
-        .slot-btn.selected {
-            border-color: var(--accent);
-            background: rgba(124, 58, 237, 0.2);
-            color: var(--accent-l);
-            font-weight: 700;
-        }
-
-        .slot-btn:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-            text-decoration: line-through;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.75rem;
-            color: var(--text3);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.4rem;
-            font-family: 'Fira Code', monospace;
-        }
-
-        .form-input,
-        .form-textarea {
-            width: 100%;
-            background: var(--bg3);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 0.7rem 0.9rem;
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.88rem;
-            transition: border-color var(--ease);
-            outline: none;
-        }
-
-        .form-input:focus,
-        .form-textarea:focus {
-            border-color: var(--border-h);
-        }
-
-        .form-input.error,
-        .form-textarea.error {
-            border-color: #f87171;
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .form-error {
-            font-size: 0.72rem;
-            color: #f87171;
-            margin-top: 0.3rem;
-            display: none;
-        }
-
-        .form-error.show {
-            display: block;
-        }
-
-        .btn-book {
-            width: 100%;
-            padding: 0.85rem;
-            border-radius: 10px;
-            border: none;
-            background: linear-gradient(135deg, var(--accent), #5b21b6);
-            color: #fff;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all var(--ease);
-            margin-top: 0.5rem;
-            letter-spacing: 0.02em;
-        }
-
-        .btn-book:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
-        }
-
-        .btn-book:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .modal-success {
-            display: none;
-            text-align: center;
-            padding: 1rem 0;
-        }
-
-        .modal-success.show {
-            display: block;
-        }
-
-        .success-ico {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .success-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-
-        .success-desc {
-            font-size: 0.85rem;
-            color: var(--text2);
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .btn-gcal {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.7rem 1.3rem;
-            border-radius: 8px;
-            border: 1px solid rgba(34, 211, 238, 0.3);
-            background: rgba(34, 211, 238, 0.08);
-            color: var(--cyan);
-            text-decoration: none;
-            font-size: 0.82rem;
-            font-weight: 600;
-            transition: all var(--ease);
-        }
-
-        .btn-gcal:hover {
-            background: rgba(34, 211, 238, 0.15);
-            border-color: rgba(34, 211, 238, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .slot-required-msg {
-            font-size: 0.75rem;
-            color: #f87171;
-            margin-bottom: 0.8rem;
-            display: none;
-            font-family: 'Fira Code', monospace;
-        }
-
-        .slot-required-msg.show {
-            display: block;
-        }
-
-        /* ===== RESPONSIVE =====
- */
-        @media (max-width: 860px) {
-            #menu-toggle {
-                display: flex;
-            }
-
-            #sidebar {
-                position: fixed;
-                left: 0;
-                top: 0;
-                bottom: 0;
-                transform: translateX(-100%);
-                z-index: 100;
-                box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5);
-            }
-
-            #sidebar.open {
-                transform: translateX(0);
-            }
-
-            .panel {
-                padding: 4.5rem 1.5rem 2rem;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .tl-date {
-                display: none;
-            }
-
-            .tl-item {
-                grid-template-columns: 14px 1fr;
-                gap: 0 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Gaurav Kumar Mishra</title>
+  <meta name="author" content="Gaurav Kumar Mishra" />
+  <meta name="description" content="Portfolio of Gaurav Kumar Mishra, hardware developer and M.Sc. ICT student at FAU Erlangen-Nürnberg." />
+  <meta name="keywords" content="hardware developer, embedded systems, IC design, Salesforce, PCB, portfolio" />
+
+  <!-- Preload profile photo above the fold -->
+  <link rel="preload" as="image" href="profile_pic.jpg" />
+  <!-- Prefetch likely-next pages so navigation feels instant -->
+  <link rel="prefetch" href="/projects/" />
+  <link rel="prefetch" href="/courses/" />
+  <!-- DNS prefetch for external resources -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..900&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --primary: #1f3a57; --primary-hover: #173049; --on-primary: #fff;
+      --primary-container: #d9e5f2; --on-primary-container: #0a2540;
+      --secondary: #2e5c8a; --surface: #fafbfd;
+      --surface-container-lowest: #fff; --surface-container-low: #f5f7fa;
+      --surface-container: #edf1f6; --surface-container-high: #e5ebf2;
+      --on-surface: #14181e; --on-surface-variant: #4b5663; --on-surface-faint: #8693a3;
+      --outline: #b7bfc8; --outline-variant: #d9dee5; --success: #1e7f4f;
+      --font-display: 'Roboto Flex','Roboto',system-ui,sans-serif;
+      --font-body: 'Roboto',system-ui,sans-serif;
+      --font-mono: 'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+      --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+    }
+    html, body { margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--on-surface); -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.55; }
+    a { color: inherit; text-decoration: none !important; }
+
+    /* GRID BG */
+    .grid-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(to right,rgba(31,58,87,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(31,58,87,0.04) 1px,transparent 1px); background-size: 96px 96px; mask-image: linear-gradient(to bottom,black 0,black 60%,transparent 100%); }
+
+    /* TOPBAR */
+    .topbar { position: sticky; top: 0; z-index: 50; }
+    .topbar-inner { max-width: 1240px; margin: 0 auto; padding: 14px 32px; display: flex; justify-content: center; align-items: center; }
+    .nav { display: inline-flex; gap: 2px; padding: 5px; background: var(--surface-container); border-radius: 999px; box-shadow: 0 10px 28px -18px rgba(31,58,87,0.45); }
+    .nav a { padding: 10px 22px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--on-surface-variant); transition: background 0.15s, color 0.15s; white-space: nowrap; }
+    .nav a:hover { color: var(--on-surface); background: color-mix(in oklab,var(--primary) 10%,transparent); }
+    .nav a.active { background: var(--primary-container); color: var(--on-primary-container); }
+
+    main { position: relative; z-index: 1; }
+
+    /* HERO */
+    .hero { max-width: 1240px; margin: 0 auto; padding: 60px 32px 52px; display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: start; }
+    .hero-text h1 { font-family: var(--font-display); font-variation-settings: "opsz" 96,"wght" 700; font-size: clamp(32px,4.5vw,60px); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 16px; color: var(--on-surface); }
+    .hero-text h1 .name-line { display: block; }
+    .hero-keywords { display: flex; flex-wrap: wrap; gap: 6px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--on-surface-faint); letter-spacing: 0.04em; margin-bottom: 20px; }
+    .hero-keywords .dot-sep { color: var(--outline); }
+    .hero-lede { color: var(--on-surface-variant); max-width: 540px; font-size: 16px; line-height: 1.7; margin-bottom: 28px; }
+    .hero-lede strong { color: var(--on-surface); }
+    .lede-mark { color: var(--secondary); font-weight: 500; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: 999px; font-size: 14px; font-weight: 500; font-family: var(--font-body); transition: all 0.15s; cursor: pointer; border: none; }
+    .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .btn.tonal { background: var(--primary-container); color: var(--on-primary-container); }
+    .btn.tonal:hover { background: color-mix(in oklab,var(--primary-container) 80%,var(--primary)); }
+    .btn.outline { background: transparent; color: var(--on-surface-variant); border: 1px solid var(--outline-variant); }
+    .btn.outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* PORTRAIT */
+    .portrait { border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--outline-variant); }
+    .portrait-img { width: 100%; aspect-ratio: 3/2; background: var(--surface-container); overflow: hidden; }
+    .portrait-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .portrait-caption { padding: 12px 14px; background: var(--surface-container-low); border-top: 1px solid var(--outline-variant); font-family: var(--font-mono); font-size: 11px; color: var(--on-surface-faint); display: flex; flex-direction: column; gap: 3px; }
+    .portrait-caption .who { color: var(--on-surface); font-weight: 500; font-size: 12px; }
+    .status-line { display: flex; justify-content: flex-end; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--on-surface-faint); margin-bottom: 8px; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: blink 2s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+    /* SPEC STRIP */
+    .spec-strip { border-top: 1px solid var(--outline-variant); border-bottom: 1px solid var(--outline-variant); background: var(--surface-container-low); }
+    .spec-strip-inner { max-width: 1240px; margin: 0 auto; padding: 0 32px; display: flex; }
+    .spec { padding: 18px 28px 18px 0; flex: 1; border-right: 1px solid var(--outline-variant); }
+    .spec:last-child { border-right: none; padding-right: 0; }
+    .spec:not(:first-child) { padding-left: 28px; }
+    .spec-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 4px; }
+    .spec-value { font-size: 14px; font-weight: 500; color: var(--on-surface); }
+    .spec-value .sub { color: var(--on-surface-faint); font-weight: 400; }
+
+    /* SECTIONS */
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+    .section { padding: 56px 0; border-bottom: 1px solid var(--outline-variant); }
+    .section-head { margin-bottom: 32px; }
+    .section-id { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 8px; }
+    .section-title { font-family: var(--font-display); font-variation-settings: "opsz" 48,"wght" 600; font-size: clamp(22px,2.8vw,34px); line-height: 1.15; letter-spacing: -0.01em; color: var(--on-surface); max-width: 60ch; }
+    .section-aside { font-family: var(--font-mono); font-size: 12px; color: var(--on-surface-faint); margin-top: 8px; }
+    .section-aside a { color: var(--primary); }
+
+    /* LEDGER / TIMELINE */
+    .ledger { display: flex; flex-direction: column; }
+    .ledger-head { display: grid; grid-template-columns: 80px 1fr 100px; padding: 0 0 10px; border-bottom: 1px solid var(--outline-variant); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-surface-faint); }
+    .ledger-head .right { text-align: right; }
+    .entry { display: grid; grid-template-columns: 80px 1fr 100px; gap: 0 24px; padding: 24px 0; border-bottom: 1px solid var(--outline-variant); align-items: start; }
+    .entry:last-child { border-bottom: none; }
+    .entry.current .entry-year { color: var(--primary); }
+    .entry-year { font-family: var(--font-display); font-variation-settings: "opsz" 32,"wght" 700; font-size: 18px; color: var(--on-surface-variant); line-height: 1; }
+    .entry-year .range { display: block; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; color: var(--on-surface-faint); margin-top: 4px; font-weight: 400; font-variation-settings: normal; }
+    .entry-kind { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--on-surface-faint); margin-bottom: 4px; }
+    .entry-title { font-family: var(--font-display); font-variation-settings: "opsz" 32,"wght" 600; font-size: 17px; color: var(--on-surface); margin: 0 0 2px; line-height: 1.25; }
+    .entry-org { font-size: 14px; color: var(--secondary); font-weight: 500; margin-bottom: 2px; }
+    .entry-loc { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 8px; }
+    .entry-summary { font-size: 14px; color: var(--on-surface-variant); line-height: 1.65; margin-bottom: 10px; }
+    .entry-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .entry-tags span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; padding: 2px 8px; border-radius: var(--r-xs); border: 1px solid var(--outline-variant); background: var(--surface-container-low); color: var(--on-surface-variant); }
+    .entry-aside { text-align: right; padding-top: 2px; display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+    .duration { font-family: var(--font-mono); font-size: 12px; color: var(--on-surface-faint); }
+    .status { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 10.5px; color: var(--success); }
+    .status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); animation: blink 2s ease-in-out infinite; }
+
+    /* PROJECTS GRID */
+    .proj-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .proj { border: 1px solid var(--outline-variant); border-radius: var(--r-lg); background: var(--surface-container-lowest); overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.2s,transform 0.2s; }
+    .proj:hover { box-shadow: 0 8px 28px rgba(31,58,87,0.12); transform: translateY(-2px); }
+    .proj-cover { position: relative; overflow: hidden; background: var(--surface-container-low); }
+    .proj-cover svg { display: block; width: 100%; }
+    .proj-meta { position: absolute; top: 12px; left: 12px; display: flex; gap: 5px; flex-wrap: wrap; }
+    .proj-meta .tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; padding: 3px 8px; border-radius: 999px; background: var(--primary); color: var(--on-primary); font-weight: 500; }
+    .proj .proj-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .proj h3 { font-family: var(--font-display); font-variation-settings: "opsz" 32,"wght" 600; font-size: 16px; color: var(--on-surface); letter-spacing: -0.01em; margin: 0; }
+    .proj p { font-size: 13.5px; color: var(--on-surface-variant); line-height: 1.65; flex: 1; }
+    .proj-stack { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+    .proj-stack span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.03em; padding: 2px 7px; border-radius: var(--r-xs); background: var(--surface-container); border: 1px solid var(--outline-variant); color: var(--on-surface-variant); }
+    .proj-link-row { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-top: 1px solid var(--outline-variant); }
+    .proj-link { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--primary); display: inline-flex; align-items: center; gap: 5px; transition: color 0.15s; }
+    .proj-link svg { width: 12px; height: 12px; }
+    .proj-status-chip { margin-left: auto; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 999px; }
+    .proj-status-chip.ongoing { background: color-mix(in oklab,#2e5c8a 12%,transparent); color: var(--secondary); border: 1px solid color-mix(in oklab,#2e5c8a 28%,transparent); }
+    .proj-status-chip.published { background: color-mix(in oklab,#1e7f4f 12%,transparent); color: var(--success); border: 1px solid color-mix(in oklab,#1e7f4f 28%,transparent); }
+
+    /* COURSES */
+    .courses-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .course-group { border: 1px solid var(--outline-variant); border-radius: var(--r-lg); background: var(--surface-container-lowest); overflow: hidden; }
+    .course-group-head { padding: 14px 18px; background: var(--surface-container-low); border-bottom: 1px solid var(--outline-variant); display: flex; align-items: center; gap: 10px; }
+    .course-group-head .cg-icon { font-size: 1.3rem; }
+    .course-group-head .cg-title { font-family: var(--font-display); font-variation-settings: "opsz" 32,"wght" 600; font-size: 15px; color: var(--on-surface); }
+    .course-group-head .cg-sub { font-family: var(--font-mono); font-size: 10px; color: var(--on-surface-faint); letter-spacing: 0.06em; margin-left: auto; }
+    .course-list { padding: 6px 0; }
+    .course-item { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 10px 18px; border-bottom: 1px solid var(--outline-variant); align-items: start; transition: background 0.15s; }
+    .course-item:last-child { border-bottom: none; }
+    .course-item:hover { background: var(--surface-container-low); }
+    .course-name { font-size: 13.5px; color: var(--on-surface); font-weight: 500; line-height: 1.4; }
+    .course-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; padding: 2px 7px; border-radius: var(--r-xs); background: var(--surface-container); border: 1px solid var(--outline-variant); color: var(--on-surface-faint); white-space: nowrap; align-self: start; margin-top: 2px; }
+    .course-tag.done { background: var(--primary-container); border-color: color-mix(in oklab,var(--primary) 22%,transparent); color: var(--on-primary-container); }
+
+    /* COMMUNITY */
+    .comm-grid { display: flex; flex-direction: column; gap: 1px; border: 1px solid var(--outline-variant); border-radius: var(--r-lg); background: var(--outline-variant); overflow: hidden; }
+    .comm-card { display: flex; gap: 18px; padding: 20px 22px; background: var(--surface-container-lowest); align-items: flex-start; transition: background 0.15s; }
+    .comm-card:hover { background: var(--surface-container-low); }
+    .comm-ico { font-size: 1.6rem; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg,var(--primary-container),var(--surface-container)); border: 1px solid var(--outline-variant); border-radius: 10px; flex-shrink: 0; }
+    .comm-body { flex: 1; min-width: 0; }
+    .comm-title { font-size: 15px; font-weight: 700; color: var(--on-surface); margin-bottom: 2px; }
+    .comm-role { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; color: var(--secondary); margin-bottom: 6px; }
+    .comm-desc { font-size: 13.5px; color: var(--on-surface-variant); line-height: 1.65; }
+
+    /* SKILLS */
+    .skills { display: flex; flex-direction: column; }
+    .skill-row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: start; padding: 18px 0; border-bottom: 1px solid var(--outline-variant); }
+    .skill-row:last-child { border-bottom: none; }
+    .skill-cat { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-faint); padding-top: 4px; display: flex; gap: 8px; align-items: baseline; }
+    .skill-cat .idx { font-size: 9px; }
+    .skill-vals { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { font-family: var(--font-body); font-size: 13px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--outline-variant); background: var(--surface-container-low); color: var(--on-surface-variant); transition: all 0.15s; }
+    .chip.solid { background: var(--primary-container); color: var(--on-primary-container); border-color: color-mix(in oklab,var(--primary) 20%,transparent); }
+
+    /* CONTACT / FOOTER */
+    .contact { border-top: 1px solid var(--outline-variant); padding: 56px 0 40px; background: var(--surface-container-low); }
+    .contact-inner { max-width: 1240px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: start; }
+    .contact h2 { font-family: var(--font-display); font-variation-settings: "opsz" 96,"wght" 500; font-size: clamp(26px,3.2vw,42px); line-height: 1.05; letter-spacing: -0.02em; color: var(--on-surface); margin: 0 0 14px; }
+    .contact h2 a { color: var(--primary); border-bottom: 2px solid color-mix(in oklab,var(--primary) 40%,transparent); }
+    .contact h2 a:hover { border-color: var(--primary); }
+    .contact > .contact-inner > div > p { color: var(--on-surface-variant); max-width: 50ch; margin: 0; }
+    .contact-links { display: grid; gap: 1px; background: var(--outline-variant); border: 1px solid var(--outline-variant); border-radius: var(--r-sm); overflow: hidden; }
+    .contact-link { display: grid; grid-template-columns: 88px 1fr auto; gap: 16px; padding: 11px 16px; background: var(--surface-container-lowest); align-items: center; transition: background 0.15s; }
+    .contact-link:hover { background: var(--surface-container); }
+    .contact-link .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; color: var(--on-surface-faint); text-transform: uppercase; }
+    .contact-link .v { font-size: 14px; color: var(--on-surface); font-weight: 500; }
+    .contact-link .arrow { font-family: var(--font-mono); color: var(--on-surface-faint); }
+    .contact-link:hover .arrow { color: var(--primary); }
+    .footnote { max-width: 1240px; margin: 32px auto 0; padding: 0 32px 16px; font-family: var(--font-mono); font-size: 11px; color: var(--on-surface-faint); letter-spacing: 0.04em; }
+
+    /* CALENDAR */
+    .booking-section { margin-top: 2.5rem; max-width: 720px; }
+    .booking-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 1.2rem; }
+    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .cal-month-label { font-family: var(--font-display); font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+    .cal-nav { display: flex; gap: 0.5rem; }
+    .cal-nav-btn { width: 32px; height: 32px; border-radius: var(--r-sm); border: 1px solid var(--outline-variant); background: var(--surface-container-lowest); color: var(--on-surface-variant); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .cal-nav-btn:hover { border-color: var(--primary); color: var(--primary); background: color-mix(in oklab,var(--primary) 8%,transparent); }
+    .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; min-height: 240px; }
+    .cal-day-name { text-align: center; font-family: var(--font-mono); font-size: 10px; color: var(--on-surface-faint); padding: 0.4rem 0; text-transform: uppercase; letter-spacing: 0.06em; }
+    .cal-cell { aspect-ratio: 1; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; cursor: default; transition: all 0.15s; border: 1px solid transparent; position: relative; }
+    .cal-cell.empty { background: transparent; }
+    .cal-cell.past,.cal-cell.weekend { color: var(--outline); background: transparent; }
+    .cal-cell.today { border-color: var(--primary); color: var(--primary); font-weight: 700; }
+    .cal-cell.available { background: var(--surface-container-lowest); border-color: var(--outline-variant); color: var(--on-surface); cursor: pointer; }
+    .cal-cell.available:hover { background: var(--primary-container); border-color: color-mix(in oklab,var(--primary) 30%,transparent); color: var(--on-primary-container); transform: scale(1.07); }
+    .cal-cell.booked { background: var(--surface-container); border-color: var(--outline-variant); color: var(--on-surface-faint); cursor: not-allowed; opacity: 0.6; }
+    .cal-cell .booked-dot { position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--secondary); }
+    .cal-legend { display: flex; gap: 1.2rem; margin-top: 0.8rem; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 0.35rem; font-size: 11px; color: var(--on-surface-faint); font-family: var(--font-mono); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+    /* MODAL */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(20,24,30,0.6); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(4px); }
+    .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+    .modal { background: var(--surface-container-lowest); border: 1px solid var(--outline-variant); border-radius: 18px; width: min(480px,90vw); padding: 2rem; box-shadow: 0 24px 80px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
+    .modal-backdrop.open .modal { transform: translateY(0); }
+    .modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; }
+    .modal-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--on-surface); }
+    .modal-date { font-family: var(--font-mono); font-size: 11px; color: var(--primary); margin-top: 0.2rem; }
+    .modal-close { width: 30px; height: 30px; border-radius: var(--r-sm); background: var(--surface-container); border: 1px solid var(--outline-variant); color: var(--on-surface-variant); cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .modal-close:hover { color: var(--on-surface); border-color: var(--outline); }
+    .slots-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-bottom: 1.5rem; }
+    .slot-btn { padding: 0.55rem 0; border-radius: var(--r-sm); border: 1px solid var(--outline-variant); background: var(--surface-container-lowest); color: var(--on-surface-variant); font-family: var(--font-mono); font-size: 12px; cursor: pointer; transition: all 0.15s; text-align: center; }
+    .slot-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: var(--primary-container); }
+    .slot-btn.selected { border-color: var(--primary); background: var(--primary-container); color: var(--on-primary-container); font-weight: 700; }
+    .slot-btn:disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
+    .form-group { margin-bottom: 1rem; }
+    .form-label { display: block; font-size: 11px; color: var(--on-surface-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; font-family: var(--font-mono); }
+    .form-input,.form-textarea { width: 100%; background: var(--surface-container-lowest); border: 1px solid var(--outline-variant); border-radius: var(--r-sm); padding: 0.7rem 0.9rem; color: var(--on-surface); font-family: var(--font-body); font-size: 14px; transition: border-color 0.15s; outline: none; }
+    .form-input:focus,.form-textarea:focus { border-color: var(--primary); }
+    .form-input.error,.form-textarea.error { border-color: #dc2626; }
+    .form-textarea { resize: vertical; min-height: 80px; }
+    .form-error { font-size: 11px; color: #dc2626; margin-top: 0.3rem; display: none; }
+    .form-error.show { display: block; }
+    .btn-book { width: 100%; padding: 0.85rem; border-radius: var(--r-md); border: none; background: var(--primary); color: var(--on-primary); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s; margin-top: 0.5rem; }
+    .btn-book:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-1px); }
+    .btn-book:disabled { opacity: 0.6; cursor: not-allowed; }
+    .modal-success { display: none; text-align: center; padding: 1rem 0; }
+    .modal-success.show { display: block; }
+    .success-ico { font-size: 2.5rem; margin-bottom: 1rem; }
+    .success-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--on-surface); }
+    .success-desc { font-size: 13px; color: var(--on-surface-variant); line-height: 1.7; margin-bottom: 1.5rem; }
+    .btn-gcal { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.3rem; border-radius: var(--r-sm); border: 1px solid color-mix(in oklab,var(--primary) 30%,transparent); background: var(--primary-container); color: var(--on-primary-container); font-size: 13px; font-weight: 600; transition: all 0.15s; }
+    .btn-gcal:hover { background: color-mix(in oklab,var(--primary-container) 70%,var(--primary)); }
+    .slot-required-msg { font-size: 11px; color: #dc2626; margin-bottom: 0.8rem; display: none; font-family: var(--font-mono); }
+    .slot-required-msg.show { display: block; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero aside { order: -1; max-width: 280px; }
+      .ledger-head,.entry { grid-template-columns: 60px 1fr; }
+      .ledger-head .right,.entry-aside { display: none; }
+      .proj-grid { grid-template-columns: 1fr 1fr; }
+      .courses-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 32px; }
+      .skill-row { grid-template-columns: 1fr; gap: 10px; }
+    }
+    @media (max-width: 640px) {
+      .topbar-inner { padding: 10px 16px; }
+      .nav a { padding: 9px 14px; font-size: 13px; }
+      .hero { padding: 36px 20px 32px; }
+      .wrap { padding: 0 20px; }
+      .spec-strip-inner { flex-direction: column; }
+      .spec { border-right: none; border-bottom: 1px solid var(--outline-variant); padding: 14px 0; }
+      .spec:last-child { border-bottom: none; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .contact-inner,.footnote { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
 </head>
-
 <body>
 
-    <!-- Hamburger (mobile) -->
-    <button id="menu-toggle" aria-label="Toggle menu" onclick="toggleSidebar()">
-        <span></span><span></span><span></span>
-    </button>
+<div class="grid-bg"></div>
 
-    <!-- ===== SIDEBAR ===== -->
-    <aside id="sidebar">
+<header class="topbar">
+  <div class="topbar-inner">
+    <nav class="nav" id="main-nav">
+      <a href="/" class="active" data-section="home">Home</a>
+      <a href="/projects/" data-section="projects">Projects</a>
+      <a href="/courses/">Courses</a>
+      <a href="/community/">Community</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </div>
+</header>
 
-        <div class="sb-profile">
-            <div class="sb-avatar">
-                <img src="profile_pic.jpg" alt="Gaurav Kumar Mishra"
-                    style="width:100%;height:100%;object-fit:cover;border-radius:50%;"
-                    onerror="this.style.display='none';this.parentElement.textContent='GK';" />
-            </div>
-            <div class="sb-name">Gaurav Kumar Mishra</div>
-            <div class="sb-role">&lt;HW Developer&gt;</div>
-            <div class="sb-status">Open to Work</div>
+<main id="home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>
+        <span class="name-line">Gaurav Kumar Mishra.</span>
+        Master of Science in <em>Information&nbsp;and Communications</em> Technology.
+      </h1>
+      <div class="hero-keywords" aria-label="Focus areas">
+        <span>Hardware Design</span>
+        <span class="dot-sep" aria-hidden="true">·</span>
+        <span>Embedded Systems</span>
+        <span class="dot-sep" aria-hidden="true">·</span>
+        <span>IC Design</span>
+        <span class="dot-sep" aria-hidden="true">·</span>
+        <span>Salesforce</span>
+        <span class="dot-sep" aria-hidden="true">·</span>
+        <span>IoT</span>
+      </div>
+      <p class="hero-lede">
+        Right now, I'm at <strong>FAU Erlangen-Nürnberg</strong>, working as a student in the
+        <strong>Hardware Development Team at Siemens Healthineers</strong>.
+        <span class="lede-mark"> Open to R&amp;D opportunities in Hardware Engineering, Embedded Systems, and IC Design.</span>
+      </p>
+      <div class="cta-row">
+        <a class="btn tonal" href="/projects/">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Projects
+        </a>
+        <a class="btn outline" href="https://github.com/gaurav-mk" rel="external nofollow noopener" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5.5 5.7.5 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1-.3 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a class="btn outline" href="https://linkedin.com/in/gaurav-25" rel="external nofollow noopener" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <aside aria-label="Profile" style="display:flex;flex-direction:column;gap:10px;">
+      <div class="status-line">
+        <span class="status-dot"></span>
+        <span>Currently working · Erlangen</span>
+      </div>
+      <div class="portrait">
+        <div class="portrait-img">
+          <img src="profile_pic.jpg" alt="Gaurav Kumar Mishra" loading="eager" />
         </div>
-
-        <nav class="sb-nav" role="navigation">
-            <div class="sb-link active" onclick="showPanel('about')" id="nav-about">
-                <span class="icon">👤</span> About
-                <span class="bar"></span>
-            </div>
-            <div class="sb-link" onclick="showPanel('experience')" id="nav-experience">
-                <span class="icon">💼</span> Experience
-                <span class="bar"></span>
-            </div>
-            <div class="sb-link" onclick="showPanel('education')" id="nav-education">
-                <span class="icon">🎓</span> Education
-                <span class="bar"></span>
-            </div>
-            <div class="sb-link" onclick="showPanel('projects')" id="nav-projects">
-                <span class="icon">🚀</span> Projects
-                <span class="bar"></span>
-            </div>
-            <div class="sb-link" onclick="showPanel('community')" id="nav-community">
-                <span class="icon">🌐</span> Community
-                <span class="bar"></span>
-            </div>
-            <div class="sb-link" onclick="showPanel('hobbies')" id="nav-hobbies">
-                <span class="icon">🎮</span> Hobbies
-                <span class="bar"></span>
-            </div>
-            <div class="sb-link" onclick="showPanel('contact')" id="nav-contact">
-                <span class="icon">✉️</span> Contact Me
-                <span class="bar"></span>
-            </div>
-        </nav>
-
-        <div class="sb-footer">
-            <a href="https://github.com/gaurav-mk" target="_blank" rel="noopener" class="sb-social" title="GitHub">
-                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                </svg>
-            </a>
-            <a href="https://linkedin.com/in/gaurav-25" target="_blank" rel="noopener" class="sb-social"
-                title="LinkedIn">
-                <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-            </a>
-            <a href="mailto:mgaurav682@gmail.com" class="sb-social" title="Email">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-            </a>
+        <div class="portrait-caption">
+          <span class="who">Gaurav Kumar Mishra</span>
+          <span>EE → HW &amp; SW</span>
+          <span class="focus">Gold medalist in EE, now building hardware at Siemens and exploring RF at FAU.</span>
         </div>
+      </div>
     </aside>
+  </section>
 
-    <!-- ===== CONTENT ===== -->
-    <div id="content">
-        <div class="blobs" aria-hidden="true">
-            <div class="blob b1"></div>
-            <div class="blob b2"></div>
+  <!-- SPEC STRIP -->
+  <div class="spec-strip">
+    <div class="spec-strip-inner">
+      <div class="spec"><div class="spec-label">Based</div><div class="spec-value">Erlangen, DE</div></div>
+      <div class="spec"><div class="spec-label">Working</div><div class="spec-value">Siemens Healthineers <span class="sub">/ HW Dev</span></div></div>
+      <div class="spec"><div class="spec-label">Studying</div><div class="spec-value">M.Sc. ICT <span class="sub">/ FAU</span></div></div>
+      <div class="spec"><div class="spec-label">Tinkering with</div><div class="spec-value">BLE–mioty module <span class="sub">/ KiCad</span></div></div>
+    </div>
+  </div>
+
+  <!-- §01 TIMELINE -->
+  <section class="wrap section" id="timeline">
+    <div class="section-head">
+      <div class="section-id">§ 01 · Timeline</div>
+      <h2 class="section-title">Where I've studied, worked, and learned the next thing.</h2>
+    </div>
+    <div class="ledger">
+      <div class="ledger-head"><div>When</div><div>Role &amp; Scope</div><div class="right">Duration</div></div>
+
+      <article class="entry current">
+        <div class="entry-when"><div class="entry-year">2024<span class="range">SEP'24 – PRESENT</span></div></div>
+        <div class="entry-main">
+          <span class="entry-kind">Work · Working Student</span>
+          <h3 class="entry-title">Hardware Development</h3>
+          <div class="entry-org">Siemens Healthineers</div>
+          <div class="entry-loc">ERLANGEN, DE</div>
+          <p class="entry-summary">POCs using circuit design simulations for gate drivers and MOSFETs. High-voltage RF isolation for monolithic integration, PCB design and component placement, programmed analog RF receivers in VHDL.</p>
+          <div class="entry-tags"><span>PSpice</span><span>KiCad</span><span>VHDL</span><span>MATLAB</span><span>Xpedition</span><span>Python</span></div>
         </div>
+        <div class="entry-aside"><span class="duration">~1 yr</span><span class="status"><span class="dot"></span> Now</span></div>
+      </article>
 
-        <!-- ── ABOUT ── -->
-        <section class="panel active" id="panel-about">
-            <div class="panel-label">// about me</div>
-            <h1 class="panel-title">Hi, I'm <span class="hl">Gaurav.</span></h1>
-            <p class="panel-sub">
-                Ambitious tech professional bridging hardware engineering and software development.
-                M.S. ICT student at FAU Erlangen 🇩🇪 — passionate about advancing technology and positively impacting
-                society and the environment.
-            </p>
-
-            <div class="about-grid">
-                <div>
-                    <p style="color:var(--text2);font-size:0.95rem;line-height:1.8;margin-bottom:1rem;">
-                        I thrive at the intersection of <strong style="color:var(--text)">hardware and
-                            software</strong>.
-                        From designing RF isolation circuits at Siemens Healthineers to building Salesforce supply-chain
-                        systems at Deloitte,
-                        I bring a full-stack perspective to every challenge.
-                    </p>
-                    <p style="color:var(--text2);font-size:0.95rem;line-height:1.8;">
-                        Gold Medalist (9.8/10 GPA) in my bachelor's, Star of Excellence awardee, and 2× Applause awardee
-                        at Deloitte.
-                        I lead with ownership and deliver with precision.
-                    </p>
-                    <div class="info-chips">
-                        <div class="chip">
-                            <div class="chip-label">Location</div>
-                            <div class="chip-val">📍 Erlangen, Germany</div>
-                        </div>
-                        <div class="chip">
-                            <div class="chip-label">Status</div>
-                            <div class="chip-val">🟢 Open to Work</div>
-                        </div>
-                        <div class="chip">
-                            <div class="chip-label">Focus</div>
-                            <div class="chip-val">⚡ HW + SW Engineering</div>
-                        </div>
-                        <div class="chip">
-                            <div class="chip-label">Contact</div>
-                            <div class="chip-val">📧 mgaurav682</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-highlights">
-                    <div class="highlight-card">
-                        <div class="hc-title">🔌 Hardware Development</div>
-                        <div class="hc-desc">Circuit design, PCB layout, RF isolation, VHDL — building reliable hardware
-                            systems at Siemens Healthineers.</div>
-                    </div>
-                    <div class="highlight-card">
-                        <div class="hc-title">☁️ Cloud & CRM Engineering</div>
-                        <div class="hc-desc">Salesforce (Apex, LWC, SOQL), Snowflake, Mulesoft, Azure — enterprise-scale
-                            supply chain systems for Pfizer.</div>
-                    </div>
-                    <div class="highlight-card">
-                        <div class="hc-title">🔬 IC Design & Research</div>
-                        <div class="hc-desc">7nm FinFET standard cell libraries, PDK, radiation hardening — bridging
-                            semiconductor theory and real-world application.</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Skills -->
-            <div class="skills-section">
-                <div class="skills-section-title">// skills & tools</div>
-                <div class="skill-group">
-                    <div class="skill-group-label">Hardware & EDA</div>
-                    <div class="skill-tags">
-                        <span class="tag tag-purple">PSpice</span>
-                        <span class="tag tag-purple">KiCad</span>
-                        <span class="tag tag-purple">Xpedition</span>
-                        <span class="tag tag-purple">Tina TI</span>
-                        <span class="tag tag-cyan">VHDL</span>
-                        <span class="tag tag-cyan">MATLAB</span>
-                        <span class="tag tag-cyan">PDK</span>
-                        <span class="tag tag-cyan">LabVIEW</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <div class="skill-group-label">Salesforce & Cloud</div>
-                    <div class="skill-tags">
-                        <span class="tag tag-purple">Apex</span>
-                        <span class="tag tag-purple">LWC</span>
-                        <span class="tag tag-purple">Visualforce</span>
-                        <span class="tag tag-cyan">Snowflake</span>
-                        <span class="tag tag-cyan">Mulesoft</span>
-                        <span class="tag tag-cyan">Azure</span>
-                        <span class="tag tag-purple">Power BI</span>
-                        <span class="tag tag-cyan">REST/SOAP</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <div class="skill-group-label">Programming & DevOps</div>
-                    <div class="skill-tags">
-                        <span class="tag tag-purple">Python</span>
-                        <span class="tag tag-purple">C/C++</span>
-                        <span class="tag tag-purple">JavaScript</span>
-                        <span class="tag tag-cyan">HTML/CSS</span>
-                        <span class="tag tag-cyan">SOQL</span>
-                        <span class="tag tag-purple">Git</span>
-                        <span class="tag tag-cyan">Jenkins</span>
-                        <span class="tag tag-purple">Java</span>
-                    </div>
-                </div>
-                <div class="skill-group">
-                    <div class="skill-group-label">Certifications</div>
-                    <div class="skill-tags">
-                        <span class="tag tag-cyan">Salesforce Certified Platform Developer I</span>
-                        <span class="tag tag-cyan">Salesforce Certified Associate</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Languages inline -->
-            <div class="skills-section" style="margin-top:2.5rem;">
-                <div class="skills-section-title">// spoken languages</div>
-                <div class="languages-grid">
-                    <div class="lang-card">
-                        <div class="lang-flag">🇮🇳</div>
-                        <div class="lang-info">
-                            <div class="lang-name">Hindi</div>
-                            <div class="lang-level">Native Speaker</div>
-                            <div class="lang-bar-wrap">
-                                <div class="lang-bar" style="width:100%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lang-card">
-                        <div class="lang-flag">🇬🇧</div>
-                        <div class="lang-info">
-                            <div class="lang-name">English</div>
-                            <div class="lang-level">Fluent — Professional Proficiency</div>
-                            <div class="lang-bar-wrap">
-                                <div class="lang-bar" style="width:90%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lang-card">
-                        <div class="lang-flag">🇩🇪</div>
-                        <div class="lang-info">
-                            <div class="lang-name">German</div>
-                            <div class="lang-level">Elementary (A1/A2) — Currently Learning</div>
-                            <div class="lang-bar-wrap">
-                                <div class="lang-bar" style="width:20%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ── EXPERIENCE ── -->
-        <section class="panel" id="panel-experience">
-            <div class="panel-label">// work history</div>
-            <h2 class="panel-title"><span class="hl">Experience</span></h2>
-            <p class="panel-sub">A timeline of my professional journey — roles, responsibilities, and impact.</p>
-
-            <div class="timeline">
-
-                <div class="tl-item">
-                    <div class="tl-date">Sep 2024<br />Current</div>
-                    <div class="tl-line">
-                        <div class="tl-dot"></div>
-                        <div class="tl-connector"></div>
-                    </div>
-                    <div class="tl-body">
-                        <div class="tl-company">// Siemens Healthineers · Erlangen, Germany</div>
-                        <div class="tl-role">Working Student — Hardware Developer</div>
-                        <div class="tl-desc">
-                            <ul>
-                                <li>POCs using circuit design simulations for gate drivers and MOSFETs</li>
-                                <li>High-voltage RF isolation for monolithic integration</li>
-                                <li>PCB design and component placement</li>
-                                <li>Programmed analog RF receivers in VHDL</li>
-                            </ul>
-                        </div>
-                        <div class="tag-list">
-                            <span class="tag tag-purple">PSpice</span>
-                            <span class="tag tag-purple">KiCad</span>
-                            <span class="tag tag-cyan">VHDL</span>
-                            <span class="tag tag-cyan">MATLAB</span>
-                            <span class="tag tag-purple">Xpedition</span>
-                            <span class="tag tag-cyan">Tina TI</span>
-                            <span class="tag tag-purple">Python</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tl-item">
-                    <div class="tl-date">Jun 2022<br />Feb 2024</div>
-                    <div class="tl-line">
-                        <div class="tl-dot"></div>
-                        <div class="tl-connector"></div>
-                    </div>
-                    <div class="tl-body">
-                        <div class="tl-company">// Deloitte US–India · Bengaluru, India</div>
-                        <div class="tl-role">Analyst — Application Developer</div>
-                        <div class="tl-desc">
-                            <ul>
-                                <li>Built supply chain systems using Salesforce for Pfizer</li>
-                                <li>Led team and served as Salesforce Integration contact</li>
-                                <li>2× Applause Awardee — recognized for performance and independence</li>
-                            </ul>
-                        </div>
-                        <div class="tag-list">
-                            <span class="tag tag-purple">Apex</span>
-                            <span class="tag tag-purple">LWC</span>
-                            <span class="tag tag-cyan">Snowflake</span>
-                            <span class="tag tag-cyan">Mulesoft</span>
-                            <span class="tag tag-purple">SOQL</span>
-                            <span class="tag tag-cyan">Azure</span>
-                            <span class="tag tag-purple">Power BI</span>
-                            <span class="tag tag-cyan">Jenkins</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tl-item">
-                    <div class="tl-date">Nov 2021<br />Jun 2022</div>
-                    <div class="tl-line">
-                        <div class="tl-dot"></div>
-                        <div class="tl-connector"></div>
-                    </div>
-                    <div class="tl-body">
-                        <div class="tl-company">// Epical Layouts Pvt. Ltd. · Chennai, India</div>
-                        <div class="tl-role">Intern — IC Design</div>
-                        <div class="tl-desc">
-                            <ul>
-                                <li>Created standard cell library to analyze radiation hardening of circuits for space
-                                    applications</li>
-                            </ul>
-                        </div>
-                        <div class="tag-list">
-                            <span class="tag tag-purple">Analog IC Design</span>
-                            <span class="tag tag-cyan">Digital IC Design</span>
-                            <span class="tag tag-purple">PDK</span>
-                            <span class="tag tag-cyan">Standard Cell</span>
-                            <span class="tag tag-purple">Semiconductor Fab</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tl-item">
-                    <div class="tl-date">Jun 2021<br />Jul 2021</div>
-                    <div class="tl-line">
-                        <div class="tl-dot"></div>
-                        <div class="tl-connector"></div>
-                    </div>
-                    <div class="tl-body">
-                        <div class="tl-company">// Government of India · New Delhi, India</div>
-                        <div class="tl-role">Intern — Equipment Safety Testing</div>
-                        <div class="tl-desc">
-                            <ul>
-                                <li>Developed safety manuals for electronic component testing (ISO standards)</li>
-                            </ul>
-                        </div>
-                        <div class="tag-list">
-                            <span class="tag tag-purple">Circuit Testing</span>
-                            <span class="tag tag-cyan">ISO Standards</span>
-                            <span class="tag tag-purple">Consumer Electronics</span>
-                            <span class="tag tag-cyan">Technical Writing</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ── EDUCATION ── -->
-        <section class="panel" id="panel-education">
-            <div class="panel-label">// academic background</div>
-            <h2 class="panel-title"><span class="hl">Education</span></h2>
-            <p class="panel-sub">My formal training and continuous learning journey.</p>
-
-            <div class="edu-grid">
-                <div class="edu-card">
-                    <div class="edu-icon">🏫</div>
-                    <div>
-                        <div class="edu-degree">M.S. Information and Communication Technology</div>
-                        <div class="edu-school">Friedrich-Alexander-Universität Erlangen-Nürnberg · Germany</div>
-                        <div class="edu-year">Apr 2024 – Ongoing</div>
-                        <div class="edu-desc">
-                            GPA: 1.9/5.0 (1.0 highest).<br />
-                            Coursework: Information Theory, Approximate Computing, Communication Systems, Mobile
-                            Communication, QoS in Communications, Cybersecurity, Machine Learning, Advanced C++.
-                        </div>
-                        <div class="tag-list" style="margin-top:0.7rem;">
-                            <span class="tag tag-purple">Machine Learning</span>
-                            <span class="tag tag-cyan">Cybersecurity</span>
-                            <span class="tag tag-purple">Communication Systems</span>
-                            <span class="tag tag-cyan">Advanced C++</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="edu-card">
-                    <div class="edu-icon">🎓</div>
-                    <div>
-                        <div class="edu-badge">🥇 Gold Medalist — 1st in Batch</div>
-                        <div class="edu-degree">B.E. Electronics &amp; Communication Engineering</div>
-                        <div class="edu-school">Sathyabama Institute of Science &amp; Technology · Chennai, India</div>
-                        <div class="edu-year">Aug 2018 – Mar 2022</div>
-                        <div class="edu-desc">
-                            GPA: 9.8/10 · Dean's List · Star of Excellence Award (Best Outgoing Student 2022).<br />
-                            Coursework: Computer Architecture, Embedded Systems, IoT, VLSI.<br />
-                            <br />
-                            🎖️ Class Representative — Represented class in student unions.<br />
-                            🤖 Secretary, Robotics Club — Led meetings, organized competitions, Arduino, Raspberry Pi,
-                            C/C++, LabVIEW.
-                        </div>
-                        <div class="tag-list" style="margin-top:0.7rem;">
-                            <span class="tag tag-purple">VLSI</span>
-                            <span class="tag tag-cyan">Embedded Systems</span>
-                            <span class="tag tag-purple">IoT</span>
-                            <span class="tag tag-cyan">C/C++</span>
-                            <span class="tag tag-purple">LabVIEW</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ── PROJECTS ── -->
-        <section class="panel" id="panel-projects">
-            <div class="panel-label">// what i've built</div>
-            <h2 class="panel-title"><span class="hl">Projects</span></h2>
-            <p class="panel-sub">Research, engineering, and applied projects spanning hardware, firmware, and software.
-            </p>
-
-            <div class="projects-grid">
-                <div class="proj-card">
-                    <div class="proj-head">
-                        <div class="proj-ico">📡</div>
-                        <div>
-                            <div class="proj-title">Joint BLE &amp; mioty Localization Module</div>
-                            <div class="proj-type">// embedded · hardware · firmware</div>
-                        </div>
-                    </div>
-                    <div class="proj-body">
-                        Low-power localization module combining Bluetooth Low Energy (BLE) and mioty within the 2.4 GHz
-                        band. BLE enables precise short-range tracking; mioty ensures long-range communication without
-                        nearby receivers. Includes hardware design, firmware, localization algorithms, and a web-based
-                        visualization interface.
-                    </div>
-                    <div class="proj-foot">
-                        <div class="tag-list" style="flex:1;">
-                            <span class="tag tag-purple">BLE</span>
-                            <span class="tag tag-cyan">mioty</span>
-                            <span class="tag tag-purple">Firmware</span>
-                            <span class="tag tag-cyan">Embedded</span>
-                        </div>
-                        <span class="proj-status ongoing">● Ongoing</span>
-                    </div>
-                </div>
-
-                <div class="proj-card">
-                    <div class="proj-head">
-                        <div class="proj-ico">⚛️</div>
-                        <div>
-                            <div class="proj-title">7nm FinFET Standard Cell Library</div>
-                            <div class="proj-type">// IC design · ASAP7 PDK</div>
-                        </div>
-                    </div>
-                    <div class="proj-body">
-                        Designed and assessed a 7nm FinFET standard cell library using the ASAP7 PDK. Features adaptable
-                        logic gates, optimized layouts, minimal footprint, and strong performance characteristics.
-                        Published in IEEE.
-                    </div>
-                    <div class="proj-foot">
-                        <div class="tag-list" style="flex:1;">
-                            <span class="tag tag-purple">FinFET</span>
-                            <span class="tag tag-cyan">ASAP7 PDK</span>
-                            <span class="tag tag-purple">Standard Cell</span>
-                            <span class="tag tag-cyan">VLSI</span>
-                        </div>
-                        <span class="proj-status published">✓ IEEE</span>
-                    </div>
-                </div>
-
-                <div class="proj-card">
-                    <div class="proj-head">
-                        <div class="proj-ico">🏠</div>
-                        <div>
-                            <div class="proj-title">Smart Home Automation + UPS</div>
-                            <div class="proj-type">// IoT · embedded · power electronics</div>
-                        </div>
-                    </div>
-                    <div class="proj-body">
-                        Developed an automatic LED emergency lamp with an online UPS for low-power household appliances.
-                        Includes full circuit design, simulation, testing, and IoT integration for remote monitoring.
-                        Published in IEEE.
-                    </div>
-                    <div class="proj-foot">
-                        <div class="tag-list" style="flex:1;">
-                            <span class="tag tag-purple">IoT</span>
-                            <span class="tag tag-cyan">Power Electronics</span>
-                            <span class="tag tag-purple">Arduino</span>
-                            <span class="tag tag-cyan">Circuit Design</span>
-                        </div>
-                        <span class="proj-status published">✓ IEEE</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ── COMMUNITY ── -->
-        <section class="panel" id="panel-community">
-            <div class="panel-label">// giving back</div>
-            <h2 class="panel-title"><span class="hl">Community</span></h2>
-            <p class="panel-sub">Leadership, teamwork, and technical advocacy — inside and outside academia.</p>
-
-            <div class="comm-grid">
-                <div class="comm-card">
-                    <div class="comm-ico">🤖</div>
-                    <div>
-                        <div class="comm-title">Robotics Club</div>
-                        <div class="comm-role">// Secretary · Sathyabama Institute</div>
-                        <div class="comm-desc">Led club meetings, organized inter-college competitions, and delivered
-                            technical talks. Developed hands-on expertise in Arduino, Raspberry Pi, C/C++, LabVIEW, and
-                            Java alongside fellow members.</div>
-                    </div>
-                </div>
-                <div class="comm-card">
-                    <div class="comm-ico">🎖️</div>
-                    <div>
-                        <div class="comm-title">Class Representative</div>
-                        <div class="comm-role">// Student Union · Sathyabama Institute</div>
-                        <div class="comm-desc">Represented the class in student union assemblies, bridging communication
-                            between peers and faculty. Advocated for student interests and coordinated academic events.
-                        </div>
-                    </div>
-                </div>
-                <div class="comm-card">
-                    <div class="comm-ico">📡</div>
-                    <div>
-                        <div class="comm-title">IEEE Publications</div>
-                        <div class="comm-role">// Author</div>
-                        <div class="comm-desc">Published two peer-reviewed IEEE papers: one on 7nm FinFET standard cell
-                            library design using ASAP7 PDK, and another on smart home automation with UPS integration
-                            for IoT devices.</div>
-                    </div>
-                </div>
-                <div class="comm-card">
-                    <div class="comm-ico">🏆</div>
-                    <div>
-                        <div class="comm-title">2× Applause Award</div>
-                        <div class="comm-role">// Deloitte · Recognition for Excellence</div>
-                        <div class="comm-desc">Recognized twice by Deloitte leadership for outstanding performance,
-                            independence, and contributions to the Pfizer supply chain project — one of the highest
-                            performance honors at the firm.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ── HOBBIES ── -->
-        <section class="panel" id="panel-hobbies">
-            <div class="panel-label">// outside the lab</div>
-            <h2 class="panel-title">When I'm <span class="hl">not engineering</span></h2>
-            <p class="panel-sub">The things that keep me balanced, inspired, and curious about the world.</p>
-
-            <div class="hobbies-grid">
-                <div class="hobby-card">
-                    <div class="hobby-ico">🤖</div>
-                    <div class="hobby-name">Robotics</div>
-                    <div class="hobby-desc">Building and tinkering with embedded systems — Arduino, Raspberry Pi, and
-                        custom circuits.</div>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-ico">📚</div>
-                    <div class="hobby-name">Reading</div>
-                    <div class="hobby-desc">Tech books, engineering papers, and sci-fi. Always exploring new frontiers
-                        of thought.</div>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-ico">🌍</div>
-                    <div class="hobby-name">Travelling</div>
-                    <div class="hobby-desc">Exploring new cultures across India, Germany and beyond — each trip adds a
-                        new perspective.</div>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-ico">🎮</div>
-                    <div class="hobby-name">Gaming</div>
-                    <div class="hobby-desc">Strategy and simulation games — the design thinking behind good game
-                        mechanics fascinates me.</div>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-ico">🌱</div>
-                    <div class="hobby-name">Sustainability</div>
-                    <div class="hobby-desc">Passionate about green tech, low-power design, and reducing engineering's
-                        environmental footprint.</div>
-                </div>
-                <div class="hobby-card">
-                    <div class="hobby-ico">🎵</div>
-                    <div class="hobby-name">Music</div>
-                    <div class="hobby-desc">Music keeps me focused during long research and coding sessions — from lo-fi
-                        to Indian classical.</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ── CONTACT ── -->
-        <section class="panel" id="panel-contact">
-            <div class="panel-label">// get in touch</div>
-            <h2 class="panel-title">Contact <span class="hl">Me</span></h2>
-
-            <!-- Booking Calendar -->
-            <div class="booking-section">
-                <div class="booking-section-title">// book an appointment</div>
-
-                <div class="cal-header">
-                    <div class="cal-month-label" id="cal-month-label"></div>
-                    <div class="cal-nav">
-                        <button class="cal-nav-btn" id="cal-prev" title="Previous month">&#8249;</button>
-                        <button class="cal-nav-btn" id="cal-next" title="Next month">&#8250;</button>
-                    </div>
-                </div>
-
-                <div class="cal-grid" id="cal-grid">
-                    <div class="cal-day-name">Mon</div>
-                    <div class="cal-day-name">Tue</div>
-                    <div class="cal-day-name">Wed</div>
-                    <div class="cal-day-name">Thu</div>
-                    <div class="cal-day-name">Fri</div>
-                    <div class="cal-day-name" style="color:var(--text3);opacity:0.5;">Sat</div>
-                    <div class="cal-day-name" style="color:var(--text3);opacity:0.5;">Sun</div>
-                </div>
-
-                <div class="cal-legend">
-                    <div class="legend-item">
-                        <div class="legend-dot" style="background:rgba(124,58,237,0.4);border:1px solid var(--accent);">
-                        </div> Available
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot"
-                            style="background:rgba(34,211,238,0.15);border:1px solid rgba(34,211,238,0.3);"></div>
-                        Booked
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot" style="border:1px solid var(--accent); background:transparent;"></div>
-                        Today
-                    </div>
-                </div>
-            </div>
-
-            <!-- Compact contact buttons -->
-            <div style="display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:1.8rem;">
-                <a href="mailto:mgaurav682@gmail.com"
-                    style="display:inline-flex;align-items:center;gap:0.45rem;padding:0.45rem 0.9rem;border-radius:999px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);color:var(--text1);text-decoration:none;font-size:0.78rem;font-family:'Fira Code',monospace;transition:background 0.2s,border-color 0.2s;"
-                    onmouseover="this.style.background='rgba(124,58,237,0.25)';this.style.borderColor='var(--accent)'"
-                    onmouseout="this.style.background='rgba(124,58,237,0.12)';this.style.borderColor='rgba(124,58,237,0.3)'">
-                    📧 mgaurav682@gmail.com
-                </a>
-                <a href="tel:+4915213603906"
-                    style="display:inline-flex;align-items:center;gap:0.45rem;padding:0.45rem 0.9rem;border-radius:999px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);color:var(--text1);text-decoration:none;font-size:0.78rem;font-family:'Fira Code',monospace;transition:background 0.2s,border-color 0.2s;"
-                    onmouseover="this.style.background='rgba(124,58,237,0.25)';this.style.borderColor='var(--accent)'"
-                    onmouseout="this.style.background='rgba(124,58,237,0.12)';this.style.borderColor='rgba(124,58,237,0.3)'">
-                    📞 +49 152 1360 3906
-                </a>
-                <a href="https://github.com/gaurav-mk" target="_blank" rel="noopener"
-                    style="display:inline-flex;align-items:center;gap:0.45rem;padding:0.45rem 0.9rem;border-radius:999px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);color:var(--text1);text-decoration:none;font-size:0.78rem;font-family:'Fira Code',monospace;transition:background 0.2s,border-color 0.2s;"
-                    onmouseover="this.style.background='rgba(124,58,237,0.25)';this.style.borderColor='var(--accent)'"
-                    onmouseout="this.style.background='rgba(124,58,237,0.12)';this.style.borderColor='rgba(124,58,237,0.3)'">
-                    💻 github.com/gaurav-mk
-                </a>
-                <a href="https://linkedin.com/in/gaurav-25" target="_blank" rel="noopener"
-                    style="display:inline-flex;align-items:center;gap:0.45rem;padding:0.45rem 0.9rem;border-radius:999px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);color:var(--text1);text-decoration:none;font-size:0.78rem;font-family:'Fira Code',monospace;transition:background 0.2s,border-color 0.2s;"
-                    onmouseover="this.style.background='rgba(124,58,237,0.25)';this.style.borderColor='var(--accent)'"
-                    onmouseout="this.style.background='rgba(124,58,237,0.12)';this.style.borderColor='rgba(124,58,237,0.3)'">
-                    🔗 linkedin.com/in/gaurav-25
-                </a>
-                <span
-                    style="display:inline-flex;align-items:center;gap:0.45rem;padding:0.45rem 0.9rem;border-radius:999px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);color:var(--text1);font-size:0.78rem;font-family:'Fira Code',monospace;">
-                    📍 Erlangen, Germany 🇩🇪
-                </span>
-            </div>
-        </section>
-
-
-        <!-- ── BOOKING MODAL ── -->
-        <div class="modal-backdrop" id="modal-backdrop">
-            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
-
-                <!-- Form view -->
-                <div id="modal-form-view">
-                    <div class="modal-header">
-                        <div>
-                            <div class="modal-title" id="modal-title-el">Book an Appointment</div>
-                            <div class="modal-date" id="modal-date-display"></div>
-                        </div>
-                        <button class="modal-close" id="modal-close-btn" aria-label="Close">&times;</button>
-                    </div>
-
-                    <p style="font-size:0.8rem;color:var(--text2);margin-bottom:1rem;">Pick a time slot (CET):</p>
-                    <div class="slots-grid" id="slots-grid"></div>
-                    <div class="slot-required-msg" id="slot-required-msg">⚠ Please select a time slot</div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="book-name">Your Name *</label>
-                        <input class="form-input" id="book-name" type="text" placeholder="e.g. Jane Smith"
-                            autocomplete="name" />
-                        <div class="form-error" id="err-name">Name is required</div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="book-email">Your Email *</label>
-                        <input class="form-input" id="book-email" type="email" placeholder="e.g. jane@example.com"
-                            autocomplete="email" />
-                        <div class="form-error" id="err-email">A valid email is required</div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="book-msg">Message <span
-                                style="color:var(--text3)">(optional)</span></label>
-                        <textarea class="form-textarea" id="book-msg"
-                            placeholder="Briefly describe what you'd like to discuss…"></textarea>
-                    </div>
-
-                    <button class="btn-book" id="btn-book-submit">📅 Book Appointment</button>
-                    <p style="font-size:0.72rem;color:var(--text3);text-align:center;margin-top:0.8rem;">A Google Meet
-                        confirmation will be sent to both parties.</p>
-                </div>
-
-                <!-- Success view -->
-                <div class="modal-success" id="modal-success-view">
-                    <div class="success-ico">🎉</div>
-                    <div class="success-title">Appointment Booked!</div>
-                    <div class="success-desc" id="success-desc"></div>
-                    <a class="btn-gcal" id="gcal-link" href="#" target="_blank" rel="noopener">
-                        📅 Add to Google Calendar
-                    </a>
-                </div>
-
-            </div>
+      <article class="entry edu current">
+        <div class="entry-when"><div class="entry-year">2024<span class="range">APR'24 – PRESENT</span></div></div>
+        <div class="entry-main">
+          <span class="entry-kind">Education · Master's</span>
+          <h3 class="entry-title">M.Sc. Information &amp; Communications Technology</h3>
+          <div class="entry-org">Friedrich-Alexander-Universität Erlangen-Nürnberg</div>
+          <div class="entry-loc">ERLANGEN, DE</div>
+          <p class="entry-summary">GPA 1.9/5.0 (1.0 highest). Coursework spans Information Theory, Approximate Computing, Communication Systems, Mobile Communication, QoS, Cybersecurity, Machine Learning, and Advanced C++.</p>
+          <div class="entry-tags"><span>Machine Learning</span><span>Cybersecurity</span><span>Communication Systems</span><span>Advanced C++</span></div>
         </div>
+        <div class="entry-aside"><span class="duration">~2 yr</span><span class="status"><span class="dot"></span> Now</span></div>
+      </article>
 
-    </div><!-- /content -->
+      <article class="entry">
+        <div class="entry-when"><div class="entry-year">2022<span class="range">JUN'22 – FEB'24</span></div></div>
+        <div class="entry-main">
+          <span class="entry-kind">Work · Analyst</span>
+          <h3 class="entry-title">Application Developer — Salesforce</h3>
+          <div class="entry-org">Deloitte US–India</div>
+          <div class="entry-loc">BENGALURU, IN</div>
+          <p class="entry-summary">Built supply chain systems using Salesforce for Pfizer. Led team and served as Salesforce Integration contact. 2× Applause Awardee — recognized for performance and independence.</p>
+          <div class="entry-tags"><span>Apex</span><span>LWC</span><span>Snowflake</span><span>Mulesoft</span><span>SOQL</span><span>Azure</span><span>Power BI</span></div>
+        </div>
+        <div class="entry-aside"><span class="duration">1.7 yr</span></div>
+      </article>
 
-    <script>
-        /* ============================================================
-         *  EMAILJS CONFIG — fill these in after creating your account
-         *  at https://emailjs.com (free, 200 emails/month)
-         * ============================================================ */
-        const EMAILJS_SERVICE_ID = 'service_xmfyxyu';
-        const EMAILJS_TEMPLATE_ID = 'template_4v4mdmg'; // single template used for both emails
-        const EMAILJS_PUBLIC_KEY = 'uPYHhFFerXMirfZxK';
-        const GOOGLE_MEET_LINK = 'https://meet.google.com/daj-xcoc-xtj';
-        const MY_EMAIL = 'mgaurav682@gmail.com';
-        const MY_TZ = 'Europe/Berlin';
+      <article class="entry">
+        <div class="entry-when"><div class="entry-year">2021<span class="range">NOV'21 – JUN'22</span></div></div>
+        <div class="entry-main">
+          <span class="entry-kind">Work · Intern</span>
+          <h3 class="entry-title">IC Design — Standard Cell Library</h3>
+          <div class="entry-org">Epical Layouts Pvt. Ltd.</div>
+          <div class="entry-loc">CHENNAI, IN</div>
+          <p class="entry-summary">Created standard cell library to analyze radiation hardening of circuits for space applications using the ASAP7 7nm FinFET PDK.</p>
+          <div class="entry-tags"><span>Analog IC Design</span><span>Digital IC Design</span><span>PDK</span><span>Standard Cell</span><span>ASAP7</span></div>
+        </div>
+        <div class="entry-aside"><span class="duration">7 mo</span></div>
+      </article>
 
-        /* ============================================================
-         *  SIDEBAR NAV
-         * ============================================================ */
-        function showPanel(id) {
-            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
-            document.getElementById('panel-' + id).classList.add('active');
-            document.getElementById('nav-' + id).classList.add('active');
-            if (window.innerWidth <= 860) document.getElementById('sidebar').classList.remove('open');
+      <article class="entry edu">
+        <div class="entry-when"><div class="entry-year">2018<span class="range">AUG'18 – MAR'22</span></div></div>
+        <div class="entry-main">
+          <span class="entry-kind">Education · Bachelor's</span>
+          <h3 class="entry-title">B.E. Electronics &amp; Communication Engineering</h3>
+          <div class="entry-org">Sathyabama Institute of Science &amp; Technology</div>
+          <div class="entry-loc">CHENNAI, IN</div>
+          <p class="entry-summary">GPA 9.8/10 · Gold Medalist (1st in Batch) · Star of Excellence Award · Dean's List. Secretary of Robotics Club — Arduino, Raspberry Pi, C/C++, LabVIEW.</p>
+          <div class="entry-tags"><span>VLSI</span><span>Embedded Systems</span><span>IoT</span><span>C/C++</span><span>LabVIEW</span></div>
+        </div>
+        <div class="entry-aside"><span class="duration">3.6 yr</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- §02 PROJECTS -->
+  <section class="wrap section" id="projects-section">
+    <div class="section-head">
+      <div class="section-id">§ 02 · Selected work</div>
+      <h2 class="section-title">A few projects I keep coming back to.</h2>
+      <div class="section-aside"><a href="/projects/">All projects →</a></div>
+    </div>
+    <div class="proj-grid">
+
+      <a class="proj" href="/projects/ble-mioty/">
+        <div class="proj-cover">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
+            <defs><pattern id="g1" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1F3A57" stroke-width="0.5" opacity="0.15"/></pattern></defs>
+            <rect width="320" height="180" fill="#EDF1F6"/><rect width="320" height="180" fill="url(#g1)"/>
+            <circle cx="160" cy="90" r="60" fill="none" stroke="#1F3A57" stroke-width="1.5"/>
+            <path d="M130 75 L130 105" stroke="#1F3A57" stroke-width="1.5"/>
+            <path d="M130 75 L145 63 L145 90 L130 105 L145 118 L145 90" fill="none" stroke="#1F3A57" stroke-width="1.5"/>
+            <path d="M185 70 Q195 82 185 90" fill="none" stroke="#2E5C8A" stroke-width="1.5"/>
+            <path d="M190 65 Q205 82 190 100" fill="none" stroke="#2E5C8A" stroke-width="1.2" stroke-dasharray="3 2"/>
+            <rect x="152" y="82" width="16" height="16" rx="2" fill="#fff" stroke="#1F3A57" stroke-width="1"/>
+            <text x="160" y="174" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#8693A3">BLE + mioty · 2.4 GHz · Coin-cell</text>
+          </svg>
+          <div class="proj-meta"><span class="tag">Embedded</span><span class="tag">Hardware</span></div>
+        </div>
+        <div class="proj-body">
+          <h3>Joint BLE &amp; mioty Localization Module</h3>
+          <p>Low-power localization tag combining BLE short-range tracking and mioty long-range fallback in a single 2.4 GHz transceiver. Custom circular PCB, 9-axis IMU, coin-cell powered.</p>
+          <div class="proj-stack"><span>BLE</span><span>mioty</span><span>KiCad</span><span>Firmware</span><span>IMU</span></div>
+        </div>
+        <div class="proj-link-row">
+          <span class="proj-link">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <span class="proj-status-chip ongoing">● Ongoing</span>
+        </div>
+      </a>
+
+      <div class="proj">
+        <div class="proj-cover">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
+            <defs><pattern id="g2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1F3A57" stroke-width="0.5" opacity="0.15"/></pattern></defs>
+            <rect width="320" height="180" fill="#EDF1F6"/><rect width="320" height="180" fill="url(#g2)"/>
+            <rect x="120" y="100" width="80" height="20" rx="2" fill="#1F3A57" opacity="0.15"/>
+            <rect x="150" y="72" width="20" height="28" rx="2" fill="#1F3A57" opacity="0.2"/>
+            <rect x="148" y="66" width="24" height="8" rx="1" fill="#2E5C8A" opacity="0.7"/>
+            <rect x="155" y="50" width="4" height="16" fill="#1F3A57" opacity="0.5"/>
+            <rect x="161" y="50" width="4" height="16" fill="#1F3A57" opacity="0.5"/>
+            <text x="160" y="40" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#1F3A57">7nm FINFET</text>
+            <text x="160" y="174" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#8693A3">ASAP7 PDK · Standard Cell · IEEE</text>
+          </svg>
+          <div class="proj-meta"><span class="tag">IC Design</span><span class="tag">VLSI</span></div>
+        </div>
+        <div class="proj-body">
+          <h3>7nm FinFET Standard Cell Library</h3>
+          <p>Designed and assessed a 7nm FinFET standard cell library using the ASAP7 PDK. Adaptable logic gates, optimized layouts, minimal footprint. Published in IEEE.</p>
+          <div class="proj-stack"><span>FinFET</span><span>ASAP7 PDK</span><span>Standard Cell</span><span>VLSI</span></div>
+        </div>
+        <div class="proj-link-row">
+          <span class="proj-link" style="color:var(--on-surface-faint);">IEEE Publication</span>
+          <span class="proj-status-chip published">✓ IEEE</span>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-cover">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
+            <defs><pattern id="g3" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1F3A57" stroke-width="0.5" opacity="0.15"/></pattern></defs>
+            <rect width="320" height="180" fill="#EDF1F6"/><rect width="320" height="180" fill="url(#g3)"/>
+            <polygon points="160,40 220,90 220,150 100,150 100,90" fill="none" stroke="#1F3A57" stroke-width="1.5"/>
+            <line x1="160" y1="40" x2="100" y2="90" stroke="#1F3A57" stroke-width="1.5"/>
+            <path d="M150 100 Q160 90 170 100" fill="none" stroke="#2E5C8A" stroke-width="1.5"/>
+            <path d="M145 95 Q160 82 175 95" fill="none" stroke="#2E5C8A" stroke-width="1" stroke-dasharray="3 2"/>
+            <circle cx="160" cy="104" r="3" fill="#2E5C8A"/>
+            <text x="160" y="174" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#8693A3">IoT · UPS · Arduino · IEEE</text>
+          </svg>
+          <div class="proj-meta"><span class="tag">IoT</span><span class="tag">Power Electronics</span></div>
+        </div>
+        <div class="proj-body">
+          <h3>Smart Home Automation + UPS</h3>
+          <p>Automatic LED emergency lamp with an online UPS for low-power household appliances. Full circuit design, simulation, testing, and IoT integration. Published in IEEE.</p>
+          <div class="proj-stack"><span>IoT</span><span>Arduino</span><span>Power Electronics</span><span>Circuit Design</span></div>
+        </div>
+        <div class="proj-link-row">
+          <span class="proj-link" style="color:var(--on-surface-faint);">IEEE Publication</span>
+          <span class="proj-status-chip published">✓ IEEE</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- §03 COURSES — moved to /courses/ -->
+  <section class="wrap section" id="courses-preview" style="padding:40px 0;">
+    <div class="section-head" style="margin-bottom:0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div class="section-id">§ 03 · Courses</div>
+        <h2 class="section-title" style="font-size:clamp(18px,2vw,26px);">Graduate coursework and certifications.</h2>
+      </div>
+      <a href="/courses/" class="btn tonal" style="flex-shrink:0;">All courses →</a>
+    </div>
+  </section>
+
+  <!-- §04 COMMUNITY — moved to /community/ -->
+  <section class="wrap section" id="community-preview" style="padding:40px 0;">
+    <div class="section-head" style="margin-bottom:0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div class="section-id">§ 04 · Community</div>
+        <h2 class="section-title" style="font-size:clamp(18px,2vw,26px);">Leadership, awards, and publications.</h2>
+      </div>
+      <a href="/community/" class="btn tonal" style="flex-shrink:0;">See all →</a>
+    </div>
+  </section>
+
+
+  <!-- §05 SKILLS -->
+  <section class="wrap section" id="skills">
+    <div class="section-head">
+      <div class="section-id">§ 05 · The toolbox</div>
+      <h2 class="section-title">Languages, tools, protocols, and platforms.</h2>
+    </div>
+    <div class="skills">
+      <div class="skill-row">
+        <div class="skill-cat"><span class="idx">01</span> Hardware &amp; EDA</div>
+        <div class="skill-vals">
+          <span class="chip solid">KiCad</span><span class="chip solid">PSpice</span><span class="chip solid">Xpedition</span><span class="chip">Tina TI</span><span class="chip solid">VHDL</span><span class="chip">MATLAB</span><span class="chip">PDK</span><span class="chip">LabVIEW</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-cat"><span class="idx">02</span> Salesforce &amp; Cloud</div>
+        <div class="skill-vals">
+          <span class="chip solid">Apex</span><span class="chip solid">LWC</span><span class="chip">Visualforce</span><span class="chip solid">Snowflake</span><span class="chip">Mulesoft</span><span class="chip">Azure</span><span class="chip solid">Power BI</span><span class="chip">REST/SOAP</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-cat"><span class="idx">03</span> Programming</div>
+        <div class="skill-vals">
+          <span class="chip solid">Python</span><span class="chip solid">C/C++</span><span class="chip">JavaScript</span><span class="chip">Java</span><span class="chip">SOQL</span><span class="chip solid">Git</span><span class="chip">Jenkins</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-cat"><span class="idx">04</span> Wireless &amp; RF</div>
+        <div class="skill-vals">
+          <span class="chip solid">BLE</span><span class="chip solid">mioty</span><span class="chip">802.11 Wi-Fi</span><span class="chip">2.4 GHz RF</span><span class="chip solid">RF Isolation</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-cat"><span class="idx">05</span> Certifications</div>
+        <div class="skill-vals">
+          <span class="chip solid">Salesforce Platform Developer I</span><span class="chip solid">Salesforce Associate</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="contact" id="contact">
+  <div class="contact-inner" style="grid-template-columns:1fr;max-width:800px;">
+    <div>
+      <h2>Got a thesis idea, a hardware problem, or just want to connect?
+        <a href="mailto:mgaurav682@gmail.com">Send me a note.</a>
+      </h2>
+      <p style="margin-bottom:20px;">Open to thesis collaborations, working-student roles, and contract gigs around hardware design, embedded systems, or Salesforce.</p>
+      <a href="/contact/" class="btn tonal" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;font-size:14px;font-weight:500;background:var(--primary-container);color:var(--on-primary-container);border:none;cursor:pointer;">Book an appointment →</a>
+    </div>
+  </div>
+  <div class="footnote">
+    <span>© 2026 Gaurav Kumar Mishra</span>
+    <span style="display:flex;gap:16px;">
+      <a href="/projects/" style="color:var(--primary);">Projects</a>
+      <a href="/courses/" style="color:var(--primary);">Courses</a>
+      <a href="/community/" style="color:var(--primary);">Community</a>
+      <a href="/contact/" style="color:var(--primary);">Contact</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    const navLinks = document.querySelectorAll('#main-nav a[data-section]');
+    function setActive(sectionId) {
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.section === sectionId));
+    }
+    const sections = [
+      { id: 'home',     selector: '#home > .hero' },
+      { id: 'projects', selector: '#projects-section' },
+    ];
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sec = sections.find(s => entry.target.matches(s.selector));
+          if (sec) setActive(sec.id);
         }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sections.forEach(s => { const el = document.querySelector(s.selector); if (el) observer.observe(el); });
+  })();
+</script>
 
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
-        }
-
-        document.getElementById('content').addEventListener('click', () => {
-            if (window.innerWidth <= 860) document.getElementById('sidebar').classList.remove('open');
-        });
-
-        /* ============================================================
-         *  BOOKING DATA — Firestore (shared) + localStorage (fallback)
-         * ============================================================ */
-        const STORAGE_KEY = 'gk_bookings_v1';
-
-        // Per-session cache:  'YYYY-MM' → { 'YYYY-MM-DD': ['09:00', ...], ... }
-        const fsCache = {};
-
-        function loadBookingsLS() {
-            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
-            catch { return {}; }
-        }
-
-        function saveBookingLS(dateKey, slot, visitor) {
-            const b = loadBookingsLS();
-            if (!b[dateKey]) b[dateKey] = [];
-            b[dateKey].push({ slot, visitor, ts: Date.now() });
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(b));
-        }
-
-        function lsSlotsFor(dateKey) {
-            const b = loadBookingsLS();
-            return (b[dateKey] || []).map(e => e.slot);
-        }
-
-        /** Fetch all booked slots for every future weekday in the month — one batch. */
-        async function prefetchMonth(year, month) {
-            const mk = year + '-' + String(month + 1).padStart(2, '0');
-            if (fsCache[mk] !== undefined) return;           // already cached
-            fsCache[mk] = {};                                 // mark as loading
-
-            if (!window._GK) return;
-            const { db, doc, getDoc } = window._GK;
-
-            const today = new Date(); today.setHours(0, 0, 0, 0);
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const keys = [], promises = [];
-
-            for (let d = 1; d <= daysInMonth; d++) {
-                const dt = new Date(year, month, d);
-                const dow = dt.getDay();
-                if (dow === 0 || dow === 6 || dt < today) continue; // skip weekends/past
-                const dk = mk + '-' + String(d).padStart(2, '0');
-                keys.push(dk);
-                promises.push(getDoc(doc(db, 'bookings', dk)));
-            }
-
-            try {
-                const snaps = await Promise.all(promises);
-                snaps.forEach((snap, i) => {
-                    if (snap.exists()) {
-                        const d = snap.data();
-                        // Merge manual bookings + nightly GCal sync slots
-                        const all = [...(d.slots || []), ...(d.gcal_slots || [])];
-                        fsCache[mk][keys[i]] = [...new Set(all)];
-                    } else {
-                        fsCache[mk][keys[i]] = [];
-                    }
-                });
-            } catch (e) {
-                console.warn('[Firebase] prefetch failed — using localStorage', e);
-            }
-        }
-
-        /** Merge Firestore cache + localStorage for a date. */
-        function bookedSlotsFor(dateKey) {
-            const mk = dateKey.substring(0, 7);
-            const fs = (fsCache[mk] || {})[dateKey] || [];
-            const ls = lsSlotsFor(dateKey);
-            return [...new Set([...fs, ...ls])];
-        }
-
-        /** Write a booking to Firestore and update local cache. */
-        async function saveBookingFS(dateKey, slot, visitorEmail) {
-            if (!window._GK) return;
-            const { db, doc, setDoc, arrayUnion } = window._GK;
-            try {
-                await setDoc(doc(db, 'bookings', dateKey),
-                    { slots: arrayUnion(slot), bookers: arrayUnion(visitorEmail) },
-                    { merge: true });
-                // Update session cache
-                const mk = dateKey.substring(0, 7);
-                if (!fsCache[mk]) fsCache[mk] = {};
-                if (!fsCache[mk][dateKey]) fsCache[mk][dateKey] = [];
-                if (!fsCache[mk][dateKey].includes(slot)) fsCache[mk][dateKey].push(slot);
-                console.log('[Firebase] Booking saved:', dateKey, slot, visitorEmail);
-            } catch (e) {
-                console.warn('[Firebase] Write failed:', e);
-            }
-        }
-
-        /** Check if this email has already booked any slot this month. */
-        async function hasBookedThisMonth(email) {
-            if (!window._GK) return false;
-            const { db, doc, getDoc } = window._GK;
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth();
-            const mk = year + '-' + String(month + 1).padStart(2, '0');
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            // Also check next month (since calendar shows 2 months)
-            const nextMonth = month === 11 ? 0 : month + 1;
-            const nextYear = month === 11 ? year + 1 : year;
-            const mk2 = nextYear + '-' + String(nextMonth + 1).padStart(2, '0');
-            const daysInMonth2 = new Date(nextYear, nextMonth + 1, 0).getDate();
-
-            const promises = [];
-            for (let d = 1; d <= daysInMonth; d++) {
-                const dk = mk + '-' + String(d).padStart(2, '0');
-                promises.push(getDoc(doc(db, 'bookings', dk)));
-            }
-            for (let d = 1; d <= daysInMonth2; d++) {
-                const dk = mk2 + '-' + String(d).padStart(2, '0');
-                promises.push(getDoc(doc(db, 'bookings', dk)));
-            }
-
-            try {
-                const snaps = await Promise.all(promises);
-                for (const snap of snaps) {
-                    if (snap.exists()) {
-                        const bookers = snap.data().bookers || [];
-                        if (bookers.includes(email)) return true;
-                    }
-                }
-            } catch (e) {
-                console.warn('[Firebase] Dedup check failed:', e);
-            }
-            return false;
-        }
-
-        /* ============================================================
-         *  CALENDAR
-         * ============================================================ */
-        const TIME_SLOTS = [
-            '09:00', '10:00', '11:00', '12:00', '13:00',
-            '14:00', '15:00', '16:00', '17:00'
-        ];
-
-        const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'];
-
-        let calYear, calMonth;
-
-        // Bounds: current month and the next month only
-        const _now0 = new Date();
-        const CAL_MIN_Y = _now0.getFullYear();
-        const CAL_MIN_M = _now0.getMonth();
-        const CAL_MAX_Y = _now0.getMonth() === 11 ? _now0.getFullYear() + 1 : _now0.getFullYear();
-        const CAL_MAX_M = _now0.getMonth() === 11 ? 0 : _now0.getMonth() + 1;
-
-        function updateNavBtns() {
-            const atMin = calYear === CAL_MIN_Y && calMonth === CAL_MIN_M;
-            const atMax = calYear === CAL_MAX_Y && calMonth === CAL_MAX_M;
-            const prev = document.getElementById('cal-prev');
-            const next = document.getElementById('cal-next');
-            prev.disabled = atMin;
-            prev.style.opacity = atMin ? '0.25' : '';
-            prev.style.cursor = atMin ? 'not-allowed' : '';
-            next.disabled = atMax;
-            next.style.opacity = atMax ? '0.25' : '';
-            next.style.cursor = atMax ? 'not-allowed' : '';
-        }
-
-        async function initCalendar() {
-            const now = new Date();
-            calYear = now.getFullYear();
-            calMonth = now.getMonth();
-            await renderCalendar();
-            updateNavBtns();
-            document.getElementById('cal-prev').addEventListener('click', async () => {
-                if (calYear === CAL_MIN_Y && calMonth === CAL_MIN_M) return;
-                calMonth--;
-                if (calMonth < 0) { calMonth = 11; calYear--; }
-                await renderCalendar();
-                updateNavBtns();
-            });
-            document.getElementById('cal-next').addEventListener('click', async () => {
-                if (calYear === CAL_MAX_Y && calMonth === CAL_MAX_M) return;
-                calMonth++;
-                if (calMonth > 11) { calMonth = 0; calYear++; }
-                await renderCalendar();
-                updateNavBtns();
-            });
-        }
-
-        async function renderCalendar() {
-            const grid = document.getElementById('cal-grid');
-
-            // Show shimmer while fetching
-            while (grid.children.length > 7) grid.removeChild(grid.lastChild);
-            document.getElementById('cal-month-label').textContent =
-                MONTHS[calMonth] + ' ' + calYear;
-            const shimmer = document.createElement('div');
-            shimmer.style.cssText = 'grid-column:1/-1;text-align:center;padding:2rem;font-size:0.75rem;color:var(--text3);font-family:"Fira Code",monospace;letter-spacing:0.08em;';
-            shimmer.textContent = '// loading availability…';
-            grid.appendChild(shimmer);
-
-            // Prefetch this month from Firestore
-            await prefetchMonth(calYear, calMonth);
-
-            // Re-clear and build
-            while (grid.children.length > 7) grid.removeChild(grid.lastChild);
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const firstDay = new Date(calYear, calMonth, 1);
-            let startOffset = firstDay.getDay(); // 0=Sun
-            startOffset = (startOffset === 0) ? 6 : startOffset - 1; // Mon=0
-
-            const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
-
-            // empty cells before 1st
-            for (let i = 0; i < startOffset; i++) {
-                const el = document.createElement('div');
-                el.className = 'cal-cell empty';
-                grid.appendChild(el);
-            }
-
-            for (let d = 1; d <= daysInMonth; d++) {
-                const date = new Date(calYear, calMonth, d);
-                const dow = date.getDay(); // 0=Sun,6=Sat
-                const isPast = date < today;
-                const isToday = date.getTime() === today.getTime();
-                const isWeekend = dow === 0 || dow === 6;
-
-                // date key: YYYY-MM-DD
-                const dk = calYear + '-' +
-                    String(calMonth + 1).padStart(2, '0') + '-' +
-                    String(d).padStart(2, '0');
-
-                const bookedSlots = bookedSlotsFor(dk);
-                const fullyBooked = bookedSlots.length >= TIME_SLOTS.length;
-
-                const el = document.createElement('div');
-                el.textContent = d;
-
-                if (isWeekend || isPast) {
-                    el.className = 'cal-cell ' + (isToday ? 'today' : (isWeekend ? 'weekend' : 'past'));
-                } else if (fullyBooked) {
-                    el.className = 'cal-cell booked';
-                    const dot = document.createElement('div');
-                    dot.className = 'booked-dot';
-                    el.appendChild(dot);
-                } else {
-                    el.className = 'cal-cell available' + (isToday ? ' today' : '');
-                    if (bookedSlots.length > 0) {
-                        const dot = document.createElement('div');
-                        dot.className = 'booked-dot';
-                        el.appendChild(dot);
-                    }
-                    el.addEventListener('click', () => openModal(date, dk));
-                }
-
-                grid.appendChild(el);
-            }
-        }
-
-        /* ============================================================
-         *  BOOKING MODAL
-         * ============================================================ */
-        let selectedSlot = null;
-        let currentDateKey = null;
-        let currentDate = null;
-
-        function openModal(date, dk) {
-            currentDate = date;
-            currentDateKey = dk;
-            selectedSlot = null;
-
-            // header
-            document.getElementById('modal-date-display').textContent =
-                date.toLocaleDateString('en-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-            // reset ui
-            document.getElementById('modal-form-view').style.display = 'block';
-            document.getElementById('modal-success-view').classList.remove('show');
-            ['book-name', 'book-email', 'book-msg'].forEach(id => {
-                document.getElementById(id).value = '';
-                document.getElementById(id).classList.remove('error');
-            });
-            document.getElementById('err-name').classList.remove('show');
-            document.getElementById('err-email').classList.remove('show');
-            document.getElementById('slot-required-msg').classList.remove('show');
-
-            // build slots
-            buildSlots(dk);
-
-            document.getElementById('modal-backdrop').classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function buildSlots(dk) {
-            const booked = bookedSlotsFor(dk);
-            const grid = document.getElementById('slots-grid');
-            grid.innerHTML = '';
-            TIME_SLOTS.forEach(t => {
-                const btn = document.createElement('button');
-                btn.className = 'slot-btn';
-                btn.textContent = t + ' – ' + String(Number(t.split(':')[0]) + 1).padStart(2, '0') + ':00';
-                if (booked.includes(t)) {
-                    btn.disabled = true;
-                    btn.title = 'Already booked';
-                } else {
-                    btn.addEventListener('click', () => {
-                        document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
-                        btn.classList.add('selected');
-                        selectedSlot = t;
-                        document.getElementById('slot-required-msg').classList.remove('show');
-                    });
-                }
-                grid.appendChild(btn);
-            });
-        }
-
-        function closeModal() {
-            document.getElementById('modal-backdrop').classList.remove('open');
-            document.body.style.overflow = '';
-        }
-
-        document.getElementById('modal-close-btn').addEventListener('click', closeModal);
-        document.getElementById('modal-backdrop').addEventListener('click', e => {
-            if (e.target === document.getElementById('modal-backdrop')) closeModal();
-        });
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeModal();
-        });
-
-        /* ============================================================
-         *  FORM SUBMIT + EMAILJS
-         * ============================================================ */
-        document.getElementById('btn-book-submit').addEventListener('click', async () => {
-            let valid = true;
-
-            if (!selectedSlot) {
-                document.getElementById('slot-required-msg').classList.add('show');
-                valid = false;
-            }
-
-            const nameEl = document.getElementById('book-name');
-            const emailEl = document.getElementById('book-email');
-            const name = nameEl.value.trim();
-            const email = emailEl.value.trim();
-
-            if (!name) {
-                nameEl.classList.add('error');
-                document.getElementById('err-name').classList.add('show');
-                valid = false;
-            } else {
-                nameEl.classList.remove('error');
-                document.getElementById('err-name').classList.remove('show');
-            }
-
-            const emailOk = email && /^[^@]+@[^@]+\.[^@]+$/.test(email);
-            if (!emailOk) {
-                emailEl.classList.add('error');
-                document.getElementById('err-email').classList.add('show');
-                valid = false;
-            } else {
-                emailEl.classList.remove('error');
-                document.getElementById('err-email').classList.remove('show');
-            }
-
-            if (!valid) return;
-
-            const btn = document.getElementById('btn-book-submit');
-            btn.disabled = true;
-            btn.textContent = 'Checking…';
-
-            // Check if this email already booked in current/next month
-            const alreadyBooked = await hasBookedThisMonth(email);
-            if (alreadyBooked) {
-                btn.disabled = false;
-                btn.textContent = '📅 Book Appointment';
-                emailEl.classList.add('error');
-                document.getElementById('err-email').textContent = 'This email already has a booking. Only one appointment per person is allowed.';
-                document.getElementById('err-email').classList.add('show');
-                return;
-            }
-
-            btn.textContent = 'Sending…';
-
-            const msg = document.getElementById('book-msg').value.trim();
-            const dateStr = currentDate.toLocaleDateString('en-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            const endHour = String(Number(selectedSlot.split(':')[0]) + 1).padStart(2, '0') + ':00';
-            const timeStr = selectedSlot + ' – ' + endHour + ' CET';
-
-            // Persist to localStorage (always) + Firestore (shared)
-            saveBookingLS(currentDateKey, selectedSlot, { name, email });
-            await saveBookingFS(currentDateKey, selectedSlot, email);
-
-            // EmailJS params
-            const params = {
-                visitor_name: name,
-                visitor_email: email,
-                message: msg || '(no message)',
-                date: dateStr,
-                time: timeStr,
-                meet_link: GOOGLE_MEET_LINK,
-                my_email: MY_EMAIL,
-            };
-
-            // Send ONE email to visitor, CC Gaurav
-            let emailsOk = false;
-            emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-            try {
-                await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                    ...params,
-                    to_email: email,       // → visitor's inbox
-                    to_name: name,
-                    cc_email: MY_EMAIL,    // → Gaurav's inbox as CC
-                    subject: 'Your appointment with Gaurav Kumar Mishra is confirmed!',
-                });
-                emailsOk = true;
-                console.log('[EmailJS] Confirmation sent to ' + email + ', CC: ' + MY_EMAIL + ' ✓');
-            } catch (err) {
-                console.error('[EmailJS] Send failed:', err);
-            }
-
-            // Build Google Calendar URL
-            const gcalDate = currentDate;
-            const [sh, sm] = selectedSlot.split(':').map(Number);
-            const startDT = new Date(gcalDate);
-            startDT.setHours(sh, sm, 0, 0);
-            const endDT = new Date(startDT.getTime() + 60 * 60 * 1000);
-            const fmt = d => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-            const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-                '&text=' + encodeURIComponent('Meeting with Gaurav Kumar Mishra') +
-                '&dates=' + fmt(startDT) + '/' + fmt(endDT) +
-                '&details=' + encodeURIComponent('Google Meet: ' + GOOGLE_MEET_LINK + (msg ? '\n\nNote: ' + msg : '')) +
-                '&location=' + encodeURIComponent(GOOGLE_MEET_LINK);
-
-            const emailStatusMsg = emailsOk
-                ? '<br><br>Confirmation emails have been sent to you and Gaurav.'
-                : '<br><br><span style="color:#facc15;">⚠ Email delivery failed (quota may be exceeded) — but your slot is reserved. Please contact Gaurav directly.</span>';
-
-            document.getElementById('gcal-link').href = gcalUrl;
-            document.getElementById('success-desc').innerHTML =
-                '<strong>' + name + '</strong>, your appointment on <strong>' + dateStr + '</strong> at <strong>' + timeStr + '</strong> is confirmed!' +
-                emailStatusMsg +
-                '<br><br>Google Meet: <a href="' + GOOGLE_MEET_LINK + '" target="_blank" style="color:var(--cyan);">' + GOOGLE_MEET_LINK + '</a>';
-
-            document.getElementById('modal-form-view').style.display = 'none';
-            document.getElementById('modal-success-view').classList.add('show');
-
-            // re-render calendar so booked dot appears
-            renderCalendar();
-
-            btn.disabled = false;
-            btn.textContent = '📅 Book Appointment';
-        });
-
-        /* ============================================================
-         *  INIT — wait for Firebase, fall back after 4 s if offline
-         * ============================================================ */
-        let _calInited = false;
-        function _startCalendar() {
-            if (_calInited) return;
-            _calInited = true;
-            initCalendar();
-        }
-        document.addEventListener('gk-firebase-ready', _startCalendar);
-        setTimeout(_startCalendar, 4000); // fallback if Firebase fails to load
-    </script>
 
 </body>
-
 </html>

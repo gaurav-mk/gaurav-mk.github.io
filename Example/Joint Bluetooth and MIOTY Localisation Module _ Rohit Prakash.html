@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<!-- saved from url=(0104)https://rohxander.github.io/projects/2025_06_11_project_7_Joint_Bluetooth_and_MIOTY_Localisation_Module/ -->
+<html lang="en" data-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>#back-to-top{background:#000;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;bottom:20px;-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);-moz-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);box-shadow:0 2px 5px 0 rgba(0,0,0,.26);color:#fff;cursor:pointer;display:block;height:56px;opacity:1;outline:0;position:fixed;right:20px;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-transition:bottom .2s,opacity .2s;-o-transition:bottom .2s,opacity .2s;-moz-transition:bottom .2s,opacity .2s;transition:bottom .2s,opacity .2s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:56px;z-index:1}#back-to-top svg{display:block;fill:currentColor;height:20px;margin:11px auto 0;width:20px}#back-to-top.hidden{bottom:-56px;opacity:0}</style>   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Joint Bluetooth and MIOTY Localisation Module | Rohit Prakash </title> <meta name="author" content="Rohit Prakash"> <meta name="description" content="A coin-cell BLE + mioty localization tag combining precise short-range tracking with long-range fallback — one 2.4 GHz transceiver, motion-gated power, and a 9-axis IMU on a custom circular PCB."> <meta name="keywords" content="embedded software, firmware, localisation, IoT, portfolio"> <link rel="stylesheet" href="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/bootstrap.min.css"> <link rel="stylesheet" href="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous"> <link rel="preconnect" href="https://fonts.googleapis.com/"> <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin=""> <link rel="stylesheet" href="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/css2"> <link defer="" rel="stylesheet" href="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/jekyll-pygments-themes-github.css" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="https://rohxander.github.io/assets/img/favicon-chip.svg?e4f9589eb9747933de62f5d58cef9f84"> <link rel="stylesheet" href="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/portfolio-style.css"> <link rel="stylesheet" href="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/main.css"> <link rel="canonical" href="https://rohxander.github.io/projects/2025_06_11_project_7_Joint_Bluetooth_and_MIOTY_Localisation_Module/"> <script src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/theme.js.download"></script> <script defer="" src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/beacon.min.js.download" data-cf-beacon="{&quot;token&quot;:&quot;fb127d8d8fbe4703943502dc1775b1e7&quot;}"></script> <style>:root{--primary:#1f3a57;--primary-hover:#173049;--on-primary:#FFF;--primary-container:#d9e5f2;--on-primary-container:#0a2540;--secondary:#2e5c8a;--surface:#fafbfd;--surface-container-lowest:#FFF;--surface-container-low:#f5f7fa;--surface-container:#edf1f6;--surface-container-high:#e5ebf2;--on-surface:#14181e;--on-surface-variant:#4b5663;--on-surface-faint:#8693a3;--outline:#b7bfc8;--outline-variant:#d9dee5;--success:#1e7f4f;--font-display:'Roboto Flex','Roboto',system-ui,sans-serif;--font-body:'Roboto',system-ui,sans-serif;--font-mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;--r-xs:4px;--r-sm:8px;--r-md:12px;--r-lg:16px}*,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}body{font-family:var(--font-body);background:var(--surface);color:var(--on-surface);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.55}a{color:inherit;text-decoration:none}.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(to right,rgba(31,58,87,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(31,58,87,0.04) 1px,transparent 1px);background-size:96px 96px;mask-image:linear-gradient(to bottom,black 0,black 60%,transparent 100%)}.topbar{position:sticky;top:0;z-index:50}.topbar-inner{max-width:1240px;margin:0 auto;padding:14px 32px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px}.nav{display:inline-flex;gap:4px;padding:6px;background:var(--surface-container);border-radius:999px}.nav a{padding:11px 26px;border-radius:999px;font-size:15px;font-weight:500;color:var(--on-surface-variant);transition:background .15s,color .15s}.nav a:hover{color:var(--on-surface);background:color-mix(in oklab,var(--primary) 10%,transparent)}.nav a.active{background:var(--primary-container);color:var(--on-primary-container)}.resume-btn{justify-self:end;display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;background:var(--primary);color:var(--on-primary);font-size:14px;font-weight:500;font-family:var(--font-body);transition:background .15s,transform .12s;text-decoration:none}.resume-btn:hover{background:var(--primary-hover);transform:translateY(-1px)}.resume-btn svg{width:14px;height:14px;flex-shrink:0}main{position:relative;z-index:1}.proj-hero{padding:44px 32px 40px;max-width:1240px;margin:0 auto;border-bottom:1px solid var(--outline-variant)}.back-link{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--on-surface-faint);margin-bottom:24px;transition:color .15s}.back-link:hover{color:var(--primary)}.back-link svg{width:12px;height:12px}.proj-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--secondary);margin-bottom:16px}.proj-eyebrow::before{content:"";width:24px;height:1px;background:var(--secondary);display:inline-block}.proj-hero h1{font-family:var(--font-display);font-variation-settings:"opsz" 96,"wght" 600;font-size:clamp(28px,3.8vw,56px);line-height:1.05;letter-spacing:-0.02em;margin:0 0 12px;color:var(--on-surface);max-width:20ch}.proj-hero .subtitle{font-size:16px;color:var(--on-surface-variant);max-width:60ch;margin:0 0 28px;line-height:1.6}.meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.meta-chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;padding:4px 10px;border-radius:999px;border:1px solid var(--outline-variant);background:var(--surface-container-low);color:var(--on-surface-variant)}.meta-chip.primary{background:var(--primary-container);border-color:color-mix(in oklab,var(--primary) 22%,transparent);color:var(--on-primary-container)}.meta-sep{color:var(--outline);font-family:var(--font-mono);font-size:12px}.proj-body{max-width:1240px;margin:48px auto 0;padding:0 32px 80px;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:48px;align-items:start}.proj-main{min-width:0;display:flex;flex-direction:column;gap:48px}.section-block{display:flex;flex-direction:column;gap:16px}.section-label{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-faint);margin-bottom:4px}.section-label::after{content:"";flex:1;height:1px;background:var(--outline-variant);width:40px}.section-block h2{font-family:var(--font-display);font-variation-settings:"opsz" 48,"wght" 600;font-size:clamp(18px,2vw,24px);line-height:1.2;letter-spacing:-0.01em;margin:0;color:var(--on-surface);display:flex;align-items:center;gap:10px;flex-wrap:wrap}.section-block p{font-size:14.5px;line-height:1.7;color:var(--on-surface-variant);margin:0}
+.sbadge{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-mono);font-size:10px;letter-spacing:.05em;padding:2px 9px;border-radius:999px}.sbadge.complete{background:color-mix(in oklab,#3f9d6d 12%,transparent);color:#3f9d6d;border:1px solid color-mix(in oklab,#3f9d6d 28%,transparent)}.sbadge.progress{background:color-mix(in oklab,#bd6a2e 12%,transparent);color:#bd6a2e;border:1px solid color-mix(in oklab,#bd6a2e 28%,transparent)}.sbadge.planned{background:var(--surface-container);color:var(--on-surface-faint);border:1px solid var(--outline-variant)}.illus{border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-low);overflow:hidden}.illus-bar{padding:8px 14px;background:var(--surface-container);border-bottom:1px solid var(--outline-variant);display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint)}.illus-bar .dot{width:7px;height:7px;border-radius:50%;background:var(--outline)}.illus svg{display:block;width:100%}.illus img{display:block;width:100%;height:auto}.illus-caption{padding:10px 14px;border-top:1px solid var(--outline-variant);font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-faint);letter-spacing:.04em;line-height:1.5}.bom{border:1px solid var(--outline-variant);border-radius:var(--r-md);overflow:hidden}.bom-head{display:grid;grid-template-columns:120px 210px 1fr;padding:9px 14px;background:var(--surface-container-low);border-bottom:1px solid var(--outline-variant);font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-faint)}.bom-row{display:grid;grid-template-columns:120px 210px 1fr;padding:10px 14px;border-bottom:1px solid var(--outline-variant);background:var(--surface-container-lowest);align-items:start;transition:background .15s}.bom-row:last-child{border-bottom:0}.bom-row:hover{background:var(--surface-container-low)}.bc{font-size:13px;color:var(--on-surface);font-family:var(--font-mono)}.bc.lbl{color:var(--on-surface-variant);font-size:12px}.bc.dsc{font-family:var(--font-body);font-size:13px;color:var(--on-surface-variant)}.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.photo-item{border:1px solid var(--outline-variant);border-radius:var(--r-md);overflow:hidden;background:#0a1828}.photo-item img{display:block;width:100%;height:280px;object-fit:contain}.photo-cap{padding:8px 12px;font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-faint);letter-spacing:.04em;border-top:1px solid var(--outline-variant);background:var(--surface-container-lowest)}.proj-sidebar{position:sticky;top:80px;display:flex;flex-direction:column;gap:20px}.sidebar-card{border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-lowest);overflow:hidden}.sidebar-head{padding:10px 14px;background:var(--surface-container-low);border-bottom:1px solid var(--outline-variant);font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-faint)}.sidebar-row{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:start}.sidebar-row:last-child{border-bottom:0}.sidebar-key{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint);white-space:nowrap;padding-top:1px}.sidebar-val{font-size:13px;color:var(--on-surface);line-height:1.5;font-weight:500;text-align:right}.sidebar-val.mono{font-family:var(--font-mono);font-size:12px;font-weight:400}.tool-list{padding:12px 14px;display:flex;flex-wrap:wrap;gap:5px}.tool-chip{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;padding:3px 8px;border-radius:var(--r-xs);background:var(--surface-container);border:1px solid var(--outline-variant);color:var(--on-surface-variant)}.nav-proj{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--outline-variant);border:1px solid var(--outline-variant);border-radius:var(--r-md);overflow:hidden}.nav-proj a{padding:12px 14px;background:var(--surface-container-lowest);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-surface-faint);transition:background .15s,color .15s;display:flex;flex-direction:column;gap:4px}.nav-proj a:hover{background:var(--surface-container);color:var(--primary)}.nav-proj a span{font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--on-surface);letter-spacing:0;text-transform:none}.nav-proj a.next{text-align:right}.contact{border-top:1px solid var(--outline-variant);padding:44px 0 36px;background:var(--surface-container-low)}.contact-inner{max-width:1240px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start}.contact h2{font-family:var(--font-display);font-variation-settings:"opsz" 96,"wght" 500;font-size:clamp(26px,3.2vw,46px);line-height:1;letter-spacing:-0.02em;margin:0 0 14px}
+.contact h2 a{color:var(--primary);border-bottom:2px solid color-mix(in oklab,var(--primary) 40%,transparent);transition:border-color .15s}.contact h2 a:hover{border-color:var(--primary)}.contact p{color:var(--on-surface-variant);max-width:50ch;margin:0}.contact-links{display:grid;gap:1px;background:var(--outline-variant);border:1px solid var(--outline-variant);border-radius:var(--r-sm);overflow:hidden}.contact-link{display:grid;grid-template-columns:88px 1fr auto;gap:16px;padding:11px 16px;background:var(--surface-container-lowest);align-items:center;transition:background .15s}.contact-link:hover{background:var(--surface-container)}.contact-link .k{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--on-surface-faint);text-transform:uppercase}.contact-link .v{font-size:14px;color:var(--on-surface);font-weight:500}.contact-link .arrow{font-family:var(--font-mono);color:var(--on-surface-faint)}.contact-link:hover .arrow{color:var(--primary)}.footnote{max-width:1240px;margin:32px auto 0;padding:0 32px 16px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);letter-spacing:.04em}@media(max-width:960px){.proj-body{grid-template-columns:1fr;gap:32px;padding:0 20px 60px;margin-top:32px}.proj-hero{padding:32px 20px 28px}.proj-sidebar{position:static}.topbar-inner{grid-template-columns:1fr;justify-items:center}.nav{padding:7.5px;gap:5px}.nav a{padding:13.75px 32.5px;font-size:18.75px}.contact-inner,.footnote{padding-left:20px;padding-right:20px}.contact-inner{grid-template-columns:1fr}.photo-grid{grid-template-columns:1fr}.bom-head,.bom-row{grid-template-columns:80px 1fr}.bom-head>:nth-child(2),.bom-row>:nth-child(2){display:none}}</style> <style>.post-detail{max-width:none;margin:0;padding:0}.post-hero{max-width:820px;margin:0 auto;padding:44px 32px 40px;border-bottom:1px solid var(--outline-variant)}.back-link{display:inline-flex;align-items:center;gap:6px;margin-bottom:24px;color:var(--on-surface-faint);font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;transition:color .15s}.back-link svg{width:12px;height:12px}.back-link:hover{color:var(--primary)}.post-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:16px;color:var(--secondary);font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}.post-eyebrow::before{content:"";display:inline-block;width:24px;height:1px;background:var(--secondary)}.post-hero h1{max-width:22ch;margin:0 0 12px;color:var(--on-surface);font-family:var(--font-display);font-size:clamp(28px,3.8vw,56px);font-variation-settings:"opsz" 96,"wght" 600;line-height:1.05;letter-spacing:-0.02em}.post-subtitle{max-width:60ch;margin:0 0 28px;color:var(--on-surface-variant);font-size:17px;line-height:1.6;font-size:16px;line-height:1.6}.post-meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px}.post-meta-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid var(--outline-variant);border-radius:var(--r-pill);background:var(--surface-container-low);color:var(--on-surface-variant);font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em}.post-meta-chip.primary{border-color:color-mix(in oklab,var(--primary) 22%,transparent);background:var(--primary-container);color:var(--on-primary-container)}.post-shell{max-width:820px;margin:48px auto 0;padding:0 32px 80px}.post-content{color:var(--on-surface);font-size:16.5px;line-height:1.75}.post-content>*:first-child{margin-top:0}.post-content h2{display:flex;align-items:center;gap:14px;margin:48px 0 16px;color:var(--on-surface);font-family:var(--font-display);font-size:clamp(22px,2.6vw,30px);font-variation-settings:"opsz" 48,"wght" 600;line-height:1.2;letter-spacing:-0.01em}.post-content>h2:first-child{margin-top:0}.post-content h2::after{content:"";flex:1;min-width:40px;height:1px;background:var(--outline-variant)}.post-content h3{margin:34px 0 12px;color:var(--on-surface);font-family:var(--font-display);font-size:clamp(18px,1.8vw,22px);font-variation-settings:"opsz" 32,"wght" 600;line-height:1.25;letter-spacing:-0.005em}.post-content h4{margin:28px 0 10px;color:var(--secondary);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.16em;line-height:1.4;text-transform:uppercase}.post-content p{margin:0 0 18px;color:var(--on-surface-variant)}.post-content strong{color:var(--on-surface);font-weight:700}.post-content em{color:var(--on-surface)}.post-content a{color:var(--primary);font-weight:600}.post-content ul,.post-content ol{display:flex;flex-direction:column;max-width:820px;margin:16px 0 28px;padding:0;border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--outline-variant);overflow:hidden;list-style:none}.post-content li{position:relative;margin:0;padding:12px 18px 12px 44px;border-bottom:1px solid var(--outline-variant);background:var(--surface-container-lowest);color:var(--on-surface-variant);font-size:16px;line-height:1.65;transition:background .15s}.post-content li:last-child{border-bottom:0}.post-content li:hover{background:var(--surface-container-low)}.post-content ul li::before{content:"";position:absolute;left:18px;top:21px;width:7px;height:7px;border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px color-mix(in oklab,var(--primary) 10%,transparent)}.post-content ol{counter-reset:post-list}.post-content ol li{padding-left:58px}.post-content ol li::before{counter-increment:post-list;content:counter(post-list,decimal-leading-zero);position:absolute;left:16px;top:13px;color:var(--on-surface-faint);font-family:var(--font-mono);font-size:10px;letter-spacing:.12em}.post-content hr{margin:42px 0;border:0;border-top:1px solid var(--outline-variant)}.post-content blockquote{margin:28px 0;padding:16px 20px;border:1px solid var(--outline-variant);border-left:3px solid var(--secondary);border-radius:var(--r-sm);background:var(--surface-container-low);color:var(--on-surface-variant);font-size:15px;line-height:1.65}.post-content blockquote>p:first-child:has(>strong:only-child){font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--secondary);margin-bottom:8px}.post-content blockquote>p:first-child:has(>strong:only-child) strong{color:inherit;font-weight:600}.post-content blockquote p:last-child{margin-bottom:0}.post-content code{padding:2px 5px;border:1px solid var(--outline-variant);border-radius:var(--r-xs);background:var(--surface-container);color:var(--primary);font-family:var(--font-mono);font-size:.92em}
+.post-content pre{max-width:820px;overflow-x:auto;margin:28px 0;padding:18px;border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-low)}.post-content pre code{padding:0;border:0;background:transparent;color:inherit}.post-content mjx-container[jax="CHTML"][display="true"],.post-content .mjx-container[jax="CHTML"][display="true"]{max-width:820px;margin:28px 0!important;padding:18px 20px;border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-lowest);color:var(--on-surface);box-shadow:var(--shadow-1);overflow-x:auto}.post-content table{width:100%;max-width:820px;margin:28px 0 30px;border:1px solid var(--outline-variant);border-spacing:0;border-radius:var(--r-md);background:var(--surface-container-lowest);overflow:hidden;font-size:13.5px}.post-content th{padding:10px 16px;border-bottom:1px solid var(--outline-variant);background:var(--surface-container-low);color:var(--on-surface-faint);font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-align:left;text-transform:uppercase}.post-content td{padding:11px 16px;border-bottom:1px solid var(--outline-variant);color:var(--on-surface);font-family:var(--font-mono);font-size:12.5px}.post-content tr:last-child td{border-bottom:0}.post-content tr:hover td{background:var(--surface-container-low)}.post-content .row{display:block;margin:34px 0 10px}.post-content .col-sm{max-width:none;padding:0}.post-content figure,.post-content picture{display:block;margin:0}.post-content img,.post-content .img-fluid{display:block;width:min(100%,820px)!important;max-width:100%;height:auto;margin:0;border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-low);box-shadow:var(--shadow-1)}.post-content .caption,.post-content .caption p{max-width:820px;margin:8px 0 28px;color:var(--on-surface-faint);font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;line-height:1.5}.post-diagram{max-width:100%;margin:28px 0 40px;border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-low);overflow:hidden}.post-diagram-bar{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--outline-variant);background:var(--surface-container);color:var(--on-surface-faint);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase}.post-diagram-bar::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--outline);flex-shrink:0}.post-diagram svg{display:block;width:100%;height:auto;background:var(--surface-container-low)}.post-diagram-caption{padding:11px 16px;border-top:1px solid var(--outline-variant);color:var(--on-surface-faint);font-family:var(--font-mono);font-size:10.5px;letter-spacing:.03em;line-height:1.55}.post-diagram text{font-family:var(--font-mono)}.post-diagram-bar__live{margin-left:auto;display:inline-flex;align-items:center;gap:6px;color:var(--secondary);letter-spacing:.12em}.post-diagram-bar__live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--secondary);animation:livepulse 2s ease-in-out infinite}@keyframes livepulse{0%,100%{opacity:1}50%{opacity:.25}}.vid-stage{position:relative;width:100%;background:#eef2f7;line-height:0}.vid-stage video{display:block;width:100%;height:auto}.vid-controls{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(to top,rgba(15,22,32,0.78) 0%,rgba(15,22,32,0.45) 55%,rgba(15,22,32,0) 100%);opacity:0;transform:translateY(6px);transition:opacity .2s ease,transform .2s ease;line-height:normal}.vid-stage:hover .vid-controls,.vid-stage.paused .vid-controls,.vid-stage:focus-within .vid-controls{opacity:1;transform:translateY(0)}.vc-btn{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:999px;cursor:pointer;background:rgba(255,255,255,0.14);color:#fff;transition:background .15s,transform .1s}.vc-btn:hover{background:rgba(255,255,255,0.28)}.vc-btn:active{transform:scale(0.92)}.vc-btn svg{width:15px;height:15px;display:block}.vc-progress{flex:1;height:5px;border-radius:999px;background:rgba(255,255,255,0.22);cursor:pointer;position:relative;overflow:hidden}.vc-bar{position:absolute;left:0;top:0;bottom:0;width:0;background:#fff;border-radius:999px}.vc-time{font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.92);letter-spacing:.04em;flex-shrink:0;min-width:78px;text-align:center}.vc-speed{flex-shrink:0;min-width:42px;height:28px;padding:0 9px;border:0;border-radius:999px;cursor:pointer;background:rgba(255,255,255,0.14);color:#fff;font-family:var(--font-mono);font-size:11.5px;font-weight:600;letter-spacing:.02em;transition:background .15s}
+.vc-speed:hover{background:rgba(255,255,255,0.28)}.vid-stage:fullscreen{display:flex;align-items:center;justify-content:center;background:#0b0f14}.vid-stage:fullscreen video{width:auto;height:100%;max-width:100%}.vid-stage:fullscreen .vid-controls{padding:18px 24px}@media(max-width:640px){.vc-time{display:none}}@media(max-width:960px){.post-hero{padding:32px 20px 28px}.post-shell{margin-top:32px;padding:0 20px 60px}}@media(max-width:640px){.post-hero h1{font-size:clamp(30px,10vw,44px)}.post-subtitle{font-size:15px}.post-content{font-size:15px}.post-content h2{display:block}.post-content h2::after{display:none}.post-content ul,.post-content ol,.post-content table,.post-content pre,.post-content blockquote,.post-content mjx-container[jax="CHTML"][display="true"],.post-content .mjx-container[jax="CHTML"][display="true"]{max-width:100%}}.article-toc{position:fixed;left:calc(25vw - 385px);top:50%;transform:translateY(-50%);width:196px;max-height:80vh;overflow-y:auto;z-index:10;padding:0 0 16px;scrollbar-width:none;opacity:0;visibility:hidden}.article-toc.ready{visibility:visible;animation:toc-enter .45s cubic-bezier(0.2,0,0,1) .08s both}@keyframes toc-enter{from{opacity:0;transform:translateY(-50%) translateX(-10px)}to{opacity:1;transform:translateY(-50%) translateX(0)}}.article-toc::-webkit-scrollbar{display:none}@media(max-width:1400px){.article-toc{display:none}.toc-pill{display:none!important}}.toc-pill{position:absolute;border-radius:999px;pointer-events:none;z-index:9;transition:top .32s cubic-bezier(0.2,0,0,1),left .32s cubic-bezier(0.2,0,0,1),width .32s cubic-bezier(0.2,0,0,1),height .32s cubic-bezier(0.2,0,0,1),opacity .22s cubic-bezier(0.2,0,0,1);opacity:0;background:var(--primary-container)}.toc-pill.sub{background:color-mix(in oklab,var(--secondary) 14%,transparent)}.toc-header{font-family:'Google Sans Flex','Google Sans',var(--font-body);font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--on-surface-faint);padding:2px 16px 12px}.article-toc a{position:relative;z-index:11;display:block;height:32px;line-height:32px;padding:0 16px;font-family:'Google Sans Flex','Google Sans',var(--font-body);font-size:12.5px;font-weight:450;color:var(--on-surface-variant);text-decoration:none;border-radius:999px;margin:2px 4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .2s cubic-bezier(0.2,0,0,1),background .18s cubic-bezier(0.2,0,0,1)}.article-toc a.toc-h3{padding-left:32px;font-size:11.5px;color:var(--on-surface-faint);font-weight:400}.article-toc a:hover{background:color-mix(in oklab,var(--primary) 7%,transparent);color:var(--on-surface)}.article-toc a.active,.article-toc a.active:hover{color:var(--on-primary-container)!important;font-weight:600!important}.article-toc a.toc-h3.active,.article-toc a.toc-h3.active:hover{color:var(--secondary)!important;font-weight:500!important}</style> <style>:root{--r-pill:999px;--global-font-body:var(--font-body);--global-font-display:var(--font-display);--global-font-label:var(--font-body);--bs-font-sans-serif:var(--font-body);--bs-body-font-family:var(--font-body)}body,body :where(button,input,textarea,select),:where(.topbar,.nav a,.resume-btn,.hero-lede,.btn,.portrait-caption .who,.portrait-caption .focus,.spec-value,.entry-org,.entry-summary,.proj,.proj p,.chip,.contact p,.contact-link .v,.page-header p,.post-card,.post-summary,.proj-body p,.subtitle,.section-block p,.sidebar-card,.sidebar-val,.post-subtitle,.post-content,.post-content p,.post-content li,.post-sidebar-val,.post-nav span){font-family:var(--font-body)}:where(.brand,.topbar-right,.eyebrow,.hero-keywords,.hero-lede .lede-mark,.portrait-meta,.section-id,.section-aside,.ledger-head,.entry-kind,.entry-loc,.entry-tags span,.entry-aside,.proj-meta,.proj-meta .tag,.proj-stack span,.chip .lvl,.skill-cat,.post-meta,.post-kicker,.post-date,.post-num,.post-aside,.read-time,.category-label,.category-badge,.post-tags span,.tag,.proj-link,.back-link,.proj-eyebrow,.meta-chip,.meta-sep,.section-label,.obj-num,.rt-head,.rt-cell,.badge-pass,.illus-bar,.illus-caption,.sidebar-head,.sidebar-key,.tool-chip,.nav-proj a,.contact-link .k,.contact-link .arrow,.footnote,.post-eyebrow,.post-meta-chip,.post-sidebar-head,.post-sidebar-key,.post-tag-list span,.post-nav small,.post-content code,.post-content .caption,.post-content .caption p){font-family:var(--font-mono)}:where(.hero h1,.section-title,.entry-year,.entry-title,.proj h3,.contact h2,.page-header h1,.post-title,.proj-hero h1,.section-block h2,.post-hero h1,.post-content h2){font-family:var(--font-display)}:root,html[data-theme]{--r-pill:999px;--global-font-body:var(--font-body);--global-font-display:var(--font-display);--global-font-label:var(--font-body);--bs-font-sans-serif:var(--font-body);--bs-body-font-family:var(--font-body)}body .topbar,body .nav a,body .resume-btn,body .hero-lede,body .btn,body .portrait-caption .who,body .portrait-caption .focus,body .spec-value,body .spec-value .sub,body .entry-org,body .entry-summary,body .proj,body .proj p,body .chip,body .contact p,body .contact-link .v,body .page-header p,body .post-card,body .post-summary,body .proj-body p,body .subtitle,body .section-block p,body .sidebar-card,body .sidebar-val,body .post-subtitle,body .post-content,body .post-content p,body .post-content li,body .post-sidebar-val,body .post-nav span{font-family:var(--font-body)}body .brand,body .topbar-right,body .eyebrow,body .hero-keywords,body .hero-lede .lede-mark,body .portrait-meta,body .section-id,body .section-aside,body .ledger-head,body .entry-kind,body .entry-loc,body .entry-tags span,body .entry-aside,body .proj-meta,body .proj-meta .tag,body .proj-stack span,body .chip .lvl,body .skill-cat,body .post-meta,body .post-kicker,body .post-date,body .post-num,body .post-aside,body .read-time,body .category-label,body .category-badge,body .post-tags span,body .tag,body .proj-link,body .back-link,body .proj-eyebrow,body .meta-chip,body .meta-sep,body .section-label,body .obj-num,body .rt-head,body .rt-cell,body .badge-pass,body .illus-bar,body .illus-caption,body .sidebar-head,body .sidebar-key,body .tool-chip,body .nav-proj a,body .contact-link .k,body .contact-link .arrow,body .footnote,body .post-eyebrow,body .post-meta-chip,body .post-sidebar-head,body .post-sidebar-key,body .post-tag-list span,body .post-nav small,body .post-content code,body .post-content .caption,body .post-content .caption p{font-family:var(--font-mono)}body .hero h1,body .section-title,body .entry-year,body .entry-title,body .proj h3,body .contact h2,body .page-header h1,body .post-title,body .proj-hero h1,body .section-block h2,body .post-hero h1,body .post-content h2{font-family:var(--font-display)}a,a:hover,a:focus,a:active{text-decoration:none!important;text-decoration-line:none!important}.nav{box-shadow:0 10px 28px -18px rgba(31,58,87,0.45)}@media(max-width:640px){html,body{max-width:100%;overflow-x:clip}body .topbar{position:absolute;top:0;left:0;right:0;z-index:50;background:transparent;pointer-events:none}body .topbar+main{padding-top:67px}body .topbar-inner{max-width:none;grid-template-columns:1fr auto 1fr;gap:8px;padding:12px 18px;pointer-events:none}body .topbar-inner>div:first-child{display:none}body .nav{position:fixed;top:12px;left:50%;z-index:90;width:max-content;grid-column:2;justify-self:center;max-width:calc(100vw - 112px);overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap;transform:translateX(-50%);gap:4px;padding:6px;background:color-mix(in oklab,var(--surface-container) 92%,transparent);border-radius:999px;box-shadow:0 10px 28px -18px rgba(31,58,87,0.45);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);pointer-events:auto}body .nav::-webkit-scrollbar{display:none}body .nav a{padding:10px 16px;font-size:14px;line-height:1.2;white-space:nowrap}body .resume-btn{position:absolute;top:12px;right:18px;width:40px;min-width:40px;height:40px;justify-content:center;padding:0;border-radius:50%;font-size:0;gap:0;pointer-events:auto}
+body .resume-btn svg{width:16px;height:16px}body .topbar .topbar-resume{display:none}body .wrap,body .post-shell,body main>.proj-body,body .contact-inner,body .footnote{padding-left:24px;padding-right:24px}body .page-header,body .post-hero,body .proj-hero{padding:32px 24px 28px}body .page-header h1,body .post-hero h1,body .proj-hero h1{max-width:100%;font-size:clamp(32px,10vw,44px);line-height:1.05;letter-spacing:0;overflow-wrap:break-word}body .page-header p,body .post-subtitle,body .proj-hero .subtitle{max-width:none;font-size:15px;line-height:1.55}body .posts-list{margin-bottom:44px;border-radius:10px}body .post-card{grid-template-columns:minmax(0,1fr);gap:12px;padding:18px 16px}body .post-card::after{display:none}body .post-meta{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 10px;padding-top:0;align-items:start}body .post-kicker,body .category-badge{max-width:100%;overflow-wrap:anywhere}body .post-tags{grid-column:1 / -1}body .post-title{font-size:22px;letter-spacing:0}body .post-summary{font-size:13.5px;line-height:1.55}body .post-aside{align-items:flex-start;flex-flow:row wrap;gap:8px;padding-top:0}body .category-section{margin-bottom:36px}body .category-label{gap:10px;font-size:9.5px;letter-spacing:.12em;line-height:1.35}body .category-label::after{min-width:24px}body .proj-grid{grid-template-columns:minmax(0,1fr)!important;gap:16px}body .proj-meta{top:10px;left:10px;max-width:calc(100% - 20px);flex-wrap:wrap}body .proj .proj-body{padding:16px}body .proj h3{letter-spacing:0}body .proj p{font-size:13.25px}body main>.proj-body{grid-template-columns:minmax(0,1fr);gap:30px;margin-top:30px;padding-bottom:60px}body .proj-main{gap:34px}body .section-block{gap:14px}body .section-label{max-width:100%;font-size:9.5px;letter-spacing:.12em;line-height:1.35}body .section-block h2{font-size:22px;letter-spacing:0}body .section-block p,body .obj-text{font-size:14px}body .obj-item{grid-template-columns:30px minmax(0,1fr);gap:10px;padding:13px 14px}body .results-table{overflow-x:auto}body .rt-head,body .rt-row{min-width:520px}body .illus{border-radius:10px;overflow-x:auto;overflow-y:hidden}body .illus-bar{padding:8px 10px;font-size:9px;letter-spacing:.06em;line-height:1.35;overflow-wrap:anywhere}body .illus svg{min-width:520px}body .illus-caption{padding:10px;font-size:10px}body .post-content{font-size:14px}body .post-content h2{display:block;font-size:22px;letter-spacing:0}body .post-content h2::after{display:none}body .post-content ul,body .post-content ol,body .post-content table,body .post-content pre,body .post-content blockquote,body .post-content mjx-container[jax="CHTML"][display="true"],body .post-content .mjx-container[jax="CHTML"][display="true"]{max-width:100%}body .post-content ul,body .post-content ol{margin:14px 0 24px}body .post-content li{padding:11px 14px 11px 38px;font-size:13.5px}body .post-content ol li{padding-left:50px}body .post-content table{display:block;overflow-x:auto}body .post-content .post-diagram{border-radius:10px;overflow-x:auto}body .post-diagram svg{min-width:520px}body .post-sidebar,body .proj-sidebar{position:static}body .post-sidebar-row,body .sidebar-row{grid-template-columns:minmax(0,1fr);gap:4px}body .nav-proj{grid-template-columns:minmax(0,1fr)}body .nav-proj a.next{text-align:left}body .contact{margin-top:42px;padding:36px 0 30px}body .contact-inner{grid-template-columns:minmax(0,1fr);gap:28px}body .contact h2{font-size:30px;line-height:1.08;letter-spacing:0}body .contact-link{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 14px}body .contact-link .k{grid-column:1 / -1}body .contact-link .v{min-width:0;font-size:13.5px;overflow-wrap:anywhere}}@media(max-width:380px){body .topbar-inner{padding-left:14px;padding-right:14px}body .nav{max-width:calc(100vw - 104px)}body .nav a{padding:9px 13px;font-size:13.5px}body .resume-btn{right:14px;width:38px;min-width:38px;height:38px}body .wrap,body .post-shell,body main>.proj-body,body .contact-inner,body .footnote{padding-left:18px;padding-right:18px}body .page-header,body .post-hero,body .proj-hero{padding-left:18px;padding-right:18px}body .contact h2{font-size:27px}}</style> <style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style><style type="text/css">.medium-zoom-overlay{position:fixed;top:0;right:0;bottom:0;left:0;opacity:0;transition:opacity .3s;will-change:opacity}.medium-zoom--opened .medium-zoom-overlay{cursor:pointer;cursor:zoom-out;opacity:1}.medium-zoom-image{cursor:pointer;cursor:zoom-in;transition:transform .3s cubic-bezier(.2,0,.2,1)!important}.medium-zoom-image--hidden{visibility:hidden}.medium-zoom-image--opened{position:relative;cursor:pointer;cursor:zoom-out;will-change:transform}</style><style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style id="MJX-CHTML-styles">
+mjx-container[jax="CHTML"] {
+  line-height: 0;
+}
+
+mjx-container [space="1"] {
+  margin-left: .111em;
+}
+
+mjx-container [space="2"] {
+  margin-left: .167em;
+}
+
+mjx-container [space="3"] {
+  margin-left: .222em;
+}
+
+mjx-container [space="4"] {
+  margin-left: .278em;
+}
+
+mjx-container [space="5"] {
+  margin-left: .333em;
+}
+
+mjx-container [rspace="1"] {
+  margin-right: .111em;
+}
+
+mjx-container [rspace="2"] {
+  margin-right: .167em;
+}
+
+mjx-container [rspace="3"] {
+  margin-right: .222em;
+}
+
+mjx-container [rspace="4"] {
+  margin-right: .278em;
+}
+
+mjx-container [rspace="5"] {
+  margin-right: .333em;
+}
+
+mjx-container [size="s"] {
+  font-size: 70.7%;
+}
+
+mjx-container [size="ss"] {
+  font-size: 50%;
+}
+
+mjx-container [size="Tn"] {
+  font-size: 60%;
+}
+
+mjx-container [size="sm"] {
+  font-size: 85%;
+}
+
+mjx-container [size="lg"] {
+  font-size: 120%;
+}
+
+mjx-container [size="Lg"] {
+  font-size: 144%;
+}
+
+mjx-container [size="LG"] {
+  font-size: 173%;
+}
+
+mjx-container [size="hg"] {
+  font-size: 207%;
+}
+
+mjx-container [size="HG"] {
+  font-size: 249%;
+}
+
+mjx-container [width="full"] {
+  width: 100%;
+}
+
+mjx-box {
+  display: inline-block;
+}
+
+mjx-block {
+  display: block;
+}
+
+mjx-itable {
+  display: inline-table;
+}
+
+mjx-row {
+  display: table-row;
+}
+
+mjx-row > * {
+  display: table-cell;
+}
+
+mjx-mtext {
+  display: inline-block;
+}
+
+mjx-mstyle {
+  display: inline-block;
+}
+
+mjx-merror {
+  display: inline-block;
+  color: red;
+  background-color: yellow;
+}
+
+mjx-mphantom {
+  visibility: hidden;
+}
+
+_::-webkit-full-page-media, _:future, :root mjx-container {
+  will-change: opacity;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-c::before {
+  display: block;
+  width: 0;
+}
+
+.MJX-TEX {
+  font-family: MJXZERO, MJXTEX;
+}
+
+.TEX-B {
+  font-family: MJXZERO, MJXTEX-B;
+}
+
+.TEX-I {
+  font-family: MJXZERO, MJXTEX-I;
+}
+
+.TEX-MI {
+  font-family: MJXZERO, MJXTEX-MI;
+}
+
+.TEX-BI {
+  font-family: MJXZERO, MJXTEX-BI;
+}
+
+.TEX-S1 {
+  font-family: MJXZERO, MJXTEX-S1;
+}
+
+.TEX-S2 {
+  font-family: MJXZERO, MJXTEX-S2;
+}
+
+.TEX-S3 {
+  font-family: MJXZERO, MJXTEX-S3;
+}
+
+.TEX-S4 {
+  font-family: MJXZERO, MJXTEX-S4;
+}
+
+.TEX-A {
+  font-family: MJXZERO, MJXTEX-A;
+}
+
+.TEX-C {
+  font-family: MJXZERO, MJXTEX-C;
+}
+
+.TEX-CB {
+  font-family: MJXZERO, MJXTEX-CB;
+}
+
+.TEX-FR {
+  font-family: MJXZERO, MJXTEX-FR;
+}
+
+.TEX-FRB {
+  font-family: MJXZERO, MJXTEX-FRB;
+}
+
+.TEX-SS {
+  font-family: MJXZERO, MJXTEX-SS;
+}
+
+.TEX-SSB {
+  font-family: MJXZERO, MJXTEX-SSB;
+}
+
+.TEX-SSI {
+  font-family: MJXZERO, MJXTEX-SSI;
+}
+
+.TEX-SC {
+  font-family: MJXZERO, MJXTEX-SC;
+}
+
+.TEX-T {
+  font-family: MJXZERO, MJXTEX-T;
+}
+
+.TEX-V {
+  font-family: MJXZERO, MJXTEX-V;
+}
+
+.TEX-VB {
+  font-family: MJXZERO, MJXTEX-VB;
+}
+
+mjx-stretchy-v mjx-c, mjx-stretchy-h mjx-c {
+  font-family: MJXZERO, MJXTEX-S1, MJXTEX-S4, MJXTEX, MJXTEX-A ! important;
+}
+
+@font-face /* 0 */ {
+  font-family: MJXZERO;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Zero.woff") format("woff");
+}
+
+@font-face /* 1 */ {
+  font-family: MJXTEX;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff") format("woff");
+}
+
+@font-face /* 2 */ {
+  font-family: MJXTEX-B;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff") format("woff");
+}
+
+@font-face /* 3 */ {
+  font-family: MJXTEX-I;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff") format("woff");
+}
+
+@font-face /* 4 */ {
+  font-family: MJXTEX-MI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff") format("woff");
+}
+
+@font-face /* 5 */ {
+  font-family: MJXTEX-BI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff") format("woff");
+}
+
+@font-face /* 6 */ {
+  font-family: MJXTEX-S1;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff") format("woff");
+}
+
+@font-face /* 7 */ {
+  font-family: MJXTEX-S2;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff") format("woff");
+}
+
+@font-face /* 8 */ {
+  font-family: MJXTEX-S3;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff") format("woff");
+}
+
+@font-face /* 9 */ {
+  font-family: MJXTEX-S4;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff") format("woff");
+}
+
+@font-face /* 10 */ {
+  font-family: MJXTEX-A;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff") format("woff");
+}
+
+@font-face /* 11 */ {
+  font-family: MJXTEX-C;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff") format("woff");
+}
+
+@font-face /* 12 */ {
+  font-family: MJXTEX-CB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff") format("woff");
+}
+
+@font-face /* 13 */ {
+  font-family: MJXTEX-FR;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff") format("woff");
+}
+
+@font-face /* 14 */ {
+  font-family: MJXTEX-FRB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff") format("woff");
+}
+
+@font-face /* 15 */ {
+  font-family: MJXTEX-SS;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff") format("woff");
+}
+
+@font-face /* 16 */ {
+  font-family: MJXTEX-SSB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff") format("woff");
+}
+
+@font-face /* 17 */ {
+  font-family: MJXTEX-SSI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff") format("woff");
+}
+
+@font-face /* 18 */ {
+  font-family: MJXTEX-SC;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff") format("woff");
+}
+
+@font-face /* 19 */ {
+  font-family: MJXTEX-T;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff") format("woff");
+}
+
+@font-face /* 20 */ {
+  font-family: MJXTEX-V;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff") format("woff");
+}
+
+@font-face /* 21 */ {
+  font-family: MJXTEX-VB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff") format("woff");
+}
+</style><style>
+          .mjx-container {
+            color: inherit;
+          }
+        </style></head> <body> <div class="grid-bg"></div> <header class="topbar"> <div class="topbar-inner"> <div></div> <nav class="nav"> <a href="https://rohxander.github.io/">Home</a> <a href="https://rohxander.github.io/blog/">Posts</a> <a href="https://rohxander.github.io/projects/" class="active">Projects</a> </nav> </div> </header> <main> <aside class="article-toc ready" style="margin-top: 0px;"><a href="https://rohxander.github.io/projects/2025_06_11_project_7_Joint_Bluetooth_and_MIOTY_Localisation_Module/#heading-0" class="active">Introduction</a><a href="https://rohxander.github.io/projects/2025_06_11_project_7_Joint_Bluetooth_and_MIOTY_Localisation_Module/#heading-1" class="">Radio Architecture</a><a href="https://rohxander.github.io/projects/2025_06_11_project_7_Joint_Bluetooth_and_MIOTY_Localisation_Module/#heading-2" class="">System Concept</a><a href="https://rohxander.github.io/projects/2025_06_11_project_7_Joint_Bluetooth_and_MIOTY_Localisation_Module/#heading-3" class="">Hardware</a><a href="https://rohxander.github.io/projects/2025_06_11_project_7_Joint_Bluetooth_and_MIOTY_Localisation_Module/#heading-4" class="">Firmware</a><a href="https://rohxander.github.io/projects/2025_06_11_project_7_Joint_Bluetooth_and_MIOTY_Localisation_Module/#heading-5" class="">Localization</a><a href="https://rohxander.github.io/projects/2025_06_11_project_7_Joint_Bluetooth_and_MIOTY_Localisation_Module/#heading-6" class="">Summary</a><a href="https://rohxander.github.io/projects/2025_06_11_project_7_Joint_Bluetooth_and_MIOTY_Localisation_Module/#heading-7" class="">Gallery</a><div class="toc-pill" style="top: 2px; left: 4px; width: 188px; height: 32px; opacity: 1;"></div></aside> <div class="proj-hero"> <a class="back-link" href="https://rohxander.github.io/projects/"> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg> All Projects </a> <div class="proj-eyebrow">Project 07 · IoT · RF · Hardware</div> <h1>Joint Bluetooth and MIOTY Localisation Module</h1> <p class="subtitle">A coin-cell BLE + mioty localization tag combining precise short-range tracking with long-range fallback — one 2.4 GHz transceiver, motion-gated power, and a 9-axis IMU on a custom circular PCB.</p> <div class="meta-row"> <span class="meta-chip primary">IoT</span> <span class="meta-chip primary">RF Hardware</span> <span class="meta-chip primary">Localization</span> <span class="meta-chip">BLE</span> <span class="meta-chip">mioty</span> <span class="meta-chip">STM32F103CB</span> <span class="meta-chip">SX1280</span> <span class="meta-chip">KiCad</span> <span class="meta-sep">·</span> <span class="meta-chip">FAU Erlangen-Nürnberg · LIKE · 2025–</span> </div> </div> <div class="proj-body"> <div class="proj-main"> <div class="section-block"> <div class="section-label">Introduction</div> <h2 data-toc="Introduction" id="heading-0">The Coverage Gap</h2> <p>Most asset-tracking tags are built around a single trade-off. BLE tags are cheap and accurate when a receiver is nearby — but the moment the tag drifts out of range, it goes dark. Long-range IoT radios solve coverage, but at the cost of energy and precision. This project asks a different question: what if one tag could do both on a single radio? The result is a joint BLE + mioty module that transmits frequent BLE advertisements for precise tracking near infrastructure, and occasional mioty telegrams for long-range fallback everywhere else — both from the same 2.4 GHz front end.</p> <div class="illus"> <div class="illus-bar"> <span class="dot"></span>Coverage Gap — BLE Precise vs. mioty Fallback</div> <svg viewBox="0 0 720 198" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;"> <defs> <pattern id="cg-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path></pattern> <clippath id="cl-l"><rect x="10" y="10" width="290" height="178"></rect></clippath> <clippath id="cl-r"><rect x="420" y="10" width="290" height="178"></rect></clippath> </defs> <rect width="720" height="198" fill="url(#cg-g)"></rect> <rect x="10" y="10" width="290" height="178" rx="8" fill="color-mix(in oklab,#1F3A57 5%,#F5F7FA)" stroke="#D9DEE5" stroke-width="1"></rect> <text x="22" y="29" font-family="Roboto Mono" font-size="8.5" fill="#8693A3" letter-spacing="0.12em">BLE ZONE</text> <rect x="30" y="46" width="13" height="13" rx="2" fill="#1F3A57"></rect><text x="36" y="40" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">GW</text> <circle cx="36" cy="52" r="54" fill="none" stroke="#1F3A57" stroke-width="0.6" stroke-dasharray="4 3" clip-path="url(#cl-l)"></circle> <rect x="168" y="36" width="13" height="13" rx="2" fill="#1F3A57"></rect><text x="174" y="30" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">GW</text> <circle cx="174" cy="42" r="54" fill="none" stroke="#1F3A57" stroke-width="0.6" stroke-dasharray="4 3" clip-path="url(#cl-l)"></circle> <rect x="228" y="98" width="13" height="13" rx="2" fill="#1F3A57"></rect><text x="234" y="92" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">GW</text> <circle cx="234" cy="104" r="50" fill="none" stroke="#1F3A57" stroke-width="0.6" stroke-dasharray="4 3" clip-path="url(#cl-l)"></circle> <circle cx="120" cy="104" r="20" fill="color-mix(in oklab,#2E5C8A 8%,transparent)" stroke="#2E5C8A" stroke-width="1" stroke-dasharray="3 2"></circle> <circle cx="120" cy="104" r="9" fill="none" stroke="#2E5C8A" stroke-width="1.5"></circle> <circle cx="120" cy="104" r="3" fill="#2E5C8A"></circle> <text x="120" y="140" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#1F3A57" font-weight="600">± 0.5 m</text> <text x="120" y="155" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">precise fix</text> <rect x="420" y="10" width="290" height="178" rx="8" fill="color-mix(in oklab,#2E5C8A 4%,#F5F7FA)" stroke="#D9DEE5" stroke-width="1"></rect> <text x="432" y="29" font-family="Roboto Mono" font-size="8.5" fill="#8693A3" letter-spacing="0.12em">MIOTY ZONE</text> <rect x="668" y="38" width="13" height="13" rx="2" fill="#2E5C8A"></rect><text x="674" y="32" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">BS</text> <circle cx="674" cy="44" r="260" fill="none" stroke="#2E5C8A" stroke-width="0.6" stroke-dasharray="6 4" clip-path="url(#cl-r)"></circle> <circle cx="555" cy="104" r="44" fill="color-mix(in oklab,#2E5C8A 5%,transparent)" stroke="#2E5C8A" stroke-width="0.7" stroke-dasharray="3 3"></circle> <circle cx="555" cy="104" r="26" fill="color-mix(in oklab,#2E5C8A 9%,transparent)" stroke="#2E5C8A" stroke-width="1.2"></circle> <circle cx="555" cy="104" r="3" fill="#2E5C8A"></circle> <text x="555" y="162" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#2E5C8A" font-weight="600">± 30 m</text> <text x="555" y="177" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">fallback coverage</text> <text x="360" y="92" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">degrades</text> <text x="360" y="104" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">gracefully</text> <line x1="316" y1="96" x2="336" y2="96" stroke="#B7BFC8" stroke-width="1"></line><polygon points="332,92 339,96 332,100" fill="#B7BFC8"></polygon> <line x1="384" y1="96" x2="404" y2="96" stroke="#B7BFC8" stroke-width="1"></line><polygon points="388,92 381,96 388,100" fill="#B7BFC8"></polygon> </svg> <div class="illus-caption">Fig 1 — BLE delivers precise position within gateway range; mioty maintains coarse coverage almost everywhere. A dual-mode tag combines both so tracking degrades gracefully rather than dropping out at the coverage edge.</div> </div> </div> <div class="section-block"> <div class="section-label">Radio Architecture</div> <h2 data-toc="Radio Architecture" id="heading-1">Two Modes, One Radio</h2> <p>mioty is built on Telegram Splitting (ETSI TS-UNB): instead of one continuous packet, it chops messages into small sub-packets scattered across time and frequency. A receiver needs only a fraction of them to reconstruct the message — giving mioty its robustness and range. The novelty here is bringing that approach onto the same 2.4 GHz front end as BLE. BLE handles the common case with ~4 Hz three-channel hops for fine-grained tracking; mioty handles the fallback with infrequent split-telegrams that stay linked even when BLE coverage is absent. The two are complementary, not redundant — and both share a single SX1280 transceiver and antenna.</p> <div class="illus"> <div class="illus-bar"> <span class="dot"></span>Dual-Mode Operation — SX1280 Output Patterns</div> <svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;"> <defs><pattern id="dm-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path></pattern></defs> <rect width="720" height="240" fill="url(#dm-g)"></rect> <rect x="276" y="96" width="168" height="58" rx="6" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect> <text x="360" y="122" text-anchor="middle" font-family="Roboto Mono" font-size="10" font-weight="600" fill="#1F3A57">SX1280</text> <text x="360" y="138" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">2.4 GHz TRANSCEIVER</text> <line x1="360" y1="70" x2="360" y2="96" stroke="#1F3A57" stroke-width="1.2"></line> <line x1="348" y1="70" x2="360" y2="50" stroke="#1F3A57" stroke-width="1.5"></line><line x1="372" y1="70" x2="360" y2="50" stroke="#1F3A57" stroke-width="1.5"></line> <line x1="340" y1="76" x2="348" y2="64" stroke="#1F3A57" stroke-width="1"></line><line x1="380" y1="76" x2="372" y2="64" stroke="#1F3A57" stroke-width="1"></line> <text x="360" y="44" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">AE1 / U.FL</text> <line x1="276" y1="118" x2="190" y2="118" stroke="#1F3A57" stroke-width="1.2"></line> <polygon points="196,114 189,118 196,122" fill="#1F3A57"></polygon> <text x="130" y="34" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#1F3A57" font-weight="600" letter-spacing="0.08em">BLE PATH</text> <g fill="#1F3A57"> <text x="20" y="72" font-family="Roboto Mono" font-size="8" fill="#4B5663">CH37</text> <text x="20" y="110" font-family="Roboto Mono" font-size="8" fill="#4B5663">CH38</text> <text x="20" y="148" font-family="Roboto Mono" font-size="8" fill="#4B5663">CH39</text> <text x="20" y="168" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">2402 MHz</text> <text x="20" y="206" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">2426 MHz</text> <text x="20" y="224" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">2480 MHz</text> </g> <g fill="#1F3A57"> <rect x="62" y="56" width="6" height="24" rx="1"></rect><rect x="74" y="60" width="6" height="20" rx="1"></rect><rect x="86" y="54" width="6" height="26" rx="1"></rect><rect x="98" y="59" width="6" height="20" rx="1"></rect> <rect x="122" y="57" width="6" height="24" rx="1"></rect><rect x="134" y="62" width="6" height="18" rx="1"></rect> <rect x="158" y="56" width="6" height="22" rx="1"></rect><rect x="170" y="60" width="6" height="18" rx="1"></rect> </g> <g fill="#2E5C8A"> <rect x="62" y="94" width="6" height="24" rx="1"></rect><rect x="74" y="98" width="6" height="20" rx="1"></rect><rect x="86" y="93" width="6" height="25" rx="1"></rect> <rect x="120" y="96" width="6" height="22" rx="1"></rect><rect x="132" y="100" width="6" height="17" rx="1"></rect> <rect x="158" y="95" width="6" height="22" rx="1"></rect><rect x="170" y="99" width="6" height="18" rx="1"></rect> </g> <g fill="#4F7AA6"> <rect x="62" y="133" width="6" height="22" rx="1"></rect><rect x="74" y="136" width="6" height="19" rx="1"></rect><rect x="86" y="133" width="6" height="24" rx="1"></rect> <rect x="122" y="134" width="6" height="22" rx="1"></rect><rect x="134" y="137" width="6" height="18" rx="1"></rect> <rect x="156" y="134" width="6" height="22" rx="1"></rect><rect x="168" y="138" width="6" height="17" rx="1"></rect> </g> <text x="113" y="208" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#8693A3">~ 4 Hz, hop CH37→38→39</text> <line x1="444" y1="118" x2="530" y2="118" stroke="#2E5C8A" stroke-width="1.2"></line> <polygon points="524,114 531,118 524,122" fill="#2E5C8A"></polygon> <text x="592" y="34" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#2E5C8A" font-weight="600" letter-spacing="0.08em">MIOTY PATH</text> <line x1="536" y1="175" x2="700" y2="175" stroke="#B7BFC8" stroke-width="1"></line> <line x1="536" y1="55" x2="536" y2="175" stroke="#B7BFC8" stroke-width="1"></line> <text x="618" y="190" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">time →</text> <text x="524" y="115" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3" transform="rotate(-90,524,115)">freq →</text> <g fill="#2E5C8A" opacity="0.85"> <rect x="548" y="58" width="8" height="8" rx="1"></rect><rect x="600" y="68" width="8" height="8" rx="1"></rect><rect x="654" y="62" width="8" height="8" rx="1"></rect> <rect x="568" y="88" width="8" height="8" rx="1"></rect><rect x="630" y="82" width="8" height="8" rx="1"></rect><rect x="680" y="92" width="8" height="8" rx="1"></rect> <rect x="556" y="118" width="8" height="8" rx="1"></rect><rect x="612" y="108" width="8" height="8" rx="1"></rect><rect x="670" y="122" width="8" height="8" rx="1"></rect> <rect x="578" y="148" width="8" height="8" rx="1"></rect><rect x="640" y="138" width="8" height="8" rx="1"></rect><rect x="696" y="152" width="8" height="8" rx="1"></rect> </g> <text x="618" y="208" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#8693A3">split-telegram, low duty cycle</text> </svg> <div class="illus-caption">Fig 2 — The SX1280 generates both radio modes. BLE hops the three advertising channels at ~4 Hz for fine-grained tracking; mioty scatters sub-packets across a time-frequency grid for robust long-range fallback.</div> </div> </div> <div class="section-block"> <div class="section-label">System Concept</div> <h2 data-toc="System Concept" id="heading-2">Module Architecture</h2> <p>The whole design bends toward one constraint: run from a CR2032 coin cell. The <strong style="color:var(--on-surface);">Semtech SX1280</strong> handles both radio roles from a single 2.4 GHz front end. The <strong style="color:var(--on-surface);">STM32F103CB</strong> orchestrates everything — building BLE advertising packets, driving the mioty telegram sequence, reading the IMU, and managing sleep. A 9-axis IMU (TDK ICM-45686 + ST IIS2MDCTR) does double duty: its hardware wake-on-motion interrupt keeps the STM32 in deep sleep when the tag is stationary, and its motion data feeds the localization layer for dead-reckoning between radio fixes.</p> <div class="illus"> <div class="illus-bar"> <span class="dot"></span>Block Diagram — Module Component Topology</div> <svg viewBox="0 0 720 270" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;"> <defs><pattern id="bd-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path></pattern></defs> <rect width="720" height="270" fill="url(#bd-g)"></rect> <rect x="270" y="18" width="88" height="28" rx="5" fill="#FFFFFF" stroke="#B7BFC8" stroke-width="1"></rect> <text x="314" y="30" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">CR2032</text> <text x="314" y="41" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">coin cell</text> <rect x="390" y="18" width="88" height="28" rx="5" fill="#FFFFFF" stroke="#B7BFC8" stroke-width="1"></rect> <text x="434" y="30" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">tantalum cap</text> <text x="434" y="41" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">TX pulse buffer</text> <line x1="358" y1="32" x2="390" y2="32" stroke="#8693A3" stroke-width="1"></line><polygon points="386,28 393,32 386,36" fill="#8693A3"></polygon> <line x1="434" y1="46" x2="434" y2="58" stroke="#8693A3" stroke-width="1"></line> <line x1="314" y1="46" x2="314" y2="58" stroke="#8693A3" stroke-width="1"></line> <line x1="314" y1="58" x2="434" y2="58" stroke="#8693A3" stroke-width="1"></line> <text x="374" y="70" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">VCC</text> <rect x="256" y="110" width="156" height="90" rx="7" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect> <rect x="256" y="110" width="156" height="24" rx="7" fill="#1F3A57"></rect> <rect x="256" y="120" width="156" height="14" fill="#1F3A57"></rect> <text x="334" y="126" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#FFF" letter-spacing="0.06em">STM32F103CB</text> <text x="334" y="151" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">Cortex-M3 @ 72 MHz</text> <text x="334" y="165" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">128 KB Flash · 20 KB RAM</text> <text x="270" y="215" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">8 MHz xtal</text> <text x="270" y="227" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">32.768 kHz RTC</text> <line x1="334" y1="76" x2="334" y2="110" stroke="#8693A3" stroke-width="1"></line> <rect x="476" y="120" width="130" height="70" rx="7" fill="#FFFFFF" stroke="#2E5C8A" stroke-width="1.5"></rect> <rect x="476" y="120" width="130" height="22" rx="7" fill="#2E5C8A"></rect> <rect x="476" y="130" width="130" height="12" fill="#2E5C8A"></rect> <text x="541" y="135" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#FFF" letter-spacing="0.06em">SX1280</text> <text x="541" y="156" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">2.4 GHz transceiver</text> <text x="541" y="169" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">BLE + mioty band</text> <text x="541" y="205" font-family="Roboto Mono" font-size="7.5" fill="#8693A3" text-anchor="middle">52 MHz xtal</text> <line x1="412" y1="148" x2="476" y2="148" stroke="#1F3A57" stroke-width="1.5"></line> <polygon points="470,144 477,148 470,152" fill="#1F3A57"></polygon> <rect x="430" y="138" width="28" height="14" rx="3" fill="#EDF1F6" stroke="#D9DEE5" stroke-width="0.8"></rect> <text x="444" y="148" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#1F3A57">SPI</text> <line x1="606" y1="120" x2="606" y2="86" stroke="#2E5C8A" stroke-width="1.2"></line> <line x1="594" y1="86" x2="606" y2="66" stroke="#2E5C8A" stroke-width="1.5"></line><line x1="618" y1="86" x2="606" y2="66" stroke="#2E5C8A" stroke-width="1.5"></line> <line x1="588" y1="93" x2="596" y2="79" stroke="#2E5C8A" stroke-width="1"></line><line x1="624" y1="93" x2="616" y2="79" stroke="#2E5C8A" stroke-width="1"></line> <text x="606" y="58" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#2E5C8A">AE1 / U.FL</text> <rect x="64" y="120" width="144" height="70" rx="7" fill="#FFFFFF" stroke="#4F7AA6" stroke-width="1.5"></rect> <rect x="64" y="120" width="144" height="22" rx="7" fill="#4F7AA6"></rect> <rect x="64" y="130" width="144" height="12" fill="#4F7AA6"></rect> <text x="136" y="135" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#FFF" letter-spacing="0.06em">9-AXIS IMU</text> <text x="136" y="156" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">ICM-45686 (accel + gyro)</text> <text x="136" y="170" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">IIS2MDCTR (mag)</text> <line x1="208" y1="148" x2="256" y2="148" stroke="#4F7AA6" stroke-width="1.5"></line> <polygon points="250,144 257,148 250,152" fill="#4F7AA6"></polygon> <rect x="218" y="138" width="28" height="14" rx="3" fill="#EDF1F6" stroke="#D9DEE5" stroke-width="0.8"></rect> <text x="232" y="148" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4F7AA6">I2C</text> <path d="M 136,190 V 220 H 334 V 200" fill="none" stroke="#bd6a2e" stroke-width="1.2" stroke-dasharray="5 3"></path> <polygon points="330,204 334,197 338,204" fill="#bd6a2e"></polygon> <rect x="188" y="212" width="110" height="14" rx="3" fill="color-mix(in oklab,#bd6a2e 10%,#F5F7FA)" stroke="color-mix(in oklab,#bd6a2e 25%,#D9DEE5)" stroke-width="0.8"></rect> <text x="243" y="222" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#bd6a2e">wake-on-motion IRQ</text> </svg> <div class="illus-caption">Fig 3 — Component topology. STM32F103CB at the centre drives the SX1280 over SPI and the 9-axis IMU over I²C. The IMU's wake-on-motion interrupt keeps the MCU in deep sleep when stationary, dramatically extending coin-cell life.</div> </div> </div> <div class="section-block"> <div class="section-label">Hardware</div> <h2 data-toc="Hardware" id="heading-3">The Board <span class="sbadge complete">● Complete</span> </h2> <p>A custom four-layer PCB designed in KiCad — a compact <strong style="color:var(--on-surface);">round board</strong> sized to sit over a coin cell. The stackup gives the 2.4 GHz signals a clean reference plane and keeps the antenna matching network tight. The design is complete and fabricated; the bill of materials is deliberately small.</p> <div class="illus"> <div class="illus-bar"> <span class="dot"></span>Board Render — Annotated Component Map</div> <svg viewBox="0 0 1428 1309" xmlns="http://www.w3.org/2000/svg"> <defs> <pattern id="bb-grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0L0 0 0 64" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.05"></path></pattern> </defs> <rect width="1428" height="1309" fill="#0A1E30"></rect> <rect width="1428" height="1309" fill="url(#bb-grid)"></rect> <image href="/assets/img/projects/project_7_3D_Blue.png" x="0" y="0" width="1428" height="1309"></image> <g stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round"> <line x1="745" y1="175" x2="1048" y2="95"></line> <line x1="500" y1="515" x2="215" y2="185"></line> <line x1="855" y1="770" x2="1195" y2="420"></line> <line x1="633" y1="935" x2="400" y2="1150"></line> <line x1="1145" y1="865" x2="1190" y2="1130"></line> </g> <g fill="#FFFFFF"> <circle cx="745" cy="175" r="7"></circle><circle cx="745" cy="175" r="13" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.55"></circle> <circle cx="500" cy="515" r="7"></circle><circle cx="500" cy="515" r="13" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.55"></circle> <circle cx="855" cy="770" r="7"></circle><circle cx="855" cy="770" r="13" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.55"></circle> <circle cx="633" cy="935" r="7"></circle><circle cx="633" cy="935" r="13" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.55"></circle> <circle cx="1145" cy="865" r="7"></circle><circle cx="1145" cy="865" r="13" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.55"></circle> </g> <text x="1072" y="78" font-family="Roboto Mono" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="2">MEANDER-LINE</text> <text x="1072" y="114" font-family="Roboto Mono" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="2">INVERTED-F ANTENNA</text> <text x="1072" y="146" font-family="Roboto Mono" font-size="23" fill="#7ec8e0" letter-spacing="1">AE1 · ON-BOARD ETCHED</text> <text x="58" y="132" font-family="Roboto Mono" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="2">RF MODULE</text> <text x="58" y="166" font-family="Roboto Mono" font-size="23" fill="#7ec8e0" letter-spacing="1">SX1280 · 2.4 GHz</text> <text x="1207" y="406" font-family="Roboto Mono" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="2">MCU</text> <text x="1207" y="440" font-family="Roboto Mono" font-size="23" fill="#7ec8e0" letter-spacing="1">STM32F103CB</text> <text x="400" y="1192" text-anchor="middle" font-family="Roboto Mono" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="2">MAGNETOMETER</text> <text x="400" y="1226" text-anchor="middle" font-family="Roboto Mono" font-size="23" fill="#7ec8e0" letter-spacing="1">IIS2MDCTR</text> <text x="1190" y="1172" text-anchor="middle" font-family="Roboto Mono" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="2">ACCELEROMETER + GYRO</text> <text x="1190" y="1206" text-anchor="middle" font-family="Roboto Mono" font-size="23" fill="#7ec8e0" letter-spacing="1">ICM-45686</text> </svg> <div class="illus-caption">Fig 4 — Round four-layer PCB. Meander-line inverted-F antenna (AE1) at the top edge; SX1280 RF module nearest the antenna, STM32F103CB at centre, with the accelerometer + gyro and magnetometer completing the 9-axis IMU. U.FL connector for bench testing alongside the etched antenna.</div> </div> <div class="bom"> <div class="bom-head"> <div>Component</div> <div>Part</div> <div>Role</div> </div> <div class="bom-row"> <div class="bc lbl">MCU</div> <div class="bc">STM32F103CB</div> <div class="bc dsc">Cortex-M3 @ 72 MHz, 128 KB flash, 20 KB RAM</div> </div> <div class="bom-row"> <div class="bc lbl">Radio</div> <div class="bc">Semtech SX1280</div> <div class="bc dsc">Single 2.4 GHz transceiver (BLE + mioty band)</div> </div> <div class="bom-row"> <div class="bc lbl">Accel + Gyro</div> <div class="bc">TDK ICM-45686</div> <div class="bc dsc">6-axis motion, I²C, wake-on-motion interrupt</div> </div> <div class="bom-row"> <div class="bc lbl">Magnetometer</div> <div class="bc">ST IIS2MDCTR</div> <div class="bc dsc">3-axis, completes the 9-axis IMU</div> </div> <div class="bom-row"> <div class="bc lbl">Power</div> <div class="bc">CR2032 + tantalum cap</div> <div class="bc dsc">Coin cell; cap absorbs TX current pulses</div> </div> <div class="bom-row"> <div class="bc lbl">MCU clock</div> <div class="bc">8 MHz crystal</div> <div class="bc dsc">PLL source for 72 MHz system clock</div> </div> <div class="bom-row"> <div class="bc lbl">RTC clock</div> <div class="bc">32.768 kHz crystal</div> <div class="bc dsc">Low-power scheduled wake</div> </div> <div class="bom-row"> <div class="bc lbl">Radio clock</div> <div class="bc">52 MHz crystal</div> <div class="bc dsc">SX1280 reference</div> </div> <div class="bom-row"> <div class="bc lbl">Antenna</div> <div class="bc">Meander-line PCB + U.FL</div> <div class="bc dsc">On-board etched; U.FL for external during test</div> </div> <div class="bom-row"> <div class="bc lbl">Debug</div> <div class="bc">SWD + status LED</div> <div class="bc dsc">Bring-up and register diagnostics</div> </div> </div> </div> <div class="section-block"> <div class="section-label">Firmware</div> <h2 data-toc="Firmware" id="heading-4">Bringing Up the Radio <span class="sbadge progress">● In Progress</span> </h2> <p>The firmware is written in C against the STM32 HAL. The BLE path is working and verified, the tag is discoverable on standard scanners, confirmed in nRF Connect and Bluetooth LE Explorer. The SX1280 is configured for BLE at 1 Mbps with Gaussian shaping at +13 dBm, transmitting in Apple iBeacon format across all three advertising channels at ~4 Hz. Each iBeacon payload encodes a zone (Major field), an identity (Minor field), and a calibrated TX-power byte for distance estimation. The <strong style="color:var(--on-surface);">mioty transmit path</strong>, generating the split-telegram sub-packet sequence on the same transceiver, is the current active focus. Motion-gated power is central: the IMU's hardware wake-on-motion interrupt keeps the STM32 in deep sleep when the tag is stationary, ramps advertising back up the instant movement is detected, and provides dead-reckoning hints to the localization layer.</p> <div class="illus"> <div class="illus-bar"> <span class="dot"></span>Firmware Transmit Cycle — State Flow</div> <svg viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;"> <defs><pattern id="fw-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path></pattern></defs> <rect width="720" height="210" fill="url(#fw-g)"></rect> <rect x="12" y="72" width="90" height="36" rx="5" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect> <text x="57" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57" font-weight="600">DEEP</text> <text x="57" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57" font-weight="600">SLEEP</text> <line x1="102" y1="90" x2="122" y2="90" stroke="#B7BFC8" stroke-width="1.2"></line><polygon points="118,86 125,90 118,94" fill="#B7BFC8"></polygon> <polygon points="147,68 182,90 147,112 112,90" fill="#EDF1F6" stroke="#1F3A57" stroke-width="1.2"></polygon> <text x="147" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#1F3A57">IMU</text> <text x="147" y="97" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#1F3A57">IRQ?</text> <text x="196" y="86" font-family="Roboto Mono" font-size="8" fill="#3f9d6d">YES</text> <line x1="182" y1="90" x2="212" y2="90" stroke="#3f9d6d" stroke-width="1.2"></line><polygon points="208,86 215,90 208,94" fill="#3f9d6d"></polygon> <rect x="215" y="72" width="78" height="36" rx="5" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.2"></rect> <text x="254" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57">BLE</text> <text x="254" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">CH37</text> <text x="254" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">2402 MHz</text> <line x1="293" y1="90" x2="308" y2="90" stroke="#1F3A57" stroke-width="1.2"></line><polygon points="304,86 311,90 304,94" fill="#1F3A57"></polygon> <rect x="311" y="72" width="78" height="36" rx="5" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.2"></rect> <text x="350" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57">BLE</text> <text x="350" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">CH38</text> <text x="350" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">2426 MHz</text> <line x1="389" y1="90" x2="404" y2="90" stroke="#1F3A57" stroke-width="1.2"></line><polygon points="400,86 407,90 400,94" fill="#1F3A57"></polygon> <rect x="407" y="72" width="78" height="36" rx="5" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.2"></rect> <text x="446" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57">BLE</text> <text x="446" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">CH39</text> <text x="446" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">2480 MHz</text> <line x1="485" y1="90" x2="500" y2="90" stroke="#1F3A57" stroke-width="1.2"></line><polygon points="496,86 503,90 496,94" fill="#1F3A57"></polygon> <rect x="503" y="72" width="88" height="36" rx="5" fill="#EDF1F6" stroke="#2E5C8A" stroke-width="1.2" stroke-dasharray="5 3"></rect> <text x="547" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#2E5C8A">mioty</text> <text x="547" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">telegram</text> <text x="547" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">every Nth cycle</text> <line x1="591" y1="90" x2="608" y2="90" stroke="#2E5C8A" stroke-width="1.2" stroke-dasharray="4 2"></line><polygon points="604,86 611,90 604,94" fill="#2E5C8A"></polygon> <rect x="611" y="72" width="90" height="36" rx="5" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect> <text x="656" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57" font-weight="600">DEEP</text> <text x="656" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57" font-weight="600">SLEEP</text> <path d="M 701,108 V 180 H 57 V 108" fill="none" stroke="#B7BFC8" stroke-width="1" stroke-dasharray="4 3"></path> <polygon points="53,112 57,105 61,112" fill="#B7BFC8"></polygon> <text x="105" y="120" font-family="Roboto Mono" font-size="8" fill="#8693A3">NO</text> <line x1="147" y1="112" x2="147" y2="148" stroke="#8693A3" stroke-width="1.2" stroke-dasharray="4 2"></line> <rect x="88" y="148" width="118" height="28" rx="5" fill="color-mix(in oklab,#8693A3 10%,#F5F7FA)" stroke="#B7BFC8" stroke-width="1"></rect> <text x="147" y="161" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#8693A3">heartbeat / stay</text> <text x="147" y="173" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#8693A3">dormant ← power saving</text> <path d="M 88,162 H 57 V 108" fill="none" stroke="#8693A3" stroke-width="1" stroke-dasharray="3 2"></path> <polygon points="53,112 57,105 61,112" fill="none"></polygon> </svg> <div class="illus-caption">Fig 5 — The MCU sleeps until the IMU's wake-on-motion interrupt fires. A stationary tag stays dormant on a slow heartbeat (the power-saving path); a moving tag hops all three BLE advertising channels at ~4 Hz, with a mioty split-telegram on a longer interval, before returning to deep sleep.</div> </div> </div> <div class="section-block"> <div class="section-label">Localization &amp; Visualization</div> <h2 data-toc="Localization" id="heading-5">From Signals to a Map <span class="sbadge planned">● Planned</span> </h2> <p>Hardware that transmits is only half a localization system. The BLE advertisements already carry the hooks: iBeacon Major and Minor fields name a tag's zone and identity, and the calibrated TX-power byte lets receivers estimate distance from RSSI. The planned localization layer will fuse fine-grained BLE measurements where available and coarse mioty presence where not, with the IMU's dead-reckoning bridging the gaps. The final output is a <strong style="color:var(--on-surface);">Leaflet-based web interface</strong> that places each tag on a live map, BLE fixes shown as tight rings, mioty-only fallback as wider uncertainty circles, so an operator immediately sees which tags are pinned down and which are in coverage-fallback mode.</p> <div class="illus"> <div class="illus-bar"> <span class="dot"></span>Localization Pipeline — Signals to Leaflet Map</div> <svg viewBox="0 0 720 238" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;"> <defs><pattern id="vz-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path></pattern></defs> <rect width="720" height="238" fill="url(#vz-g)"></rect> <rect x="12" y="60" width="130" height="44" rx="6" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect> <text x="77" y="79" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#1F3A57">BLE RECEIVERS</text> <text x="77" y="94" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#4B5663">RSSI + iBeacon ID</text> <rect x="12" y="120" width="130" height="44" rx="6" fill="#FFFFFF" stroke="#2E5C8A" stroke-width="1.5"></rect> <text x="77" y="139" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#2E5C8A">MIOTY RX</text> <text x="77" y="154" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#4B5663">split-telegram decode</text> <rect x="12" y="184" width="130" height="36" rx="6" fill="#EDF1F6" stroke="#B7BFC8" stroke-width="1" stroke-dasharray="4 2"></rect> <text x="77" y="200" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#8693A3">IMU dead-reckoning</text> <text x="77" y="213" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">gap-fill hint</text> <line x1="142" y1="82" x2="245" y2="118" stroke="#1F3A57" stroke-width="1.2"></line> <polygon points="241,113 248,117 243,123" fill="#1F3A57"></polygon> <line x1="142" y1="142" x2="245" y2="128" stroke="#2E5C8A" stroke-width="1.2"></line> <polygon points="241,122 248,127 243,133" fill="#2E5C8A"></polygon> <line x1="142" y1="202" x2="245" y2="136" stroke="#B7BFC8" stroke-width="1" stroke-dasharray="4 2"></line> <polygon points="241,130 248,135 243,141" fill="#B7BFC8"></polygon> <rect x="245" y="96" width="138" height="60" rx="6" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect> <rect x="245" y="96" width="138" height="22" rx="6" fill="#1F3A57"></rect> <rect x="245" y="106" width="138" height="12" fill="#1F3A57"></rect> <text x="314" y="111" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" font-weight="600" fill="#FFF" letter-spacing="0.06em">FUSION ENGINE</text> <text x="314" y="132" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">RSSI fingerprinting</text> <text x="314" y="147" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">two confidence levels</text> <line x1="383" y1="126" x2="418" y2="126" stroke="#1F3A57" stroke-width="1.5"></line> <polygon points="414,122 421,126 414,130" fill="#1F3A57"></polygon> <rect x="421" y="54" width="280" height="162" rx="8" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect> <rect x="421" y="54" width="280" height="20" rx="8" fill="#1F3A57"></rect> <rect x="421" y="64" width="280" height="10" fill="#1F3A57"></rect> <text x="561" y="67" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" font-weight="600" fill="#FFF" letter-spacing="0.05em">LEAFLET MAP</text> <rect x="436" y="84" width="250" height="118" rx="3" fill="#F5F7FA"></rect> <g stroke="#D9DEE5" stroke-width="1" fill="none"> <rect x="445" y="90" width="230" height="105" rx="2"></rect> <line x1="528" y1="90" x2="528" y2="140"></line><line x1="528" y1="155" x2="528" y2="195"></line> <line x1="600" y1="90" x2="600" y2="195"></line> <line x1="445" y1="140" x2="528" y2="140"></line> </g> <circle cx="487" cy="118" r="12" fill="color-mix(in oklab,#1F3A57 8%,#F5F7FA)" stroke="#1F3A57" stroke-width="1"></circle> <circle cx="487" cy="118" r="5" fill="none" stroke="#1F3A57" stroke-width="1.5"></circle> <circle cx="487" cy="118" r="2.5" fill="#1F3A57"></circle> <text x="487" y="138" text-anchor="middle" font-family="Roboto Mono" font-size="6.5" fill="#1F3A57">BLE — precise</text> <circle cx="570" cy="158" r="30" fill="color-mix(in oklab,#2E5C8A 5%,#F5F7FA)" stroke="#2E5C8A" stroke-width="0.8" stroke-dasharray="3 2"></circle> <circle cx="570" cy="158" r="16" fill="color-mix(in oklab,#2E5C8A 9%,#F5F7FA)" stroke="#2E5C8A" stroke-width="1.2"></circle> <circle cx="570" cy="158" r="2.5" fill="#2E5C8A"></circle> <text x="570" y="195" text-anchor="middle" font-family="Roboto Mono" font-size="6.5" fill="#2E5C8A">mioty — fallback</text> </svg> <div class="illus-caption">Fig 6 — BLE and mioty receivers feed a fusion layer that produces position estimates at two confidence levels. The Leaflet-based web interface renders these as live tag positions — BLE fixes as tight rings, mioty-only fallback as wider uncertainty circles.</div> </div> </div> <div class="section-block"> <div class="section-label">Summary</div> <h2 data-toc="Summary" id="heading-6">Why It Matters</h2> <p>The appeal of this design is its economy. A single transceiver, a small microcontroller, a 9-axis IMU, and a coin cell, and from that minimal hardware comes a tag that is <em>precise when it can be</em> and <em>findable when it can't</em>. There is no second radio to power, no gateway-density assumption baked into the deployment, no hard coverage edge where tracking simply stops. Motion-gated transmission means no wasted energy reporting a position that hasn't changed. The build is active and moving in stages: the board is complete and assembled, the BLE firmware chain is working, and the mioty transmit path, localization layer, and Leaflet visualization are next.</p> <p style="font-size:13px;color:var(--on-surface-faint);font-style:italic;">This work is being carried out at the Institute for Information Technology (LIKE), FAU Erlangen-Nürnberg.</p> </div> <div class="section-block"> <div class="section-label">The Board, In the Flesh</div> <h2 data-toc="Gallery" id="heading-7">The Board, In the Flesh</h2> <p>The design verified in silicon — KiCad ray-trace render and the full 2D copper and silkscreen layout as produced.</p> <div class="photo-grid"> <div class="photo-item"> <img src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/3D_Ray_Tracing.png" alt="KiCad ray-trace render of the round BLE + mioty localization module" loading="lazy"> <div class="photo-cap">KiCad ray-trace render — 3D view, tilted</div> </div> <div class="photo-item"> <img src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/PCB_Layout.png" alt="KiCad 2D copper and silkscreen plot of the board" loading="lazy"> <div class="photo-cap">PCB layout — 2D copper + silkscreen export</div> </div> <div class="photo-item"> <img src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/BLE_MIOTY_MODULE SOLDERED_(without IMU).jpeg" alt="BLE + mioty module soldered without IMU sensor" loading="lazy"> <div class="photo-cap">Soldered board — top view (without IMU)</div> </div> <div class="photo-item"> <img src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/BLE TX at Channels 37 38 39.webp" alt="BLE transmission spectrum on advertising channels 37, 38, and 39" loading="lazy"> <div class="photo-cap">BLE Spectrum — TX active at Channels 37, 38, 39</div> </div> </div> </div> </div> <aside class="proj-sidebar"> <div class="sidebar-card"> <div class="sidebar-head">Project Info</div> <div class="sidebar-row"> <span class="sidebar-key">Institute</span> <span class="sidebar-val">LIKE, FAU Erlangen-Nürnberg</span> </div> <div class="sidebar-row"> <span class="sidebar-key">Role</span> <span class="sidebar-val">Student / M.Sc.</span> </div> <div class="sidebar-row"> <span class="sidebar-key">Period</span> <span class="sidebar-val">2025 – ongoing</span> </div> <div class="sidebar-row"> <span class="sidebar-key">Domain</span> <span class="sidebar-val">IoT · RF Hardware · Localization</span> </div> </div> <div class="sidebar-card"> <div class="sidebar-head">Tools &amp; Stack</div> <div class="tool-list"> <span class="tool-chip">KiCad</span> <span class="tool-chip">STM32 HAL</span> <span class="tool-chip">C (Embedded)</span> <span class="tool-chip">BLE / SX1280</span> <span class="tool-chip">mioty</span> <span class="tool-chip">nRF Connect</span> <span class="tool-chip">BLE Explorer</span> <span class="tool-chip">SWD / JTAG</span> <span class="tool-chip">Leaflet.js</span> <span class="tool-chip">iBeacon</span> <span class="tool-chip">ICM-45686</span> <span class="tool-chip">IIS2MDCTR</span> </div> </div> <div class="nav-proj"> <a href="https://rohxander.github.io/projects/2024_03_28_project_6_Python_UART_Based_Alphabet_Recognition/"> ← Prev <span>Alphabet Recognition</span> </a> <a href="https://rohxander.github.io/projects/" class="next"> All → <span>All Projects</span> </a> </div> </aside> </div> </main> <footer class="contact" id="contact"> <div class="contact-inner"> <div> <h2>Got a thesis idea or a weird embedded problem? <a href="mailto:rohit.prakash@fau.de">Send me a note.</a> </h2> <p>Open to thesis collaborations, working-student work, and small contract gigs around firmware, RF validation, or test tooling. Based in Nuremberg; remote within the EU is fine.</p> </div> <div class="contact-links"> <a class="contact-link" href="mailto:rohit.prakash@fau.de"> <span class="k">EMAIL</span><span class="v">rohit.prakash@fau.de</span><span class="arrow">→</span> </a> <a class="contact-link" href="https://github.com/rohxander" rel="external nofollow noopener" target="_blank"> <span class="k">GITHUB</span><span class="v">@rohxander</span><span class="arrow">→</span> </a> <a class="contact-link" href="https://www.linkedin.com/in/rohitprakashmk" rel="external nofollow noopener" target="_blank"> <span class="k">LINKEDIN</span><span class="v">/in/rohitprakashmk</span><span class="arrow">→</span> </a> <a class="contact-link" href="https://twitter.com/RohitPrakash97" rel="external nofollow noopener" target="_blank"> <span class="k">X / TWITTER</span><span class="v">@RohitPrakash97</span><span class="arrow">→</span> </a> </div> </div> <div class="footnote">© 2026 Rohit Prakash</div> </footer> <script src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/jquery.min.js.download" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> <script src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/bootstrap.bundle.min.js.download"></script> <script src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/mdb.min.js.download" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script> <script defer="" src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/masonry.pkgd.min.js.download" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer="" src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/imagesloaded.pkgd.min.js.download" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer="" src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/masonry.js.download" type="text/javascript"></script> <script defer="" src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/medium-zoom.min.js.download" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer="" src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/zoom.js.download"></script> <script src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/no_defer.js.download"></script> <script defer="" src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/common.js.download"></script> <script defer="" src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/copy_code.js.download" type="text/javascript"></script> <script src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/mathjax-setup.js.download"></script> <script defer="" type="text/javascript" id="MathJax-script" src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/tex-mml-chtml.js.download" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script defer="" src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/polyfill.min.js.download" crossorigin="anonymous"></script> <script>
+(function () {
+  var ICON = {
+    play:  '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+    pause: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',
+    full:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg>'
+  };
+  var SPEEDS = [2, 1, 1.5, 0.5];
+  function fmt(t) {
+    if (!isFinite(t)) return '0:00';
+    var m = Math.floor(t / 60), s = Math.floor(t % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  document.querySelectorAll('.vid-stage[data-video]').forEach(function (stage) {
+    var video = stage.querySelector('video');
+    var bar   = stage.querySelector('.vid-controls');
+    var playBtn = document.createElement('button');
+    playBtn.className = 'vc-btn vc-play'; playBtn.type = 'button';
+    playBtn.setAttribute('aria-label', 'Play or pause');
+    playBtn.innerHTML = ICON.pause;
+    var progress = document.createElement('div'); progress.className = 'vc-progress';
+    var fill = document.createElement('div'); fill.className = 'vc-bar';
+    progress.appendChild(fill);
+    var time = document.createElement('span'); time.className = 'vc-time'; time.textContent = '0:00 / 0:00';
+    var speedBtn = document.createElement('button');
+    speedBtn.className = 'vc-speed'; speedBtn.type = 'button';
+    speedBtn.setAttribute('aria-label', 'Playback speed');
+    speedBtn.textContent = '2×';
+    var speedIdx = 0; video.playbackRate = SPEEDS[0];
+    var fullBtn = document.createElement('button');
+    fullBtn.className = 'vc-btn vc-full'; fullBtn.type = 'button';
+    fullBtn.setAttribute('aria-label', 'Fullscreen'); fullBtn.innerHTML = ICON.full;
+    bar.appendChild(playBtn); bar.appendChild(progress); bar.appendChild(time);
+    bar.appendChild(speedBtn); bar.appendChild(fullBtn);
+    function sync() {
+      playBtn.innerHTML = video.paused ? ICON.play : ICON.pause;
+      stage.classList.toggle('paused', video.paused);
+    }
+    playBtn.addEventListener('click', function () { video.paused ? video.play() : video.pause(); });
+    video.addEventListener('play', sync); video.addEventListener('pause', sync);
+    video.addEventListener('click', function () { video.paused ? video.play() : video.pause(); });
+    video.addEventListener('timeupdate', function () {
+      var pct = video.duration ? (video.currentTime / video.duration) * 100 : 0;
+      fill.style.width = pct + '%';
+      time.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
+    });
+    video.addEventListener('loadedmetadata', function () {
+      time.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
+    });
+    var seeking = false;
+    progress.addEventListener('pointerdown', function (e) { seeking = true; progress.setPointerCapture(e.pointerId); seek(e); });
+    progress.addEventListener('pointermove', function (e) { if (seeking) seek(e); });
+    progress.addEventListener('pointerup',   function ()  { seeking = false; });
+    function seek(e) {
+      var rect = progress.getBoundingClientRect();
+      var ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+      if (video.duration) video.currentTime = ratio * video.duration;
+    }
+    speedBtn.addEventListener('click', function () {
+      speedIdx = (speedIdx + 1) % SPEEDS.length;
+      var r = SPEEDS[speedIdx];
+      video.playbackRate = r;
+      speedBtn.textContent = r + '×';
+    });
+    fullBtn.addEventListener('click', function () {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else if (stage.requestFullscreen) stage.requestFullscreen();
+      else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+    });
+    sync();
+  });
+})();
+
+(function () {
+  var toc = document.querySelector('.article-toc');
+  if (!toc) return;
+
+  var content = document.querySelector('.post-content') || document.querySelector('.proj-main');
+  if (!content) return;
+
+  var headings = [...content.querySelectorAll('h2, h3')];
+  var nodes = [];
+  var links = [];
+
+  headings.forEach(function (heading, index) {
+    if (!heading.textContent.trim()) return;
+
+    if (!heading.id) {
+      heading.id = 'heading-' + index;
+    }
+
+    var text = heading.getAttribute('data-toc') || heading.textContent.trim();
+    var isH3 = heading.tagName.toLowerCase() === 'h3';
+
+    if (!isH3) {
+      var prev = heading.previousElementSibling;
+      for (var i = 0; i < 3; i++) {
+        if (prev && prev.tagName.toLowerCase() === 'h4') {
+          text = prev.getAttribute('data-toc') || prev.textContent.trim();
+          break;
+        }
+        prev = prev ? prev.previousElementSibling : null;
+      }
+    }
+
+    var a = document.createElement('a');
+    a.href = '#' + heading.id;
+    a.textContent = text;
+    if (isH3) {
+      a.className = 'toc-h3';
+    }
+    toc.appendChild(a);
+    nodes.push(heading);
+    links.push(a);
+  });
+
+  /* sliding pill */
+  var pill = document.createElement('div');
+  pill.className = 'toc-pill';
+  var cur = null;
+
+  function place(link) {
+    if (!link) { pill.style.opacity = '0'; return; }
+    pill.style.top    = link.offsetTop   + 'px';
+    pill.style.left   = link.offsetLeft  + 'px';
+    pill.style.width  = link.offsetWidth  + 'px';
+    pill.style.height = link.offsetHeight + 'px';
+    pill.style.opacity = '1';
+    pill.classList.toggle('sub', link.classList.contains('toc-h3'));
+  }
+
+  function update() {
+    var top = window.scrollY + 110, hit = nodes[0];
+    var atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 25);
+    if (atBottom) {
+      hit = nodes[nodes.length - 1];
+    } else {
+      for (var n of nodes) { if (n.offsetTop <= top) hit = n; }
+    }
+    var href = '#' + (hit ? hit.id : '');
+    var next = null;
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === href;
+      a.classList.toggle('active', on);
+      if (on) next = a;
+    });
+    if (next !== cur) { cur = next; place(cur); }
+  }
+
+  /* prevent overlap with footer */
+  var footer = document.querySelector('footer.contact');
+  function adjustForFooter() {
+    if (!footer) return;
+    var footerRect = footer.getBoundingClientRect();
+    var gap = 32;
+    var viewportHeight = window.innerHeight;
+    var tocHeight = toc.offsetHeight;
+    var normalTocBottom = (viewportHeight + tocHeight) / 2;
+
+    if (footerRect.top < normalTocBottom + gap) {
+      var diff = (normalTocBottom + gap) - footerRect.top;
+      toc.style.marginTop = -diff + 'px';
+    } else {
+      toc.style.marginTop = '0px';
+    }
+  }
+
+  // Position pill instantly on load and reveal the sidebar
+  pill.style.transition = 'none';
+  update();
+  adjustForFooter();
+  toc.appendChild(pill);
+  toc.classList.add('ready');
+
+  // Re-enable transition for subsequent scroll events
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      pill.style.transition = '';
+    });
+  });
+
+  if (toc) toc.addEventListener('scroll', function () { place(cur); }, { passive: true });
+  window.addEventListener('scroll', function () {
+    update();
+    adjustForFooter();
+  }, { passive: true });
+  window.addEventListener('resize', function () {
+    place(cur);
+    adjustForFooter();
+  });
+
+  links.forEach(function (a, index) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (index === 0) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        var el = document.getElementById(a.getAttribute('href').slice(1));
+        if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+      }
+    });
+  });
+})();
+</script> <script src="./Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/vanilla-back-to-top.min.js.download"></script> <script>
+    addBackToTop();
+  </script><div id="back-to-top" class="hidden"><svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg></div>  <div class="hiddendiv common"></div></body><div id="aiFabShadowRoot" data-fab-type="react" style="opacity: 1;"><template shadowrootmode="open"><div id="fab-react-root"><div class="fab-root"><div class="acrobat-button-container acrobat-button-container-transparent" style="bottom: auto; top: 803px;"><div class="acrobat-button " role="button" aria-label="Get summaries and key insights using AI Assistant"><button class="close-btn  "><svg class="close-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><mask id="mask0_8552_7892" maskUnits="userSpaceOnUse" x="0" y="0" width="14" height="14" style="mask-type: alpha;"><path d="M7.82482 7.00034L10.6374 4.18778C10.7893 4.03592 10.7893 3.78969 10.6374 3.63783L10.3625 3.36292C10.2106 3.21106 9.96446 3.21106 9.81255 3.36292L6.99995 6.17548L4.18734 3.36292C4.03543 3.21106 3.78933 3.21106 3.63743 3.36292L3.36247 3.63783C3.21056 3.78969 3.21056 4.03592 3.36247 4.18778L6.17507 7.00034L3.36247 9.81295C3.21056 9.96481 3.21056 10.2111 3.36247 10.3629L3.63743 10.6378C3.78933 10.7897 4.03543 10.7897 4.18734 10.6378L6.99995 7.82526L9.81255 10.6378C9.96446 10.7897 10.2106 10.7897 10.3625 10.6378L10.6374 10.3629C10.7893 10.2111 10.7893 9.96481 10.6374 9.81295L7.82482 7.00034Z" fill="#222222"></path></mask><g mask="url(#mask0_8552_7892)"><rect width="14" height="14"></rect></g></svg><svg class="burger-icon" width="21" height="17" viewBox="0 0 21 17" fill="none" xmlns="http://www.w3.org/2000/svg"><mask id="mask0_12188_28876" maskUnits="userSpaceOnUse" x="3" y="3" width="15" height="14" style="mask-type: alpha;"><path d="M15.1285 12.8008H6.37852C6.08867 12.8008 5.85352 13.0359 5.85352 13.3258C5.85352 13.6156 6.08867 13.8508 6.37852 13.8508H15.1285C15.4184 13.8508 15.6535 13.6156 15.6535 13.3258C15.6535 13.0359 15.4184 12.8008 15.1285 12.8008Z" fill="#292929"></path><path d="M6.37852 6.85078H15.1285C15.4184 6.85078 15.6535 6.61562 15.6535 6.32578C15.6535 6.03594 15.4184 5.80078 15.1285 5.80078H6.37852C6.08867 5.80078 5.85352 6.03594 5.85352 6.32578C5.85352 6.61562 6.08867 6.85078 6.37852 6.85078Z" fill="#292929"></path><path d="M15.1285 9.30078H6.37852C6.08867 9.30078 5.85352 9.53594 5.85352 9.82578C5.85352 10.1156 6.08867 10.3508 6.37852 10.3508H15.1285C15.4184 10.3508 15.6535 10.1156 15.6535 9.82578C15.6535 9.53594 15.4184 9.30078 15.1285 9.30078Z" fill="#292929"></path></mask><g mask="url(#mask0_12188_28876)"><rect x="3.75391" y="3" width="14" height="14" fill="#464646"></rect></g></svg></button><div class="icon-container" role="button" tabindex="0" aria-label="Open AI Assistant"><svg id="ImportedIcons" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" class="fab-svg-icon"><path d="m6.21661,16.39534c-1.35034,2.23499-2.67933,3.64758-3.45616,3.64758-.12795.00539-.25276-.04056-.34667-.12762-.14818-.12483-.21629-.32065-.17758-.5105.14764-.80079,1.68628-1.95576,3.98041-3.00946Zm6.49075-3.19656c-.57993.12528-1.1792.27056-1.78689.43544-.4366.11893-.87951.24862-1.32255.38729.23541-.4949.4515-.98554.6398-1.452.24831-.6159.48156-1.232.69564-1.83456.18831.30354.38304.59839.58195.88207.39375.56092.81787,1.09736,1.19205,1.58176Zm-2.99822-10.63684c.08814-.18001.26644-.29855.46653-.31016.51149,0,.62276.63358.62276,1.1638-.06787,1.25011-.29293,2.48669-.66988,3.68055-.85816-2.33642-.73831-3.97319-.41942-4.53419h.00001Zm9.60883,12.20974c-.13359.4402-.56725.71808-1.023.6555-.15594-.00061-.3112-.02054-.46224-.05933-1.07834-.28263-2.07953-.80363-2.92976-1.5246.71719-.11267,1.44198-.17001,2.16797-.17149.48402-.00813.96771.03017,1.44442.11438.43447.09244.92449.33873.80261.98554Zm1.45515-1.0537c-1.01837-.83309-2.33117-1.21735-3.63802-1.06487-.98482.00983-1.96732.09739-2.93836.26187-.62354-.62512-1.19003-1.30467-1.69272-2.03054-.38314-.54455-.73672-1.10931-1.05923-1.69182.54287-1.57384.85986-3.2167.94151-4.87953,0-1.49369-.57564-3.09087-2.19132-3.09087-.56296.01952-1.07528.33036-1.35261.82066-.68906,1.2165-.41298,3.72002.68705,6.26756-.38306,1.17041-.80046,2.31007-1.31196,3.57265-.43687,1.08123-.93191,2.13803-1.48293,3.16579-1.64775.68213-5.15115,2.33642-5.48494,4.16456-.10306.53569.0783,1.08658.47942,1.45629.39145.35044.90217.53779,1.42737.5236,2.10998,0,4.21366-3.003,5.63044-5.58789.80461-.2816,1.62641-.53671,2.44391-.759.8967-.24407,1.76345-.44427,2.58082-.594,1.39014,1.39224,3.25004,2.21523,5.21531,2.30773,1.36751,0,1.87887-.60942,2.06516-1.122.20733-.5893.08589-1.24438-.3189-1.72019Z" fill="var(--iconRed, #d31510)" fill-rule="evenodd"></path></svg></div></div><div class="draggable-handle "><svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.60039 13.0699C5.26313 13.0699 5.80039 12.5327 5.80039 11.8699C5.80039 11.2072 5.26313 10.6699 4.60039 10.6699C3.93765 10.6699 3.40039 11.2072 3.40039 11.8699C3.40039 12.5327 3.93765 13.0699 4.60039 13.0699Z" fill="#292929"></path><path d="M4.60039 8.27109C5.26313 8.27109 5.80039 7.73384 5.80039 7.07109C5.80039 6.40835 5.26313 5.87109 4.60039 5.87109C3.93765 5.87109 3.40039 6.40835 3.40039 7.07109C3.40039 7.73384 3.93765 8.27109 4.60039 8.27109Z" fill="#292929"></path><path d="M4.60039 3.47031C5.26313 3.47031 5.80039 2.93305 5.80039 2.27031C5.80039 1.60757 5.26313 1.07031 4.60039 1.07031C3.93765 1.07031 3.40039 1.60757 3.40039 2.27031C3.40039 2.93305 3.93765 3.47031 4.60039 3.47031Z" fill="#292929"></path><path d="M9.4002 13.0699C10.0629 13.0699 10.6002 12.5327 10.6002 11.8699C10.6002 11.2072 10.0629 10.6699 9.4002 10.6699C8.73745 10.6699 8.2002 11.2072 8.2002 11.8699C8.2002 12.5327 8.73745 13.0699 9.4002 13.0699Z" fill="#292929"></path><path d="M9.4002 8.27109C10.0629 8.27109 10.6002 7.73384 10.6002 7.07109C10.6002 6.40835 10.0629 5.87109 9.4002 5.87109C8.73745 5.87109 8.2002 6.40835 8.2002 7.07109C8.2002 7.73384 8.73745 8.27109 9.4002 8.27109Z" fill="#292929"></path><path d="M9.4002 3.47031C10.0629 3.47031 10.6002 2.93305 10.6002 2.27031C10.6002 1.60757 10.0629 1.07031 9.4002 1.07031C8.73745 1.07031 8.2002 1.60757 8.2002 2.27031C8.2002 2.93305 8.73745 3.47031 9.4002 3.47031Z" fill="#292929"></path></svg></div></div></div></div><style>
+    .acrobat-button-container {
+        position: fixed;
+        right: 0;
+        bottom: 36px;
+        z-index: 2147483646;
+        visibility: visible !important;
+        pointer-events: all;
+        opacity: 1;
+        display: flex;
+        align-items: center;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    @media print {
+        .acrobat-button-container {
+            display: none !important;
+        }
+    }
+
+    .acrobat-button {
+        position: relative;
+        background: white;
+        display: flex;
+        align-items: center;
+        pointer-events: all;
+        touch-action: none;
+        box-shadow: 0px 2px 8px 0px #00000029;
+        height: 34px;
+        width: 34px;
+        border: 1px solid transparent;
+        background-clip: padding-box, border-box;
+        background-origin: border-box;
+        background-image: linear-gradient(white, white),
+                        linear-gradient(95.85deg, #D73220 0%, #D92361 33%, #7155FA 100%);
+        border-radius: 18px;
+        justify-content: right;
+        margin-right: var(--fab-margin-right, 28px);
+        overflow: hidden;
+    }
+
+    .acrobat-button-container-transparent {
+        opacity: 0.4 !important;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .acrobat-button-container-transparent:hover,
+    .acrobat-button-container-transparent:focus,
+    .acrobat-button-container-transparent:active {
+        opacity: 1;
+    }
+
+    .acrobat-button > svg {
+        flex-shrink: 0;
+        margin: 4px 5px 5px 5px;
+        width: 22px;
+        height: 22px;
+        pointer-events: none;
+        fill: #b40000;
+    }
+    .acrobat-button:has(.close-btn.open),
+    .expand-acrobat-button {
+        width: 64px;
+    }
+
+    .disabled {
+        background: #B1B1B1;
+    }
+
+    .tooltip-text {
+        width: 160px;
+        visibility: hidden;
+        opacity: 0;
+        background-color: #FFFFFF;
+        color: #292929;
+        border-radius: 7px;
+        padding: 4px 1px 5px 9px;
+        position: absolute;
+        z-index: 1;
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-right: 10px;
+        transition: opacity 0.3s, visibility 0s linear 2s;
+        font-size: 12px;
+        line-height: 15px;
+        font-family: 'adobe-clean', Adobe Clean, sans-serif;
+        filter: drop-shadow(0px 1px 6px rgba(0, 0, 0, 0.12));
+    }
+
+    .tooltip-text::after {
+       content: '';
+       position: absolute;
+       top: 50%;
+       left: 100%;
+       transform: translateY(-50%);
+       border-width: 6px;
+       border-style: solid;
+       border-color: transparent transparent transparent #fff;
+    }
+
+    .show-tooltip {
+        visibility: visible;
+        opacity: 1;
+        line-height: 1.5;
+        font-family: 'adobe-clean', Adobe Clean, sans-serif;
+        transition: opacity 0.3s;
+        transition-delay: 500ms;
+    }
+
+    .close-btn {
+        position: relative;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .close-btn svg {
+        fill: #464646;
+    }
+
+    .close-btn.showCloseButton {
+        opacity: 1;
+        display: flex;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        padding: 2px;
+    }
+
+    .fab-view-settings-dialog {
+        display: none;
+        position: absolute;
+        bottom: 40px;
+        z-index: 1;
+    }
+
+    .close-btn:hover {
+        background: #E6E6E6;
+        border-radius: 50%; /* Keep original circular hover */
+        cursor: pointer;
+    }
+
+    .fab-view-settings-dialog.showDialog {
+        display: block;
+    }
+    .close-btn .burger-icon {
+        display: inline;
+        margin-bottom: 2px;
+    }
+    .close-btn .close-icon {
+        display: none;
+    }
+    .close-btn.open .burger-icon {
+        display: none;
+    }
+    .close-btn.open .close-icon {
+        display: inline;
+    }
+    .tooltip-text .tooltip-text-content {
+        font-weight: bold;
+    }
+    .tooltip-text .tooltip-sub-text-text {
+        font-style: italic;
+        font-size: 11px;
+    }
+
+    /* Icon container styles - replaces iframe */
+    .icon-container {
+        width: 33px;
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: grab;
+        pointer-events: all;
+        flex-shrink: 0;
+        background: transparent;
+        border: none;
+    }
+
+    .icon-container:active {
+        cursor: grabbing;
+    }
+
+    .fab-svg-icon {
+        width: 22px;
+        height: 22px;
+        padding: 5px 5px 5px 6px;
+        pointer-events: none;
+        fill: #b40000;
+    }
+
+    .draggable-handle {
+        display: none;
+        position: absolute;
+        right: var(--drag-handle-right, 12px);
+        cursor: grab;
+    }
+    .draggable-handle-visible {
+        display: flex;
+    }
+
+    /* Font face declarations - for proper font loading in Shadow DOM */
+    @font-face {
+        font-family: 'adobe-clean';
+        font-weight: 400;
+        src: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Regular.otf') format('opentype');
+    }
+    @font-face {
+        font-family: 'adobe-clean';
+        font-weight: 700;
+        src: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Bold.otf') format('opentype');
+    }
+    @font-face {
+        font-family: 'AdobeClean-Regular';
+        src: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Regular.otf') format('opentype');
+    }
+    @font-face {
+        font-family: 'AdobeClean-Bold';
+        src: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Bold.otf') format('opentype');
+    }
+    body {
+        font-family: 'AdobeClean-Regular', adobe-clean, "Adobe Clean", sans-serif;
+    }
+
+    .dialog-container {
+        width: 166px;
+        background-color: #ffffff;
+        border-radius: 4px;
+        border: 1px solid #B1B1B1;
+        box-shadow: 0px 1px 4px 0px #00000026;
+        z-index: 1000;
+        padding: 4px;
+        position: relative;
+        margin: 4px 0px;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .menu .menu_item {
+        cursor: pointer;
+        font-family: 'AdobeClean-Regular', adobe-clean, "Adobe Clean", sans-serif;
+        align-content: center;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18.2px;
+        text-align: left;
+        color: #222222;
+        padding: 0px 12px;
+        height: 32px;
+        width: 140px;
+    }
+
+    .menu .menu_item:hover {
+        background-color: #eaeaea;
+    }
+
+    .preferences {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18.2px;
+        text-align: left;
+        color: #464646;
+    }
+
+    .divider {
+        border-top: 1px solid #E6E6E6;
+    }
+
+    /* React-specific wrappers - minimal */
+    .fab-root {
+        font-family: 'adobe-clean', Adobe Clean, sans-serif;
+    }
+
+    button.close-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 10; /* Ensure clickable above all other elements */
+        pointer-events: auto;
+    }
+
+    /* FAB Action Pills - From Figma Design */
+    .fab-pills-container {
+        position: absolute;
+        bottom: 42px; /* FAB height (34px) + gap (8px) = 42px */
+        right: var(--fab-margin-right, 28px);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-end;
+        width: 142px;
+        z-index: 1;
+    }
+
+    .fab-pills-container.pills-below {
+        bottom: auto;
+        top: 42px; /* Same gap when positioned below */
+    }
+
+    /* Extend hover area using ::after pseudo-element - doesn't affect visual layout */
+    .fab-pills-container::after {
+        content: '';
+        position: absolute;
+        top: 100%; /* Start right after the pills content */
+        left: 0;
+        right: 0;
+        height: 8px;
+        background: transparent;
+        pointer-events: auto;
+    }
+
+    .fab-pills-container.pills-below::after {
+        top: auto;
+        bottom: 100%; /* Start right before the pills when positioned below */
+    }
+
+    /* FTE Header - First Time Experience (56px with close button) */
+    .fab-fte-header {
+        position: relative;
+        width: 142px;
+        min-height: 56px;
+        background: #FFFFFF;
+        border-radius: 12px;
+        box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08), 0px 2px 6px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px 0px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+    }
+
+    .fab-fte-background {
+        position: absolute;
+        left: -13px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 183.33px;
+        height: 126.82px;
+        background: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/images/fab-header-background.svg') no-repeat center;
+        background-size: cover;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .fab-fte-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 2;
+        color: #222222;
+        padding: 0;
+    }
+
+    .fab-fte-close:hover {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+    }
+
+    .fab-fte-close svg {
+        width: 8px;
+        height: 8px;
+    }
+
+    .fab-fte-text {
+        position: relative;
+        width: 102px;
+        font-family: 'AdobeClean-Bold', adobe-clean, sans-serif;
+        font-weight: 400; /* Use Bold font file directly, not synthetic bold */
+        font-size: 12px;
+        line-height: 16px;
+        color: #222222; /* Figma spec color */
+        z-index: 1;
+        white-space: normal;
+        word-wrap: break-word;
+        margin-left: 16px;
+        margin-right: auto;
+        box-sizing: border-box;
+        -webkit-font-smoothing: subpixel-antialiased; /* Better font rendering */
+        -moz-osx-font-smoothing: auto;
+    }
+
+    /* Hover Header - Normal state (24px without close button) */
+    .fab-hover-header {
+        position: relative;
+        width: 142px;
+        min-height: 24px;
+        background: #FFFFFF; /* White background to show the colorful SVG and text */
+        border-radius: 12px;
+        box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08), 0px 2px 6px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px 0px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .fab-hover-background {
+        position: absolute;
+        left: -27px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 212.63px;
+        height: 147.09px;
+        background: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/images/fab-header-background.svg') no-repeat center;
+        background-size: cover;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .fab-hover-text {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'AdobeClean-Bold', adobe-clean, sans-serif;
+        font-weight: 400; /* Use Bold font file directly, not synthetic bold */
+        font-size: 12px;
+        line-height: 15px;
+        color: #222222; /* Figma spec color */
+        z-index: 1;
+        white-space: normal;
+        padding: 4px 9px;
+        box-sizing: border-box;
+        -webkit-font-smoothing: subpixel-antialiased; /* Better font rendering */
+        -moz-osx-font-smoothing: auto;
+    }
+
+    /* Individual Pill Buttons */
+    .fab-pill-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+        width: 142px;
+        min-height: 24px; /* Min height, allows growth with content */
+        background: #FFFFFF;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08), 0px 2px 6px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px 0px rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+        padding: 0;
+        transition: background 0.2s ease;
+        overflow: visible;
+    }
+
+    .fab-pill-button:hover {
+        background: #D5D5D5;
+    }
+
+    .fab-pill-button:hover .fab-pill-label,
+    .fab-pill-button:hover .fab-pill-icon {
+        color: #000000; /* Hover state color from Figma Alias/content/neutral/hover */
+    }
+
+    .fab-pill-button:active {
+        background: #F4F4F4;
+    }
+
+    .fab-pill-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 7px 4px 10px; /* Exact Figma specs: top right bottom left */
+        flex-shrink: 0;
+        box-sizing: border-box;
+    }
+
+    .fab-pill-icon img {
+        width: 16px;
+        height: 16px;
+        display: block;
+        flex-shrink: 0;
+        /* SVG icons with currentColor fill will inherit color from parent */
+        filter: brightness(0) saturate(100%) invert(13%) sepia(0%) saturate(0%) hue-rotate(196deg) brightness(97%) contrast(97%); /* #222222 */
+    }
+
+    .fab-pill-button:hover .fab-pill-icon img {
+        filter: brightness(0) saturate(100%); /* #000000 on hover */
+    }
+
+    .fab-pill-label {
+        display: flex;
+        align-items: center;
+        font-family: 'AdobeClean-Bold', adobe-clean, sans-serif;
+        font-weight: 400; /* Use Bold font file directly, not synthetic bold */
+        font-size: 12px;
+        line-height: 15px; /* 1.252 * 12px = 15.024px */
+        color: #222222; /* Default text color from Figma Alias/content/neutral/default */
+        padding: 4px 9px 5px 0; /* Reduced right padding to prevent wrapping */
+        text-align: left;
+        white-space: normal; /* Allow text wrapping for multi-line content */
+        box-sizing: border-box;
+        flex: 1;
+        overflow: visible;
+        -webkit-font-smoothing: subpixel-antialiased; /* Better font rendering */
+        -moz-osx-font-smoothing: auto;
+    }
+</style></template></div></html>
