@@ -179,7 +179,6 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg>
     All Projects
   </a>
-  <div class="proj-eyebrow">Project 07 · IoT · RF · Hardware</div>
   <h1>Joint Bluetooth and MIOTY Localisation Module</h1>
   <p class="subtitle">A coin-cell BLE + mioty localization tag combining precise short-range tracking with long-range fallback — one 2.4 GHz transceiver, motion-gated power, and a 9-axis IMU on a custom circular PCB.</p>
   <div class="meta-row">
@@ -292,7 +291,7 @@
           <line x1="536" y1="175" x2="700" y2="175" stroke="#B7BFC8" stroke-width="1"></line>
           <line x1="536" y1="55" x2="536" y2="175" stroke="#B7BFC8" stroke-width="1"></line>
           <text x="618" y="190" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">time →</text>
-          <text x="524" y="115" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3" transform="rotate(-90,524,115)">freq →</text>
+          <text x="514" y="115" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3" transform="rotate(-90,514,115)">freq →</text>
           <g fill="#2E5C8A" opacity="0.85">
             <rect x="548" y="58" width="8" height="8" rx="1"></rect><rect x="600" y="68" width="8" height="8" rx="1"></rect><rect x="654" y="62" width="8" height="8" rx="1"></rect>
             <rect x="568" y="88" width="8" height="8" rx="1"></rect><rect x="630" y="82" width="8" height="8" rx="1"></rect><rect x="680" y="92" width="8" height="8" rx="1"></rect>
@@ -361,8 +360,8 @@
           <text x="232" y="148" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4F7AA6">I2C</text>
           <path d="M 136,190 V 220 H 334 V 200" fill="none" stroke="#bd6a2e" stroke-width="1.2" stroke-dasharray="5 3"></path>
           <polygon points="330,204 334,197 338,204" fill="#bd6a2e"></polygon>
-          <rect x="188" y="212" width="110" height="14" rx="3" fill="color-mix(in oklab,#bd6a2e 10%,#F5F7FA)" stroke="color-mix(in oklab,#bd6a2e 25%,#D9DEE5)" stroke-width="0.8"></rect>
-          <text x="243" y="222" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#bd6a2e">wake-on-motion IRQ</text>
+          <rect x="188" y="240" width="110" height="14" rx="3" fill="color-mix(in oklab,#bd6a2e 10%,#F5F7FA)" stroke="color-mix(in oklab,#bd6a2e 25%,#D9DEE5)" stroke-width="0.8"></rect>
+          <text x="243" y="250" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#bd6a2e">wake-on-motion IRQ</text>
         </svg>
         <div class="illus-caption">Fig 3 — Component topology. STM32F103CB at the centre drives the SX1280 over SPI and the 9-axis IMU over I²C. The IMU's wake-on-motion interrupt keeps the MCU in deep sleep when stationary, dramatically extending coin-cell life.</div>
       </div>
@@ -380,7 +379,7 @@
           </defs>
           <rect width="1428" height="1309" fill="#0A1E30"></rect>
           <rect width="1428" height="1309" fill="url(#bb-grid)"></rect>
-          <image href="../../Example/Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/3D_Ray_Tracing.png" x="0" y="0" width="1428" height="1309"></image>
+          <image href="PCB_3D_Blue.png" x="0" y="0" width="1428" height="1309"></image>
           <g stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round">
             <line x1="745" y1="175" x2="1048" y2="95"></line>
             <line x1="500" y1="515" x2="215" y2="185"></line>
@@ -592,19 +591,19 @@
       <p>The design verified in silicon — KiCad ray-trace render and the full 2D copper and silkscreen layout as produced.</p>
       <div class="photo-grid">
         <div class="photo-item">
-          <img src="../../Example/Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/3D_Ray_Tracing.png" alt="KiCad ray-trace render of the round BLE + mioty localization module" loading="lazy">
+          <img src="3D_Ray_Tracing.png" alt="KiCad ray-trace render of the round BLE + mioty localization module" loading="lazy">
           <div class="photo-cap">KiCad ray-trace render — 3D view, tilted</div>
         </div>
         <div class="photo-item">
-          <img src="../../Example/Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/PCB_Layout.png" alt="KiCad 2D copper and silkscreen plot of the board" loading="lazy">
+          <img src="PCB_Layout.png" alt="KiCad 2D copper and silkscreen plot of the board" loading="lazy">
           <div class="photo-cap">PCB layout — 2D copper + silkscreen export</div>
         </div>
         <div class="photo-item">
-          <img src="../../Example/Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/BLE_MIOTY_MODULE SOLDERED_(without IMU).jpeg" alt="BLE + mioty module soldered without IMU sensor" loading="lazy">
+          <img src="BLE_MIOTY_MODULE SOLDERED_(without IMU).jpeg" alt="BLE + mioty module soldered without IMU sensor" loading="lazy">
           <div class="photo-cap">Soldered board — top view (without IMU)</div>
         </div>
         <div class="photo-item">
-          <img src="../../Example/Joint Bluetooth and MIOTY Localisation Module _ Rohit Prakash_files/BLE TX at Channels 37 38 39.webp" alt="BLE transmission spectrum on advertising channels 37, 38, and 39" loading="lazy">
+          <img src="BLE TX at Channels 37 38 39.webp" alt="BLE transmission spectrum on advertising channels 37, 38, and 39" loading="lazy">
           <div class="photo-cap">BLE Spectrum — TX active at Channels 37, 38, 39</div>
         </div>
       </div>

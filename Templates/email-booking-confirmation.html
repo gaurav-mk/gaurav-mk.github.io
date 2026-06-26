@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!--
+  BOOKING CONFIRMATION EMAIL TEMPLATE
+  =====================================
+  Copy the HTML body of this file into your EmailJS template editor.
+  Template variables used (from contact/index.html):
+    {{visitor_name}}  — visitor's name
+    {{date}}          — e.g. "Monday, 30 June 2026"
+    {{time}}          — e.g. "14:00 – 15:00 CET"
+    {{meet_link}}     — Google Meet URL
+    {{message}}       — visitor's note (may be "(no message)")
+
+  Subject line:
+    Your appointment with Gaurav Kumar Mishra is confirmed!
+-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <title>Appointment Confirmed</title>
+  <!--[if mso]>
+  <noscript>
+    <xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></noscript>
+  <![endif]-->
+  <style>
+    /* Reset */
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; }
+    body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+
+    /* Responsive */
+    @media only screen and (max-width: 620px) {
+      .email-container { width: 100% !important; }
+      .stack-col { display: block !important; width: 100% !important; padding-left: 0 !important; }
+      .detail-label, .detail-value { display: block !important; width: 100% !important; padding: 4px 0 !important; }
+      .detail-label { border-right: none !important; border-bottom: 1px solid #d9dee5 !important; }
+      .hero-pad { padding: 32px 24px 28px !important; }
+      .body-pad { padding: 28px 24px !important; }
+      .footer-pad { padding: 20px 24px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background-color:#f5f7fa;font-family:'Roboto',Arial,Helvetica,sans-serif;">
+
+<!-- Email wrapper -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f5f7fa;">
+  <tr>
+    <td align="center" style="padding:32px 16px;">
+
+      <!-- Outer card -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" class="email-container" style="max-width:600px;width:100%;background-color:#ffffff;border:1px solid #d9dee5;border-radius:12px;overflow:hidden;">
+
+        <!-- ===== HEADER ===== -->
+        <tr>
+          <td style="background-color:#1f3a57;background-image:linear-gradient(to right,rgba(255,255,255,0.07) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,0.07) 1px,transparent 1px);background-size:96px 96px;padding:0;">
+            <!-- Grid pattern row (decorative) -->
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td class="hero-pad" style="padding:36px 40px 32px;">
+
+                  <!-- Name + role -->
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                      <td>
+                        <!-- Eyebrow -->
+                        <p style="margin:0 0 10px;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8693a3;">
+                          &#x2015;&#x2015; Appointment Confirmation
+                        </p>
+                        <!-- Name -->
+                        <p style="margin:0 0 4px;font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:700;color:#ffffff;letter-spacing:-0.02em;line-height:1.1;">
+                          Gaurav Kumar Mishra
+                        </p>
+                        <!-- Role chips -->
+                        <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:10.5px;color:#7ec8e0;letter-spacing:0.04em;">
+                          M.Sc. ICT · LIKE, FAU Erlangen-Nürnberg
+                        </p>
+                      </td>
+                      <!-- Status badge -->
+                      <td align="right" valign="top">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                          <tr>
+                            <td style="background-color:rgba(62,157,109,0.15);border:1px solid rgba(62,157,109,0.35);border-radius:999px;padding:4px 12px;">
+                              <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:0.06em;color:#3f9d6d;white-space:nowrap;">&#x25CF; Confirmed</p>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+
+                </td>
+              </tr>
+              <!-- Bottom accent bar -->
+              <tr>
+                <td style="height:3px;background:linear-gradient(to right,#2e5c8a,#1f3a57 50%,#4f7aa6);font-size:0;line-height:0;">&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ===== BODY ===== -->
+        <tr>
+          <td class="body-pad" style="padding:36px 40px 32px;">
+
+            <!-- Greeting -->
+            <p style="margin:0 0 8px;font-size:15px;color:#8693a3;font-family:'Courier New',Courier,monospace;letter-spacing:0.04em;text-transform:uppercase;font-size:10px;">Hello,</p>
+            <h1 style="margin:0 0 20px;font-family:Arial,Helvetica,sans-serif;font-size:24px;font-weight:700;color:#14181e;letter-spacing:-0.02em;line-height:1.15;">
+              Your appointment is&nbsp;confirmed.
+            </h1>
+            <p style="margin:0 0 28px;font-size:15px;color:#4b5663;line-height:1.65;">
+              Hi <strong style="color:#14181e;">{{to_name}}</strong>, your slot is locked in. Here are your booking details below. A Google Meet link is ready — no software installation needed.
+            </p>
+
+            <!-- ===== DETAILS CARD ===== -->
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border:1px solid #d9dee5;border-radius:8px;overflow:hidden;margin-bottom:28px;">
+
+              <!-- Card header -->
+              <tr>
+                <td colspan="2" style="background-color:#f5f7fa;border-bottom:1px solid #d9dee5;padding:8px 16px;">
+                  <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:#8693a3;">Booking Details</p>
+                </td>
+              </tr>
+
+              <!-- Date row -->
+              <tr>
+                <td class="detail-label" width="130" valign="top" style="padding:13px 16px;border-bottom:1px solid #d9dee5;border-right:1px solid #d9dee5;background-color:#ffffff;">
+                  <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8693a3;">Date</p>
+                </td>
+                <td class="detail-value" valign="top" style="padding:13px 16px;border-bottom:1px solid #d9dee5;background-color:#ffffff;">
+                  <p style="margin:0;font-size:14px;font-weight:600;color:#14181e;font-family:Arial,Helvetica,sans-serif;">{{date}}</p>
+                </td>
+              </tr>
+
+              <!-- Time row -->
+              <tr>
+                <td class="detail-label" valign="top" style="padding:13px 16px;border-bottom:1px solid #d9dee5;border-right:1px solid #d9dee5;background-color:#ffffff;">
+                  <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8693a3;">Time</p>
+                </td>
+                <td class="detail-value" valign="top" style="padding:13px 16px;border-bottom:1px solid #d9dee5;background-color:#ffffff;">
+                  <p style="margin:0;font-size:14px;font-weight:600;color:#14181e;font-family:'Courier New',Courier,monospace;">{{time}}</p>
+                </td>
+              </tr>
+
+              <!-- Meet row -->
+              <tr>
+                <td class="detail-label" valign="top" style="padding:13px 16px;border-bottom:1px solid #d9dee5;border-right:1px solid #d9dee5;background-color:#ffffff;">
+                  <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8693a3;">Google Meet</p>
+                </td>
+                <td class="detail-value" valign="top" style="padding:13px 16px;border-bottom:1px solid #d9dee5;background-color:#ffffff;">
+                  <a href="{{meet_link}}" style="font-size:13px;color:#1f3a57;font-family:'Courier New',Courier,monospace;text-decoration:underline !important;word-break:break-all;">{{meet_link}}</a>
+                </td>
+              </tr>
+
+              <!-- Message row -->
+              <tr>
+                <td class="detail-label" valign="top" style="padding:13px 16px;border-bottom:1px solid #d9dee5;border-right:1px solid #d9dee5;background-color:#ffffff;">
+                  <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8693a3;">Your Note</p>
+                </td>
+                <td class="detail-value" valign="top" style="padding:13px 16px;border-bottom:1px solid #d9dee5;background-color:#ffffff;">
+                  <p style="margin:0;font-size:13.5px;color:#4b5663;line-height:1.6;font-style:italic;font-family:Arial,Helvetica,sans-serif;">{{message}}</p>
+                </td>
+              </tr>
+
+              <!-- Booked by row (visible in Gaurav's CC copy) -->
+              <tr>
+                <td class="detail-label" valign="top" style="padding:13px 16px;border-right:1px solid #d9dee5;background-color:#edf1f6;">
+                  <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8693a3;">Booked by</p>
+                </td>
+                <td class="detail-value" valign="top" style="padding:13px 16px;background-color:#edf1f6;">
+                  <p style="margin:0 0 2px;font-size:13.5px;font-weight:600;color:#14181e;font-family:Arial,Helvetica,sans-serif;">{{visitor_name}}</p>
+                  <a href="mailto:{{visitor_email}}" style="font-size:12.5px;color:#1f3a57;font-family:'Courier New',Courier,monospace;text-decoration:underline !important;">{{visitor_email}}</a>
+                </td>
+              </tr>
+
+            </table>
+
+            <!-- ===== CTA BUTTON ===== -->
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:32px;">
+              <tr>
+                <td>
+                  <!-- Join Meet -->
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="display:inline-table;">
+                    <tr>
+                      <td style="background-color:#1f3a57;border-radius:8px;text-align:center;">
+                        <a href="{{meet_link}}" target="_blank" style="display:inline-block;padding:12px 28px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;color:#ffffff;text-decoration:none;letter-spacing:0.01em;border-radius:8px;">
+                          Join Google Meet &rarr;
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Divider -->
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:24px;">
+              <tr>
+                <td style="height:1px;background-color:#d9dee5;font-size:0;line-height:0;">&nbsp;</td>
+              </tr>
+            </table>
+
+            <!-- Info note -->
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f5f7fa;border:1px solid #d9dee5;border-radius:8px;margin-bottom:28px;">
+              <tr>
+                <td style="padding:14px 16px;">
+                  <!-- Left accent -->
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                      <td width="3" style="background-color:#2e5c8a;border-radius:2px;">&nbsp;</td>
+                      <td style="padding-left:12px;">
+                        <p style="margin:0 0 4px;font-family:'Courier New',Courier,monospace;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:#2e5c8a;">What to expect</p>
+                        <p style="margin:0;font-size:13px;color:#4b5663;line-height:1.6;font-family:Arial,Helvetica,sans-serif;">
+                          The meeting is 60 minutes. Feel free to share any materials or questions beforehand by replying to this email. If you need to reschedule, contact me at <a href="mailto:mgaurav682@gmail.com" style="color:#1f3a57;text-decoration:underline !important;">mgaurav682@gmail.com</a> at least 24 hours before.
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Sign-off -->
+            <p style="margin:0;font-size:14.5px;color:#4b5663;line-height:1.7;font-family:Arial,Helvetica,sans-serif;">
+              Looking forward to talking, <strong style="color:#14181e;">{{visitor_name}}</strong>. See you then.
+            </p>
+            <p style="margin:12px 0 0;font-size:14.5px;color:#14181e;font-weight:600;font-family:Arial,Helvetica,sans-serif;">
+              Gaurav Kumar Mishra
+            </p>
+            <p style="margin:2px 0 0;font-family:'Courier New',Courier,monospace;font-size:11px;color:#8693a3;letter-spacing:0.04em;">
+              M.Sc. ICT · LIKE, FAU Erlangen-Nürnberg
+            </p>
+
+          </td>
+        </tr>
+
+        <!-- ===== FOOTER ===== -->
+        <tr>
+          <td style="background-color:#edf1f6;border-top:1px solid #d9dee5;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+
+              <!-- Contact links -->
+              <tr>
+                <td class="footer-pad" style="padding:22px 40px 20px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                      <!-- Email -->
+                      <td style="padding-right:20px;">
+                        <p style="margin:0 0 2px;font-family:'Courier New',Courier,monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#8693a3;">Email</p>
+                        <a href="mailto:mgaurav682@gmail.com" style="font-size:12px;color:#1f3a57;font-family:'Courier New',Courier,monospace;text-decoration:none;">mgaurav682@gmail.com</a>
+                      </td>
+                      <!-- LinkedIn -->
+                      <td style="padding-right:20px;">
+                        <p style="margin:0 0 2px;font-family:'Courier New',Courier,monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#8693a3;">LinkedIn</p>
+                        <a href="https://www.linkedin.com/in/gaurav-kumar-mishra-/" style="font-size:12px;color:#1f3a57;font-family:'Courier New',Courier,monospace;text-decoration:none;">/in/gaurav-kumar-mishra-</a>
+                      </td>
+                      <!-- Portfolio -->
+                      <td>
+                        <p style="margin:0 0 2px;font-family:'Courier New',Courier,monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#8693a3;">Portfolio</p>
+                        <a href="https://gaurav-mk.github.io" style="font-size:12px;color:#1f3a57;font-family:'Courier New',Courier,monospace;text-decoration:none;">gaurav-mk.github.io</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- Divider -->
+              <tr>
+                <td style="height:1px;background-color:#d9dee5;font-size:0;line-height:0;">&nbsp;</td>
+              </tr>
+
+              <!-- Legal / copyright -->
+              <tr>
+                <td class="footer-pad" style="padding:14px 40px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                      <td>
+                        <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:10px;color:#8693a3;letter-spacing:0.04em;">
+                          &copy; 2026 Gaurav Kumar Mishra &nbsp;&middot;&nbsp; Erlangen, Germany
+                        </p>
+                      </td>
+                      <td align="right">
+                        <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:10px;color:#b7bfc8;letter-spacing:0.04em;">
+                          You received this because you booked an appointment.
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+            </table>
+          </td>
+        </tr>
+
+      </table>
+      <!-- /outer card -->
+
+    </td>
+  </tr>
+</table>
+<!-- /email wrapper -->
+
+</body>
+</html>
