@@ -151,7 +151,7 @@
     .nav-proj a:hover{background:var(--surface-container);color:var(--primary)}
     .nav-proj a span{font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--on-surface);letter-spacing:0;text-transform:none}
     .nav-proj a.next{text-align:right}
-    .toc-pill{position:absolute;border-radius:999px;pointer-events:none;z-index:9;transition:top .32s cubic-bezier(0.2,0,0,1),left .32s cubic-bezier(0.2,0,0,1),width .32s cubic-bezier(0.2,0,0,1),height .32s cubic-bezier(0.2,0,0,1),opacity .22s cubic-bezier(0.2,0,0,1);opacity:0;background:var(--primary-container)}
+    .toc-pill{position:absolute;border-radius:999px;pointer-events:none;z-index:0;transition:top .32s cubic-bezier(0.2,0,0,1),left .32s cubic-bezier(0.2,0,0,1),width .32s cubic-bezier(0.2,0,0,1),height .32s cubic-bezier(0.2,0,0,1),opacity .22s cubic-bezier(0.2,0,0,1);opacity:0;background:var(--primary-container)}
 
     /* ── OVERVIEW SCREENSHOT ── */
     .overview-frame {
@@ -173,13 +173,14 @@
     .badge-wrap { position:absolute; inset:0; pointer-events:none }
     .badge {
       position:absolute; width:26px; height:26px; border-radius:50%;
-      background:var(--primary); color:#fff;
+      background:var(--primary); color:#fff !important;
       font-family:var(--font-mono); font-size:12px; font-weight:700;
       display:flex; align-items:center; justify-content:center;
       box-shadow:0 2px 8px rgba(0,0,0,.35); pointer-events:auto;
-      cursor:default; transition:transform .15s;
+      cursor:pointer; transition:transform .15s, box-shadow .15s;
+      text-decoration:none !important
     }
-    .badge:hover { transform:scale(1.18) }
+    .badge:hover { transform:scale(1.18); box-shadow:0 4px 14px rgba(0,0,0,.45) }
 
     /* ── BLOCK SECTION ── */
     .block-section {
@@ -331,7 +332,8 @@
       font-family:var(--font-mono); font-size:12px; font-weight:450;
       color:var(--on-surface-variant); border-radius:999px;
       margin:2px 4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-      transition:color .2s,background .18s
+      transition:color .2s,background .18s;
+      position:relative; z-index:1
     }
     .article-toc a:hover { background:color-mix(in oklab,var(--primary) 7%,transparent); color:var(--on-surface) }
     .article-toc a.active { color:var(--on-primary-container); font-weight:600; background:var(--primary-container) }
@@ -431,13 +433,13 @@
         <div class="overview-img-wrap">
           <img src="TICS_Pro_Interface.png"
                alt="Full TICS Pro Interface for LMX1205 with 6 annotated blocks" />
-          <div class="badge-wrap" aria-hidden="true">
-            <div class="badge" style="top:4%;left:4%"   title="Block 1 – CLKIN, Multiplier & General">1</div>
-            <div class="badge" style="top:43%;left:2%"  title="Block 2 – SYSREF Global & Channel Delays">2</div>
-            <div class="badge" style="top:64%;left:2%"  title="Block 3 – SYSREFREQ Position & Windowing">3</div>
-            <div class="badge" style="top:75%;left:15%" title="Block 4 – SYSREF Frequency Generator">4</div>
-            <div class="badge" style="top:2%;left:52%"  title="Block 5 – Output Channel (CLK + SYSREF)">5</div>
-            <div class="badge" style="top:82%;left:52%" title="Block 6 – Logic Clock & LOGISYSREF">6</div>
+          <div class="badge-wrap">
+            <a class="badge" href="#block1" style="top:4%;left:4%"   title="Block 1 – CLKIN, Multiplier & General">1</a>
+            <a class="badge" href="#block2" style="top:43%;left:2%"  title="Block 2 – SYSREF Global & Channel Delays">2</a>
+            <a class="badge" href="#block3" style="top:64%;left:2%"  title="Block 3 – SYSREFREQ Position & Windowing">3</a>
+            <a class="badge" href="#block4" style="top:75%;left:15%" title="Block 4 – SYSREF Frequency Generator">4</a>
+            <a class="badge" href="#block5" style="top:2%;left:52%"  title="Block 5 – Output Channel (CLK + SYSREF)">5</a>
+            <a class="badge" href="#block6" style="top:82%;left:52%" title="Block 6 – Logic Clock & LOGISYSREF">6</a>
           </div>
         </div>
       </div>
