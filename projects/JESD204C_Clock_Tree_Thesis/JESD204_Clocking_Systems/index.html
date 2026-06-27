@@ -93,10 +93,10 @@
     .nav-proj a span { font-family:var(--font-body); font-size:12px; font-weight:500; color:var(--on-surface); letter-spacing:0; text-transform:none }
     .nav-proj a.next { text-align:right }
 
-    /* LEFT FIXED TOC */
-    .article-toc { position:fixed; left:calc(50vw - 660px); top:50%; transform:translateY(-50%); width:200px; max-height:80vh; overflow-y:auto; z-index:10; padding:0 0 16px; scrollbar-width:none }
+    /* LEFT FIXED TOC — only visible when viewport is wide enough to avoid overlap */
+    .article-toc { position:fixed; left:calc(50vw - 820px); top:50%; transform:translateY(-50%); width:200px; max-height:80vh; overflow-y:auto; z-index:10; padding:0 0 16px; scrollbar-width:none }
     .article-toc::-webkit-scrollbar { display:none }
-    @media(max-width:1400px) { .article-toc { display:none } }
+    @media(max-width:1700px) { .article-toc { display:none } }
     .toc-label { font-family:var(--font-mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--on-surface-faint); padding:0 18px 6px; display:block }
     .toc-pill { position:absolute; border-radius:999px; pointer-events:none; z-index:0; transition:top .32s cubic-bezier(.2,0,0,1), height .32s cubic-bezier(.2,0,0,1), opacity .22s cubic-bezier(.2,0,0,1); opacity:0; background:var(--primary-container) }
     .article-toc a { display:block; height:30px; line-height:30px; padding:0 14px; font-family:var(--font-mono); font-size:11.5px; font-weight:450; color:var(--on-surface-variant); border-radius:999px; margin:2px 4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; transition:color .2s,background .18s; position:relative; z-index:1 }
