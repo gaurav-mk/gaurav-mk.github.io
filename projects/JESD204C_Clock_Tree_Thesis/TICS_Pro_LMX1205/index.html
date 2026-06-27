@@ -13,6 +13,7 @@
     rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+    ::selection { background: rgba(31,58,87,.22); color: var(--on-surface) }
 
     :root {
       --primary: #1f3a57;
@@ -247,8 +248,18 @@
     }
     .ctrl-card-head {
       padding:8px 12px; border-bottom:1px solid var(--outline-variant);
-      display:flex; align-items:center; gap:8px
+      display:flex; align-items:center; gap:8px;
+      cursor:pointer; user-select:none; justify-content:space-between;
+      transition:background .15s
     }
+    .ctrl-card-head:hover { background:var(--surface-container-low) }
+    .ctrl-card:not(.open) .ctrl-card-head { border-bottom-color:transparent }
+    .ctrl-chev {
+      width:14px; height:14px; flex-shrink:0;
+      color:var(--on-surface-faint); transition:transform .22s ease
+    }
+    .ctrl-card.open .ctrl-chev { transform:rotate(90deg) }
+    .ctrl-head-left { display:flex; align-items:center; gap:8px; min-width:0 }
     .ctrl-tag {
       font-family:var(--font-mono); font-size:9.5px; letter-spacing:.1em;
       text-transform:uppercase; padding:2px 7px; border-radius:var(--r-pill);
@@ -266,9 +277,11 @@
       font-family:var(--font-mono)
     }
     .ctrl-body {
-      padding:10px 12px; font-size:13.5px; line-height:1.65;
-      color:var(--on-surface-variant)
+      font-size:13.5px; line-height:1.65; color:var(--on-surface-variant);
+      max-height:0; overflow:hidden; padding:0 12px;
+      transition:max-height .3s ease, padding .25s ease
     }
+    .ctrl-card.open .ctrl-body { max-height:600px; padding:10px 12px }
     .ctrl-body strong { color:var(--on-surface) }
     .ctrl-body code {
       font-family:var(--font-mono); font-size:11.5px;
@@ -418,14 +431,13 @@
         <div class="overview-img-wrap">
           <img src="TICS_Pro_Interface.png"
                alt="Full TICS Pro Interface for LMX1205 with 6 annotated blocks" />
-          <!-- Badge positions are approximate percentages over the screenshot -->
           <div class="badge-wrap" aria-hidden="true">
-            <div class="badge" style="top:28%;left:8%"  title="Block 1 – CLKIN, Multiplier & General">1</div>
-            <div class="badge" style="top:62%;left:30%" title="Block 2 – SYSREF Global & Channel Delays">2</div>
-            <div class="badge" style="top:75%;left:30%" title="Block 3 – SYSREFREQ Position & Windowing">3</div>
-            <div class="badge" style="top:55%;left:50%" title="Block 4 – SYSREF Frequency Generator">4</div>
-            <div class="badge" style="top:30%;left:74%" title="Block 5 – Output Channel (CLK + SYSREF)">5</div>
-            <div class="badge" style="top:62%;left:74%" title="Block 6 – Logic Clock & LOGISYSREF">6</div>
+            <div class="badge" style="top:4%;left:4%"   title="Block 1 – CLKIN, Multiplier & General">1</div>
+            <div class="badge" style="top:43%;left:2%"  title="Block 2 – SYSREF Global & Channel Delays">2</div>
+            <div class="badge" style="top:64%;left:2%"  title="Block 3 – SYSREFREQ Position & Windowing">3</div>
+            <div class="badge" style="top:75%;left:15%" title="Block 4 – SYSREF Frequency Generator">4</div>
+            <div class="badge" style="top:2%;left:52%"  title="Block 5 – Output Channel (CLK + SYSREF)">5</div>
+            <div class="badge" style="top:82%;left:52%" title="Block 6 – Logic Clock & LOGISYSREF">6</div>
           </div>
         </div>
       </div>
@@ -1608,6 +1620,23 @@
 
   window.addEventListener('scroll', update, { passive: true });
   update();
+})();
+
+// ── ctrl-card accordion ───────────────────────────────────────────────────
+(function () {
+  var chevSVG = '<svg class="ctrl-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+  document.querySelectorAll('.ctrl-card-head').forEach(function (head) {
+    // Wrap existing children so the chevron can sit to the right
+    var left = document.createElement('span');
+    left.className = 'ctrl-head-left';
+    while (head.firstChild) left.appendChild(head.firstChild);
+    head.appendChild(left);
+    head.insertAdjacentHTML('beforeend', chevSVG);
+
+    head.addEventListener('click', function () {
+      head.closest('.ctrl-card').classList.toggle('open');
+    });
+  });
 })();
 </script>
 </body>
