@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>TI LMX1205 Datasheet Breakdown | Gaurav Kumar Mishra</title>
+  <meta name="author" content="Gaurav Kumar Mishra">
+  <meta name="description"
+    content="A comprehensive A-Z breakdown of the TI LMX1205 Datasheet: RF Buffer, Multiplier, and Divider for JESD204B/C.">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..900&family=Roboto:wght@400;500&family=Roboto+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --primary: #1f3a57;
+      --primary-hover: #173049;
+      --on-primary: #FFF;
+      --primary-container: #d9e5f2;
+      --on-primary-container: #0a2540;
+      --secondary: #2e5c8a;
+      --surface: #fafbfd;
+      --surface-container-lowest: #FFF;
+      --surface-container-low: #f5f7fa;
+      --surface-container: #edf1f6;
+      --surface-container-high: #e5ebf2;
+      --on-surface: #14181e;
+      --on-surface-variant: #4b5663;
+      --on-surface-faint: #8693a3;
+      --outline: #b7bfc8;
+      --outline-variant: #d9dee5;
+      --success: #1e7f4f;
+      --font-display: 'Roboto Flex', 'Roboto', system-ui, sans-serif;
+      --font-body: 'Roboto', system-ui, sans-serif;
+      --font-mono: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-md: 12px;
+      --r-lg: 16px;
+      --r-pill: 999px;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--surface);
+      color: var(--on-surface);
+      -webkit-font-smoothing: antialiased;
+      font-size: 15px;
+      line-height: 1.55
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none !important
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: linear-gradient(to right, rgba(31, 58, 87, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(31, 58, 87, 0.04) 1px, transparent 1px);
+      background-size: 96px 96px;
+      mask-image: linear-gradient(to bottom, black 0, black 60%, transparent 100%)
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50
+    }
+
+    .topbar-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 14px 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center
+    }
+
+    .nav {
+      display: inline-flex;
+      gap: 2px;
+      padding: 5px;
+      background: var(--surface-container);
+      border-radius: 999px;
+      box-shadow: 0 10px 28px -18px rgba(31, 58, 87, 0.45)
+    }
+
+    .nav a {
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      transition: background .15s, color .15s;
+      white-space: nowrap
+    }
+
+    .nav a:hover {
+      color: var(--on-surface);
+      background: color-mix(in oklab, var(--primary) 10%, transparent)
+    }
+
+    .nav a.active {
+      background: var(--primary-container);
+      color: var(--on-primary-container)
+    }
+
+    main {
+      position: relative;
+      z-index: 1
+    }
+
+    .proj-hero {
+      padding: 44px 32px 40px;
+      max-width: 1240px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--outline-variant)
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .08em;
+      color: var(--on-surface-faint);
+      margin-bottom: 24px;
+      transition: color .15s
+    }
+
+    .back-link:hover {
+      color: var(--primary)
+    }
+
+    .back-link svg {
+      width: 12px;
+      height: 12px
+    }
+
+    .proj-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 16px
+    }
+
+    .proj-eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: var(--secondary);
+      display: inline-block
+    }
+
+    .proj-hero h1 {
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 96, "wght" 600;
+      font-size: clamp(28px, 3.8vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 12px;
+      color: var(--on-surface);
+      max-width: 24ch
+    }
+
+    .proj-hero .subtitle {
+      font-size: 16px;
+      color: var(--on-surface-variant);
+      max-width: 60ch;
+      margin: 0 0 28px;
+      line-height: 1.6
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: .06em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--outline-variant);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant)
+    }
+
+    .meta-chip.primary {
+      background: var(--primary-container);
+      border-color: color-mix(in oklab, var(--primary) 22%, transparent);
+      color: var(--on-primary-container)
+    }
+
+    .proj-body {
+      max-width: 1240px;
+      margin: 48px auto 0;
+      padding: 0 32px 80px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 48px;
+      align-items: start
+    }
+
+    .proj-main {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 48px
+    }
+
+    .section-block {
+      display: flex;
+      flex-direction: column;
+      gap: 16px
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--on-surface-faint);
+      margin-bottom: 4px
+    }
+
+    .section-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--outline-variant);
+      width: 40px
+    }
+
+    .section-block h2 {
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 48, "wght" 600;
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin: 0;
+      color: var(--on-surface);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .section-block p {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--on-surface-variant);
+      margin: 0
+    }
+
+    .section-block ul {
+      padding-left: 20px;
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--on-surface-variant)
+    }
+
+    .section-block li {
+      margin-bottom: 8px
+    }
+
+    .illus {
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--r-md);
+      background: var(--surface-container-low);
+      overflow: hidden
+    }
+
+    .illus-bar {
+      padding: 8px 14px;
+      background: var(--surface-container);
+      border-bottom: 1px solid var(--outline-variant);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--on-surface-faint)
+    }
+
+    .illus-bar .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--outline)
+    }
+
+    .illus img {
+      display: block;
+      width: 100%;
+      background: #fff
+    }
+
+    .illus-caption {
+      padding: 10px 14px;
+      border-top: 1px solid var(--outline-variant);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--on-surface-faint);
+      letter-spacing: .04em;
+      line-height: 1.5
+    }
+
+    /* Callout / highlight box */
+    .callout {
+      border: 1px solid var(--outline-variant);
+      border-left: 3px solid var(--primary);
+      border-radius: var(--r-sm);
+      background: var(--primary-container);
+      padding: 14px 16px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--on-primary-container)
+    }
+
+    .callout strong {
+      color: var(--primary)
+    }
+
+    /* Analogy box */
+    .analogy {
+      border: 1px solid var(--outline-variant);
+      border-left: 3px solid var(--success);
+      border-radius: var(--r-sm);
+      background: color-mix(in oklab, var(--success) 8%, var(--surface-container-lowest));
+      padding: 14px 16px;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--on-surface-variant)
+    }
+
+    .analogy-label {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--success);
+      display: block;
+      margin-bottom: 6px
+    }
+
+    /* Spec table */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px
+    }
+
+    .spec-table th {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--on-surface-faint);
+      padding: 7px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--outline-variant);
+      background: var(--surface-container-low)
+    }
+
+    .spec-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--outline-variant);
+      color: var(--on-surface-variant);
+      vertical-align: top
+    }
+
+    .spec-table tr:last-child td {
+      border-bottom: 0
+    }
+
+    .spec-table td:first-child {
+      font-weight: 500;
+      color: var(--on-surface);
+      white-space: nowrap
+    }
+
+    .spec-table-wrap {
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--r-md);
+      overflow: hidden
+    }
+
+    /* Mode cards */
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px
+    }
+
+    @media(max-width: 700px) {
+      .mode-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .mode-card {
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--r-md);
+      background: var(--surface-container-lowest);
+      padding: 16px
+    }
+
+    .mode-card-label {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--on-surface-faint);
+      margin-bottom: 6px
+    }
+
+    .mode-card-title {
+      font-family: var(--font-display);
+      font-variation-settings: "opsz" 24, "wght" 600;
+      font-size: 15px;
+      color: var(--on-surface);
+      margin-bottom: 8px
+    }
+
+    .mode-card p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--on-surface-variant)
+    }
+
+    .proj-sidebar {
+      position: sticky;
+      top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px
+    }
+
+    .sidebar-card {
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--r-md);
+      background: var(--surface-container-lowest);
+      overflow: hidden
+    }
+
+    .sidebar-head {
+      padding: 10px 14px;
+      background: var(--surface-container-low);
+      border-bottom: 1px solid var(--outline-variant);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--on-surface-faint)
+    }
+
+    .sidebar-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--outline-variant);
+      align-items: start
+    }
+
+    .sidebar-row:last-child {
+      border-bottom: 0
+    }
+
+    .sidebar-key {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--on-surface-faint);
+      white-space: nowrap;
+      padding-top: 1px
+    }
+
+    .sidebar-val {
+      font-size: 13px;
+      color: var(--on-surface);
+      line-height: 1.5;
+      font-weight: 500;
+      text-align: right
+    }
+
+    .article-toc {
+      position: fixed;
+      left: calc(25vw - 385px);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 196px;
+      max-height: 80vh;
+      overflow-y: auto;
+      z-index: 10;
+      padding: 0 0 16px;
+      scrollbar-width: none;
+    }
+
+    .article-toc::-webkit-scrollbar {
+      display: none
+    }
+
+    @media(max-width:1400px) {
+      .article-toc {
+        display: none
+      }
+    }
+
+    .article-toc a {
+      display: block;
+      height: 32px;
+      line-height: 32px;
+      padding: 0 16px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 450;
+      color: var(--on-surface-variant);
+      border-radius: 999px;
+      margin: 2px 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transition: color .2s, background .18s
+    }
+
+    .article-toc a:hover {
+      background: color-mix(in oklab, var(--primary) 7%, transparent);
+      color: var(--on-surface)
+    }
+
+    .article-toc a.active {
+      color: var(--on-primary-container);
+      font-weight: 600;
+      background: var(--primary-container)
+    }
+
+    @media(max-width:960px) {
+      .proj-body {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 0 20px 60px;
+        margin-top: 32px
+      }
+
+      .proj-hero {
+        padding: 32px 20px 28px
+      }
+
+      .proj-sidebar {
+        position: static
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="grid-bg"></div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/projects/" class="active">Projects</a>
+        <a href="/courses/">Courses</a>
+        <a href="/community/">Community</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <aside class="article-toc ready" style="margin-top:0px;">
+      <a href="#heading-0">What Is It?</a>
+      <a href="#heading-1">Where Is It Used?</a>
+      <a href="#heading-2">Key Specifications</a>
+      <a href="#heading-3">Block Diagram</a>
+      <a href="#heading-4">Three Operating Modes</a>
+      <a href="#heading-5">Pin Descriptions</a>
+      <a href="#heading-6">DCLK &amp; SYSREF</a>
+      <a href="#heading-7">Logic Clock (FPGA)</a>
+      <a href="#heading-8">Noiseless Delay Tuning</a>
+      <a href="#heading-9">Power-On &amp; Startup</a>
+      <a href="#heading-10">Temperature Sensor</a>
+      <a href="#heading-11">Electrical Limits</a>
+      <a href="#heading-12">SPI Programming</a>
+      <div class="toc-pill" style="top:2px;left:4px;width:188px;height:32px;opacity:1;"></div>
+    </aside>
+
+    <div class="proj-hero">
+      <a class="back-link" href="../JESD204C_Clock_Tree_Thesis.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 5l-7 7 7 7"></path>
+        </svg>
+        Back to Thesis
+      </a>
+      <div class="proj-eyebrow">Component Analysis</div>
+      <h1>TI LMX1205 Datasheet Breakdown</h1>
+      <p class="subtitle">A plain-English explanation of the Texas Instruments LMX1205 — every section of the datasheet
+        (SNAS850) decoded for people who don't have an RF background.</p>
+      <div class="meta-row">
+        <span class="meta-chip primary">RF Buffer</span>
+        <span class="meta-chip primary">Clock Multiplier</span>
+        <span class="meta-chip">JESD204B/C</span>
+        <span class="meta-chip">TI LMX1205</span>
+        <span class="meta-chip">Datasheet · SNAS850</span>
+      </div>
+    </div>
+
+    <div class="proj-body">
+      <div class="proj-main">
+
+        <!-- ─── 0. WHAT IS IT ─────────────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">Device Overview</div>
+          <h2 data-toc="What Is It?" id="heading-0">What Is the LMX1205?</h2>
+
+          <div class="analogy">
+            <span class="analogy-label">Simple Analogy</span>
+            Think of the LMX1205 as a <strong>precision clock distribution hub</strong> — like a master wall clock in a
+            building that sends perfectly synchronised time signals to every room. The "rooms" here are high-speed ADCs
+            and DACs, and timing errors as small as a trillionth of a second matter.
+          </div>
+
+          <p>The <strong>Texas Instruments LMX1205</strong> is a highly integrated RF clock chip. It takes one input
+            clock signal and can:</p>
+          <ul>
+            <li><strong>Buffer it</strong> — copy it faithfully to up to four outputs, adding almost no noise.</li>
+            <li><strong>Divide it</strong> — output a slower version (e.g. ÷4 of a 12 GHz clock gives 3 GHz).</li>
+            <li><strong>Multiply it</strong> — output a faster version (e.g. ×2 of a 6 GHz clock gives 12 GHz).</li>
+          </ul>
+          <p>It is purpose-built to meet the strict timing requirements of high-speed data converters (ADCs and DACs)
+            that use the <strong>JESD204B / JESD204C</strong> serial interface standard. Beyond distributing the
+            sampling
+            clock (called <em>DCLK</em>), it also generates the synchronisation heartbeat signal called
+            <em>SYSREF</em>, which keeps all converters on a board locked to the exact same timing anchor.
+          </p>
+
+          <div class="callout">
+            <strong>Why does it matter in my thesis?</strong> The LMX1205 is the device that bridges a master PLL
+            synthesiser (like the HMC7044) and the actual ADC/DAC chips. Without it, clock edges arriving at different
+            converters could differ by tens of picoseconds — enough to corrupt high-speed digital samples.
+          </div>
+        </div>
+
+        <!-- ─── 1. APPLICATIONS ──────────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">Where Is It Used?</div>
+          <h2 data-toc="Where Is It Used?" id="heading-1">Applications</h2>
+
+          <p>The datasheet lists three main application areas. In every case the theme is the same: you need a
+            ultra-clean, ultra-precise clock at gigahertz frequencies and you need it in multiple places at once.</p>
+          <ul>
+            <li>
+              <strong>Test &amp; Measurement:</strong> Oscilloscopes, wideband digitisers, and wireless equipment
+              testers all need accurate clocks so that measured waveforms are not distorted by timing jitter in the
+              instrument itself.
+            </li>
+            <li>
+              <strong>Aerospace &amp; Defence:</strong> Radar, electronic warfare, phased-array antennas and
+              beam-forming
+              systems require sub-picosecond synchronisation across many antenna elements — a tiny timing error directly
+              translates to a beam-pointing error in space.
+            </li>
+            <li>
+              <strong>General-Purpose Data Converter Clocking:</strong> Any system that uses a high-speed ADC or DAC
+              (e.g. 5G radio, software-defined radio, medical imaging) benefits from using the LMX1205 as a clock
+              buffer/fanout device between the master PLL and the converters.
+            </li>
+          </ul>
+        </div>
+
+        <!-- ─── 2. KEY SPECIFICATIONS ────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">Specs &amp; Features</div>
+          <h2 data-toc="Key Specifications" id="heading-2">Key Specifications at a Glance</h2>
+
+          <div class="spec-table-wrap">
+            <table class="spec-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Value</th>
+                  <th>Plain-English Meaning</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Output frequency range</td>
+                  <td>300 MHz – 12.8 GHz</td>
+                  <td>Covers virtually all modern converter sampling rates from slow (300 MHz) to blistering fast (12.8
+                    GHz).</td>
+                </tr>
+                <tr>
+                  <td>Additive jitter (100 Hz–100 MHz)</td>
+                  <td>10 fs RMS</td>
+                  <td>10 femtoseconds — that is 10 &times; 10<sup>-15</sup> s of extra timing wobble introduced by the
+                    chip itself. Essentially invisible noise.</td>
+                </tr>
+                <tr>
+                  <td>Additive jitter (DC–f<sub>CLK</sub>)</td>
+                  <td>36 fs RMS</td>
+                  <td>Even when measuring jitter across the full bandwidth (including very low offsets), the chip adds
+                    only 36 fs.</td>
+                </tr>
+                <tr>
+                  <td>Noise floor</td>
+                  <td>&minus;159 dBc/Hz at 6 GHz</td>
+                  <td>The chip's self-generated noise is &minus;159 dB below the carrier — quieter than almost anything
+                    you could build from discrete components.</td>
+                </tr>
+                <tr>
+                  <td>Main clock outputs</td>
+                  <td>4 &times; CLKOUT (differential)</td>
+                  <td>Four identical-frequency high-frequency clock outputs, each with its own paired SYSREF output.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Logic clock outputs</td>
+                  <td>LOGICLKOUT0 + LOGICLKOUT1</td>
+                  <td>Two lower-frequency outputs (up to 800 MHz) to drive FPGAs and digital logic, with their own
+                    SYSREF.</td>
+                </tr>
+                <tr>
+                  <td>Multiplier options</td>
+                  <td>&times;2, &times;3, &times;4, &times;5, &times;6, &times;7, &times;8</td>
+                  <td>Can produce an output up to 8&times; the input frequency using an internal PLL + VCO.</td>
+                </tr>
+                <tr>
+                  <td>Divider options</td>
+                  <td>÷2, ÷3, ÷4, ÷5, ÷6, ÷7, ÷8</td>
+                  <td>Can produce an output as low as ⅛ the input frequency.</td>
+                </tr>
+                <tr>
+                  <td>Input delay</td>
+                  <td>0–60 ps, 1.1 ps steps</td>
+                  <td>Can shift the entire output section by up to 60 trillionths of a second to align with an upstream
+                    PLL.</td>
+                </tr>
+                <tr>
+                  <td>Per-output delay</td>
+                  <td>0–55 ps, 0.9 ps steps</td>
+                  <td>Each of the four outputs can be individually nudged to compensate for different PCB trace lengths
+                    to each converter chip.</td>
+                </tr>
+                <tr>
+                  <td>SYSREF delay steps</td>
+                  <td>508 steps, &lt;2.5 ps each at 12.8 GHz</td>
+                  <td>Can fine-position the SYSREF edge inside the DCLK period with extreme precision.</td>
+                </tr>
+                <tr>
+                  <td>Output power levels</td>
+                  <td>6 programmable levels</td>
+                  <td>Output swing can be adjusted in 6 steps per channel, trading power consumption for signal
+                    strength.</td>
+                </tr>
+                <tr>
+                  <td>Supply voltage</td>
+                  <td>2.5 V (&plusmn;0.1 V)</td>
+                  <td>Single 2.5 V rail — straightforward to power from modern regulators.</td>
+                </tr>
+                <tr>
+                  <td>Control interface</td>
+                  <td>SPI (SCK, SDI, CS#)</td>
+                  <td>All settings are written through a standard 3-wire serial bus, compatible with any microcontroller
+                    or FPGA.</td>
+                </tr>
+                <tr>
+                  <td>Operating temperature</td>
+                  <td>&minus;40 °C to +85 °C</td>
+                  <td>Rated for full industrial and military temperature range.</td>
+                </tr>
+                <tr>
+                  <td>Package</td>
+                  <td>40-pin VQFN (RHA), 5 &times; 5 mm</td>
+                  <td>A tiny, flat, leadless package — roughly the size of a fingernail.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ─── 3. BLOCK DIAGRAM ──────────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">Internal Block Diagram</div>
+          <h2 data-toc="Block Diagram" id="heading-3">Block Diagram — What's Inside the Chip?</h2>
+          <p>Reading a block diagram like this can feel overwhelming at first. Here is the signal flow broken into plain
+            steps:</p>
+          <ul>
+            <li><strong>Step 1 — Input:</strong> <em>CLKIN_P / CLKIN_N</em> is the differential clock signal coming in
+              from your master PLL or oscillator. It enters through a precision input buffer.</li>
+            <li><strong>Step 2 — Input delay:</strong> An optional programmable delay (up to 60 ps) shifts the entire
+              input before it does anything else — useful for compensating PCB trace skew at the board input.</li>
+            <li><strong>Step 3 — Frequency selection:</strong> A multiplexer (CLK_MUX) selects whether the clock goes
+              through Buffer mode, the ÷ divider chain, or the ×M multiplier (a small PLL+VCO).</li>
+            <li><strong>Step 4 — IQ Phase Interpolator Divider:</strong> An intermediate ÷2/4/8/16 stage creates the
+              reference frequency used by the per-output phase interpolators for fine delay adjustment.</li>
+            <li><strong>Step 5 — Four output channels:</strong> Each channel has its own Phase Interpolator (τ₀–τ₃)
+              and output buffer. They all run at the same frequency but can be individually delayed and
+              enabled/disabled.
+            </li>
+            <li><strong>Step 6 — SYSREF generation:</strong> A separate divider chain (÷SYSREF_DIV_PRE × ÷SYSREF_DIV)
+              creates the slow SYSREF signal from the same CLKIN source. Phase interpolators add fine delay per output.
+            </li>
+            <li><strong>Step 7 — Logic clock:</strong> A third divider chain (÷LOGICLK_DIV_PRE × ÷LOGICLK_DIV) creates
+              a much slower clock for FPGAs, output as CML or LVDS on LOGICLKOUT0/1.</li>
+            <li><strong>Step 8 — Digital control:</strong> All of the above is configured via SPI registers, read back
+              through MUXOUT.</li>
+          </ul>
+
+          <div class="illus">
+            <div class="illus-bar"><span class="dot"></span>LMX1205 Block Diagram — Source: TI Datasheet SNAS850</div>
+            <img src="Block diagram.png" alt="TI LMX1205 Official Block Diagram from Datasheet SNAS850" />
+            <div class="illus-caption">Fig 1 — Official TI LMX1205 functional block diagram (SNAS850). CLKIN →
+              adjustable
+              input delay (CLKIN_DLY) → CLK_MUX selects Buffer / ÷2..8 / ×M → IQ Phase Interpolator Divider (÷2,4,8,16)
+              → 4 output channels (τ₀–τ₃ phase interpolators) → CLKOUTn + SYSREFOUTn. LOGICLK section (green) →
+              LOGICLKOUT0/1. SYSREF generator/repeater/retime (blue). Full SPI control via SCK/SDI/CS#;
+              MUXOUT for status.</div>
+          </div>
+        </div>
+
+        <!-- ─── 4. THREE OPERATING MODES ─────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">Frequency Modes</div>
+          <h2 data-toc="Three Operating Modes" id="heading-4">Three Operating Modes</h2>
+          <p>The core of the LMX1205 is a frequency selection block controlled by a single SPI register
+            (<code>CLK_MUX</code>). There are exactly three choices:</p>
+
+          <div class="mode-grid">
+            <div class="mode-card">
+              <div class="mode-card-label">Mode 0 · CLK_MUX = 0</div>
+              <div class="mode-card-title">Buffer Mode (÷1)</div>
+              <p>The input clock is passed straight through — frequency in = frequency out. The chip only re-drives it
+                with lower jitter and higher drive strength to four outputs simultaneously. Best noise performance.</p>
+            </div>
+            <div class="mode-card">
+              <div class="mode-card-label">Mode 1 · CLK_MUX = 1</div>
+              <div class="mode-card-title">Divider Mode (÷2 to ÷8)</div>
+              <p>The output is a whole-number fraction of the input. For example, a 9.6 GHz input ÷3 gives a 3.2 GHz
+                output. Only even divides (÷2, ÷4, ÷6, ÷8) give a 50 % duty cycle — odd divides produce unequal
+                mark-space ratios.</p>
+            </div>
+            <div class="mode-card">
+              <div class="mode-card-label">Mode 2 · CLK_MUX = 2</div>
+              <div class="mode-card-title">Multiplier Mode (×2 to ×8)</div>
+              <p>An internal PLL + VCO multiplies the input up. For example, a 1.6 GHz input ×8 gives 12.8 GHz. This
+                mode requires a one-time <em>calibration</em> step (≈750 µs typical) to lock the VCO to the correct
+                frequency band. Adds slightly more jitter than buffer/divide mode.</p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <strong>Which mode adds the least noise?</strong> Buffer mode is cleanest (additive jitter ≈10 fs). Divider
+            ÷2 is nearly as good (≈21 fs equivalent when scaled). Multiplier mode adds the most, rising with
+            multiplication factor: ×8 adds ≈60 fs. In practice, choose the upstream PLL frequency that lets you use
+            buffer or divide mode wherever possible.
+          </div>
+
+          <p>The multiplier uses an internal <strong>state-machine clock</strong> (f<sub>SMCLK</sub>) derived from the
+            input by a configurable divider — it must be below 30 MHz and at least twice the SPI write speed. After
+            programming the frequency, writing to R0 kicks off calibration. The lock status is readable via the
+            <code>rb_LOCK_DETECT</code> field or from the MUXOUT pin.
+          </p>
+        </div>
+
+        <!-- ─── 5. PIN DESCRIPTIONS ──────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">Pinout</div>
+          <h2 data-toc="Pin Descriptions" id="heading-5">Pin Descriptions — What Does Each Pin Do?</h2>
+          <p>The LMX1205 lives in a 40-pin 5 × 5 mm VQFN package. Here are the most important pins explained without
+            jargon:</p>
+
+          <div class="spec-table-wrap">
+            <table class="spec-table">
+              <thead>
+                <tr>
+                  <th>Pin(s)</th>
+                  <th>Name</th>
+                  <th>Direction</th>
+                  <th>What It Does</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>6, 7</td>
+                  <td>CLKIN_P / CLKIN_N</td>
+                  <td>Input</td>
+                  <td>The main clock input — a differential pair (two complementary signals). Must be AC-coupled
+                    (capacitor in series). Internal 50 Ω termination at each pin. If you only have a single-ended
+                    source, drive CLKIN_N and leave CLKIN_P AC-coupled to GND through a 50 Ω resistor.</td>
+                </tr>
+                <tr>
+                  <td>14–15, 18–19, 32–33, 36–37</td>
+                  <td>CLKOUT0–3 (P/N pairs)</td>
+                  <td>Output</td>
+                  <td>Four differential high-frequency clock outputs — open-collector with an integrated 50 Ω pull-up.
+                    Must be AC-coupled at the board. Expects a 100 Ω differential or 50 Ω single-ended load.</td>
+                </tr>
+                <tr>
+                  <td>Various</td>
+                  <td>SYSREFOUT0–3 (P/N pairs)</td>
+                  <td>Output</td>
+                  <td>SYSREF companion outputs — one for each CLKOUT channel. These are CML outputs with an adjustable
+                    common-mode voltage (DC-coupling is possible). Programmable power level.</td>
+                </tr>
+                <tr>
+                  <td>22, 25</td>
+                  <td>SYSREFREQ_P / _N</td>
+                  <td>Input</td>
+                  <td>Optional external SYSREF request input. Used in Repeater mode — an external source fires a SYSREF
+                    pulse here and the LMX1205 retransmits it to all outputs simultaneously. Also used as a software
+                    trigger in Generator mode.</td>
+                </tr>
+                <tr>
+                  <td>27–28</td>
+                  <td>LOGICLKOUT0_P / _N</td>
+                  <td>Output</td>
+                  <td>Lower-frequency differential clock for FPGAs or digital logic. Selectable CML or LVDS format with
+                    programmable common-mode voltage.</td>
+                </tr>
+                <tr>
+                  <td>23–24</td>
+                  <td>LOGISYSREFOUT_P / _N (or LOGICLKOUT1)</td>
+                  <td>Output</td>
+                  <td>Doubles as either the SYSREF companion for LOGICLKOUT0, or a second, slower logic clock
+                    (LOGICLKOUT1) with an additional ÷1/2/4/8 divider on top.</td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>SCK</td>
+                  <td>Input</td>
+                  <td>SPI serial clock — clocks in data on the rising edge. Up to 20 MHz. Needs a 200 Ω series resistor.
+                    Accepts up to 3.3 V logic.</td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>SDI</td>
+                  <td>Input</td>
+                  <td>SPI data input — the register address and value bits arrive here. 200 Ω series resistor required.
+                  </td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>CS#</td>
+                  <td>Input</td>
+                  <td>SPI chip select — active LOW. Data is only clocked in while CS# is held low. 200 Ω series resistor
+                    required.</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>MUXOUT</td>
+                  <td>Output</td>
+                  <td>Multiplexed diagnostic output — can signal PLL lock status, SPI readback data, or other internal
+                    status flags. Tri-stated when not in use.</td>
+                </tr>
+                <tr>
+                  <td>20</td>
+                  <td>BIAS01</td>
+                  <td>Bypass</td>
+                  <td>If using the multiplier: bypass this pin to GND with a 10 nF capacitor for best noise. If not
+                    using the multiplier: leave it open.</td>
+                </tr>
+                <tr>
+                  <td>31</td>
+                  <td>BIAS23</td>
+                  <td>Bypass</td>
+                  <td>Same as BIAS01 but for the second multiplier core — use a 10 µF + 0.1 µF capacitor to GND if the
+                    multiplier is enabled.</td>
+                </tr>
+                <tr>
+                  <td>DAP + 5,13,17,26,34,38</td>
+                  <td>GND</td>
+                  <td>Ground</td>
+                  <td>All these pins (including the large bottom pad, DAP) must be connected to the ground plane. The
+                    DAP is the primary thermal path for heat to escape.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ─── 6. DCLK AND SYSREF ───────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">JESD204 Clocks</div>
+          <h2 data-toc="DCLK &amp; SYSREF" id="heading-6">DCLK and SYSREF Generation</h2>
+
+          <div class="analogy">
+            <span class="analogy-label">Simple Analogy</span>
+            Imagine a symphony orchestra. The Device Clock (DCLK) is the conductor's baton keeping the beat. SYSREF is
+            the downbeat at the very start of each movement — every musician (ADC/DAC) hears it and resets to bar 1,
+            so they all play in perfect sync even if they each started playing at slightly different times.
+          </div>
+
+          <p>In a JESD204C Subclass 1 system, every ADC and DAC must start counting samples from the exact same
+            reference moment. The LMX1205 achieves this by generating both signals from the same CLKIN source:</p>
+          <ul>
+            <li><strong>DCLK (CLKOUTx):</strong> The high-speed sampling clock — the beat every converter samples on.
+              All four CLKOUTs run at the same frequency.</li>
+            <li><strong>SYSREF (SYSREFOUTx):</strong> A much slower signal (e.g. 10 MHz) that arrives simultaneously
+              at all converters and marks the multi-frame boundary. Every converter, on seeing SYSREF, aligns its
+              internal frame counter.</li>
+          </ul>
+
+          <p><strong>SYSREF operating modes (selectable via SPI register SYSREF_MODE):</strong></p>
+          <ul>
+            <li>
+              <strong>Generator mode (0):</strong> The LMX1205 creates SYSREF internally from CLKIN — no external
+              SYSREFREQ signal needed. The SYSREF_DIV chain divides CLKIN way down to the desired slow SYSREF
+              frequency. Think of the chip as a self-contained SYSREF factory.
+            </li>
+            <li>
+              <strong>Pulser mode (1):</strong> Like Generator mode but instead of a continuous stream, it fires a
+              programmable burst of 1–16 pulses each time it is triggered. This is the <em>preferred production
+                mode</em> — SYSREF only appears when you need it, eliminating crosstalk at all other times.
+            </li>
+            <li>
+              <strong>Repeater mode (2):</strong> An external SYSREFREQ signal arrives at the SYSREFREQ_P/N pins, and
+              the LMX1205 fans it out to all outputs simultaneously. Used when a master device (like an HMC7044) is the
+              actual SYSREF source.
+            </li>
+            <li>
+              <strong>Repeater Retime mode (3):</strong> Like Repeater, but the incoming SYSREFREQ is first
+              re-synchronised to the internal CLKIN before being sent out. This eliminates any metastability risk — the
+              output SYSREF is guaranteed to be a clean, jitter-free version of the input.
+            </li>
+          </ul>
+
+          <p><strong>SYSREF fine delay (phase interpolator):</strong> Each SYSREF output has 508 programmable delay
+            steps. At 12.8 GHz input, each step is less than 2.5 ps — giving a total range of about 1.27 ns, which
+            is a full DCLK period at 787 MHz. This is used to position the SYSREF edge precisely inside the DCLK
+            window to meet the ADC/DAC setup-and-hold timing requirements.</p>
+
+          <p><strong>SYSREF windowing:</strong> The SYSREFREQ input pins have a programmable window filter
+            (SYSREFREQ_DLY, SYSREFREQ_DLY_STEP) that adjusts when the chip samples the incoming SYSREFREQ relative
+            to CLKIN. This maximises the timing margin and filters board-level glitches before they can corrupt the
+            SYSREF capture.</p>
+        </div>
+
+        <!-- ─── 7. LOGICLK ───────────────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">FPGA Interface</div>
+          <h2 data-toc="Logic Clock (FPGA)" id="heading-7">Logic Clock — Clocking Your FPGA</h2>
+          <p>Most FPGAs and digital processors cannot handle 6–12 GHz clocks — they need something much slower. The
+            LMX1205 solves this with a dedicated <strong>Logic Clock</strong> section that derives a lower-frequency
+            clock from the same CLKIN source as the main clock outputs, keeping everything phase-coherent.</p>
+
+          <ul>
+            <li><strong>LOGICLKOUT0</strong> (pins 27–28): First logic clock, differential output.
+              Frequency = CLKIN ÷ (LOGICLK_DIV_PRE × LOGICLK_DIV). LOGICLK_DIV can be 1–1023, giving output
+              frequencies from CLKIN all the way down to 1 MHz.</li>
+            <li><strong>LOGICLKOUT1 / LOGISYSREFOUT</strong> (pins 23–24): Can act as a second logic clock
+              (LOGICLKOUT1) with an additional ÷1/2/4/8 divider on top of LOGICLKOUT0, or as the SYSREF companion
+              for LOGICLKOUT0.</li>
+          </ul>
+
+          <p><strong>Output format:</strong> Both logic clock outputs are selectable between <strong>LVDS</strong>
+            (Low-Voltage Differential Signalling — widely supported, programmable common-mode voltage) and
+            <strong>CML</strong> (Current Mode Logic — requires external 50 Ω pull-up resistors to VCC on the board).
+            LVDS is the easier choice if your FPGA has native LVDS inputs.
+          </p>
+
+          <div class="callout">
+            <strong>Pre-divider restriction:</strong> The LOGICLK_DIV divider input must see no more than 3.2 GHz.
+            So if CLKIN &gt; 3.2 GHz, you must first use the LOGICLK_DIV_PRE (÷1, ÷2, or ÷4) to bring the
+            frequency into range before the main divider takes over. For CLKIN &gt; 6.4 GHz, LOGICLK_DIV_PRE must
+            be ÷4.
+          </div>
+        </div>
+
+        <!-- ─── 8. DELAY TUNING ──────────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">Phase Alignment</div>
+          <h2 data-toc="Noiseless Delay Tuning" id="heading-8">Noiseless Delay Tuning — Fixing Timing Without Redesigning the PCB</h2>
+
+          <div class="analogy">
+            <span class="analogy-label">Simple Analogy</span>
+            Imagine you sent the same email to four people but the network delayed each delivery by a slightly different
+            amount. The LMX1205's per-output delay lets you pre-compensate — you intentionally send each email earlier
+            by the exact delay that person's connection adds, so they all arrive at the same moment.
+          </div>
+
+          <p>At multi-gigahertz frequencies, even a <strong>1 mm difference</strong> in PCB trace length between two
+            clock outputs introduces roughly 7 ps of timing difference — enough to violate JESD204C requirements. The
+            LMX1205 corrects this at three independent points, all controlled by SPI — no board respin needed:</p>
+
+          <div class="spec-table-wrap">
+            <table class="spec-table">
+              <thead>
+                <tr>
+                  <th>Delay Point</th>
+                  <th>Range</th>
+                  <th>Resolution</th>
+                  <th>What It Compensates</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Input delay (CLKIN_DLY)</td>
+                  <td>0 – 60 ps</td>
+                  <td>1.1 ps</td>
+                  <td>Shifts the entire output section together — use this to align the LMX1205 phase to an upstream
+                    master PLL or oscillator, or to compensate trace length from the PLL to this chip.</td>
+                </tr>
+                <tr>
+                  <td>Per-output delay (CLKx_DLY) — τ₀ to τ₃</td>
+                  <td>0 – 55 ps</td>
+                  <td>0.9 ps</td>
+                  <td>Moves each of the four CLKOUTs independently — compensates different PCB trace lengths from this
+                    chip to each ADC/DAC. Write different codes to CLKOUT0 vs CLKOUT3 to align them at the converters.
+                  </td>
+                </tr>
+                <tr>
+                  <td>SYSREF delay (SYSREFx_DLY)</td>
+                  <td>0 – 508 steps</td>
+                  <td>&lt;2.5 ps/step at 12.8 GHz</td>
+                  <td>Positions the SYSREF edge inside the DCLK period, meeting the ADC's SYSREF-to-DCLK setup/hold
+                    window.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>Because these delays are implemented digitally inside the chip (using a phase interpolator — essentially
+            a very fine-grained digital delay line), they add <em>zero measurable phase noise</em>. In contrast, an
+            analogue delay line based on varactors or RC circuits would smear the clock edges every time you
+            changed the delay. The LMX1205 avoids this entirely.</p>
+
+          <div class="callout">
+            <strong>Practical tip from the datasheet:</strong> For output frequencies below 1.5 GHz, use an output
+            delay code &ge; 4 for best noise performance. At very low codes (0–3) the phase interpolator operates
+            at the edge of its optimal range.
+          </div>
+        </div>
+
+        <!-- ─── 9. POWER-ON & STARTUP ─────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">Startup Sequence</div>
+          <h2 data-toc="Power-On &amp; Startup" id="heading-9">Power-On Reset &amp; Startup</h2>
+          <p>Understanding what the chip does when you first apply power is critical for reliable system bring-up.</p>
+
+          <ul>
+            <li>
+              <strong>Automatic Power-On Reset (POR):</strong> When 2.5 V is applied, the chip automatically resets
+              all internal registers to their default state and resets all dividers. Default state = buffer mode with
+              all SYSREF outputs disabled (the chip acts as a simple 4-output clock buffer out of the box).
+            </li>
+            <li>
+              <strong>Wait 100 µs:</strong> After power rails stabilise, wait at least 100 µs before writing any SPI
+              registers — this is the time the POR state machine needs to finish. Programming too early can leave the
+              chip in an indeterminate state.
+            </li>
+            <li>
+              <strong>Software reset (recommended):</strong> Even after POR, TI recommends sending a software reset
+              (write <code>RESET = 1</code> over SPI) to guarantee a clean starting state — especially because
+              different supply rails can ramp up at slightly different speeds. The RESET bit self-clears the moment you
+              write any other register.
+            </li>
+            <li>
+              <strong>Load your registers:</strong> Program frequency mode (CLK_MUX), divider/multiplier values,
+              output delays, SYSREF mode, and output power levels.
+            </li>
+            <li>
+              <strong>Multiplier calibration (if using ×M mode):</strong> Write to R0 to kick off calibration. Wait
+              for <code>rb_LOCK_DETECT = 1</code> on MUXOUT (~750 µs typical, up to ~5 ms on first use or mode
+              change) before enabling outputs.
+            </li>
+            <li>
+              <strong>Enable outputs, then trigger SYSREF:</strong> Un-mute the CLKOUT channels, then send a SYSREF
+              pulse to latch all connected converters into Subclass 1 alignment.
+            </li>
+          </ul>
+        </div>
+
+        <!-- ─── 10. TEMPERATURE SENSOR ────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">On-Chip Diagnostics</div>
+          <h2 data-toc="Temperature Sensor" id="heading-10">Built-In Temperature Sensor</h2>
+          <p>The LMX1205 includes an on-chip temperature sensor that can be read back via SPI (register
+            <code>rb_TEMPSENSE</code>). This is useful during characterisation or for compensating behaviour that
+            changes with temperature.
+          </p>
+
+          <p>The relationship between the read-back code and junction temperature is:</p>
+
+          <div class="callout">
+            <strong>Temperature (°C) = 0.65 × Code − 351</strong><br>
+            This formula is derived from a best-fit line across slow, nominal, and fast silicon corners. Worst-case
+            deviation: ±13 °C (≈20 codes).
+          </div>
+
+          <p>Practical uses of this sensor:</p>
+          <ul>
+            <li>Adjust <code>CLKx_PWR</code> to compensate for output-power drift over temperature.</li>
+            <li>Trim digital delay codes to compensate for propagation delay change over temperature
+              (the datasheet shows ≈0.02–0.10 ps/°C variation in buffer mode).</li>
+            <li>Detect thermal runaway: if the chip is running hotter than expected, the junction temperature
+              (which is always higher than ambient due to self-heating from the output drivers) will reveal it
+              before an external thermometer would.</li>
+          </ul>
+        </div>
+
+        <!-- ─── 11. ELECTRICAL LIMITS ─────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">Electrical Safety</div>
+          <h2 data-toc="Electrical Limits" id="heading-11">Electrical Limits — What Not to Exceed</h2>
+
+          <div class="callout">
+            <strong>Absolute Maximum Ratings</strong> are the hard limits beyond which permanent damage occurs — not
+            the operating range. Never operate the device at these values; they are the cliff edge, not the road.
+          </div>
+
+          <div class="spec-table-wrap">
+            <table class="spec-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Maximum</th>
+                  <th>Plain-English Warning</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Supply voltage (VDD)</td>
+                  <td>2.75 V</td>
+                  <td>Exceeding 2.75 V destroys the chip. Use a regulated supply with at least ±1% accuracy.</td>
+                </tr>
+                <tr>
+                  <td>DC voltage on SPI pins (SCK, SDI, CS#)</td>
+                  <td>3.6 V</td>
+                  <td>3.3 V logic is safe. 5 V logic is not — use level shifters if your microcontroller runs at 5 V.
+                  </td>
+                </tr>
+                <tr>
+                  <td>DC voltage on SYSREFREQ</td>
+                  <td>VDD + 0.3 V</td>
+                  <td>SYSREFREQ is a low-voltage input — do not drive it with a 3.3 V signal without checking your
+                    common-mode level.</td>
+                </tr>
+                <tr>
+                  <td>AC input voltage on CLKIN</td>
+                  <td>VDD pk-pk</td>
+                  <td>The RF input can swing up to VDD peak-to-peak — AC coupling is mandatory to avoid DC bias issues.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Junction temperature (T<sub>J</sub>)</td>
+                  <td>150 °C</td>
+                  <td>If the die gets hotter than 150 °C, the chip fails permanently. With all outputs on, it draws ~1.1
+                    A — ensure adequate thermal design. The exposed pad (DAP) must be soldered to a ground plane.</td>
+                </tr>
+                <tr>
+                  <td>ESD — Human Body Model</td>
+                  <td>&plusmn;2500 V</td>
+                  <td>Standard ESD protection — handle with ESD straps and mats as with any GHz-range RF device.</td>
+                </tr>
+                <tr>
+                  <td>ESD — Charged Device Model</td>
+                  <td>&plusmn;500 V</td>
+                  <td>The smaller CDM rating means the chip is sensitive to charge accumulation during automated
+                    assembly — ensure proper ESD-safe handling in pick-and-place.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p><strong>Current consumption at a glance:</strong></p>
+          <ul>
+            <li><strong>All CLKOUTs + SYSREFs on:</strong> ~1130 mA — the chip is a significant power consumer when
+              fully loaded. Budget ≈2.8 W at 2.5 V.</li>
+            <li><strong>All CLKOUTs on, SYSREFs off:</strong> ~700 mA</li>
+            <li><strong>All CLKOUTs off (internal logic only):</strong> ~370 mA</li>
+            <li><strong>Powered down (via SPI):</strong> ~13.5 mA — very low standby current.</li>
+          </ul>
+        </div>
+
+        <!-- ─── 12. SPI PROGRAMMING ───────────────────────────────────── -->
+        <div class="section-block">
+          <div class="section-label">Configuration</div>
+          <h2 data-toc="SPI Programming" id="heading-12">SPI Programming &amp; Control</h2>
+          <p>Every parameter of the LMX1205 lives in a register map accessed over SPI. The bus uses three pins:
+            <strong>SCK</strong> (clock), <strong>SDI</strong> (data in), <strong>CS#</strong> (chip select active-low).
+            Status readback comes from <strong>MUXOUT</strong>.
+          </p>
+
+          <p><strong>SPI protocol details:</strong></p>
+          <ul>
+            <li>Maximum SPI clock speed: <strong>20 MHz</strong></li>
+            <li>Mode: <strong>CPOL = 0, CPHA = 0</strong> (data captured on rising edge)</li>
+            <li>Data clocks in MSB first; R/W bit is the first bit (0 = write, 1 = read)</li>
+            <li>CS# must be held low for the entire transaction</li>
+            <li>Each transaction is 24 bits: 1 R/W + 6 address + 16 data bits</li>
+            <li>All SPI pins require a 200 Ω series resistor — this limits ringing on the lines at high SPI speeds</li>
+          </ul>
+
+          <p><strong>Key register groups:</strong></p>
+          <ul>
+            <li><strong>R0 — Reset &amp; Calibration:</strong> Writing to R0 both resets the chip (RESET bit) and
+              triggers multiplier calibration. The most important register to write first.</li>
+            <li><strong>CLK_MUX, CLK_DIV, CLK_MULT:</strong> Select buffer/divide/multiply mode and the divide or
+              multiply value.</li>
+            <li><strong>CLKx_EN, CHx_EN, CLKx_PWR:</strong> Enable each output channel and set its drive strength
+              (1–6). CHx_EN powers down the entire internal channel path; CLKx_EN only gates the output buffer.</li>
+            <li><strong>CLKIN_DLY, CLKx_DLY:</strong> Input delay code and per-output delay codes for fine phase
+              alignment.</li>
+            <li><strong>SYSREF_MODE, SYSREF_PULSE_CNT, SYSREFREQ_INPUT:</strong> SYSREF operating mode, number of
+              pulses in pulser mode, and how to trigger a SYSREF burst.</li>
+            <li><strong>SYSREF_DIV_PRE, SYSREF_DIV:</strong> SYSREF frequency dividers (only needed in Generator or
+              Pulser modes).</li>
+            <li><strong>SYSREFx_DLY, SYSREFx_DLY_PHASE:</strong> Per-SYSREF-output fine delay (the 508 steps).</li>
+            <li><strong>LOGICLK_DIV_PRE, LOGICLK_DIV, LOGICLK2_DIV:</strong> Logic clock divider chain.</li>
+            <li><strong>LOGICLK_FMT, LOGICLK_VCM, LOGICLK_PWR:</strong> Logic clock output format and levels.</li>
+            <li><strong>LD_DIS, MUXOUT_SEL:</strong> Lock-detect disable and MUXOUT function select (PLL lock / SPI
+              readback / etc.).</li>
+            <li><strong>rb_TEMPSENSE:</strong> Read-back only — the temperature sensor code.</li>
+            <li><strong>rb_CLKPOS:</strong> Read-back — the current VCO band and core selected after calibration.</li>
+          </ul>
+
+          <p><strong>Recommended initialisation sequence:</strong></p>
+          <ul>
+            <li>1. Power on → wait 100 µs</li>
+            <li>2. Write RESET = 1 (software reset; self-clears on next write)</li>
+            <li>3. Load all frequency and divider registers (CLK_MUX, CLK_DIV / CLK_MULT, LOGICLK dividers)</li>
+            <li>4. Load output power, format, and delay registers</li>
+            <li>5. Load SYSREF mode and divider registers</li>
+            <li>6. Write R0 to trigger calibration (multiplier mode only); poll MUXOUT for lock</li>
+            <li>7. Enable outputs (CHx_EN = 1, CLKx_EN = 1)</li>
+            <li>8. Trigger a SYSREF pulse → all converters latch to Subclass 1 alignment</li>
+          </ul>
+        </div>
+
+      </div><!-- end proj-main -->
+
+      <aside class="proj-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-head">Component Data</div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Part</div>
+            <div class="sidebar-val">LMX1205</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Manufacturer</div>
+            <div class="sidebar-val">Texas Instruments</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Datasheet</div>
+            <div class="sidebar-val">SNAS850 (Dec 2024)</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Package</div>
+            <div class="sidebar-val">40-pin VQFN<br>5 &times; 5 mm</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Freq Range</div>
+            <div class="sidebar-val">300 MHz – 12.8 GHz</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">CLK Outputs</div>
+            <div class="sidebar-val">4 &times; CLKOUT<br>+ SYSREFOUTs<br>+ LOGICLKOUTs</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Modes</div>
+            <div class="sidebar-val">Buffer / ÷2–8 / ×2–8</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Input Delay</div>
+            <div class="sidebar-val">&le;60 ps · 1.1 ps res</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Output Delay</div>
+            <div class="sidebar-val">&le;55 ps · 0.9 ps res</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">SYSREF Steps</div>
+            <div class="sidebar-val">508 · &lt;2.5 ps each</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Noise Floor</div>
+            <div class="sidebar-val">&minus;159 dBc/Hz @ 6 GHz</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Additive Jitter</div>
+            <div class="sidebar-val">10 fs (100 Hz–100 MHz)<br>36 fs (DC–f<sub>CLK</sub>)</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Output Power</div>
+            <div class="sidebar-val">6 levels per channel</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Interface</div>
+            <div class="sidebar-val">SPI (max 20 MHz)</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Standard</div>
+            <div class="sidebar-val">JESD204B / JESD204C</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Supply</div>
+            <div class="sidebar-val">2.5 V (&plusmn;0.1 V)</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Current (full)</div>
+            <div class="sidebar-val">~1130 mA</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">Temp Range</div>
+            <div class="sidebar-val">&minus;40 °C to +85 °C</div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-head">SYSREF Modes</div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">0</div>
+            <div class="sidebar-val">Generator</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">1</div>
+            <div class="sidebar-val">Pulser</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">2</div>
+            <div class="sidebar-val">Repeater</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">3</div>
+            <div class="sidebar-val">Retime</div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-head">Startup Checklist</div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">1</div>
+            <div class="sidebar-val">Power on, wait 100 µs</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">2</div>
+            <div class="sidebar-val">SW reset (RESET=1)</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">3</div>
+            <div class="sidebar-val">Load freq registers</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">4</div>
+            <div class="sidebar-val">Load delay registers</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">5</div>
+            <div class="sidebar-val">Write R0 → calibrate</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">6</div>
+            <div class="sidebar-val">Poll MUXOUT lock</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">7</div>
+            <div class="sidebar-val">Enable outputs</div>
+          </div>
+          <div class="sidebar-row">
+            <div class="sidebar-key">8</div>
+            <div class="sidebar-val">Trigger SYSREF pulse</div>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-head">In This Series</div>
+          <a href="../JESD204C_Clock_Tree_Thesis.html" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:center;transition:background .15s;color:inherit" onmouseover="this.style.background='var(--surface-container-low)'" onmouseout="this.style.background=''">
+            <span class="sidebar-key">00</span>
+            <span style="font-size:13px;font-weight:500;color:var(--on-surface)">Thesis Overview</span>
+            <span style="font-family:var(--font-mono);color:var(--on-surface-faint);font-size:12px">↑</span>
+          </a>
+          <a href="#" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:center;background:var(--primary-container);color:inherit;pointer-events:none">
+            <span class="sidebar-key" style="color:var(--primary)">01</span>
+            <span style="font-size:13px;font-weight:600;color:var(--on-primary-container)">LMX1205 Datasheet</span>
+            <span style="font-family:var(--font-mono);color:var(--primary);font-size:10px">HERE</span>
+          </a>
+          <a href="../TICS_Pro_LMX1205/TICS_Pro_LMX1205.html" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:center;transition:background .15s;color:inherit" onmouseover="this.style.background='var(--surface-container-low)'" onmouseout="this.style.background=''">
+            <span class="sidebar-key">02</span>
+            <span style="font-size:13px;font-weight:500;color:var(--on-surface)">TICS Pro Interface</span>
+            <span style="font-family:var(--font-mono);color:var(--on-surface-faint);font-size:12px">→</span>
+          </a>
+          <a href="../LMX1205_SPI_Registers/LMX1205_SPI_Registers.html" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;align-items:center;transition:background .15s;color:inherit" onmouseover="this.style.background='var(--surface-container-low)'" onmouseout="this.style.background=''">
+            <span class="sidebar-key">03</span>
+            <span style="font-size:13px;font-weight:500;color:var(--on-surface)">SPI Register Map</span>
+            <span style="font-family:var(--font-mono);color:var(--on-surface-faint);font-size:12px">→</span>
+          </a>
+        </div>
+        <div class="nav-proj">
+          <a href="../JESD204C_Clock_Tree_Thesis.html">
+            ← Back
+            <span>Thesis Overview</span>
+          </a>
+          <a href="../TICS_Pro_LMX1205/TICS_Pro_LMX1205.html" class="next">
+            Next →
+            <span>TICS Pro Interface</span>
+          </a>
+        </div>
+      </aside>
+
+    </div><!-- end proj-body -->
+
+  </main>
+
+  <script>
+(function () {
+  var toc = document.querySelector('.article-toc');
+  if (!toc) return;
+  var content = document.querySelector('.proj-main');
+  if (!content) return;
+  var nodes = [...content.querySelectorAll('h2[id]')];
+  var links = [...toc.querySelectorAll('a[href^="#"]')];
+  var pill = toc.querySelector('.toc-pill');
+
+  function place(link) {
+    if (!pill) return;
+    if (!link) { pill.style.opacity = '0'; return; }
+    pill.style.top    = link.offsetTop   + 'px';
+    pill.style.left   = link.offsetLeft  + 'px';
+    pill.style.width  = link.offsetWidth  + 'px';
+    pill.style.height = link.offsetHeight + 'px';
+    pill.style.opacity = '1';
+  }
+
+  function update() {
+    var top = window.scrollY + 110;
+    var hit = nodes[0];
+    var atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 25);
+    if (atBottom) {
+      hit = nodes[nodes.length - 1];
+    } else {
+      for (var n of nodes) { if (n.offsetTop <= top) hit = n; }
+    }
+    var href = hit ? '#' + hit.id : '';
+    var active = null;
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === href;
+      a.classList.toggle('active', on);
+      if (on) active = a;
+    });
+    place(active);
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+  </script>
+
+</body>
+
+</html>

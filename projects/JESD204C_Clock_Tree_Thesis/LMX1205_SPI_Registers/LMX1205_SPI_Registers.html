@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>LMX1205 SPI Register Map — Interactive | Gaurav Kumar Mishra</title>
+  <meta name="author" content="Gaurav Kumar Mishra">
+  <meta name="description" content="Interactive SPI register map for the TI LMX1205 — every register, every field explained with live 24-bit frame preview.">
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..900&family=Roboto:wght@400;500&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --primary:#1f3a57;--primary-hover:#173049;--on-primary:#FFF;
+      --primary-container:#d9e5f2;--on-primary-container:#0a2540;
+      --secondary:#2e5c8a;--surface:#fafbfd;
+      --surface-container-lowest:#FFF;--surface-container-low:#f5f7fa;
+      --surface-container:#edf1f6;--surface-container-high:#e5ebf2;
+      --on-surface:#14181e;--on-surface-variant:#4b5663;--on-surface-faint:#8693a3;
+      --outline:#b7bfc8;--outline-variant:#d9dee5;--success:#1e7f4f;
+      --font-display:'Roboto Flex','Roboto',system-ui,sans-serif;
+      --font-body:'Roboto',system-ui,sans-serif;
+      --font-mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+      --r-xs:4px;--r-sm:8px;--r-md:12px;--r-lg:16px;--r-pill:999px;
+    }
+    html,body{margin:0;padding:0}
+    body{font-family:var(--font-body);background:var(--surface);color:var(--on-surface);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.55}
+    a{color:inherit;text-decoration:none!important}
+
+    .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(to right,rgba(31,58,87,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(31,58,87,0.04) 1px,transparent 1px);background-size:96px 96px;mask-image:linear-gradient(to bottom,black 0,black 60%,transparent 100%)}
+
+    .topbar{position:sticky;top:0;z-index:50}
+    .topbar-inner{max-width:1240px;margin:0 auto;padding:14px 32px;display:flex;justify-content:center;align-items:center}
+    .nav{display:inline-flex;gap:2px;padding:5px;background:var(--surface-container);border-radius:999px;box-shadow:0 10px 28px -18px rgba(31,58,87,0.45)}
+    .nav a{padding:10px 22px;border-radius:999px;font-size:14px;font-weight:500;color:var(--on-surface-variant);transition:background .15s,color .15s;white-space:nowrap}
+    .nav a:hover{color:var(--on-surface);background:color-mix(in oklab,var(--primary) 10%,transparent)}
+    .nav a.active{background:var(--primary-container);color:var(--on-primary-container)}
+
+    main{position:relative;z-index:1}
+
+    .proj-hero{padding:44px 32px 40px;max-width:1240px;margin:0 auto;border-bottom:1px solid var(--outline-variant)}
+    .back-link{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--on-surface-faint);margin-bottom:24px;transition:color .15s}
+    .back-link:hover{color:var(--primary)}
+    .back-link svg{width:12px;height:12px}
+    .proj-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--secondary);margin-bottom:16px}
+    .proj-eyebrow::before{content:"";width:24px;height:1px;background:var(--secondary);display:inline-block}
+    .proj-hero h1{font-family:var(--font-display);font-variation-settings:"opsz" 96,"wght" 600;font-size:clamp(28px,3.8vw,52px);line-height:1.05;letter-spacing:-0.02em;margin:0 0 12px;color:var(--on-surface);max-width:24ch}
+    .proj-hero .subtitle{font-size:16px;color:var(--on-surface-variant);max-width:60ch;margin:0 0 28px;line-height:1.6}
+    .meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .meta-chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;padding:4px 10px;border-radius:999px;border:1px solid var(--outline-variant);background:var(--surface-container-low);color:var(--on-surface-variant)}
+    .meta-chip.primary{background:var(--primary-container);border-color:color-mix(in oklab,var(--primary) 22%,transparent);color:var(--on-primary-container)}
+    .meta-sep{color:var(--outline);font-family:var(--font-mono);font-size:12px}
+
+    .proj-body{max-width:1240px;margin:48px auto 0;padding:0 32px 80px;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:48px;align-items:start}
+    .proj-main{min-width:0;display:flex;flex-direction:column;gap:48px}
+    .section-block{display:flex;flex-direction:column;gap:16px}
+    .section-label{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-faint);margin-bottom:4px}
+    .section-label::after{content:"";flex:1;height:1px;background:var(--outline-variant);width:40px}
+    .section-block h2{font-family:var(--font-display);font-variation-settings:"opsz" 48,"wght" 600;font-size:clamp(18px,2vw,24px);line-height:1.2;letter-spacing:-0.01em;margin:0;color:var(--on-surface)}
+    .section-block p{font-size:14.5px;line-height:1.7;color:var(--on-surface-variant);margin:0}
+
+    .illus{border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-low);overflow:hidden}
+    .illus-bar{padding:8px 14px;background:var(--surface-container);border-bottom:1px solid var(--outline-variant);display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint)}
+    .illus-bar .dot{width:7px;height:7px;border-radius:50%;background:var(--outline)}
+    .illus-caption{padding:10px 14px;border-top:1px solid var(--outline-variant);font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-faint);letter-spacing:.04em;line-height:1.5}
+
+    .proj-sidebar{position:sticky;top:80px;display:flex;flex-direction:column;gap:20px}
+    .sidebar-card{border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-lowest);overflow:hidden}
+    .sidebar-head{padding:10px 14px;background:var(--surface-container-low);border-bottom:1px solid var(--outline-variant);font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-faint)}
+    .sidebar-row{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:start}
+    .sidebar-row:last-child{border-bottom:0}
+    .sidebar-key{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint);white-space:nowrap;padding-top:1px}
+    .sidebar-val{font-size:13px;color:var(--on-surface);line-height:1.5;font-weight:500;text-align:right}
+    .nav-proj{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--outline-variant);border:1px solid var(--outline-variant);border-radius:var(--r-md);overflow:hidden}
+    .nav-proj a{padding:12px 14px;background:var(--surface-container-lowest);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-surface-faint);transition:background .15s,color .15s;display:flex;flex-direction:column;gap:4px}
+    .nav-proj a:hover{background:var(--surface-container);color:var(--primary)}
+    .nav-proj a span{font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--on-surface);letter-spacing:0;text-transform:none}
+    .nav-proj a.next{text-align:right}
+
+    .article-toc{position:fixed;left:calc(25vw - 385px);top:50%;transform:translateY(-50%);width:196px;max-height:80vh;overflow-y:auto;z-index:10;padding:0 0 16px;scrollbar-width:none;opacity:0;visibility:hidden}
+    .article-toc.ready{visibility:visible;animation:toc-enter .45s cubic-bezier(0.2,0,0,1) .08s both}
+    @keyframes toc-enter{from{opacity:0;transform:translateY(-50%) translateX(-10px)}to{opacity:1;transform:translateY(-50%) translateX(0)}}
+    .article-toc::-webkit-scrollbar{display:none}
+    @media(max-width:1400px){.article-toc{display:none}.toc-pill{display:none!important}}
+    .toc-pill{position:absolute;border-radius:999px;pointer-events:none;z-index:9;transition:top .32s cubic-bezier(0.2,0,0,1),left .32s cubic-bezier(0.2,0,0,1),width .32s cubic-bezier(0.2,0,0,1),height .32s cubic-bezier(0.2,0,0,1),opacity .22s cubic-bezier(0.2,0,0,1);opacity:0;background:var(--primary-container)}
+    .article-toc a{position:relative;z-index:11;display:block;height:32px;line-height:32px;padding:0 16px;font-family:var(--font-mono);font-size:12.5px;font-weight:450;color:var(--on-surface-variant);border-radius:999px;margin:2px 4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .2s cubic-bezier(0.2,0,0,1),background .18s cubic-bezier(0.2,0,0,1)}
+    .article-toc a:hover{background:color-mix(in oklab,var(--primary) 7%,transparent);color:var(--on-surface)}
+    .article-toc a.active,.article-toc a.active:hover{color:var(--on-primary-container)!important;font-weight:600!important}
+
+    /* ── REGISTER CARDS ── */
+    .reg-search-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+    .search-wrap{flex:1;min-width:180px;max-width:300px;position:relative}
+    .search-wrap input{width:100%;padding:8px 10px 8px 30px;border-radius:var(--r-pill);border:1px solid var(--outline-variant);background:var(--surface-container-lowest);font-family:var(--font-body);font-size:13px;color:var(--on-surface);outline:none;transition:border-color .15s}
+    .search-wrap input:focus{border-color:var(--secondary)}
+    .search-wrap svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--on-surface-faint)}
+    .filter-tabs{display:flex;gap:4px;flex-wrap:wrap}
+    .ftab{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;padding:4px 10px;border-radius:var(--r-pill);border:1px solid var(--outline-variant);background:var(--surface-container-lowest);color:var(--on-surface-variant);cursor:pointer;transition:background .12s,color .12s;white-space:nowrap}
+    .ftab:hover{background:var(--surface-container)}
+    .ftab.active{background:var(--primary-container);color:var(--on-primary-container);border-color:color-mix(in oklab,var(--primary) 25%,transparent)}
+    .ftab .fdot{display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:4px;vertical-align:middle}
+
+    .reg-card{border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-lowest);overflow:hidden;transition:box-shadow .2s;margin-bottom:10px}
+    .reg-card:hover{box-shadow:0 3px 16px -6px rgba(31,58,87,.15)}
+    .reg-card.rg-hidden{display:none}
+    .reg-accent{height:3px}
+    .reg-head{padding:11px 14px 9px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+    .reg-id-pill{font-family:var(--font-mono);font-size:12px;font-weight:700;color:#fff;padding:2px 8px;border-radius:var(--r-sm);white-space:nowrap;flex-shrink:0;min-width:36px;text-align:center}
+    .reg-head-text{flex:1;min-width:0}
+    .reg-name{font-weight:600;font-size:13px;color:var(--on-surface);line-height:1.3}
+    .reg-sub{display:flex;gap:8px;margin-top:2px;flex-wrap:wrap}
+    .reg-sub span{font-family:var(--font-mono);font-size:10px;color:var(--on-surface-faint);letter-spacing:.04em}
+    .reg-sub .rv{color:var(--secondary);font-weight:600}
+    .reg-access{font-family:var(--font-mono);font-size:9px;padding:2px 5px;border-radius:2px;border:1px solid var(--outline-variant);color:var(--on-surface-faint)}
+    .reg-access.ro{border-color:#f59e0b;color:#92400e;background:#fffbeb}
+    .reg-chev{color:var(--on-surface-faint);transition:transform .2s;flex-shrink:0}
+    .reg-card.open .reg-chev{transform:rotate(180deg)}
+
+    .bit-map-wrap{padding:0 14px 10px;overflow-x:auto}
+    .bit-map{display:flex;gap:1px;min-width:fit-content}
+    .bit-cell{width:30px;height:32px;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:filter .12s,transform .1s;border:1px solid rgba(0,0,0,.08);flex-shrink:0}
+    .bit-cell:hover{filter:brightness(1.12);transform:translateY(-1px)}
+    .bit-cell.bf-active{box-shadow:0 0 0 2px #000,0 0 0 3px rgba(255,255,255,.5);z-index:2;position:relative}
+    .bit-cell.rsvd{background:var(--surface-container-high)!important;border-color:var(--outline-variant)!important}
+    .bcn{font-family:var(--font-mono);font-size:7px;color:rgba(255,255,255,.65);line-height:1}
+    .bcv{font-family:var(--font-mono);font-size:11px;font-weight:700;color:#fff;line-height:1;margin-top:1px}
+    .bit-cell.rsvd .bcn,.bit-cell.rsvd .bcv{color:var(--on-surface-faint)}
+
+    .field-hint{margin:0 14px 8px;padding:8px 10px;border-radius:var(--r-sm);border:1px solid var(--outline-variant);background:var(--primary-container);font-size:12px;line-height:1.55;color:var(--on-primary-container);display:none}
+    .field-hint.show{display:block}
+    .fh-name{font-family:var(--font-mono);font-weight:700;font-size:11.5px;margin-bottom:2px;color:var(--primary)}
+    .fh-bits{font-family:var(--font-mono);font-size:10px;color:var(--secondary);margin-bottom:4px}
+
+    .fields-wrap{border-top:1px solid var(--outline-variant);display:none}
+    .reg-card.open .fields-wrap{display:block}
+    .fields-table{width:100%;border-collapse:collapse;font-size:12px}
+    .fields-table th{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint);padding:6px 10px;text-align:left;background:var(--surface-container-low);border-bottom:1px solid var(--outline-variant)}
+    .fields-table td{padding:6px 10px;border-bottom:1px solid var(--outline-variant);vertical-align:top;line-height:1.5}
+    .fields-table tr:last-child td{border-bottom:0}
+    .fields-table tr{cursor:pointer;transition:background .1s}
+    .fields-table tr:hover{background:color-mix(in oklab,var(--primary) 4%,transparent)}
+    .fields-table tr.row-on{background:var(--primary-container)}
+    .fn-cell{font-family:var(--font-mono);font-weight:600;font-size:11px;white-space:nowrap}
+    .fb-cell{font-family:var(--font-mono);font-size:10.5px;color:var(--secondary);white-space:nowrap}
+    .ftype{font-family:var(--font-mono);font-size:9px;padding:1px 4px;border-radius:2px}
+    .ftype.rw{background:#dcfce7;color:#166534}
+    .ftype.ro{background:#fef9c3;color:#854d0e}
+    .frst{font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint)}
+    .fval-input{font-family:var(--font-mono);font-size:11px;width:64px;padding:2px 5px;border-radius:2px;border:1px solid var(--outline-variant);background:var(--surface-container-lowest);color:var(--on-surface);text-align:center}
+    .fval-input:focus{outline:none;border-color:var(--secondary)}
+    .fdesc{font-size:11.5px;color:var(--on-surface-variant);line-height:1.5}
+    .fplain{background:color-mix(in oklab,var(--success) 8%,var(--surface-container-lowest));border-left:2px solid var(--success);padding:3px 6px;margin-top:3px;font-size:11px;color:var(--on-surface-variant);border-radius:0 2px 2px 0}
+    .fplain-lbl{font-family:var(--font-mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--success);display:block;margin-bottom:1px}
+    .fopts{margin-top:3px;padding-left:10px}
+    .fopts li{font-size:10.5px;color:var(--on-surface-faint);font-family:var(--font-mono);margin-bottom:1px}
+
+    .spi-panel{border-top:1px solid var(--outline-variant);padding:8px 14px;background:var(--surface-container-low);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .spi-lbl{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint)}
+    .spi-word{font-family:var(--font-mono);font-size:11.5px;font-weight:700;color:var(--on-surface);letter-spacing:.06em}
+    .spi-word .w-rw{color:#dc2626}
+    .spi-word .w-addr{color:#2563eb}
+    .spi-word .w-data{color:#16a34a}
+    .copy-btn{font-family:var(--font-mono);font-size:10px;padding:3px 8px;border-radius:var(--r-pill);border:1px solid var(--outline-variant);background:var(--surface-container-lowest);color:var(--on-surface-variant);cursor:pointer;transition:background .12s}
+    .copy-btn:hover{background:var(--primary-container);color:var(--on-primary-container)}
+    .copy-btn.ok{background:var(--success);color:#fff}
+
+    .bom{border:1px solid var(--outline-variant);border-radius:var(--r-md);overflow:hidden}
+    .bom-head{display:grid;grid-template-columns:80px 120px 1fr;padding:8px 14px;background:var(--surface-container-low);border-bottom:1px solid var(--outline-variant);font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-faint)}
+    .bom-row{display:grid;grid-template-columns:80px 120px 1fr;padding:9px 14px;border-bottom:1px solid var(--outline-variant);background:var(--surface-container-lowest);align-items:start;transition:background .12s}
+    .bom-row:last-child{border-bottom:0}
+    .bom-row:hover{background:var(--surface-container-low)}
+    .bc{font-size:12.5px;color:var(--on-surface);font-family:var(--font-mono)}
+    .bc.lbl{color:var(--on-surface-variant);font-size:11.5px}
+    .bc.dsc{font-family:var(--font-body);font-size:12.5px;color:var(--on-surface-variant)}
+
+    @media(max-width:960px){
+      .proj-body{grid-template-columns:1fr;gap:32px;padding:0 20px 60px;margin-top:32px}
+      .proj-hero{padding:32px 20px 28px}
+      .proj-sidebar{position:static}
+      .bom-head,.bom-row{grid-template-columns:60px 1fr}
+      .bom-head>:nth-child(2),.bom-row>:nth-child(2){display:none}
+    }
+    @media(max-width:640px){
+      .topbar-inner{padding:10px 16px}
+      .nav a{padding:9px 14px;font-size:13px}
+    }
+  </style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/projects/" class="active">Projects</a>
+      <a href="/courses/">Courses</a>
+      <a href="/community/">Community</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<aside class="article-toc ready" style="margin-top:0px;">
+  <a href="#heading-0">SPI Protocol</a>
+  <a href="#heading-1">Frame Format</a>
+  <a href="#heading-2">Register Explorer</a>
+  <div class="toc-pill" style="top:2px;left:4px;width:188px;height:32px;opacity:1;"></div>
+</aside>
+
+<div class="proj-hero">
+  <a class="back-link" href="../TICS_Pro_LMX1205/TICS_Pro_LMX1205.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg>
+    Back to TICS Pro Interface
+  </a>
+  <div class="proj-eyebrow">Interactive Register Reference</div>
+  <h1>LMX1205 SPI Register Map</h1>
+  <p class="subtitle">Every register, every field — explained in plain English. Click a register to expand it, edit field values to preview the 24-bit SPI byte sequence, and see exactly what each bit controls.</p>
+  <div class="meta-row">
+    <span class="meta-chip primary">28 Registers</span>
+    <span class="meta-chip primary">Interactive Bit Map</span>
+    <span class="meta-chip">Live SPI Preview</span>
+    <span class="meta-chip">SNAS850</span>
+    <span class="meta-sep">·</span>
+    <span class="meta-chip">JESD204C Clocking</span>
+  </div>
+</div>
+
+<div class="proj-body">
+  <div class="proj-main">
+
+    <!-- 0: SPI PROTOCOL -->
+    <div class="section-block">
+      <div class="section-label">Communication Protocol</div>
+      <h2 data-toc="SPI Protocol" id="heading-0">How SPI Works on the LMX1205</h2>
+      <p>The LMX1205 is controlled entirely through its 3-wire SPI port (SCK, SDI, CS#). You send a 24-bit word while CS# is held LOW, MSB first, and the chip latches each bit on the SCK rising edge (CPOL=0, CPHA=0). The maximum clock speed is 20 MHz. All three SPI pins require a 200 Ω series resistor on the board to prevent ringing.</p>
+      <div class="illus">
+        <div class="illus-bar"><span class="dot"></span>SPI Timing — 24-Bit Write Transaction</div>
+        <svg viewBox="0 0 720 160" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;width:100%">
+          <defs><pattern id="sp-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
+          <rect width="720" height="160" fill="url(#sp-g)"></rect>
+          <text x="14" y="32" font-family="Roboto Mono" font-size="9" fill="#4B5663" font-weight="600">CS#</text>
+          <polyline points="56,20 70,20 70,40 640,40 640,20 680,20" fill="none" stroke="#1F3A57" stroke-width="1.5"></polyline>
+          <text x="14" y="72" font-family="Roboto Mono" font-size="9" fill="#4B5663" font-weight="600">SCK</text>
+          <polyline points="56,80 70,80 70,60 90,60 90,80 110,80 110,60 130,60 130,80 150,80 150,60 170,60 170,80 190,80 190,60 210,60 210,80 230,80 230,60 250,60 250,80 270,80 270,60 290,60 290,80 310,80 310,60 330,60 330,80 350,80 350,60 370,60 370,80 390,80 390,60 410,60 410,80 430,80 430,60 450,60 450,80 470,80 470,60 490,60 490,80 510,80 510,60 530,60 530,80 550,80 550,60 570,60 570,80 590,80 590,60 610,60 610,80 630,80 630,60 640,60 640,80 680,80" fill="none" stroke="#1F3A57" stroke-width="1.5"></polyline>
+          <text x="14" y="122" font-family="Roboto Mono" font-size="9" fill="#4B5663" font-weight="600">SDI</text>
+          <rect x="70" y="105" width="20" height="20" rx="2" fill="#dc2626" opacity=".85"></rect>
+          <text x="80" y="118" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#fff" font-weight="700">R/W</text>
+          <rect x="90" y="105" width="140" height="20" rx="2" fill="#2563eb" opacity=".85"></rect>
+          <text x="160" y="118" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#fff" font-weight="600">A6 A5 A4 A3 A2 A1 A0</text>
+          <rect x="230" y="105" width="410" height="20" rx="2" fill="#16a34a" opacity=".85"></rect>
+          <text x="435" y="118" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#fff" font-weight="600">D15  D14  D13  ···  D2  D1  D0</text>
+          <text x="80" y="145" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#dc2626">1 bit</text>
+          <text x="160" y="145" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#2563eb">7-bit address</text>
+          <text x="435" y="145" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#16a34a">16-bit data</text>
+        </svg>
+        <div class="illus-caption">Fig 1 — CS# falls low, then 24 bits arrive MSB-first: 1 R/W bit (0=write), 7 address bits (A6:A0), 16 data bits (D15:D0). CS# rises to latch.</div>
+      </div>
+    </div>
+
+    <!-- 1: FRAME FORMAT -->
+    <div class="section-block">
+      <div class="section-label">Frame Breakdown</div>
+      <h2 data-toc="Frame Format" id="heading-1">The 24-Bit SPI Frame</h2>
+      <p>Three bytes, always. Bit 23 is R/W (0 = write, 1 = read back via MUXOUT). Bits 22–16 are the 7-bit register address. Bits 15–0 are the 16-bit data word. Always write all 16 bits, including reserved fields set to their datasheet-specified reset values.</p>
+      <div class="bom">
+        <div class="bom-head"><span>Bits</span><span>Field</span><span>Description</span></div>
+        <div class="bom-row"><span class="bc">[23]</span><span class="bc lbl">R/W</span><span class="bc dsc">0 = Write register · 1 = Read back (data returned on MUXOUT pin, not a dedicated SDO)</span></div>
+        <div class="bom-row"><span class="bc">[22:16]</span><span class="bc lbl">Address</span><span class="bc dsc">7-bit register address A6:A0. R0 = 0x00, R27 = 0x1B, R37 = 0x25. Unimplemented addresses have no effect.</span></div>
+        <div class="bom-row"><span class="bc">[15:0]</span><span class="bc lbl">Data</span><span class="bc dsc">16-bit register value D15:D0. Always send all 16 bits; reserved fields must match their reset value to avoid undefined behaviour.</span></div>
+      </div>
+    </div>
+
+    <!-- 2: REGISTER EXPLORER -->
+    <div class="section-block">
+      <div class="section-label">Interactive Explorer</div>
+      <h2 data-toc="Register Explorer" id="heading-2">All Registers — Click to Expand</h2>
+      <p>Click any register card to reveal its bit map and field table. Edit any R/W field value to watch the SPI frame update in real time. Click a bit cell or table row to highlight the field across both views.</p>
+      <div class="reg-search-bar">
+        <div class="search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" id="regSearch" placeholder="Search register or field…" oninput="filterRegs()">
+        </div>
+        <div class="filter-tabs" id="filterTabs"></div>
+      </div>
+      <div id="regList"></div>
+      <div id="emptyMsg" style="display:none;text-align:center;padding:40px;color:var(--on-surface-faint);font-size:14px">No registers match your search.</div>
+    </div>
+
+  </div><!-- /proj-main -->
+
+  <aside class="proj-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-head">Protocol Info</div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Frame</span>
+        <span class="sidebar-val">24-bit (3 bytes)</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Mode</span>
+        <span class="sidebar-val">CPOL=0 · CPHA=0</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Max SCK</span>
+        <span class="sidebar-val">20 MHz</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Registers</span>
+        <span class="sidebar-val">28 user registers</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Address</span>
+        <span class="sidebar-val">7-bit (A6:A0)</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Data</span>
+        <span class="sidebar-val">16-bit (D15:D0)</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Series R</span>
+        <span class="sidebar-val">200 Ω on SCK · SDI · CS#</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-head">Startup Write Order</div>
+      <div class="sidebar-row"><span class="sidebar-key">1</span><span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">Write R0 with RESET=1</span></div>
+      <div class="sidebar-row"><span class="sidebar-key">2</span><span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">Write R27 (CLK_MUX, CLK_DIV)</span></div>
+      <div class="sidebar-row"><span class="sidebar-key">3</span><span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">Write R26 (SMCLK divider)</span></div>
+      <div class="sidebar-row"><span class="sidebar-key">4</span><span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">Write R2–R15 (enables, outputs)</span></div>
+      <div class="sidebar-row"><span class="sidebar-key">5</span><span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">Write R16–R25 (SYSREF delays)</span></div>
+      <div class="sidebar-row"><span class="sidebar-key">6</span><span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">R27 again with FCAL_EN=1</span></div>
+      <div class="sidebar-row"><span class="sidebar-key">7</span><span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">Poll R37 until LOCK_DETECT=1</span></div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-head">In This Series</div>
+      <a href="../JESD204C_Clock_Tree_Thesis.html" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:center;transition:background .15s;color:inherit" onmouseover="this.style.background='var(--surface-container-low)'" onmouseout="this.style.background=''">
+        <span class="sidebar-key">00</span>
+        <span style="font-size:13px;font-weight:500;color:var(--on-surface)">Thesis Overview</span>
+        <span style="font-family:var(--font-mono);color:var(--on-surface-faint);font-size:12px">↑</span>
+      </a>
+      <a href="../TI_LMX1205_Datasheet/TI_LMX1205_Datasheet.html" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:center;transition:background .15s;color:inherit" onmouseover="this.style.background='var(--surface-container-low)'" onmouseout="this.style.background=''">
+        <span class="sidebar-key">01</span>
+        <span style="font-size:13px;font-weight:500;color:var(--on-surface)">LMX1205 Datasheet</span>
+        <span style="font-family:var(--font-mono);color:var(--on-surface-faint);font-size:12px">→</span>
+      </a>
+      <a href="../TICS_Pro_LMX1205/TICS_Pro_LMX1205.html" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:center;transition:background .15s;color:inherit" onmouseover="this.style.background='var(--surface-container-low)'" onmouseout="this.style.background=''">
+        <span class="sidebar-key">02</span>
+        <span style="font-size:13px;font-weight:500;color:var(--on-surface)">TICS Pro Interface</span>
+        <span style="font-family:var(--font-mono);color:var(--on-surface-faint);font-size:12px">→</span>
+      </a>
+      <a href="#" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;align-items:center;background:var(--primary-container);color:inherit;pointer-events:none">
+        <span class="sidebar-key" style="color:var(--primary)">03</span>
+        <span style="font-size:13px;font-weight:600;color:var(--on-primary-container)">SPI Register Map</span>
+        <span style="font-family:var(--font-mono);color:var(--primary);font-size:10px">HERE</span>
+      </a>
+    </div>
+
+    <div class="nav-proj">
+      <a href="../TICS_Pro_LMX1205/TICS_Pro_LMX1205.html">
+        ← Prev
+        <span>TICS Pro Interface</span>
+      </a>
+      <a href="../JESD204C_Clock_Tree_Thesis.html" class="next">
+        Back ↑
+        <span>Thesis Overview</span>
+      </a>
+    </div>
+  </aside>
+
+</div><!-- /proj-body -->
+</main>
+
+<script>
+// ══ REGISTER DATABASE ══
+const GROUPS={
+  power:    {label:'Power & Reset',      color:'#dc2626'},
+  enable:   {label:'Global Enables',     color:'#2563eb'},
+  clkin:    {label:'Clock Input',        color:'#0891b2'},
+  clkout:   {label:'Clock Outputs',      color:'#16a34a'},
+  sysrefout:{label:'SYSREF Outputs',     color:'#7c3aed'},
+  logiclk:  {label:'Logic Clock',        color:'#d97706'},
+  sysrefreq:{label:'SYSREFREQ Input',    color:'#c2410c'},
+  sysrefgen:{label:'SYSREF Generator',   color:'#db2777'},
+  sysrefdly:{label:'SYSREF Delays',      color:'#6d28d9'},
+  smclk:    {label:'State Machine CLK',  color:'#0369a1'},
+  clkmux:   {label:'Clock MUX/Div/Mult', color:'#047857'},
+  readback: {label:'Readback',           color:'#6b7280'},
+};
+const PALETTE=['#e63946','#2a9d8f','#f4a261','#457b9d','#8338ec','#3a86ff','#fb5607','#06d6a0','#ef476f','#118ab2','#ffd166','#6a4c93','#1982c4','#ff595e','#52b788'];
+function fc(i){return PALETTE[i%PALETTE.length]}
+
+const REGS=[
+  {id:'R0',off:0x00,rst:0x0000,name:'Powerdown and Reset',grp:'power',rw:'R/W',fields:[
+    {hi:15,lo:2,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:1,lo:1,name:'POWERDOWN',type:'R/W',rst:0,desc:'Powers down the entire device. Outputs go tri-state. Registers are preserved. Current drops to ~13.5 mA.',plain:'Standby switch — registers survive a powerdown.'},
+    {hi:0,lo:0,name:'RESET',type:'R/W',rst:0,desc:'Software reset. All registers revert to factory defaults. Self-clears on the next SPI write.',plain:'Write 1 to wipe all settings to factory defaults. Do this first on startup.'},
+  ]},
+  {id:'R1',off:0x01,rst:0x0007,name:'MUXOUT & Readback Control',grp:'power',rw:'R/W',fields:[
+    {hi:15,lo:5,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:4,lo:4,name:'LD_DIS',type:'R/W',rst:0,desc:'Disables lock-detect on MUXOUT. Required when sharing the readback line with other devices.',plain:'Set 1 if multiple chips share the MUXOUT wire.'},
+    {hi:3,lo:3,name:'READBACK_CTRL',type:'R/W',rst:0,desc:'Controls SPI readback values. Leave at 0 for accurate internal state readback.',plain:'Leave at 0 (default).'},
+    {hi:2,lo:0,name:'RESERVED',type:'R/W',rst:7,desc:'Program to 0x7.',isR:true},
+  ]},
+  {id:'R2',off:0x02,rst:0x00BF,name:'Channel, SYSREF & Logic Enables',grp:'enable',rw:'R/W',fields:[
+    {hi:15,lo:10,name:'RESERVED',type:'R',rst:0,desc:'Program to 0.',isR:true},
+    {hi:9,lo:9,name:'TEMPSENSE_EN',type:'R/W',rst:0,desc:'Enables the on-chip temperature sensor. Read result via R31. T(°C)=0.65×Code−351.',plain:'Turn on to measure die temperature. Accuracy ±13 °C.'},
+    {hi:8,lo:8,name:'SYNC_EN',type:'R/W',rst:0,desc:'Enables the SYNC path for multi-device synchronisation.',plain:'Enable when aligning multiple LMX1205 chips.'},
+    {hi:7,lo:7,name:'RESERVED',type:'R/W',rst:1,desc:'Program to 1.',isR:true},
+    {hi:6,lo:6,name:'SYSREF_EN',type:'R/W',rst:0,desc:'Master enable for all SYSREF circuitry. Setting 0 overrides all other SYSREF enables.',plain:'The on/off switch for all SYSREF outputs. Saves ~425 mA when disabled.'},
+    {hi:5,lo:5,name:'RESERVED',type:'R/W',rst:1,desc:'Program to 1.',isR:true},
+    {hi:4,lo:4,name:'LOGIC_EN',type:'R/W',rst:1,desc:'Enables the LOGICLK subsystem.',plain:'On/off for FPGA clock outputs.'},
+    {hi:3,lo:3,name:'CH3_EN',type:'R/W',rst:1,desc:'Enables Channel 3 (CLKOUT3 + SYSREFOUT3).',plain:'Saves ~64 mA per channel when disabled.'},
+    {hi:2,lo:2,name:'CH2_EN',type:'R/W',rst:1,desc:'Enables Channel 2.',plain:''},
+    {hi:1,lo:1,name:'CH1_EN',type:'R/W',rst:1,desc:'Enables Channel 1.',plain:''},
+    {hi:0,lo:0,name:'CH0_EN',type:'R/W',rst:1,desc:'Enables Channel 0.',plain:''},
+  ]},
+  {id:'R3',off:0x03,rst:0x0000,name:'CLKIN Input Delay',grp:'clkin',rw:'R/W',fields:[
+    {hi:15,lo:7,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:6,lo:0,name:'CLKIN_DLY',type:'R/W',rst:0,desc:'Input clock delay code. Each step ≈1.1 ps. Range 0–127 codes (max 139.7 ps). Shifts all CLKOUTs simultaneously.',plain:'Compensates PCB trace length from PLL to LMX1205. E.g. 55 codes ≈ 60 ps.'},
+  ]},
+  ...[0,1,2,3].map(n=>({id:`R${4+n}`,off:0x04+n,rst:0x000D,name:`CLKOUT${n} Enable, Power & Delay`,grp:'clkout',rw:'R/W',fields:[
+    {hi:15,lo:11,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:10,lo:4,name:`CLK${n}_DLY`,type:'R/W',rst:0,desc:`Per-output delay for CLKOUT${n}. Each step ≈0.9 ps, range 0–64 codes (0–57.6 ps).`,plain:`Trim individually per channel to compensate different PCB trace lengths to each ADC/DAC.`},
+    {hi:3,lo:1,name:`CLK${n}_PWR`,type:'R/W',rst:6,desc:`Output power for CLKOUT${n}. 1=min, 6=max. Higher = more swing and more current.`,plain:'Increase for longer traces or demanding ADC inputs. Decrease to save power on short traces.',opts:['1=Min power','2','3','4','5','6=Max power (default)']},
+    {hi:0,lo:0,name:`CLK${n}_EN`,type:'R/W',rst:1,desc:`Enables CLKOUT${n} output buffer. CH${n}_EN (R2) must also be set.`,plain:'Silences the pin without disturbing internal timing.'},
+  ]})),
+  ...[0,1,2,3].map(n=>({id:`R${8+n}`,off:0x08+n,rst:0x5CA9,name:`SYSREFOUT${n} Power, VCM & Enable`,grp:'sysrefout',rw:'R/W',fields:[
+    {hi:15,lo:15,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:14,lo:14,name:`SYSREF${n}_PWR_LOW`,type:'R/W',rst:1,desc:`Low-power mode for SYSREFOUT${n}. 1=half swing, 0=full swing.`,plain:'Use 1 (low power) for most designs.'},
+    {hi:13,lo:13,name:`SYSREF${n}_AC`,type:'R/W',rst:0,desc:`AC-coupled mode for SYSREFOUT${n}.`,plain:'Set 1 if your ADC SYSREF input is AC-coupled.'},
+    {hi:12,lo:10,name:'RESERVED',type:'R/W',rst:7,desc:'Program to 0x7.',isR:true},
+    {hi:9,lo:4,name:`SYSREF${n}_VCM`,type:'R/W',rst:0xA,desc:`Common-mode voltage for SYSREFOUT${n} in 25 mV steps.`,plain:`Match to your ADC's SYSREF common-mode spec (often 0.9 V or 1.2 V).`},
+    {hi:3,lo:1,name:`SYSREF${n}_PWR`,type:'R/W',rst:4,desc:`Output swing for SYSREFOUT${n}. 0–7. Higher = larger differential swing.`,plain:'Increase if receiver misses pulses; decrease to reduce crosstalk.'},
+    {hi:0,lo:0,name:`SYSREF${n}_EN`,type:'R/W',rst:1,desc:`Enables SYSREFOUT${n} output buffer.`,plain:'Disable unused SYSREF outputs to save current.'},
+  ]})),
+  {id:'R12',off:0x0C,rst:0x002B,name:'LOGICLKOUT Format, Power & VCM',grp:'logiclk',rw:'R/W',fields:[
+    {hi:15,lo:13,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:12,lo:11,name:'LOGICLK_FMT',type:'R/W',rst:0,desc:'Output format: 0=LVDS, 2=CML.',plain:'LVDS needs no external resistors and most FPGAs accept it directly.',opts:['0h=LVDS','2h=CML']},
+    {hi:10,lo:9,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:8,lo:4,name:'LOGICLK_VCM',type:'R/W',rst:2,desc:'Common-mode voltage for LOGICLKOUT0 in LVDS mode.',plain:'Match your FPGA LVDS Vcm spec (typically 1.0–1.2 V).'},
+    {hi:3,lo:1,name:'LOGICLK_PWR',type:'R/W',rst:5,desc:'Output power for LOGICLKOUT0. Range 0–7.',plain:'Keep at 5 for standard LVDS.'},
+    {hi:0,lo:0,name:'LOGICLK_EN',type:'R/W',rst:1,desc:'Enables LOGICLKOUT0.',plain:'LOGIC_EN in R2 must also be 1.'},
+  ]},
+  {id:'R13',off:0x0D,rst:0x002B,name:'LOGISYSREF Format, Power & VCM',grp:'logiclk',rw:'R/W',fields:[
+    {hi:15,lo:13,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:12,lo:11,name:'LOGISYSREF_FMT',type:'R/W',rst:0,desc:'Output format: 0=LVDS, 2=CML.',plain:'Match to LOGICLK_FMT.',opts:['0h=LVDS','2h=CML']},
+    {hi:10,lo:9,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:8,lo:4,name:'LOGISYSREF_VCM',type:'R/W',rst:2,desc:'Common-mode voltage for LOGISYSREFOUT.',plain:'Keep same code as LOGICLK_VCM.'},
+    {hi:3,lo:1,name:'LOGISYSREF_PWR',type:'R/W',rst:5,desc:'Output power for LOGISYSREFOUT.',plain:''},
+    {hi:0,lo:0,name:'LOGISYSREF_EN',type:'R/W',rst:1,desc:'Enables LOGISYSREFOUT. When LOGICLK2_EN=1 this pin becomes LOGICLKOUT1.',plain:''},
+  ]},
+  {id:'R14',off:0x0E,rst:0x0084,name:'LOGICLK Divider Chain',grp:'logiclk',rw:'R/W',fields:[
+    {hi:15,lo:15,name:'LOGICLK_DIV_RST',type:'R/W',rst:0,desc:'Resets the logic clock divider. Toggle high then low after changing divide ratio.',plain:'Like cycling power on the divider — needed when you change it while running.'},
+    {hi:14,lo:13,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:12,lo:3,name:'LOGICLK_DIV',type:'R/W',rst:0x10,desc:'Main LOGICLK divider. Range 2–1023. Input ≤3.2 GHz required.',plain:'f_FPGA = CLKIN ÷ DIV_PRE ÷ DIV. Default ÷16.'},
+    {hi:2,lo:0,name:'LOGICLK_DIV_PRE',type:'R/W',rst:4,desc:'Pre-divider. Values: 1h=÷1, 2h=÷2, 4h=÷4. Brings CLKIN below 3.2 GHz before main divider.',plain:'Set based on CLKIN frequency: >6.4 GHz → ÷4, 3.2–6.4 GHz → ÷2, ≤3.2 GHz → ÷1.',opts:['1h=/1','2h=/2','4h=/4']},
+  ]},
+  {id:'R15',off:0x0F,rst:0x0002,name:'LOGICLK2 (2nd Logic Clock)',grp:'logiclk',rw:'R/W',fields:[
+    {hi:15,lo:3,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:2,lo:1,name:'LOGICLK2_DIV',type:'R/W',rst:1,desc:'Additional divide on top of LOGICLKOUT0. 0=÷1, 1=÷2, 2=÷4, 3=÷8.',plain:'Generates a slower second FPGA clock from the same path.'},
+    {hi:0,lo:0,name:'LOGICLK2_EN',type:'R/W',rst:0,desc:'Enables LOGICLKOUT1 on LOGISYSREFOUT pin. 0=LOGISYSREF, 1=LOGICLKOUT1.',plain:'Repurposes the LOGISYSREF pin as a second clock — mutually exclusive with LOGISYSREF.'},
+  ]},
+  {id:'R16',off:0x10,rst:0x0030,name:'SYSREFREQ Input VCM & Delay Settings',grp:'sysrefreq',rw:'R/W',fields:[
+    {hi:15,lo:8,name:'RESERVED',type:'R',rst:0,desc:'Program to 0.',isR:true},
+    {hi:7,lo:6,name:'SYSREF_DLY_SCALE',type:'R/W',rst:0,desc:'Frequency range for SYSREF delay generator.',plain:'TICS Pro sets this automatically based on CLKIN frequency.',opts:['0h=400–800 MHz','1h=200–400 MHz','2h=150–200 MHz']},
+    {hi:5,lo:4,name:'SYSREFREQ_DLY_STEP',type:'R/W',rst:3,desc:'Step size of SYSREFREQ input delay. Choose based on CLKIN frequency.',plain:'Finer steps = more precise capture window positioning.',opts:['0h=28 ps','1h=15 ps','2h=11 ps','3h=8 ps (>4.5 GHz)']},
+    {hi:3,lo:2,name:'SYSREFREQ_VCM_OFFSET',type:'R/W',rst:0,desc:'Voltage offset between SYSREFREQ_P and _N.',plain:'Leave at default unless SYSREFREQ signal is very weak.',opts:['0h=25 mV','1h=50 mV','2h=100 mV','3h=150 mV']},
+    {hi:1,lo:0,name:'SYSREFREQ_VCM',type:'R/W',rst:0,desc:'SYSREFREQ input common-mode voltage.',plain:'0h = AC coupled (most common). 3h = DC coupled.',opts:['0h=AC coupled','3h=DC coupled']},
+  ]},
+  {id:'R17',off:0x11,rst:0x0005,name:'SYSREFREQ Control & Windowing',grp:'sysrefreq',rw:'R/W',fields:[
+    {hi:15,lo:8,name:'RESERVED',type:'R',rst:0,desc:'Program to 0.',isR:true},
+    {hi:7,lo:6,name:'SYSREFREQ_INPUT',type:'R/W',rst:0,desc:'How SYSREF generation is triggered.',plain:'Force High (3h) fires SYSREF immediately for bench testing. Use Pin (0h) in production.',opts:['0h=SYSREFREQ Pin','3h=Force High (software trigger)']},
+    {hi:5,lo:5,name:'SYSWND_UPDATE_STOP',type:'R/W',rst:0,desc:'Stops windowing circuit from updating after first capture.',plain:'Set after a successful SYSREFREQ measurement to lock in the result.'},
+    {hi:4,lo:4,name:'SYNC_STOP',type:'R/W',rst:0,desc:'Prevents SYNC events from propagating.',plain:'Use to freeze SYNC after achieving target alignment.'},
+    {hi:3,lo:3,name:'SYSWND_LATCH',type:'R/W',rst:0,desc:'Latches SYSREFREQ position on first rising SYNC edge.',plain:'Set before reading rb_CLKPOS to get a stable snapshot.'},
+    {hi:2,lo:2,name:'SYSREFREQ_CLR',type:'R/W',rst:1,desc:'Resets the SYSREFREQ timing path. Write 1 then 0 to prepare for fresh capture.',plain:'Toggle before each SYNC event.'},
+    {hi:1,lo:0,name:'SYSREFREQ_MODE',type:'R/W',rst:1,desc:'SYSREFREQ input operating mode.',plain:'Stay in SYSREFREQ mode (1h) normally. Use SYNC mode (0h) for multi-device alignment.',opts:['0h=SYNC mode','1h=SYSREFREQ mode','2h=Windowing']},
+  ]},
+  {id:'R18',off:0x12,rst:0x0000,name:'SYSREFREQ Input Delay',grp:'sysrefreq',rw:'R/W',fields:[
+    {hi:15,lo:6,name:'RESERVED',type:'R',rst:0,desc:'Program to 0.',isR:true},
+    {hi:5,lo:0,name:'SYSREFREQ_DLY',type:'R/W',rst:0,desc:'Input delay code. Each step = SYSREFREQ_DLY_STEP ps. Range 0–63. Centres SYSREFREQ inside the CLKIN capture window.',plain:'TICS Pro "Read SYSREFREQ Position" recommends this value for maximum timing margin.'},
+  ]},
+  {id:'R19',off:0x13,rst:0x0004,name:'SYSREF Output Mode & Pulse Count',grp:'sysrefgen',rw:'R/W',fields:[
+    {hi:15,lo:7,name:'RESERVED',type:'R',rst:0,desc:'Program to 0.',isR:true},
+    {hi:6,lo:6,name:'SYSREF_DLY_BYP',type:'R/W',rst:0,desc:'Bypasses the phase interpolator delay.',plain:'Leave 0 to use fine delay. Set 1 only to measure baseline timing.'},
+    {hi:5,lo:2,name:'SYSREF_PULSE_CNT',type:'R/W',rst:1,desc:'Number of SYSREF pulses per trigger. Range 1–15.',plain:'1 pulse is almost always correct.',opts:['1h=1 pulse','Fh=15 pulses']},
+    {hi:1,lo:0,name:'SYSREF_MODE',type:'R/W',rst:0,desc:'SYSREF generation mode.',plain:'Generator (0h) = continuous from CLKIN, good for debug. Pulser (1h) = fires N pulses on demand, best for production.',opts:['0h=Continuous (Generator)','1h=Pulser','2h=Repeater','3h=Repeater Retime']},
+  ]},
+  {id:'R20',off:0x14,rst:0x8082,name:'SYSREF Output Dividers',grp:'sysrefgen',rw:'R/W',fields:[
+    {hi:15,lo:14,name:'SYSREF_DLY_DIV',type:'R/W',rst:2,desc:'Divider for SYSREF phase interpolator clock. Must put interpolator in 400–800 MHz range.',plain:'TICS Pro calculates correct value automatically.',opts:['0h=/2','1h=/4','2h=/8 (3.2–6.4 GHz)','3h=/16 (>6.4 GHz)']},
+    {hi:13,lo:2,name:'SYSREF_DIV',type:'R/W',rst:0x20,desc:'Main SYSREF divider. Range 2–4095. Output must be ≤100 MHz.',plain:'f_SYSREF = CLKIN ÷ DIV_PRE ÷ DIV.'},
+    {hi:1,lo:0,name:'SYSREF_DIV_PRE',type:'R/W',rst:2,desc:'SYSREF pre-divider. Values: 0h=÷1, 1h=÷2, 2h=÷4.',plain:'Must bring CLKIN below 3.2 GHz before SYSREF_DIV.',opts:['0h=/1','1h=/2','2h=/4']},
+  ]},
+  ...[
+    {n:'0',r:21,off:0x15},{n:'1',r:22,off:0x16},{n:'2',r:23,off:0x17},{n:'3',r:24,off:0x18},{n:'LOGI',r:25,off:0x19}
+  ].map(({n,r,off})=>({id:`R${r}`,off,rst:0x01FC,name:`${n==='LOGI'?'LOGISYSREF':'SYSREFOUT'+n} Fine Delay`,grp:'sysrefdly',rw:'R/W',fields:[
+    {hi:15,lo:9,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:8,lo:2,name:`SYSREF${n}_DLY`,type:'R/W',rst:0x7F,desc:'Fine delay step code. 508 steps total (4 quadrants × 127). Step size = SYSREF_DLY_DIV / (fCLKIN × 508).',plain:'Main knob for positioning SYSREF timing relative to DCLK. Default 127 = mid-range.'},
+    {hi:1,lo:0,name:`SYSREF${n}_DLY_PHASE`,type:'R/W',rst:0,desc:'Interpolator quadrant: 0=0°, 1=90°, 2=180°, 3=270°.',plain:'Selects which quarter-circle the delay operates in. Together with DLY code, spans a full DCLK period.',opts:["0h=0° (default)","1h=90°","2h=180°","3h=270°"]},
+  ]})),
+  {id:'R26',off:0x1A,rst:0x00D1,name:'State Machine Clock',grp:'smclk',rw:'R/W',fields:[
+    {hi:15,lo:8,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:7,lo:5,name:'SMCLK_DIV',type:'R/W',rst:6,desc:'State machine clock divider (2^n). Input ≤1600 MHz; output <30 MHz.',plain:'f_SMCLK = CLKIN ÷ DIV_PRE ÷ 2^SMCLK_DIV. Default ÷64.',opts:['0h=/1','1h=/2','2h=/4','3h=/8','4h=/16','5h=/32','6h=/64','7h=/128']},
+    {hi:4,lo:1,name:'SMCLK_DIV_PRE',type:'R/W',rst:8,desc:'Pre-divider (one-hot: 2h=÷2, 4h=÷4, 8h=÷8).',plain:'Only codes 2, 4, 8 are valid.',opts:['2h=/2','4h=/4','8h=/8']},
+    {hi:0,lo:0,name:'SMCLK_EN',type:'R/W',rst:1,desc:'Enables the state machine clock. Required for calibration and lock detect.',plain:'Keep ON during calibration. After VCO locks you can clear it to reduce spurs.'},
+  ]},
+  {id:'R27',off:0x1B,rst:0x3609,name:'Clock MUX, Divider & Multiplier',grp:'clkmux',rw:'R/W',fields:[
+    {hi:15,lo:12,name:'RESERVED',type:'R/W',rst:3,desc:'Program to 0x3.',isR:true},
+    {hi:11,lo:11,name:'MULT_HIPFD_EN',type:'R/W',rst:0,desc:'Toggle low→high together with R0 for multiplier outputs above 4.2 GHz.',plain:'TICS Pro handles this automatically.'},
+    {hi:10,lo:10,name:'RESERVED',type:'R/W',rst:1,desc:'Program to 1.',isR:true},
+    {hi:9,lo:9,name:'FCAL_EN',type:'R/W',rst:1,desc:'Frequency calibration trigger. Write this register with FCAL_EN=1 to start VCO calibration.',plain:'The calibration trigger. Write R27 with this bit=1 to lock the VCO. Only needed in Multiply mode.'},
+    {hi:8,lo:7,name:'RESERVED',type:'R/W',rst:0,desc:'Program to 0.',isR:true},
+    {hi:6,lo:6,name:'CLK_DIV_RST',type:'R/W',rst:0,desc:'Resets the main clock divider. Toggle high then low after changing CLK_DIV.',plain:'Gives the divider a clean restart when you change ratio while running.'},
+    {hi:5,lo:3,name:'CLK_DIV/MULT',type:'R/W',rst:1,desc:'In Divider mode: divide = value+1 (÷2–÷8). In Multiplier mode: multiply = value (×2–×8). Ignored in Buffer mode.',plain:'Write 1 for ÷2 or ×2, 7 for ÷8 or ×8.'},
+    {hi:2,lo:0,name:'CLK_MUX',type:'R/W',rst:1,desc:'Selects main clock mode.',plain:'Buffer = pass-through. Divider = divide by 2–8. Multiplier = multiply by 2–8 (needs VCO calibration).',opts:['1h=Buffer','2h=Divider (÷2–÷8)','3h=Multiplier (×2–×8)']},
+  ]},
+  {id:'R29',off:0x1D,rst:0x0000,name:'rb_CLKPOS [31:16] — Readback',grp:'readback',rw:'R',fields:[
+    {hi:15,lo:0,name:'rb_CLKPOS[31:16]',type:'R',rst:0,desc:'Upper 16 bits of 32-bit CLKIN edge position map. Read with R30 to find optimal SYSREFREQ_DLY.',plain:'Shows where CLKIN edges fall relative to SYSREFREQ capture.'},
+  ]},
+  {id:'R30',off:0x1E,rst:0x0000,name:'rb_CLKPOS [15:0] — Readback',grp:'readback',rw:'R',fields:[
+    {hi:15,lo:0,name:'rb_CLKPOS[15:0]',type:'R',rst:0,desc:'Lower 16 bits of rb_CLKPOS. Combined with R29 gives a 32-bit CLKIN edge scan.',plain:'Read R29+R30, concatenate, find the mid-point of set bits to calculate optimal delay code.'},
+  ]},
+  {id:'R31',off:0x1F,rst:0x0000,name:'Temperature Sensor Readback',grp:'readback',rw:'R',fields:[
+    {hi:15,lo:11,name:'RESERVED',type:'R',rst:0,desc:'',isR:true},
+    {hi:10,lo:0,name:'rb_TEMPSENSE',type:'R',rst:0,desc:'Temperature code. T(°C) = 0.65 × Code − 351. Accuracy ±13 °C.',plain:'Typical value ~550 at 25 °C. Enable TEMPSENSE_EN in R2 first.'},
+  ]},
+  {id:'R37',off:0x25,rst:0x0000,name:'Multiplier Lock Detect',grp:'readback',rw:'R',fields:[
+    {hi:15,lo:1,name:'RESERVED',type:'R',rst:0,desc:'',isR:true},
+    {hi:0,lo:0,name:'rb_LOCK_DETECT',type:'R',rst:0,desc:'VCO lock status. 0=Unlocked, 1=Locked.',plain:'The green light for the multiplier. Poll after writing FCAL_EN=1 until it reads 1.',opts:['0h=Unlocked','1h=Locked']},
+  ]},
+];
+
+// ══ HELPERS ══
+const S={};
+REGS.forEach(r=>S[r.id]={val:r.rst});
+function gbit(v,b){return(v>>b)&1}
+function gfield(v,hi,lo){return(v>>lo)&((1<<(hi-lo+1))-1)}
+function sfield(v,hi,lo,fv){const m=((1<<(hi-lo+1))-1)<<lo;return(v&~m)|((fv<<lo)&m)}
+function h4(n){return'0x'+n.toString(16).toUpperCase().padStart(4,'0')}
+function h2(n){return n.toString(16).toUpperCase().padStart(2,'0')}
+function spibytes(addr,data){const w=((addr&0x7F)<<16)|(data&0xFFFF);return[(w>>16)&0xFF,(w>>8)&0xFF,w&0xFF]}
+function spiword(addr,data){
+  const a=(addr&0x7F).toString(2).padStart(7,'0');
+  const d=(data&0xFFFF).toString(2).padStart(16,'0');
+  return`<span class="w-rw">0</span><span style="color:var(--on-surface-faint)">·</span><span class="w-addr">${a}</span><span style="color:var(--on-surface-faint)">·</span><span class="w-data">${d}</span>`;
+}
+
+// ══ BUILD UI ══
+let curFilter='all';
+
+function buildTabs(){
+  const wrap=document.getElementById('filterTabs');
+  const groups=[{key:'all',label:'All',color:'var(--primary)'},...Object.entries(GROUPS).map(([k,v])=>({key:k,...v}))];
+  groups.forEach(g=>{
+    const cnt=g.key==='all'?REGS.length:REGS.filter(r=>r.grp===g.key).length;
+    if(cnt===0) return;
+    const b=document.createElement('button');
+    b.className='ftab'+(g.key==='all'?' active':'');
+    b.dataset.k=g.key;
+    b.innerHTML=`<span class="fdot" style="background:${g.color||'var(--primary)'}"></span>${g.label} <span style="opacity:.5">${cnt}</span>`;
+    b.onclick=()=>{curFilter=g.key;document.querySelectorAll('.ftab').forEach(x=>x.classList.toggle('active',x.dataset.k===g.key));filterRegs()};
+    wrap.appendChild(b);
+  });
+}
+
+function buildCards(){
+  const list=document.getElementById('regList');
+  REGS.forEach(reg=>{
+    const g=GROUPS[reg.grp];
+    let fi=0; const fc_map={};
+    reg.fields.forEach(f=>{if(!f.isR){fc_map[f.name]=fc(fi++)}});
+    const card=document.createElement('div');
+    card.className='reg-card';
+    card.id='card-'+reg.id;
+    card.dataset.grp=reg.grp;
+    card.dataset.srch=(reg.id+' '+reg.name+' '+reg.fields.map(f=>f.name).join(' ')).toLowerCase();
+    card.innerHTML=`
+      <div class="reg-accent" style="background:${g.color}"></div>
+      <div class="reg-head" onclick="toggleCard('${reg.id}')">
+        <div class="reg-id-pill" style="background:${g.color}">${reg.id}</div>
+        <div class="reg-head-text">
+          <div class="reg-name">${reg.name}</div>
+          <div class="reg-sub">
+            <span>Offset: <span class="rv">${h4(reg.off)}</span></span>
+            <span>Reset: <span class="rv">${h4(reg.rst)}</span></span>
+            <span>${g.label}</span>
+          </div>
+        </div>
+        <span class="reg-access ${reg.rw==='R'?'ro':''}">${reg.rw}</span>
+        <svg class="reg-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="bit-map-wrap">${buildBitMap(reg,fc_map)}</div>
+      <div class="field-hint" id="fh-${reg.id}"></div>
+      <div class="fields-wrap">${buildTable(reg,fc_map)}</div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function buildBitMap(reg,fc_map){
+  const val=S[reg.id].val;
+  const bmap={};
+  reg.fields.forEach(f=>{for(let b=f.lo;b<=f.hi;b++) bmap[b]=f});
+  let h='<div class="bit-map">';
+  for(let b=15;b>=0;b--){
+    const f=bmap[b];
+    const clr=f&&!f.isR?fc_map[f.name]:'';
+    const rsvd=(!f||f.isR)?'rsvd':'';
+    const style=clr?`style="background:${clr};border-color:${clr}"`:'';
+    h+=`<div class="bit-cell ${rsvd}" ${style} title="${f?f.name:'reserved'} [D${b}]" data-b="${b}" data-r="${reg.id}" onclick="clickBit(this,'${reg.id}',${b})">
+      <span class="bcn">D${b}</span><span class="bcv">${gbit(val,b)}</span>
+    </div>`;
+  }
+  return h+'</div>';
+}
+
+function buildTable(reg,fc_map){
+  let h=`<table class="fields-table"><thead><tr><th>Bits</th><th>Field</th><th>Type</th><th>Reset</th><th>Value</th><th>Description</th></tr></thead><tbody>`;
+  reg.fields.forEach((f,fi)=>{
+    const clr=f.isR?'var(--surface-container-high)':fc_map[f.name];
+    const bits=f.hi===f.lo?`D${f.hi}`:`D${f.hi}:D${f.lo}`;
+    const w=f.hi-f.lo+1; const maxv=(1<<w)-1;
+    const curv=gfield(S[reg.id].val,f.hi,f.lo);
+    const tc=f.type==='R'?'ro':'rw';
+    const opts=f.opts?`<ul class="fopts">${f.opts.map(o=>`<li>${o}</li>`).join('')}</ul>`:'';
+    const plain=f.plain?`<div class="fplain"><span class="fplain-lbl">Plain English</span>${f.plain}</div>`:'';
+    h+=`<tr id="fr-${reg.id}-${fi}" onclick="clickRow('${reg.id}',${fi})" data-fi="${fi}">
+      <td class="fb-cell" style="border-left:3px solid ${clr}">${bits}</td>
+      <td class="fn-cell"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${clr};margin-right:4px;vertical-align:middle"></span>${f.name}</td>
+      <td><span class="ftype ${tc}">${f.type}</span></td>
+      <td class="frst">${h2(f.rst)}</td>
+      <td>${f.type==='R'?`<span class="frst">${h2(curv)}</span>`:`<input class="fval-input" type="number" min="0" max="${maxv}" value="${curv}" data-r="${reg.id}" data-fi="${fi}" onchange="changeField(this)" onclick="event.stopPropagation()">`}</td>
+      <td class="fdesc">${f.desc}${opts}${plain}</td>
+    </tr>`;
+  });
+  h+='</tbody></table>';
+  h+=`<div class="spi-panel"><span class="spi-lbl">SPI Frame</span><span class="spi-word" id="sw-${reg.id}">${spiword(reg.off,reg.rst)}</span><button class="copy-btn" id="cb-${reg.id}" onclick="copyCard('${reg.id}')">Copy bytes</button></div>`;
+  return h;
+}
+
+// ══ INTERACTIONS ══
+function toggleCard(id){
+  const c=document.getElementById('card-'+id);
+  c.classList.toggle('open');
+  if(!c.classList.contains('open')) clearHint(id);
+}
+function clickBit(el,rid,bit){
+  const c=document.getElementById('card-'+rid);
+  if(!c.classList.contains('open')) c.classList.add('open');
+  const reg=REGS.find(r=>r.id===rid);
+  const f=reg.fields.find(f=>bit>=f.lo&&bit<=f.hi);
+  if(!f||f.isR) return;
+  highlightCells(rid,f.lo,f.hi);
+  clickRow(rid,reg.fields.indexOf(f),true);
+}
+function clickRow(rid,fi,fromBit=false){
+  const reg=REGS.find(r=>r.id===rid);
+  const f=reg.fields[fi];
+  const c=document.getElementById('card-'+rid);
+  c.querySelectorAll('tr').forEach(r=>r.classList.remove('row-on'));
+  const row=document.getElementById(`fr-${rid}-${fi}`);
+  if(row){row.classList.add('row-on');if(!fromBit)row.scrollIntoView({block:'nearest',behavior:'smooth'})}
+  const fh=document.getElementById('fh-'+rid);
+  fh.innerHTML=`<div class="fh-name">${f.name}</div><div class="fh-bits">Bits ${f.hi===f.lo?`D${f.hi}`:`D${f.hi}:D${f.lo}`} | Reset: ${h2(f.rst)} | ${f.type}</div>${f.desc}${f.plain?`<div class="fplain"><span class="fplain-lbl">Plain English</span>${f.plain}</div>`:''}`;
+  fh.classList.add('show');
+  if(!fromBit) highlightCells(rid,f.lo,f.hi);
+}
+function clearHint(rid){
+  document.getElementById('fh-'+rid).classList.remove('show');
+  const c=document.getElementById('card-'+rid);
+  c.querySelectorAll('.bit-cell').forEach(x=>x.classList.remove('bf-active'));
+  c.querySelectorAll('tr').forEach(r=>r.classList.remove('row-on'));
+}
+function highlightCells(rid,lo,hi){
+  const c=document.getElementById('card-'+rid);
+  c.querySelectorAll('.bit-cell').forEach(x=>{
+    const b=parseInt(x.dataset.b);
+    x.classList.toggle('bf-active',b>=lo&&b<=hi);
+  });
+}
+function changeField(input){
+  const rid=input.dataset.r,fi=parseInt(input.dataset.fi);
+  const reg=REGS.find(r=>r.id===rid);
+  const f=reg.fields[fi];
+  const w=f.hi-f.lo+1; const maxv=(1<<w)-1;
+  let v=parseInt(input.value)||0;
+  v=Math.max(0,Math.min(maxv,v));
+  input.value=v;
+  S[rid].val=sfield(S[rid].val,f.hi,f.lo,v);
+  refreshBits(rid);
+  refreshSpiWord(rid);
+}
+function refreshBits(rid){
+  const val=S[rid].val;
+  document.getElementById('card-'+rid).querySelectorAll('.bit-cell').forEach(c=>{
+    c.querySelector('.bcv').textContent=gbit(val,parseInt(c.dataset.b));
+  });
+}
+function refreshSpiWord(rid){
+  const reg=REGS.find(r=>r.id===rid);
+  document.getElementById('sw-'+rid).innerHTML=spiword(reg.off,S[rid].val);
+}
+function copyCard(rid){
+  const reg=REGS.find(r=>r.id===rid);
+  const bytes=spibytes(reg.off,S[rid].val);
+  navigator.clipboard.writeText(bytes.map(h2).join(' ')).catch(()=>{});
+  const btn=document.getElementById('cb-'+rid);
+  btn.textContent='Copied!';btn.classList.add('ok');
+  setTimeout(()=>{btn.textContent='Copy bytes';btn.classList.remove('ok')},1400);
+}
+function filterRegs(){
+  const q=document.getElementById('regSearch').value.toLowerCase();
+  let vis=0;
+  document.querySelectorAll('.reg-card').forEach(c=>{
+    const gm=curFilter==='all'||c.dataset.grp===curFilter;
+    const sm=!q||c.dataset.srch.includes(q);
+    c.classList.toggle('rg-hidden',!(gm&&sm));
+    if(gm&&sm) vis++;
+  });
+  document.getElementById('emptyMsg').style.display=vis?'none':'block';
+}
+
+buildTabs();
+buildCards();
+
+// ══ TOC PILL ══
+(function(){
+  var toc=document.querySelector('.article-toc');
+  if(!toc)return;
+  var content=document.querySelector('.proj-main');
+  if(!content)return;
+  var nodes=[...content.querySelectorAll('[id]')];
+  var links=[...toc.querySelectorAll('a[href^="#"]')];
+  var pill=toc.querySelector('.toc-pill');
+  function place(link){
+    if(!pill)return;
+    if(!link){pill.style.opacity='0';return}
+    pill.style.top=link.offsetTop+'px';
+    pill.style.left=link.offsetLeft+'px';
+    pill.style.width=link.offsetWidth+'px';
+    pill.style.height=link.offsetHeight+'px';
+    pill.style.opacity='1';
+  }
+  function update(){
+    var top=window.scrollY+110;
+    var hit=nodes[0];
+    var atBottom=(window.innerHeight+window.scrollY)>=(document.documentElement.scrollHeight-25);
+    if(atBottom){hit=nodes[nodes.length-1]}else{for(var n of nodes){if(n.offsetTop<=top)hit=n}}
+    var href=hit?'#'+hit.id:'';
+    var active=null;
+    links.forEach(function(a){var on=a.getAttribute('href')===href;a.classList.toggle('active',on);if(on)active=a});
+    place(active);
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>TICS Pro Interface — LMX1205 Explained | Gaurav Kumar Mishra</title>
+  <meta name="author" content="Gaurav Kumar Mishra">
+  <meta name="description"
+    content="Every block of the TI TICS Pro GUI for the LMX1205 explained in plain English — CLKIN, multiplier, SYSREF, delay, logic clock, and output channels.">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..900&family=Roboto:wght@400;500&family=Roboto+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+
+    :root {
+      --primary: #1f3a57;
+      --primary-hover: #173049;
+      --on-primary: #FFF;
+      --primary-container: #d9e5f2;
+      --on-primary-container: #0a2540;
+      --secondary: #2e5c8a;
+      --surface: #fafbfd;
+      --surface-container-lowest: #FFF;
+      --surface-container-low: #f5f7fa;
+      --surface-container: #edf1f6;
+      --surface-container-high: #e5ebf2;
+      --on-surface: #14181e;
+      --on-surface-variant: #4b5663;
+      --on-surface-faint: #8693a3;
+      --outline: #b7bfc8;
+      --outline-variant: #d9dee5;
+      --success: #1e7f4f;
+      --warn: #7a4f00;
+      --warn-container: #fef3e2;
+      --font-display: 'Roboto Flex','Roboto',system-ui,sans-serif;
+      --font-body: 'Roboto',system-ui,sans-serif;
+      --font-mono: 'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+      --r-xs:4px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-pill:999px;
+
+      /* block accent colours */
+      --b1: #c8daf5; /* blue  — CLKIN / General */
+      --b2: #d4edda; /* green — SYSREF delay */
+      --b3: #fff3cd; /* amber — SYSREFREQ windowing */
+      --b4: #e8d5f5; /* purple — SYSREF generator */
+      --b5: #fde0dc; /* red   — output channel */
+      --b6: #d1f0eb; /* teal  — logic clock */
+    }
+
+    html, body { margin:0; padding:0 }
+    body {
+      font-family: var(--font-body);
+      background: var(--surface);
+      color: var(--on-surface);
+      -webkit-font-smoothing: antialiased;
+      font-size: 15px;
+      line-height: 1.55
+    }
+    a { color:inherit; text-decoration:none !important }
+
+    .grid-bg {
+      position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image:
+        linear-gradient(to right, rgba(31,58,87,.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(31,58,87,.04) 1px, transparent 1px);
+      background-size:96px 96px;
+      mask-image:linear-gradient(to bottom, black 0, black 60%, transparent 100%)
+    }
+
+    /* ── NAV ── */
+    .topbar { position:sticky; top:0; z-index:50 }
+    .topbar-inner {
+      max-width:1240px; margin:0 auto; padding:14px 32px;
+      display:flex; justify-content:center; align-items:center
+    }
+    .nav {
+      display:inline-flex; gap:2px; padding:5px;
+      background:var(--surface-container); border-radius:999px;
+      box-shadow:0 10px 28px -18px rgba(31,58,87,.45)
+    }
+    .nav a {
+      padding:10px 22px; border-radius:999px; font-size:14px; font-weight:500;
+      color:var(--on-surface-variant); transition:background .15s,color .15s; white-space:nowrap
+    }
+    .nav a:hover { color:var(--on-surface); background:color-mix(in oklab,var(--primary) 10%,transparent) }
+    .nav a.active { background:var(--primary-container); color:var(--on-primary-container) }
+
+    main { position:relative; z-index:1 }
+
+    /* ── HERO ── */
+    .proj-hero {
+      padding:44px 32px 40px; max-width:1240px; margin:0 auto;
+      border-bottom:1px solid var(--outline-variant)
+    }
+    .back-link {
+      display:inline-flex; align-items:center; gap:6px;
+      font-family:var(--font-mono); font-size:11px; letter-spacing:.08em;
+      color:var(--on-surface-faint); margin-bottom:24px; transition:color .15s
+    }
+    .back-link:hover { color:var(--primary) }
+    .back-link svg { width:12px; height:12px }
+    .proj-eyebrow {
+      display:inline-flex; align-items:center; gap:10px;
+      font-family:var(--font-mono); font-size:11px; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--secondary); margin-bottom:16px
+    }
+    .proj-eyebrow::before {
+      content:""; width:24px; height:1px; background:var(--secondary); display:inline-block
+    }
+    .proj-hero h1 {
+      font-family:var(--font-display); font-variation-settings:"opsz" 96,"wght" 600;
+      font-size:clamp(28px,3.8vw,52px); line-height:1.05; letter-spacing:-.02em;
+      margin:0 0 12px; color:var(--on-surface); max-width:28ch
+    }
+    .proj-hero .subtitle {
+      font-size:16px; color:var(--on-surface-variant);
+      max-width:60ch; margin:0 0 28px; line-height:1.6
+    }
+    .meta-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center }
+    .meta-chip {
+      display:inline-flex; align-items:center; gap:6px;
+      font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em;
+      padding:4px 10px; border-radius:999px; border:1px solid var(--outline-variant);
+      background:var(--surface-container-low); color:var(--on-surface-variant)
+    }
+    .meta-chip.primary {
+      background:var(--primary-container);
+      border-color:color-mix(in oklab,var(--primary) 22%,transparent);
+      color:var(--on-primary-container)
+    }
+
+    /* ── BODY LAYOUT ── */
+    .proj-body {
+      max-width:1240px; margin:48px auto 0; padding:0 32px 80px;
+      display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:48px; align-items:start
+    }
+    .proj-main { min-width:0; display:flex; flex-direction:column; gap:60px }
+    .proj-sidebar{position:sticky;top:80px;display:flex;flex-direction:column;gap:20px}
+    .sidebar-card{border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-lowest);overflow:hidden}
+    .sidebar-head{padding:10px 14px;background:var(--surface-container-low);border-bottom:1px solid var(--outline-variant);font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-faint)}
+    .sidebar-row{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:start}
+    .sidebar-row:last-child{border-bottom:0}
+    .sidebar-key{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint);white-space:nowrap;padding-top:1px}
+    .sidebar-val{font-size:13px;color:var(--on-surface);line-height:1.5;font-weight:500;text-align:right}
+    .tool-list{padding:12px 14px;display:flex;flex-wrap:wrap;gap:5px}
+    .tool-chip{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;padding:3px 8px;border-radius:var(--r-xs);background:var(--surface-container);border:1px solid var(--outline-variant);color:var(--on-surface-variant)}
+    .nav-proj{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--outline-variant);border:1px solid var(--outline-variant);border-radius:var(--r-md);overflow:hidden}
+    .nav-proj a{padding:12px 14px;background:var(--surface-container-lowest);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-surface-faint);transition:background .15s,color .15s;display:flex;flex-direction:column;gap:4px}
+    .nav-proj a:hover{background:var(--surface-container);color:var(--primary)}
+    .nav-proj a span{font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--on-surface);letter-spacing:0;text-transform:none}
+    .nav-proj a.next{text-align:right}
+    .toc-pill{position:absolute;border-radius:999px;pointer-events:none;z-index:9;transition:top .32s cubic-bezier(0.2,0,0,1),left .32s cubic-bezier(0.2,0,0,1),width .32s cubic-bezier(0.2,0,0,1),height .32s cubic-bezier(0.2,0,0,1),opacity .22s cubic-bezier(0.2,0,0,1);opacity:0;background:var(--primary-container)}
+
+    /* ── OVERVIEW SCREENSHOT ── */
+    .overview-frame {
+      border:1px solid var(--outline-variant); border-radius:var(--r-md);
+      background:var(--surface-container-lowest); overflow:hidden
+    }
+    .overview-bar {
+      padding:8px 14px; background:var(--surface-container);
+      border-bottom:1px solid var(--outline-variant);
+      display:flex; align-items:center; gap:8px;
+      font-family:var(--font-mono); font-size:10px; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--on-surface-faint)
+    }
+    .overview-bar .dot { width:7px; height:7px; border-radius:50%; background:var(--outline) }
+    .overview-img-wrap { position:relative; display:block }
+    .overview-img-wrap img { display:block; width:100%; background:#fff }
+
+    /* number badge overlays */
+    .badge-wrap { position:absolute; inset:0; pointer-events:none }
+    .badge {
+      position:absolute; width:26px; height:26px; border-radius:50%;
+      background:var(--primary); color:#fff;
+      font-family:var(--font-mono); font-size:12px; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 2px 8px rgba(0,0,0,.35); pointer-events:auto;
+      cursor:default; transition:transform .15s;
+    }
+    .badge:hover { transform:scale(1.18) }
+
+    /* ── BLOCK SECTION ── */
+    .block-section {
+      display:flex; flex-direction:column; gap:24px;
+      scroll-margin-top: 90px
+    }
+    .block-header {
+      display:flex; align-items:center; gap:14px; flex-wrap:wrap
+    }
+    .block-num {
+      width:36px; height:36px; border-radius:50%; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-mono); font-size:15px; font-weight:700;
+      color:#fff; background:var(--primary)
+    }
+    .block-title-group { display:flex; flex-direction:column; gap:3px }
+    .block-label {
+      font-family:var(--font-mono); font-size:10px; letter-spacing:.18em;
+      text-transform:uppercase; color:var(--on-surface-faint)
+    }
+    .block-title {
+      font-family:var(--font-display); font-variation-settings:"opsz" 48,"wght" 600;
+      font-size:clamp(17px,2vw,22px); line-height:1.15; letter-spacing:-.01em;
+      color:var(--on-surface)
+    }
+
+    /* screenshot + explanation two-col */
+    .block-body {
+      display:grid; grid-template-columns:auto 1fr;
+      gap:28px; align-items:start
+    }
+    @media(max-width:860px){ .block-body{ grid-template-columns:1fr } }
+
+    .block-img-wrap {
+      border:1px solid var(--outline-variant); border-radius:var(--r-md);
+      background:var(--surface-container-lowest); overflow:hidden;
+      min-width:0; flex-shrink:0
+    }
+    .block-img-bar {
+      padding:6px 12px; background:var(--surface-container);
+      border-bottom:1px solid var(--outline-variant);
+      font-family:var(--font-mono); font-size:9.5px; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--on-surface-faint)
+    }
+    .block-img-wrap img { display:block; max-width:480px; width:100% }
+
+    .block-explain { display:flex; flex-direction:column; gap:20px; min-width:0 }
+
+    .block-intro {
+      font-size:14.5px; line-height:1.72; color:var(--on-surface-variant)
+    }
+
+    /* accent header strip above each block */
+    .block-accent-strip {
+      height:4px; border-radius:var(--r-pill) var(--r-pill) 0 0
+    }
+
+    /* control cards */
+    .ctrl-grid {
+      display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+      gap:12px
+    }
+    .ctrl-card {
+      border:1px solid var(--outline-variant); border-radius:var(--r-md);
+      background:var(--surface-container-lowest); overflow:hidden
+    }
+    .ctrl-card-head {
+      padding:8px 12px; border-bottom:1px solid var(--outline-variant);
+      display:flex; align-items:center; gap:8px
+    }
+    .ctrl-tag {
+      font-family:var(--font-mono); font-size:9.5px; letter-spacing:.1em;
+      text-transform:uppercase; padding:2px 7px; border-radius:var(--r-pill);
+      white-space:nowrap
+    }
+    .ctrl-tag.input  { background:#dbeafe; color:#1e40af }
+    .ctrl-tag.output { background:#dcfce7; color:#166534 }
+    .ctrl-tag.toggle { background:#fef9c3; color:#854d0e }
+    .ctrl-tag.button { background:#f3e8ff; color:#6b21a8 }
+    .ctrl-tag.status { background:#fee2e2; color:#991b1b }
+    .ctrl-tag.select { background:#e0f2fe; color:#0c4a6e }
+
+    .ctrl-name {
+      font-weight:600; font-size:13px; color:var(--on-surface);
+      font-family:var(--font-mono)
+    }
+    .ctrl-body {
+      padding:10px 12px; font-size:13.5px; line-height:1.65;
+      color:var(--on-surface-variant)
+    }
+    .ctrl-body strong { color:var(--on-surface) }
+    .ctrl-body code {
+      font-family:var(--font-mono); font-size:11.5px;
+      background:var(--surface-container); padding:1px 5px;
+      border-radius:var(--r-xs); color:var(--secondary)
+    }
+
+    /* callout */
+    .callout {
+      border:1px solid var(--outline-variant);
+      border-left:3px solid var(--primary);
+      border-radius:var(--r-sm); background:var(--primary-container);
+      padding:13px 15px; font-size:13.5px; line-height:1.65;
+      color:var(--on-primary-container)
+    }
+    .callout strong { color:var(--primary) }
+
+    /* analogy */
+    .analogy {
+      border:1px solid var(--outline-variant);
+      border-left:3px solid var(--success);
+      border-radius:var(--r-sm);
+      background:color-mix(in oklab,var(--success) 8%,var(--surface-container-lowest));
+      padding:13px 15px; font-size:13.5px; line-height:1.65;
+      color:var(--on-surface-variant)
+    }
+    .analogy-label {
+      font-family:var(--font-mono); font-size:9.5px; letter-spacing:.16em;
+      text-transform:uppercase; color:var(--success); display:block; margin-bottom:5px
+    }
+
+    /* divider */
+    .section-divider {
+      height:1px; background:var(--outline-variant); margin:0
+    }
+
+    /* TOC */
+    .article-toc {
+      position:fixed; left:calc(25vw - 385px); top:50%;
+      transform:translateY(-50%); width:200px; max-height:80vh;
+      overflow-y:auto; z-index:10; padding:0 0 16px; scrollbar-width:none
+    }
+    .article-toc::-webkit-scrollbar { display:none }
+    @media(max-width:1400px){ .article-toc { display:none } }
+    .article-toc a {
+      display:block; height:30px; line-height:30px; padding:0 14px;
+      font-family:var(--font-mono); font-size:12px; font-weight:450;
+      color:var(--on-surface-variant); border-radius:999px;
+      margin:2px 4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+      transition:color .2s,background .18s
+    }
+    .article-toc a:hover { background:color-mix(in oklab,var(--primary) 7%,transparent); color:var(--on-surface) }
+    .article-toc a.active { color:var(--on-primary-container); font-weight:600; background:var(--primary-container) }
+
+    @media(max-width:960px){
+      .proj-body { grid-template-columns:1fr; gap:32px; padding:0 20px 60px; margin-top:32px }
+      .proj-hero { padding:32px 20px 28px }
+      .proj-sidebar { position:static }
+    }
+    @media(max-width:640px){
+      .topbar-inner { padding:10px 16px }
+      .nav a { padding:9px 14px; font-size:13px }
+    }
+  </style>
+</head>
+
+<body>
+<div class="grid-bg"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/projects/" class="active">Projects</a>
+      <a href="/courses/">Courses</a>
+      <a href="/community/">Community</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <aside class="article-toc ready" style="margin-top:0px;">
+    <a href="#overview">Full Interface</a>
+    <a href="#block1">1 · CLKIN &amp; General</a>
+    <a href="#block2">2 · SYSREF Delays</a>
+    <a href="#block3">3 · SYSREFREQ Position</a>
+    <a href="#block4">4 · SYSREF Generator</a>
+    <a href="#block5">5 · Output Channel</a>
+    <a href="#block6">6 · Logic Clock</a>
+    <div class="toc-pill" style="top:2px;left:4px;width:188px;height:32px;opacity:1;"></div>
+  </aside>
+
+  <!-- ─── HERO ───────────────────────────────────────────────────────── -->
+  <div class="proj-hero">
+    <a class="back-link" href="../TI_LMX1205_Datasheet/TI_LMX1205_Datasheet.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 5l-7 7 7 7"></path>
+      </svg>
+      Back to LMX1205 Datasheet
+    </a>
+    <div class="proj-eyebrow">Software Tool Walkthrough</div>
+    <h1>TICS Pro Interface — LMX1205 Explained</h1>
+    <p class="subtitle">Every panel, dropdown, button, and number in the Texas Instruments TICS Pro GUI for the LMX1205 decoded block-by-block — no prior RF or tool experience needed.</p>
+    <div class="meta-row">
+      <span class="meta-chip primary">TICS Pro GUI</span>
+      <span class="meta-chip primary">LMX1205</span>
+      <span class="meta-chip">6 Blocks Explained</span>
+      <span class="meta-chip">SYSREF</span>
+      <span class="meta-chip">Clock Configuration</span>
+    </div>
+  </div>
+
+  <!-- ─── BODY ─────────────────────────────────────────────────────── -->
+  <div class="proj-body">
+    <div class="proj-main">
+
+    <!-- ─── WHAT IS TICS PRO ─────────────────────────────────────────── -->
+    <div class="block-section">
+      <div class="block-intro" style="font-size:15px; max-width:80ch">
+        <strong>TICS Pro</strong> (Texas Instruments Clocks and Synthesizers Pro) is TI's free GUI tool for
+        configuring clock chips like the LMX1205 over SPI — either through a USB-connected evaluation board, or
+        by exporting the generated register map for use in firmware. Every parameter you can set via SPI appears
+        as a labelled field or dropdown in the interface; the tool calculates frequencies and timing in real time
+        and prevents you from entering invalid combinations.
+      </div>
+      <div class="analogy">
+        <span class="analogy-label">Simple Analogy</span>
+        Think of TICS Pro as a <strong>mixing desk for your clock chip</strong>. Instead of turning physical knobs,
+        you type in frequencies and hit buttons, and the tool figures out which register bits to write — then sends
+        the correct bytes over SPI to the chip. The six panels on screen are the six functional sections of the
+        LMX1205, each grouped by what they control.
+      </div>
+    </div>
+
+    <!-- ─── OVERVIEW SCREENSHOT ──────────────────────────────────────── -->
+    <div class="block-section" id="overview">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+        <div class="block-label" style="margin:0">Full Interface</div>
+      </div>
+      <div class="overview-frame">
+        <div class="overview-bar">
+          <span class="dot"></span>
+          TICS Pro — LMX1205 — Full Interface View (6 numbered blocks annotated)
+        </div>
+        <div class="overview-img-wrap">
+          <img src="TICS%20Pro%20Interface/TICS%20Pro%20Interface.png"
+               alt="Full TICS Pro Interface for LMX1205 with 6 annotated blocks" />
+          <!-- Badge positions are approximate percentages over the screenshot -->
+          <div class="badge-wrap" aria-hidden="true">
+            <div class="badge" style="top:28%;left:8%"  title="Block 1 – CLKIN, Multiplier & General">1</div>
+            <div class="badge" style="top:62%;left:30%" title="Block 2 – SYSREF Global & Channel Delays">2</div>
+            <div class="badge" style="top:75%;left:30%" title="Block 3 – SYSREFREQ Position & Windowing">3</div>
+            <div class="badge" style="top:55%;left:50%" title="Block 4 – SYSREF Frequency Generator">4</div>
+            <div class="badge" style="top:30%;left:74%" title="Block 5 – Output Channel (CLK + SYSREF)">5</div>
+            <div class="badge" style="top:62%;left:74%" title="Block 6 – Logic Clock & LOGISYSREF">6</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>How to read the annotated image:</strong> Each numbered badge above marks the boundary of one
+        functional panel in TICS Pro. Click any section heading below to jump to its full explanation. The tool
+        updates all calculated values (frequencies, step sizes, current estimates) whenever you change any field —
+        so changes are always immediately visible.
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- BLOCK 1 — CLKIN, Multiplier, Temp Sensor, General             -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="block-section" id="block1">
+      <div class="block-header">
+        <div class="block-num">1</div>
+        <div class="block-title-group">
+          <div class="block-label">Top-Left Panel</div>
+          <div class="block-title">CLKIN · Multiplier · Temperature Sensor · General</div>
+        </div>
+      </div>
+
+      <div class="block-body">
+        <div class="block-img-wrap">
+          <div class="block-img-bar">Block 1 Screenshot</div>
+          <img src="TICS%20Pro%20Interface/Block%201.png" alt="Block 1 — CLKIN, Multiplier and General panel" />
+        </div>
+
+        <div class="block-explain">
+          <p class="block-intro">
+            This is the <strong>starting point</strong> for any TICS Pro session. You tell the tool how fast your
+            incoming clock is, choose whether to buffer, divide, or multiply it, and set up diagnostic and power
+            controls. The pink shaded sub-panel belongs entirely to the on-chip multiplier (PLL + VCO).
+          </p>
+
+          <div class="ctrl-grid">
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">CLKIN frequency field</span>
+              </div>
+              <div class="ctrl-body">
+                Type your input clock frequency here in MHz (the screenshot shows <strong>1280 MHz</strong>).
+                This is the frequency of the signal arriving at the CLKIN_P/N pins from your upstream PLL or
+                oscillator. TICS Pro uses this value to calculate every downstream frequency, step size, and
+                divider restriction shown in the other panels. <strong>Always set this first.</strong>
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">Input delay (0.00 ps)</span>
+              </div>
+              <div class="ctrl-body">
+                Adds a programmable delay of 0–60 ps (1.1 ps steps) to the CLKIN path before it reaches the
+                frequency multiplexer. <strong>Use this to compensate</strong> for propagation delay from your
+                upstream master PLL to this chip — e.g. if your PLL output arrives 35 ps earlier than expected
+                due to a shorter trace, set 35 ps here to re-align the whole output section. Changes here shift
+                all four CLKOUTs simultaneously.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag select">Select</span>
+                <span class="ctrl-name">Mode: Buffer / Div2/x2</span>
+              </div>
+              <div class="ctrl-body">
+                Selects the operating mode of the main clock path (<code>CLK_MUX</code> register):
+                <ul style="padding-left:16px;margin-top:6px">
+                  <li><strong>Buffer</strong> — pass-through at the same frequency (÷1). Lowest noise.</li>
+                  <li><strong>Div2/x2 … Div8/x8</strong> — divides or multiplies by the selected factor.
+                    The dropdown shows both the divide and multiply options for each ratio.</li>
+                </ul>
+                The two "n/a" boxes below show intermediate calculated frequencies that appear when a divide or
+                multiply factor is chosen.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag button">Button</span>
+                <span class="ctrl-name">Read Lock Detect</span>
+              </div>
+              <div class="ctrl-body">
+                Reads the <code>rb_LOCK_DETECT</code> bit from the chip via SPI and displays whether the
+                multiplier's internal VCO is <strong>Locked</strong> or <strong>Unlocked</strong>. You must
+                wait for "Locked" before enabling outputs in multiplier mode — an unlocked VCO will produce
+                the wrong frequency or a noisy output. The MUXOUT pin also shows this in hardware.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag button">Button</span>
+                <span class="ctrl-name">Calibrate Multiplier</span>
+              </div>
+              <div class="ctrl-body">
+                Triggers the VCO calibration routine by writing to register R0. The chip's internal state
+                machine searches for the optimal VCO frequency band and core for the requested output
+                frequency. You <strong>must run calibration</strong>:
+                <ul style="padding-left:16px;margin-top:6px">
+                  <li>The very first time the chip powers up in multiplier mode</li>
+                  <li>Whenever you change the multiply factor</li>
+                  <li>Whenever you change the input frequency</li>
+                </ul>
+                Typical calibration time: ~750 µs. First-ever calibration or mode change: up to ~5 ms.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Status</span>
+                <span class="ctrl-name">f<sub>SM_CLK</sub> display</span>
+              </div>
+              <div class="ctrl-body">
+                Shows the calculated <strong>State Machine Clock</strong> frequency (2.50 MHz in the screenshot).
+                This internal clock drives the multiplier calibration logic and lock detector. It is derived from
+                CLKIN by the dividers shown below it (÷8 × ÷64 here → 1280 / 8 / 64 = 2.5 MHz).
+                <br><br>
+                <strong>Rules:</strong> must be &lt;30 MHz; must be at least 2× faster than the SPI write speed;
+                must be present for calibration and lock detection to work.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">SMCLK_EN checkbox</span>
+              </div>
+              <div class="ctrl-body">
+                Enables or disables the state machine clock. <strong>Keep enabled</strong> during calibration and
+                when monitoring lock detect. Once calibration is confirmed and lock detection is not needed, you
+                can uncheck this to shut off the state machine clock — this eliminates a potential source of
+                spurious tones (spurs) at the state machine clock frequency on the output.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">÷8 × ÷64 (SMCLK dividers)</span>
+              </div>
+              <div class="ctrl-body">
+                Two cascaded dividers that scale CLKIN down to f<sub>SM_CLK</sub>. The first (÷8) is
+                <code>SMCLK_DIV_PRE</code> and the second (÷64) is <code>SMCLK_DIV</code>. TICS Pro
+                automatically suggests valid values when you change the CLKIN frequency, but you can override
+                them manually. Together: 1280 MHz ÷ 8 ÷ 64 = 2.5 MHz.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Status</span>
+                <span class="ctrl-name">Estimated Current (968 mA)</span>
+              </div>
+              <div class="ctrl-body">
+                TICS Pro calculates the approximate total supply current based on which outputs are enabled,
+                their power level, and the operating mode. Use this to budget your 2.5 V power supply and
+                decouple it appropriately. At full load (all outputs + SYSREFs) the LMX1205 can draw ~1130 mA;
+                968 mA here reflects some outputs disabled.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag button">Button</span>
+                <span class="ctrl-name">Temp Sensor — Read</span>
+              </div>
+              <div class="ctrl-body">
+                Reads the <code>rb_TEMPSENSE</code> register from the chip and shows the raw code. Convert to
+                temperature with: <strong>T (°C) = 0.65 × Code − 351</strong>.
+                Useful for thermal characterisation or to diagnose overheating. The TEMPSENSE_EN checkbox must
+                be checked for the sensor to power up.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag select">Select</span>
+                <span class="ctrl-name">MUXOUT Pin — Readback</span>
+              </div>
+              <div class="ctrl-body">
+                The MUXOUT pin on the chip is a configurable diagnostic output. This dropdown sets what it
+                reports. Options include:
+                <ul style="padding-left:16px;margin-top:6px">
+                  <li><strong>Readback</strong> — outputs SPI register data during a readback transaction (tri-stated otherwise)</li>
+                  <li><strong>Lock Detect</strong> — drives HIGH when the multiplier VCO is locked</li>
+                  <li>Other internal status signals</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">POWERDOWN / RESET</span>
+              </div>
+              <div class="ctrl-body">
+                <strong>POWERDOWN:</strong> Puts the entire chip into a low-power standby state (~13.5 mA).
+                All outputs go tri-stated. Registers are preserved; un-check to wake up.
+                <br><br>
+                <strong>RESET:</strong> Triggers a software power-on reset — all registers return to
+                their factory defaults (buffer mode, all SYSREFs off). The bit self-clears after the first
+                subsequent register write. Use this at startup to guarantee a clean initial state.
+              </div>
+            </div>
+
+          </div><!-- ctrl-grid -->
+        </div><!-- block-explain -->
+      </div><!-- block-body -->
+    </div><!-- block-section -->
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- BLOCK 2 — SYSREF Global Delay + Channel Delays                 -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="block-section" id="block2">
+      <div class="block-header">
+        <div class="block-num">2</div>
+        <div class="block-title-group">
+          <div class="block-label">Bottom-Left / Centre Panel</div>
+          <div class="block-title">SYSREF Global Delay &amp; Per-Channel Delay Codes</div>
+        </div>
+      </div>
+
+      <div class="block-body">
+        <div class="block-img-wrap">
+          <div class="block-img-bar">Block 2 Screenshot</div>
+          <img src="TICS%20Pro%20Interface/Block%202.png" alt="Block 2 — SYSREF Global and Channel Delays" />
+        </div>
+
+        <div class="block-explain">
+          <p class="block-intro">
+            This panel controls the <strong>fine timing position of every SYSREF output</strong> relative to
+            the clock outputs. It splits into two halves: a global delay generator that sets the step size
+            (left), and per-channel delay codes that set how many steps each SYSREF output is offset (right).
+            Getting SYSREF timing right is the key step for JESD204C Subclass 1 deterministic latency.
+          </p>
+
+          <div class="analogy">
+            <span class="analogy-label">Simple Analogy</span>
+            Imagine a ruler (global delay range) and a pencil mark (per-channel code). The global panel sets
+            how fine the ruler divisions are; the per-channel codes say how many divisions to count for each
+            SYSREF output.
+          </div>
+
+          <div class="ctrl-grid">
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">SYSREF_DLY_BYP</span>
+              </div>
+              <div class="ctrl-body">
+                <strong>When unchecked (default):</strong> the phase interpolator delay generator is
+                <em>active</em> — fine SYSREF delay is available via the step codes.<br><br>
+                <strong>When checked:</strong> the delay generator is bypassed — SYSREF goes out with
+                zero additional delay. Use bypass only if you don't need fine positioning, or to measure
+                the raw propagation delay before applying corrections.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag select">Select</span>
+                <span class="ctrl-name">SYSREF_DLY_DIV dropdown</span>
+              </div>
+              <div class="ctrl-body">
+                Sets the divider that generates the <strong>interpolator reference frequency</strong> from
+                CLKIN. The screenshot shows <em>"3: Div16 (6.4 to 12.8 GHz)"</em> — meaning CLKIN is divided
+                by 16 before entering the phase interpolator, giving an interpolator frequency in the
+                400–800 MHz window. The tool shows the valid range for each option so you pick the right
+                one based on your CLKIN frequency:
+                <ul style="padding-left:16px;margin-top:6px">
+                  <li>CLKIN ≤ 0.8 GHz → Div2</li>
+                  <li>0.8–1.6 GHz → Div2</li>
+                  <li>1.6–3.2 GHz → Div4</li>
+                  <li>3.2–6.4 GHz → Div8</li>
+                  <li>6.4–12.8 GHz → <strong>Div16</strong></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Calculated</span>
+                <span class="ctrl-name">f<sub>INTERPOLATOR</sub> = 80.00 MHz</span>
+              </div>
+              <div class="ctrl-body">
+                The frequency of the phase interpolator clock — derived from CLKIN ÷ SYSREF_DLY_DIV.
+                Here: 1280 MHz ÷ 16 = 80 MHz. This value must fall in the 400–800 MHz range for most
+                CLKIN frequencies (or 200–400 MHz for low CLKIN). TICS Pro validates this and highlights
+                it red if out of range.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Calculated</span>
+                <span class="ctrl-name">t<sub>DELAY_STEPSIZE</sub> = 24.61 ps</span>
+              </div>
+              <div class="ctrl-body">
+                The timing resolution of one SYSREF delay step:
+                <br><br>
+                <code>StepSize = SYSREF_DLY_DIV / (f<sub>CLKIN</sub> × 508)</code>
+                <br><br>
+                Here: 16 / (1280 MHz × 508) = 24.61 ps per step. At 12.8 GHz input the step size shrinks
+                to &lt;2.5 ps. This tells you how precisely you can position the SYSREF edge.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Calculated</span>
+                <span class="ctrl-name">t<sub>DELAY_RANGE</sub></span>
+              </div>
+              <div class="ctrl-body">
+                Shows the total achievable delay range — from the minimum negative offset to the maximum
+                positive offset in picoseconds. The screenshot shows [−6250, +6225] ps, which is
+                ±one full interpolator period (1/80 MHz = 12.5 ns total). This confirms you can position
+                SYSREF anywhere within ±half a DCLK period relative to the clock edge.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">SYSREF Channel codes (0–4, each = 127)</span>
+              </div>
+              <div class="ctrl-body">
+                Five spinner fields — one for each SYSREF output (SYSREF0, SYSREF1, SYSREF2, SYSREF3,
+                LOGISYSREF). Each accepts a value from 0 to 508. The tool calculates:
+                <br><br>
+                <code>Total Delay = StepSize × Code</code>
+                <br><br>
+                With step 24.61 ps and code 127: delay ≈ <strong>3125 ps</strong>. Set all five to the
+                same value if your PCB routes all SYSREF outputs identically; adjust individually if trace
+                lengths differ.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag select">Select</span>
+                <span class="ctrl-name">ICLK* dropdown (per channel)</span>
+              </div>
+              <div class="ctrl-body">
+                Selects the <strong>reference clock</strong> each SYSREF phase interpolator uses internally.
+                <code>ICLK*</code> (with asterisk) means the interpolator reference is derived from the
+                same divider as the corresponding clock output — the recommended and most common setting.
+                Changing this affects the phase relationship between SYSREF and DCLK; only change it if
+                you have a specific skew requirement.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- BLOCK 3 — SYSREFREQ Position + Windowing                       -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="block-section" id="block3">
+      <div class="block-header">
+        <div class="block-num">3</div>
+        <div class="block-title-group">
+          <div class="block-label">Left-Centre Panel</div>
+          <div class="block-title">SYSREFREQ Position Measurement &amp; Windowing</div>
+        </div>
+      </div>
+
+      <div class="block-body">
+        <div class="block-img-wrap">
+          <div class="block-img-bar">Block 3 Screenshot</div>
+          <img src="TICS%20Pro%20Interface/Block%203.png" alt="Block 3 — SYSREFREQ Position and Windowing" />
+        </div>
+
+        <div class="block-explain">
+          <p class="block-intro">
+            This panel is about <strong>measuring and optimising how the chip captures the incoming SYSREFREQ
+            signal</strong>. When the LMX1205 is in Repeater or Retime mode it needs to sample the external
+            SYSREFREQ pulse at just the right moment relative to CLKIN — this panel shows the measured skew
+            and lets the chip auto-centre its capture window.
+          </p>
+
+          <div class="ctrl-grid">
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag button">Button</span>
+                <span class="ctrl-name">Read SYSREFREQ Position</span>
+              </div>
+              <div class="ctrl-body">
+                Triggers a measurement read: the chip uses its internal windowing circuit to measure the
+                timing relationship between the SYSREFREQ input edge and the CLKIN rising edge, then
+                reports it back via SPI. The result appears as:
+                <br><br>
+                <strong>SYSREF to CLK Skew = 73.1 ps</strong>
+                <br><br>
+                This means the SYSREFREQ edge arrives 73.1 ps before the next CLKIN edge. The windowing
+                circuit uses this measurement to set an optimal capture timing.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Calculated</span>
+                <span class="ctrl-name">SYSREFREQ_DLY Recommendation = 12</span>
+              </div>
+              <div class="ctrl-body">
+                After reading the SYSREFREQ position, TICS Pro calculates the optimal delay code to program
+                into <code>SYSREFREQ_DLY</code>. This code shifts the internal sampling window so that the
+                SYSREFREQ edge lands comfortably in the centre of the capture window — maximising setup and
+                hold margin. <strong>Write this recommended value</strong> to the chip to prevent
+                metastability or missed-capture errors.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Status</span>
+                <span class="ctrl-name">Bin / Dec register display</span>
+              </div>
+              <div class="ctrl-body">
+                Shows the raw binary and decimal representation of the register word that will be written
+                based on the current settings. The binary string
+                <code>100 0011 0000 0000 0001 1000 0000 0000 1</code> is the complete SPI word for the
+                SYSREFREQ windowing register. Useful for debugging: if the chip is behaving unexpectedly,
+                compare this to the device register map in the datasheet to confirm the correct bits are set.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">SYNC_STOP</span>
+              </div>
+              <div class="ctrl-body">
+                When checked, <strong>stops the SYNC operation from propagating</strong> through the
+                windowing circuit. Use this when you want to freeze the current SYSREF alignment and prevent
+                any subsequent SYNC pulse from re-randomising the divider phases. Typically left unchecked
+                during normal operation.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">SYSWND_UPDATE_STOP</span>
+              </div>
+              <div class="ctrl-body">
+                Prevents the SYSREFREQ windowing circuit from updating its internal state after a SYSREF
+                capture event. Check this once you have a stable, valid capture to lock in the measured
+                skew — the chip will not re-attempt to update the window position until you uncheck it.
+                This is useful in production to ensure repeatable behaviour after the initial alignment.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- BLOCK 4 — SYSREF Frequency Generator                           -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="block-section" id="block4">
+      <div class="block-header">
+        <div class="block-num">4</div>
+        <div class="block-title-group">
+          <div class="block-label">Centre Panel</div>
+          <div class="block-title">SYSREF Frequency Generator — Mode, Dividers &amp; Trigger</div>
+        </div>
+      </div>
+
+      <div class="block-body">
+        <div class="block-img-wrap">
+          <div class="block-img-bar">Block 4 Screenshot</div>
+          <img src="TICS%20Pro%20Interface/Block%204.png" alt="Block 4 — SYSREF Frequency Generator" />
+        </div>
+
+        <div class="block-explain">
+          <p class="block-intro">
+            This is the <strong>SYSREF engine</strong> — where you choose whether the chip generates SYSREF
+            internally, repeats an external one, or fires a one-shot pulse burst. It also contains the SYNC
+            feature (phase-aligns all internal dividers across one or multiple devices) and the frequency
+            divider chain that sets the SYSREF output frequency.
+          </p>
+
+          <div class="analogy">
+            <span class="analogy-label">Simple Analogy</span>
+            SYSREF is like a starting pistol for your ADCs and DACs. This block decides: does the LMX1205
+            fire the pistol itself on a schedule (Generator), does it relay someone else's pistol shot
+            (Repeater), or does it fire exactly once on command (Pulser)?
+          </div>
+
+          <div class="ctrl-grid">
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag select">Select</span>
+                <span class="ctrl-name">0: Continuous (SYSREF Mode)</span>
+              </div>
+              <div class="ctrl-body">
+                The main mode dropdown — sets <code>SYSREF_MODE</code>:
+                <ul style="padding-left:16px;margin-top:6px">
+                  <li><strong>0: Continuous</strong> — SYSREF pulses repeat forever at the programmed frequency. Easiest for debug; may cause crosstalk at high frequencies in production.</li>
+                  <li><strong>1: Pulser</strong> — fires a burst of N pulses (set by the Pulser spinner) each time triggered. Preferred in production — zero crosstalk between alignment events.</li>
+                  <li><strong>2: Repeater</strong> — buffers the SYSREFREQ input and fans it out to all outputs.</li>
+                  <li><strong>3: Repeater Retime</strong> — re-times SYSREFREQ to CLKIN before distributing — cleanest edges, eliminates metastability.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag select">Select</span>
+                <span class="ctrl-name">Trigger: Force High</span>
+              </div>
+              <div class="ctrl-body">
+                Controls how SYSREF generation or pulsing is triggered (<code>SYSREFREQ_INPUT</code>):
+                <ul style="padding-left:16px;margin-top:6px">
+                  <li><strong>Force High</strong> — software-forces the internal trigger signal high, causing SYSREF to generate/pulse immediately without needing an external pin. Use for bench testing.</li>
+                  <li><strong>SYSREFREQ pin</strong> — generation is gated by the physical SYSREFREQ_P/N input — an external device sends the trigger.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">Pulser count (1 ÷)</span>
+              </div>
+              <div class="ctrl-body">
+                In Pulser mode, sets how many SYSREF pulses to fire per trigger event (1–16, set by
+                <code>SYSREF_PULSE_CNT</code>). The screenshot shows 1 pulse. Most JESD204C applications
+                need only 1 pulse to latch all converters. Some older systems need 2 or 4 to guarantee
+                all converters see the pulse despite different propagation delays.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">SYSREF_EN</span>
+              </div>
+              <div class="ctrl-body">
+                Master enable for the SYSREF generation block. <strong>Must be checked</strong> for any
+                SYSREF outputs to appear. Unchecking it powers down the entire SYSREF divider chain and
+                output buffers — saving ~425 mA of current when SYSREF is not needed (e.g. during initial
+                PLL lock-up before alignment is performed).
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">SYSREF Dividers: ÷4 × ÷20</span>
+              </div>
+              <div class="ctrl-body">
+                Two cascaded dividers set the SYSREF output frequency:
+                <br><br>
+                <code>f<sub>SYSREF</sub> = f<sub>CLKIN</sub> / (SYSREF_DIV_PRE × SYSREF_DIV)</code>
+                <br><br>
+                Here: 1280 / (4 × 20) = <strong>16 MHz</strong>. The first divider (<code>SYSREF_DIV_PRE</code>
+                = ÷4) must bring the signal below 3.2 GHz before the second divider (<code>SYSREF_DIV</code>
+                = ÷20, range ÷2–4095) takes it to the final frequency.
+                <br><br>
+                <em>Note:</em> odd SYSREF_DIV values do not give a 50 % duty cycle.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Calculated</span>
+                <span class="ctrl-name">f<sub>SYSREF</sub> display</span>
+              </div>
+              <div class="ctrl-body">
+                Shows the resulting SYSREF output frequency in MHz, calculated from the dividers above.
+                This must be a sub-multiple of the clock output frequency, and must also be a multiple of
+                the phase interpolator frequency when the delay generator is active
+                (<code>f<sub>INTERPOLATOR</sub> mod f<sub>SYSREF</sub> = 0</code>).
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">SYNC_EN</span>
+              </div>
+              <div class="ctrl-body">
+                Enables the SYNC feature (<code>SYNC_EN</code>). When triggered, SYNC simultaneously resets
+                all internal dividers (clock output dividers, LOGICLK dividers, SYSREF dividers) to a known
+                phase state. This is essential for <strong>multi-device synchronisation</strong>: you can
+                tie the SYNC pin of multiple LMX1205 chips together so they all reset in unison, giving
+                deterministic phase relationships across a whole board.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">SYNC Delay (0 × 8 ps)</span>
+              </div>
+              <div class="ctrl-body">
+                Adds a programmable delay between the SYNC event and when the dividers actually reset.
+                Displayed as <em>N × 8 ps</em>. This lets you fine-tune the phase of the post-SYNC output
+                across different chips or channels. 0 means the reset happens immediately — appropriate for
+                most designs.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">SYSWND_LATCH</span>
+              </div>
+              <div class="ctrl-body">
+                Latches the result of the SYSREFREQ windowing measurement into a register so you can read
+                it back later without the measurement being overwritten by a new SYSREFREQ event. Check this
+                before reading the SYSREFREQ position if you want a stable snapshot.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">SYSREFREQ_CLR</span>
+              </div>
+              <div class="ctrl-body">
+                Clears the SYSREFREQ capture flag. After the chip detects and captures an incoming SYSREFREQ
+                edge, it sets an internal flag. Write SYSREFREQ_CLR to reset that flag so the chip is ready
+                to capture the next SYSREFREQ event cleanly. Analogous to clearing an interrupt in a
+                microcontroller.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">SYSREFREQ amplitude / P=N</span>
+              </div>
+              <div class="ctrl-body">
+                Configures the expected characteristics of the external SYSREFREQ input signal (used in
+                Repeater/Retime modes). The amplitude field (25 mV shown) sets the internal comparator
+                threshold. <em>P=N</em> means positive and negative inputs are treated symmetrically
+                (differential mode). Adjust if you are driving SYSREFREQ single-ended.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- BLOCK 5 — Output Channel 0                                      -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="block-section" id="block5">
+      <div class="block-header">
+        <div class="block-num">5</div>
+        <div class="block-title-group">
+          <div class="block-label">Right Panel — Repeated ×4 for CH0–CH3</div>
+          <div class="block-title">Output Channel — CLKOUT Power, Delay &amp; SYSREFOUT Settings</div>
+        </div>
+      </div>
+
+      <div class="block-body">
+        <div class="block-img-wrap">
+          <div class="block-img-bar">Block 5 Screenshot (Channel 0)</div>
+          <img src="TICS%20Pro%20Interface/Block%205.png" alt="Block 5 — Output Channel 0 settings" />
+        </div>
+
+        <div class="block-explain">
+          <p class="block-intro">
+            Each of the four main clock outputs (CH0–CH3) has its own identical panel. The top half controls
+            the <strong>clock output buffer</strong> (CLKOUT); the bottom half (green/yellow background) controls
+            the <strong>paired SYSREF output buffer</strong> (SYSREFOUT). Both halves have independent power
+            and delay settings.
+          </p>
+
+          <div class="callout">
+            <strong>Two-level enable system:</strong> <code>CH_EN</code> controls the entire internal channel
+            path (signal routing inside the chip). <code>CLK_EN</code> only gates the output buffer (the driver
+            that actually drives the pin). To save the most power, disable CH_EN. To just silence the output
+            pin while keeping the internal path alive (e.g. during SYNC), disable CLK_EN only.
+          </div>
+
+          <div class="ctrl-grid">
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">CH0_EN</span>
+              </div>
+              <div class="ctrl-body">
+                Powers the entire internal channel 0 path — the signal routing from the output of the
+                frequency mux all the way to the output pin driver. When unchecked, the whole channel
+                is powered down regardless of CLKx_EN or CLKx_PWR settings. Saves the most current.
+                The screenshot shows this unchecked — meaning channel 0 is disabled.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">PWR: 6 (CLKOUT drive strength)</span>
+              </div>
+              <div class="ctrl-body">
+                Sets the CLKOUT output buffer drive strength (<code>CLKx_PWR</code>), from 1 (minimum,
+                lowest current) to 6 (maximum, highest drive). Higher values push more current into the load,
+                increasing the output voltage swing. At <strong>PWR = 6 and 6 GHz</strong>, the single-ended
+                output power is approximately +4.8 dBm into 50 Ω. Lower values reduce power consumption but
+                also reduce voltage margin at the receiver.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">DLY: 0 (CLKOUT delay code)</span>
+              </div>
+              <div class="ctrl-body">
+                Per-output phase interpolator delay code for CLKOUT0 (<code>CLK0_DLY</code>). Range 0–64,
+                step size ≈0.9 ps. Set different values on CLKOUT0–3 to compensate for different PCB trace
+                lengths to each converter. The calculated absolute delay in picoseconds appears as a tooltip
+                or alongside the field in the tool (2708.66 ps propagation + 0 adjustment here).
+                <br><br>
+                <em>Tip:</em> Use output delay ≥ 4 for frequencies below 1.5 GHz for best noise performance.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Calculated</span>
+                <span class="ctrl-name">CLK0 — 1280.0 MHz display</span>
+              </div>
+              <div class="ctrl-body">
+                Shows the calculated output frequency of CLKOUT0 in MHz, derived from CLKIN and the selected
+                mode (Buffer here → 1280 MHz = CLKIN directly). This updates automatically when you change
+                the mode or CLKIN frequency. Use this to verify your frequency plan is correct before
+                programming the chip.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">CLK0_EN</span>
+              </div>
+              <div class="ctrl-body">
+                Enables the CLKOUT0 output buffer. CH0_EN must also be enabled for any signal to appear.
+                Disabling CLK0_EN while keeping CH0_EN on is useful during a SYNC event — the internal
+                divider keeps running synchronously while the output is muted, preventing glitches on the
+                PCB during the alignment sequence.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">PWR: 4 + LP checkbox (SYSREF drive)</span>
+              </div>
+              <div class="ctrl-body">
+                Sets the SYSREF0 output buffer drive strength (<code>SYSREF0_PWR</code> = 0–7) and
+                enables Low Power mode (<code>SYSREF0_PWR_LOW</code>). In LP mode, the same PWR code
+                delivers about half the output swing — useful when your receiver needs a lower-amplitude
+                SYSREF or when you are trying to reduce power. The table in the datasheet maps each
+                combination to the actual VOD swing.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">VCM: 0.65 (SYSREF common mode)</span>
+              </div>
+              <div class="ctrl-body">
+                Sets the SYSREF0 common-mode output voltage (<code>SYSREF0_VCM</code>) — the DC level that
+                both SYSREF0_P and SYSREF0_N hover around. 0.65 V here. The LMX1205 is unusual in that its
+                SYSREF outputs can be <strong>DC-coupled</strong> (unlike the CLKOUT pins which must be
+                AC-coupled). Setting VCM correctly is critical for DC coupling — it must match the receiver's
+                expected common-mode input level.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">DLY: 0 (SYSREF delay, showing 2708.66 ps)</span>
+              </div>
+              <div class="ctrl-body">
+                Per-channel SYSREF0 delay code, separate from the global SYSREF delay in Block 2. The
+                total SYSREF delay for this output is:
+                <br><br>
+                <code>Total = Global Steps × StepSize + (this code × StepSize)</code>
+                <br><br>
+                The displayed value (2708.66 ps) is the <em>absolute propagation delay</em> from CLKIN
+                to the SYSREF output pin — useful for calculating the expected CLKOUT-to-SYSREF skew at
+                the ADC input.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag button">Button</span>
+                <span class="ctrl-name">−Edge / Min buttons</span>
+              </div>
+              <div class="ctrl-body">
+                <strong>−Edge:</strong> inverts the SYSREF output polarity — flips which edge (rising or
+                falling) is the "active" synchronisation edge. Useful if your ADC expects SYSREF on the
+                falling edge.
+                <br><br>
+                <strong>Min:</strong> automatically sets the delay code to the minimum non-zero value,
+                snapping the SYSREF edge as early as possible within the available delay range. Useful
+                as a starting point before fine-tuning.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Calculated</span>
+                <span class="ctrl-name">SYSREF0 — 16.0 MHz display</span>
+              </div>
+              <div class="ctrl-body">
+                Shows the SYSREF0 output frequency: 1280 MHz ÷ (4 × 20) = 16 MHz, matching the dividers set
+                in Block 4. This frequency is shared across all five SYSREF outputs — the per-channel delay
+                codes in Block 2 shift the phase, not the frequency.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- BLOCK 6 — Logic Clock                                           -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="block-section" id="block6">
+      <div class="block-header">
+        <div class="block-num">6</div>
+        <div class="block-title-group">
+          <div class="block-label">Bottom-Right Panel</div>
+          <div class="block-title">Logic Clock &amp; LOGISYSREF — FPGA-Rate Output Configuration</div>
+        </div>
+      </div>
+
+      <div class="block-body">
+        <div class="block-img-wrap">
+          <div class="block-img-bar">Block 6 Screenshot</div>
+          <img src="TICS%20Pro%20Interface/Block%206.png" alt="Block 6 — Logic Clock and LOGISYSREF" />
+        </div>
+
+        <div class="block-explain">
+          <p class="block-intro">
+            This panel configures the two lower-frequency clock outputs — <strong>LOGICLKOUT0</strong> and
+            <strong>LOGICLKOUT1 / LOGISYSREFOUT</strong> — that are typically used to drive FPGAs and digital
+            processors. They use a separate, deeper divider chain than the main CLKOUT channels so they can
+            reach much lower frequencies (down to ≈1 MHz), while remaining phase-coherent with the main clocks.
+          </p>
+
+          <div class="callout">
+            <strong>Why a separate divider chain?</strong> The main CLKOUTs can only divide by 2–8 (maximum
+            ÷8). An FPGA running at 16 MHz from a 1280 MHz CLKIN needs a total division of ÷80 — far beyond
+            the main chain. The LOGICLK chain supports a 3-stage cascade (÷1,2,4 → ÷1–1023 → ÷1,2,4,8)
+            giving a total division range up to 32,736.
+          </div>
+
+          <div class="ctrl-grid">
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">LOGIC_EN</span>
+              </div>
+              <div class="ctrl-body">
+                Master enable for the entire logic clock section. When unchecked, LOGICLKOUT0, LOGICLKOUT1,
+                and LOGISYSREFOUT all go dark and the divider chain is powered down. Check this first before
+                configuring any other logic clock field — TICS Pro may grey out the sub-controls when
+                LOGIC_EN is off.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">÷4 × ÷20 (LOGICLK divider chain)</span>
+              </div>
+              <div class="ctrl-body">
+                Two cascaded dividers set LOGICLKOUT0's frequency:
+                <br><br>
+                <code>f<sub>LOGICLK0</sub> = f<sub>CLKIN</sub> / (DIV_PRE × DIV)</code>
+                <br><br>
+                Here: 1280 / (4 × 20) = <strong>16 MHz</strong>.
+                <ul style="padding-left:16px;margin-top:6px">
+                  <li><code>LOGICLK_DIV_PRE</code> (÷4): must bring the signal to ≤3.2 GHz — mandatory for CLKIN &gt;6.4 GHz.</li>
+                  <li><code>LOGICLK_DIV</code> (÷20): the main divider, range ÷1–1023. Odd values give non-50% duty cycle.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag toggle">Toggle</span>
+                <span class="ctrl-name">LOGICLK2_EN + ÷/2</span>
+              </div>
+              <div class="ctrl-body">
+                Enables the <strong>second logic clock output</strong> (LOGICLKOUT1) on the
+                LOGISYSREFOUT pin. When enabled, the pin becomes a clock instead of a SYSREF.
+                <br><br>
+                The ÷/2 spinner (<code>LOGICLK2_DIV</code>) adds an additional divide on top of the
+                LOGICLKOUT0 frequency — options are ÷1, ÷2, ÷4, ÷8. So if LOGICLKOUT0 = 16 MHz and
+                LOGICLK2_DIV = ÷2, then LOGICLKOUT1 = 8 MHz. Useful for systems needing two different
+                logic-rate clocks from the same chip.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag select">Select</span>
+                <span class="ctrl-name">FMT: LVDS (LOGICLK output format)</span>
+              </div>
+              <div class="ctrl-body">
+                Sets the output driver format for LOGICLKOUT0 (<code>LOGICLK_FMT</code>):
+                <ul style="padding-left:16px;margin-top:6px">
+                  <li><strong>LVDS</strong> — Low-Voltage Differential Signalling. No external components needed. Common-mode voltage is programmable via VCM. Most FPGAs accept LVDS natively.</li>
+                  <li><strong>CML</strong> — Current Mode Logic. Requires 50 Ω pull-up resistors to VCC on the board. Higher bandwidth but more board complexity.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">PWR: 5 (logic clock drive strength)</span>
+              </div>
+              <div class="ctrl-body">
+                Sets the LOGICLKOUT0 driver output power (<code>LOGICLK_PWR</code>), range 0–7. Codes
+                0–7 map to output swings from ~0.1 V to ~0.5 V single-ended peak-to-peak in LVDS mode.
+                PWR = 5 gives approximately 0.35 V single-ended swing — a typical standard LVDS level.
+                Higher PWR increases swing but also current draw (~85 mA total for the LOGICLK section).
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">VCM: 2 (common-mode voltage)</span>
+              </div>
+              <div class="ctrl-body">
+                Sets the LVDS common-mode voltage of LOGICLKOUT0 (<code>LOGICLK_VCM</code>). Code 2
+                corresponds to approximately 1.18 V common-mode. TICS Pro shows the valid VCM range for
+                each PWR setting (some codes are invalid for certain PWR levels and are greyed out). Match
+                this to your FPGA's LVDS input common-mode specification — usually 0.9–1.25 V.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">FMT / PWR / VCM (LOGISYSREF)</span>
+              </div>
+              <div class="ctrl-body">
+                A second, independent set of format, power, and VCM fields for the
+                <strong>LOGISYSREFOUT</strong> output. When LOGICLK2_EN is off, this pin carries the
+                SYSREF companion for LOGICLKOUT0. The format (LVDS shown), power (5), and VCM (2) are
+                configured identically to the main LOGICLK here — but they can be set differently
+                if your SYSREF receiver has different requirements than your clock receiver.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag input">Input</span>
+                <span class="ctrl-name">Edge / Min / DLY (logic clock delay)</span>
+              </div>
+              <div class="ctrl-body">
+                Same controls as Block 5 but for the logic clock path:
+                <ul style="padding-left:16px;margin-top:6px">
+                  <li><strong>Edge</strong> — selects which clock edge the output is aligned to.</li>
+                  <li><strong>Min</strong> — snaps to the minimum valid delay code.</li>
+                  <li><strong>DLY: 0</strong> — the per-output delay code for LOGICLKOUT0. The propagation
+                    delay shown (2708.66 ps) is the same as the main channel — both are derived from the
+                    same CLKIN, so their absolute delays are comparable.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Calculated</span>
+                <span class="ctrl-name">LOGICLK 16.0 MHz + LOGICLK_EN</span>
+              </div>
+              <div class="ctrl-body">
+                The calculated LOGICLKOUT0 frequency (16 MHz) is displayed next to the output buffer enable
+                checkbox (<code>LOGICLK_EN</code>). Check LOGICLK_EN to actually drive the pin — even if
+                LOGIC_EN is on, the output buffer is separately gated so you can keep the divider chain
+                running during SYNC without glitching the FPGA clock.
+              </div>
+            </div>
+
+            <div class="ctrl-card">
+              <div class="ctrl-card-head">
+                <span class="ctrl-tag status">Calculated</span>
+                <span class="ctrl-name">LOGISYSREF 16.0 MHz + LOGISYSREF_EN</span>
+              </div>
+              <div class="ctrl-body">
+                LOGISYSREF frequency (same as SYSREF divider → 16 MHz) and its output buffer enable. In
+                most JESD204C designs, LOGISYSREF should run at the same frequency as the main SYSREF
+                outputs so the FPGA and the ADC/DAC all receive the same synchronisation heartbeat and can
+                all participate in the same deterministic-latency alignment procedure.
+              </div>
+            </div>
+
+          </div>
+
+          <div class="analogy">
+            <span class="analogy-label">Putting It All Together</span>
+            With CLKIN = 1280 MHz and the settings shown across all six blocks:
+            <strong>CLKOUT0–3 each output 1280 MHz</strong> (buffer mode) to four ADC/DAC chips;
+            <strong>LOGICLKOUT0 outputs 16 MHz</strong> to the FPGA; all five
+            <strong>SYSREF outputs fire at 16 MHz</strong>, aligned to within ≈24 ps of each other via
+            the phase interpolators. One SYNC pulse from the FPGA aligns all dividers simultaneously.
+            One SYSREF pulse then latches every converter into Subclass 1 deterministic latency. The
+            whole clock tree is now phase-coherent from 1280 MHz DAC samples down to the 16 MHz FPGA
+            frame clock.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    </div><!-- proj-main -->
+
+    <aside class="proj-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-head">Tool Info</div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Tool</span>
+          <span class="sidebar-val">TICS Pro</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Vendor</span>
+          <span class="sidebar-val">Texas Instruments</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Chip</span>
+          <span class="sidebar-val">LMX1205</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Blocks</span>
+          <span class="sidebar-val">6 panels</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Interface</span>
+          <span class="sidebar-val">SPI via USB eval board</span>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sidebar-head">Quick Reference</div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Block 1</span>
+          <span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">CLKIN · Multiplier · Temp · General</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Block 2</span>
+          <span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">SYSREF global &amp; per-channel delays</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Block 3</span>
+          <span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">SYSREFREQ position &amp; windowing</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Block 4</span>
+          <span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">SYSREF frequency generator</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Block 5</span>
+          <span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">Output channel CLK &amp; SYSREF</span>
+        </div>
+        <div class="sidebar-row">
+          <span class="sidebar-key">Block 6</span>
+          <span class="sidebar-val" style="font-size:11px;font-weight:400;color:var(--on-surface-variant)">Logic Clock &amp; LOGISYSREF</span>
+        </div>
+      </div>
+      <div class="sidebar-card">
+        <div class="sidebar-head">In This Series</div>
+        <a href="../JESD204C_Clock_Tree_Thesis.html" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:center;transition:background .15s;color:inherit" onmouseover="this.style.background='var(--surface-container-low)'" onmouseout="this.style.background=''">
+          <span class="sidebar-key">00</span>
+          <span style="font-size:13px;font-weight:500;color:var(--on-surface)">Thesis Overview</span>
+          <span style="font-family:var(--font-mono);color:var(--on-surface-faint);font-size:12px">↑</span>
+        </a>
+        <a href="../TI_LMX1205_Datasheet/TI_LMX1205_Datasheet.html" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:center;transition:background .15s;color:inherit" onmouseover="this.style.background='var(--surface-container-low)'" onmouseout="this.style.background=''">
+          <span class="sidebar-key">01</span>
+          <span style="font-size:13px;font-weight:500;color:var(--on-surface)">LMX1205 Datasheet</span>
+          <span style="font-family:var(--font-mono);color:var(--on-surface-faint);font-size:12px">→</span>
+        </a>
+        <a href="#" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:center;background:var(--primary-container);color:inherit;pointer-events:none">
+          <span class="sidebar-key" style="color:var(--primary)">02</span>
+          <span style="font-size:13px;font-weight:600;color:var(--on-primary-container)">TICS Pro Interface</span>
+          <span style="font-family:var(--font-mono);color:var(--primary);font-size:10px">HERE</span>
+        </a>
+        <a href="../LMX1205_SPI_Registers/LMX1205_SPI_Registers.html" style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;padding:11px 14px;align-items:center;transition:background .15s;color:inherit" onmouseover="this.style.background='var(--surface-container-low)'" onmouseout="this.style.background=''">
+          <span class="sidebar-key">03</span>
+          <span style="font-size:13px;font-weight:500;color:var(--on-surface)">SPI Register Map</span>
+          <span style="font-family:var(--font-mono);color:var(--on-surface-faint);font-size:12px">→</span>
+        </a>
+      </div>
+      <div class="nav-proj">
+        <a href="../TI_LMX1205_Datasheet/TI_LMX1205_Datasheet.html">
+          ← Prev
+          <span>LMX1205 Datasheet</span>
+        </a>
+        <a href="../LMX1205_SPI_Registers/LMX1205_SPI_Registers.html" class="next">
+          Next →
+          <span>SPI Register Map</span>
+        </a>
+      </div>
+    </aside>
+
+  </div><!-- proj-body -->
+
+</main>
+
+<script>
+(function () {
+  var toc = document.querySelector('.article-toc');
+  if (!toc) return;
+  var content = document.querySelector('.proj-main');
+  if (!content) return;
+  var nodes = [...content.querySelectorAll('.block-section[id]')];
+  var links = [...toc.querySelectorAll('a[href^="#"]')];
+  var pill = toc.querySelector('.toc-pill');
+
+  function place(link) {
+    if (!pill) return;
+    if (!link) { pill.style.opacity = '0'; return; }
+    pill.style.top    = link.offsetTop   + 'px';
+    pill.style.left   = link.offsetLeft  + 'px';
+    pill.style.width  = link.offsetWidth  + 'px';
+    pill.style.height = link.offsetHeight + 'px';
+    pill.style.opacity = '1';
+  }
+
+  function update() {
+    var top = window.scrollY + 110;
+    var hit = nodes[0];
+    var atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 25);
+    if (atBottom) {
+      hit = nodes[nodes.length - 1];
+    } else {
+      for (var n of nodes) { if (n.offsetTop <= top) hit = n; }
+    }
+    var href = hit ? '#' + hit.id : '';
+    var active = null;
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === href;
+      a.classList.toggle('active', on);
+      if (on) active = a;
+    });
+    place(active);
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+</body>
+</html>
