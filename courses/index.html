@@ -315,6 +315,7 @@ main { position: relative; z-index: 1; }
 }
 .float-book:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 14px 34px -8px var(--accent); color: #0d1113; }
 .float-book .dot { width: 9px; height: 9px; border-radius: 50%; background: #0d1113; animation: led 2.4s infinite; }
+.float-book .label-short { display: none; }
 
 /* ---------------------------------- generic page header (subpages) ---------------------------------- */
 .page-header { max-width: 1200px; margin: 0 auto; padding: 72px 32px 40px; }
@@ -475,7 +476,8 @@ main { position: relative; z-index: 1; }
   .course-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .float-book .label { display: none; }
-  .float-book { padding: 14px; border-radius: 50%; }
+  .float-book .label-short { display: inline; }
+  .float-book { padding: 12px 16px; border-radius: 24px; font-size: 13px; gap: 8px; }
   .contact-cta h2 { font-size: 30px; }
 }
 
@@ -576,6 +578,7 @@ main { position: relative; z-index: 1; }
 <a class="float-book" href="/contact/">
   <span class="dot"></span>
   <span class="label">Book an appointment</span>
+  <span class="label-short">Book</span>
 </a>
 
 <script>
