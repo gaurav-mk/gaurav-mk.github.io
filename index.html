@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -9,644 +9,328 @@
   <meta name="description" content="Portfolio of Gaurav Kumar Mishra, hardware developer and M.Sc. ICT student at FAU Erlangen-Nürnberg." />
   <meta name="keywords" content="hardware developer, embedded systems, IC design, PCB, RF, VLSI, portfolio" />
 
-  <!-- Preload profile photo above the fold -->
   <link rel="preload" as="image" href="profile_pic.jpg" />
-  <!-- Prefetch likely-next pages so navigation feels instant -->
   <link rel="prefetch" href="/projects/" />
   <link rel="prefetch" href="/courses/" />
-  <!-- DNS prefetch for external resources -->
   <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..900&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    :root {
-      --primary: #312e81; --primary-hover: #26235f; --on-primary: #fff;
-      --primary-container: #e3e1fb; --on-primary-container: #211c5e;
-      --secondary: #d6335c; --surface: #faf9fd;
-      --surface-container-lowest: #fff; --surface-container-low: #f5f4fa;
-      --surface-container: #ece9f6; --surface-container-high: #e2ddf1;
-      --on-surface: #18162a; --on-surface-variant: #4c4966; --on-surface-faint: #86829e;
-      --outline: #b8b3cc; --outline-variant: #ddd9ec; --success: #1e7f4f;
-      --font-display: 'Roboto Flex','Roboto',system-ui,sans-serif;
-      --font-body: 'Roboto',system-ui,sans-serif;
-      --font-mono: 'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-      --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
-    }
-    html, body { margin: 0; padding: 0; }
-    body { font-family: var(--font-body); background: var(--surface); color: var(--on-surface); -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.55; }
-    a { color: inherit; text-decoration: none !important; }
-
-    /* GRID BG */
-    .grid-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(to right,rgba(49,46,129,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(49,46,129,0.04) 1px,transparent 1px); background-size: 96px 96px; mask-image: linear-gradient(to bottom,black 0,black 60%,transparent 100%); }
-
-    /* TOPBAR */
-    .topbar { position: sticky; top: 0; z-index: 50; }
-    .topbar-inner { max-width: 1240px; margin: 0 auto; padding: 14px 32px; display: flex; justify-content: center; align-items: center; }
-    .nav { display: inline-flex; gap: 2px; padding: 5px; background: var(--surface-container); border-radius: 999px; box-shadow: 0 10px 28px -18px rgba(49,46,129,0.45); }
-    .nav a { padding: 10px 22px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--on-surface-variant); transition: background 0.15s, color 0.15s; white-space: nowrap; }
-    .nav a:hover { color: var(--on-surface); background: color-mix(in oklab,var(--primary) 10%,transparent); }
-    .nav a.active { background: var(--primary-container); color: var(--on-primary-container); }
-
-    main { position: relative; z-index: 1; }
-
-    /* HERO */
-    .hero { max-width: 1240px; margin: 0 auto; padding: 60px 32px 52px; display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: start; }
-    .hero-text h1 { font-family: var(--font-display); font-variation-settings: "opsz" 96,"wght" 700; font-size: clamp(32px,4.5vw,60px); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 16px; color: var(--on-surface); }
-    .hero-text h1 .name-line { display: block; }
-    .hero-keywords { display: flex; flex-wrap: wrap; gap: 6px 12px; font-family: var(--font-mono); font-size: 12px; color: var(--on-surface-faint); letter-spacing: 0.04em; margin-bottom: 20px; }
-    .hero-keywords .dot-sep { color: var(--outline); }
-    .hero-lede { color: var(--on-surface-variant); max-width: 540px; font-size: 16px; line-height: 1.7; margin-bottom: 28px; }
-    .hero-lede strong { color: var(--on-surface); }
-    .lede-mark { color: var(--secondary); font-weight: 500; }
-    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: 999px; font-size: 14px; font-weight: 500; font-family: var(--font-body); transition: all 0.15s; cursor: pointer; border: none; }
-    .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
-    .btn.tonal { background: var(--primary-container); color: var(--on-primary-container); }
-    .btn.tonal:hover { background: color-mix(in oklab,var(--primary-container) 80%,var(--primary)); }
-    .btn.outline { background: transparent; color: var(--on-surface-variant); border: 1px solid var(--outline-variant); }
-    .btn.outline:hover { border-color: var(--primary); color: var(--primary); }
-
-    /* PORTRAIT */
-    .portrait { border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--outline-variant); }
-    .portrait-img { width: 100%; aspect-ratio: 3/2; background: var(--surface-container); overflow: hidden; }
-    .portrait-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .portrait-caption { padding: 12px 14px; background: var(--surface-container-low); border-top: 1px solid var(--outline-variant); font-family: var(--font-mono); font-size: 11px; color: var(--on-surface-faint); display: flex; flex-direction: column; gap: 3px; }
-    .portrait-caption .who { color: var(--on-surface); font-weight: 500; font-size: 12px; }
-    .status-line { display: flex; justify-content: flex-end; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--on-surface-faint); margin-bottom: 8px; }
-    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; animation: blink 2s ease-in-out infinite; flex-shrink: 0; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
-
-    /* SPEC STRIP */
-    .spec-strip { border-top: 1px solid var(--outline-variant); border-bottom: 1px solid var(--outline-variant); background: var(--surface-container-low); }
-    .spec-strip-inner { max-width: 1240px; margin: 0 auto; padding: 0 32px; display: flex; }
-    .spec { padding: 18px 28px 18px 0; flex: 1; border-right: 1px solid var(--outline-variant); }
-    .spec:last-child { border-right: none; padding-right: 0; }
-    .spec:not(:first-child) { padding-left: 28px; }
-    .spec-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 4px; }
-    .spec-value { font-size: 14px; font-weight: 500; color: var(--on-surface); }
-    .spec-value .sub { color: var(--on-surface-faint); font-weight: 400; }
-
-    /* SECTIONS */
-    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
-    .section { padding: 56px 0; border-bottom: 1px solid var(--outline-variant); }
-    .section-head { margin-bottom: 32px; }
-    .section-id { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 8px; }
-    .section-title { font-family: var(--font-display); font-variation-settings: "opsz" 48,"wght" 600; font-size: clamp(22px,2.8vw,34px); line-height: 1.15; letter-spacing: -0.01em; color: var(--on-surface); max-width: 60ch; }
-    .section-aside { font-family: var(--font-mono); font-size: 12px; color: var(--on-surface-faint); margin-top: 8px; }
-    .section-aside a { color: var(--primary); }
-
-    /* LEDGER / TIMELINE */
-    .ledger { display: flex; flex-direction: column; }
-    .ledger-head { display: grid; grid-template-columns: 80px 1fr 100px; padding: 0 0 10px; border-bottom: 1px solid var(--outline-variant); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-surface-faint); }
-    .ledger-head .right { text-align: right; }
-    .entry { display: grid; grid-template-columns: 80px 1fr 100px; gap: 0 24px; padding: 24px 0; border-bottom: 1px solid var(--outline-variant); align-items: start; }
-    .entry:last-child { border-bottom: none; }
-    .entry.current .entry-year { color: var(--primary); }
-    .entry-year { font-family: var(--font-display); font-variation-settings: "opsz" 32,"wght" 700; font-size: 18px; color: var(--on-surface-variant); line-height: 1; }
-    .entry-year .range { display: block; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; color: var(--on-surface-faint); margin-top: 4px; font-weight: 400; font-variation-settings: normal; }
-    .entry-kind { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--on-surface-faint); margin-bottom: 4px; }
-    .entry-title { font-family: var(--font-display); font-variation-settings: "opsz" 32,"wght" 600; font-size: 17px; color: var(--on-surface); margin: 0 0 2px; line-height: 1.25; }
-    .entry-org { font-size: 14px; color: var(--secondary); font-weight: 500; margin-bottom: 2px; }
-    .entry-loc { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 8px; }
-    .entry-summary { font-size: 14px; color: var(--on-surface-variant); line-height: 1.65; margin-bottom: 10px; }
-    .entry-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .entry-tags span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; padding: 2px 8px; border-radius: var(--r-xs); border: 1px solid var(--outline-variant); background: var(--surface-container-low); color: var(--on-surface-variant); }
-    .entry-aside { text-align: right; padding-top: 2px; display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
-    .duration { font-family: var(--font-mono); font-size: 12px; color: var(--on-surface-faint); }
-    .status { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 10.5px; color: var(--success); }
-    .status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); animation: blink 2s ease-in-out infinite; }
-
-    /* PROJECTS GRID */
-    .proj-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
-    .proj { border: 1px solid var(--outline-variant); border-radius: var(--r-lg); background: var(--surface-container-lowest); overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.2s,transform 0.2s; }
-    .proj:hover { box-shadow: 0 8px 28px rgba(49,46,129,0.12); transform: translateY(-2px); }
-    .proj-cover { position: relative; overflow: hidden; background: var(--surface-container-low); }
-    .proj-cover svg { display: block; width: 100%; }
-    .proj-meta { position: absolute; top: 12px; left: 12px; display: flex; gap: 5px; flex-wrap: wrap; }
-    .proj-meta .tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; padding: 3px 8px; border-radius: 999px; background: var(--primary); color: var(--on-primary); font-weight: 500; }
-    .proj .proj-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-    .proj h3 { font-family: var(--font-display); font-variation-settings: "opsz" 32,"wght" 600; font-size: 16px; color: var(--on-surface); letter-spacing: -0.01em; margin: 0; }
-    .proj p { font-size: 13.5px; color: var(--on-surface-variant); line-height: 1.65; flex: 1; }
-    .proj-stack { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
-    .proj-stack span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.03em; padding: 2px 7px; border-radius: var(--r-xs); background: var(--surface-container); border: 1px solid var(--outline-variant); color: var(--on-surface-variant); }
-    .proj-link-row { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-top: 1px solid var(--outline-variant); }
-    .proj-link { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--primary); display: inline-flex; align-items: center; gap: 5px; transition: color 0.15s; }
-    .proj-link svg { width: 12px; height: 12px; }
-    .proj-status-chip { margin-left: auto; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 999px; }
-    .proj-status-chip.ongoing { background: color-mix(in oklab,#d6335c 12%,transparent); color: var(--secondary); border: 1px solid color-mix(in oklab,#d6335c 28%,transparent); }
-    .proj-status-chip.published { background: color-mix(in oklab,#1e7f4f 12%,transparent); color: var(--success); border: 1px solid color-mix(in oklab,#1e7f4f 28%,transparent); }
-
-    /* COURSES */
-    .courses-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .course-group { border: 1px solid var(--outline-variant); border-radius: var(--r-lg); background: var(--surface-container-lowest); overflow: hidden; }
-    .course-group-head { padding: 14px 18px; background: var(--surface-container-low); border-bottom: 1px solid var(--outline-variant); display: flex; align-items: center; gap: 10px; }
-    .course-group-head .cg-icon { font-size: 1.3rem; }
-    .course-group-head .cg-title { font-family: var(--font-display); font-variation-settings: "opsz" 32,"wght" 600; font-size: 15px; color: var(--on-surface); }
-    .course-group-head .cg-sub { font-family: var(--font-mono); font-size: 10px; color: var(--on-surface-faint); letter-spacing: 0.06em; margin-left: auto; }
-    .course-list { padding: 6px 0; }
-    .course-item { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 10px 18px; border-bottom: 1px solid var(--outline-variant); align-items: start; transition: background 0.15s; }
-    .course-item:last-child { border-bottom: none; }
-    .course-item:hover { background: var(--surface-container-low); }
-    .course-name { font-size: 13.5px; color: var(--on-surface); font-weight: 500; line-height: 1.4; }
-    .course-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; padding: 2px 7px; border-radius: var(--r-xs); background: var(--surface-container); border: 1px solid var(--outline-variant); color: var(--on-surface-faint); white-space: nowrap; align-self: start; margin-top: 2px; }
-    .course-tag.done { background: var(--primary-container); border-color: color-mix(in oklab,var(--primary) 22%,transparent); color: var(--on-primary-container); }
-
-    /* COMMUNITY */
-    .comm-grid { display: flex; flex-direction: column; gap: 1px; border: 1px solid var(--outline-variant); border-radius: var(--r-lg); background: var(--outline-variant); overflow: hidden; }
-    .comm-card { display: flex; gap: 18px; padding: 20px 22px; background: var(--surface-container-lowest); align-items: flex-start; transition: background 0.15s; }
-    .comm-card:hover { background: var(--surface-container-low); }
-    .comm-ico { font-size: 1.6rem; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg,var(--primary-container),var(--surface-container)); border: 1px solid var(--outline-variant); border-radius: 10px; flex-shrink: 0; }
-    .comm-body { flex: 1; min-width: 0; }
-    .comm-title { font-size: 15px; font-weight: 700; color: var(--on-surface); margin-bottom: 2px; }
-    .comm-role { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; color: var(--secondary); margin-bottom: 6px; }
-    .comm-desc { font-size: 13.5px; color: var(--on-surface-variant); line-height: 1.65; }
-
-    /* SKILLS */
-    .skills { display: flex; flex-direction: column; }
-    .skill-row { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: start; padding: 18px 0; border-bottom: 1px solid var(--outline-variant); }
-    .skill-row:last-child { border-bottom: none; }
-    .skill-cat { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-faint); padding-top: 4px; display: flex; gap: 8px; align-items: baseline; }
-    .skill-cat .idx { font-size: 9px; }
-    .skill-vals { display: flex; flex-wrap: wrap; gap: 6px; }
-    .chip { font-family: var(--font-body); font-size: 13px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--outline-variant); background: var(--surface-container-low); color: var(--on-surface-variant); transition: all 0.15s; }
-    .chip.solid { background: var(--primary-container); color: var(--on-primary-container); border-color: color-mix(in oklab,var(--primary) 20%,transparent); }
-
-    /* CONTACT / FOOTER */
-    .contact { border-top: 1px solid var(--outline-variant); padding: 56px 0 40px; background: var(--surface-container-low); }
-    .contact-inner { max-width: 1240px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; align-items: start; }
-    .contact h2 { font-family: var(--font-display); font-variation-settings: "opsz" 96,"wght" 500; font-size: clamp(26px,3.2vw,42px); line-height: 1.05; letter-spacing: -0.02em; color: var(--on-surface); margin: 0 0 14px; }
-    .contact h2 a { color: var(--primary); border-bottom: 2px solid color-mix(in oklab,var(--primary) 40%,transparent); }
-    .contact h2 a:hover { border-color: var(--primary); }
-    .contact > .contact-inner > div > p { color: var(--on-surface-variant); max-width: 50ch; margin: 0; }
-    .contact-links { display: grid; gap: 1px; background: var(--outline-variant); border: 1px solid var(--outline-variant); border-radius: var(--r-sm); overflow: hidden; }
-    .contact-link { display: grid; grid-template-columns: 88px 1fr auto; gap: 16px; padding: 11px 16px; background: var(--surface-container-lowest); align-items: center; transition: background 0.15s; }
-    .contact-link:hover { background: var(--surface-container); }
-    .contact-link .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; color: var(--on-surface-faint); text-transform: uppercase; }
-    .contact-link .v { font-size: 14px; color: var(--on-surface); font-weight: 500; }
-    .contact-link .arrow { font-family: var(--font-mono); color: var(--on-surface-faint); }
-    .contact-link:hover .arrow { color: var(--primary); }
-    .footnote { max-width: 1240px; margin: 32px auto 0; padding: 0 32px 16px; font-family: var(--font-mono); font-size: 11px; color: var(--on-surface-faint); letter-spacing: 0.04em; }
-
-    /* CALENDAR */
-    .booking-section { margin-top: 2.5rem; max-width: 720px; }
-    .booking-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-surface-faint); margin-bottom: 1.2rem; }
-    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-    .cal-month-label { font-family: var(--font-display); font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
-    .cal-nav { display: flex; gap: 0.5rem; }
-    .cal-nav-btn { width: 32px; height: 32px; border-radius: var(--r-sm); border: 1px solid var(--outline-variant); background: var(--surface-container-lowest); color: var(--on-surface-variant); cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-    .cal-nav-btn:hover { border-color: var(--primary); color: var(--primary); background: color-mix(in oklab,var(--primary) 8%,transparent); }
-    .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; min-height: 240px; }
-    .cal-day-name { text-align: center; font-family: var(--font-mono); font-size: 10px; color: var(--on-surface-faint); padding: 0.4rem 0; text-transform: uppercase; letter-spacing: 0.06em; }
-    .cal-cell { aspect-ratio: 1; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; cursor: default; transition: all 0.15s; border: 1px solid transparent; position: relative; }
-    .cal-cell.empty { background: transparent; }
-    .cal-cell.past,.cal-cell.weekend { color: var(--outline); background: transparent; }
-    .cal-cell.today { border-color: var(--primary); color: var(--primary); font-weight: 700; }
-    .cal-cell.available { background: var(--surface-container-lowest); border-color: var(--outline-variant); color: var(--on-surface); cursor: pointer; }
-    .cal-cell.available:hover { background: var(--primary-container); border-color: color-mix(in oklab,var(--primary) 30%,transparent); color: var(--on-primary-container); transform: scale(1.07); }
-    .cal-cell.booked { background: var(--surface-container); border-color: var(--outline-variant); color: var(--on-surface-faint); cursor: not-allowed; opacity: 0.6; }
-    .cal-cell .booked-dot { position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--secondary); }
-    .cal-legend { display: flex; gap: 1.2rem; margin-top: 0.8rem; flex-wrap: wrap; }
-    .legend-item { display: flex; align-items: center; gap: 0.35rem; font-size: 11px; color: var(--on-surface-faint); font-family: var(--font-mono); }
-    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
-
-    /* MODAL */
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(20,24,30,0.6); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(4px); }
-    .modal-backdrop.open { opacity: 1; pointer-events: auto; }
-    .modal { background: var(--surface-container-lowest); border: 1px solid var(--outline-variant); border-radius: 18px; width: min(480px,90vw); padding: 2rem; box-shadow: 0 24px 80px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
-    .modal-backdrop.open .modal { transform: translateY(0); }
-    .modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; }
-    .modal-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--on-surface); }
-    .modal-date { font-family: var(--font-mono); font-size: 11px; color: var(--primary); margin-top: 0.2rem; }
-    .modal-close { width: 30px; height: 30px; border-radius: var(--r-sm); background: var(--surface-container); border: 1px solid var(--outline-variant); color: var(--on-surface-variant); cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-    .modal-close:hover { color: var(--on-surface); border-color: var(--outline); }
-    .slots-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-bottom: 1.5rem; }
-    .slot-btn { padding: 0.55rem 0; border-radius: var(--r-sm); border: 1px solid var(--outline-variant); background: var(--surface-container-lowest); color: var(--on-surface-variant); font-family: var(--font-mono); font-size: 12px; cursor: pointer; transition: all 0.15s; text-align: center; }
-    .slot-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: var(--primary-container); }
-    .slot-btn.selected { border-color: var(--primary); background: var(--primary-container); color: var(--on-primary-container); font-weight: 700; }
-    .slot-btn:disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; }
-    .form-group { margin-bottom: 1rem; }
-    .form-label { display: block; font-size: 11px; color: var(--on-surface-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; font-family: var(--font-mono); }
-    .form-input,.form-textarea { width: 100%; background: var(--surface-container-lowest); border: 1px solid var(--outline-variant); border-radius: var(--r-sm); padding: 0.7rem 0.9rem; color: var(--on-surface); font-family: var(--font-body); font-size: 14px; transition: border-color 0.15s; outline: none; }
-    .form-input:focus,.form-textarea:focus { border-color: var(--primary); }
-    .form-input.error,.form-textarea.error { border-color: #dc2626; }
-    .form-textarea { resize: vertical; min-height: 80px; }
-    .form-error { font-size: 11px; color: #dc2626; margin-top: 0.3rem; display: none; }
-    .form-error.show { display: block; }
-    .btn-book { width: 100%; padding: 0.85rem; border-radius: var(--r-md); border: none; background: var(--primary); color: var(--on-primary); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s; margin-top: 0.5rem; }
-    .btn-book:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-1px); }
-    .btn-book:disabled { opacity: 0.6; cursor: not-allowed; }
-    .modal-success { display: none; text-align: center; padding: 1rem 0; }
-    .modal-success.show { display: block; }
-    .success-ico { font-size: 2.5rem; margin-bottom: 1rem; }
-    .success-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--on-surface); }
-    .success-desc { font-size: 13px; color: var(--on-surface-variant); line-height: 1.7; margin-bottom: 1.5rem; }
-    .btn-gcal { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.3rem; border-radius: var(--r-sm); border: 1px solid color-mix(in oklab,var(--primary) 30%,transparent); background: var(--primary-container); color: var(--on-primary-container); font-size: 13px; font-weight: 600; transition: all 0.15s; }
-    .btn-gcal:hover { background: color-mix(in oklab,var(--primary-container) 70%,var(--primary)); }
-    .slot-required-msg { font-size: 11px; color: #dc2626; margin-bottom: 0.8rem; display: none; font-family: var(--font-mono); }
-    .slot-required-msg.show { display: block; }
-
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero aside { order: -1; max-width: 280px; }
-      .ledger-head,.entry { grid-template-columns: 60px 1fr; }
-      .ledger-head .right,.entry-aside { display: none; }
-      .proj-grid { grid-template-columns: 1fr 1fr 1fr; }
-      .courses-grid { grid-template-columns: 1fr; }
-      .contact-inner { grid-template-columns: 1fr; gap: 32px; }
-      .skill-row { grid-template-columns: 1fr; gap: 10px; }
-    }
-    @media (max-width: 640px) {
-      .topbar-inner { padding: 10px 16px; }
-      .nav a { padding: 9px 14px; font-size: 13px; }
-      .hero { padding: 36px 20px 32px; }
-      .wrap { padding: 0 20px; }
-      .spec-strip-inner { flex-direction: column; }
-      .spec { border-right: none; border-bottom: 1px solid var(--outline-variant); padding: 14px 0; }
-      .spec:last-child { border-bottom: none; }
-      .proj-grid { grid-template-columns: 1fr; }
-      .contact-inner,.footnote { padding-left: 20px; padding-right: 20px; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/theme.css" />
 </head>
 <body>
 
-<div class="grid-bg"></div>
+<div class="wave-bg" id="wave-bg"></div>
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <nav class="nav" id="main-nav">
-      <a href="/" class="active" data-section="home">Home</a>
-      <a href="/projects/" data-section="projects">Projects</a>
+<header class="nav-bar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/">
+      <svg viewBox="0 0 100 100"><rect x="2" y="2" width="96" height="96" rx="10" fill="var(--accent)"></rect><g clip-path="url(#logoclip)"><path d="M -28 14 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 38 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 62 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 86 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path></g><clipPath id="logoclip"><rect x="8" y="8" width="84" height="84" rx="6"></rect></clipPath></svg>
+      <span class="word">GAURAV<span class="u">_</span>MISHRA</span>
+    </a>
+    <nav class="nav-links">
+      <a href="/" class="active">Home</a>
+      <a href="/projects/">Projects</a>
       <a href="/courses/">Courses</a>
       <a href="/community/">Community</a>
       <a href="/contact/">Contact</a>
     </nav>
+    <div class="nav-status"><span class="dot"></span>OPEN TO R&amp;D</div>
   </div>
 </header>
 
-<main id="home">
+<main>
 
-  <!-- HERO -->
+  <!-- ================= HERO ================= -->
   <section class="hero">
-    <div class="hero-text">
-      <h1>
-        <span class="name-line">Gaurav Kumar Mishra.</span>
-        Master of Science in <em>Information&nbsp;and Communications</em> Technology.
-      </h1>
-      <div class="hero-keywords" aria-label="Focus areas">
-        <span>Hardware Design</span>
-        <span class="dot-sep" aria-hidden="true">·</span>
-        <span>Embedded Systems</span>
-        <span class="dot-sep" aria-hidden="true">·</span>
-        <span>IC Design</span>
-        <span class="dot-sep" aria-hidden="true">·</span>
-        <span>RF &amp; Wireless</span>
-        <span class="dot-sep" aria-hidden="true">·</span>
-        <span>IoT</span>
-      </div>
-      <p class="hero-lede">
-        Right now, I'm at <strong>FAU Erlangen-Nürnberg</strong>, working as a student in the
-        <strong>Hardware Development Team at Siemens Healthineers</strong>.
-        <span class="lede-mark"> Open to R&amp;D opportunities in Hardware Engineering, Embedded Systems, and IC Design.</span>
-      </p>
+    <div class="hero-copy">
+      <div class="eyebrow">HARDWARE ENGINEER — REV. 2026</div>
+      <h1>Gaurav Kumar Mishra.<br><span class="sub">From schematic to</span> <span class="accent">system.</span></h1>
+      <p class="hero-lede">M.Sc. ICT at FAU Erlangen-Nürnberg, working in the Hardware Development Team at <strong>Siemens Healthineers</strong>. Open to R&amp;D opportunities in hardware engineering, embedded systems, and PCB design.</p>
       <div class="cta-row">
-        <a class="btn tonal" href="/projects/">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          Projects
-        </a>
-        <a class="btn outline" href="https://github.com/gaurav-mk" rel="external nofollow noopener" target="_blank">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5.5 5.7.5 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1-.3 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
-        </a>
-        <a class="btn outline" href="https://linkedin.com/in/gaurav-25" rel="external nofollow noopener" target="_blank">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
+        <a class="btn btn-solid" href="/projects/">View projects →</a>
+        <a class="btn btn-outline" href="https://github.com/gaurav-mk" target="_blank" rel="external nofollow noopener">GitHub</a>
+        <a class="btn btn-outline" href="https://linkedin.com/in/gaurav-25" target="_blank" rel="external nofollow noopener">LinkedIn</a>
+      </div>
+      <div class="kw-row">
+        <span>HARDWARE DESIGN</span>
+        <span>EMBEDDED SYSTEMS</span>
+        <span>IC DESIGN</span>
+        <span>RF &amp; WIRELESS</span>
+        <span>IOT</span>
       </div>
     </div>
 
-    <aside aria-label="Profile" style="display:flex;flex-direction:column;gap:10px;">
-      <div class="status-line">
-        <span class="status-dot"></span>
-        <span>Currently working · Erlangen</span>
-      </div>
-      <div class="portrait">
-        <div class="portrait-img">
-          <img src="profile_pic.jpg" alt="Gaurav Kumar Mishra" loading="eager" />
+    <div class="portrait-frame">
+      <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+      <div class="portrait-inner">
+        <div class="portrait-tag"><span>IMG_SUBJECT.RAW</span><span>1/1</span></div>
+        <div class="portrait-photo">
+          <img src="/profile_pic.jpg" alt="Gaurav Kumar Mishra" loading="eager" />
         </div>
-        <div class="portrait-caption">
-          <span class="who">Gaurav Kumar Mishra</span>
-          <span>EE → HW &amp; SW</span>
-          <span class="focus">Gold medalist in EE, now building hardware at Siemens and exploring RF at FAU.</span>
-        </div>
+        <div class="portrait-meta">LOC&nbsp;&nbsp;: ERLANGEN, DE<br>ROLE : HW DEV — SIEMENS HEALTHINEERS<br>EDU&nbsp;&nbsp;: M.SC. ICT — FAU</div>
       </div>
-    </aside>
+    </div>
   </section>
 
-  <!-- SPEC STRIP -->
-  <div class="spec-strip">
-    <div class="spec-strip-inner">
-      <div class="spec"><div class="spec-label">Based</div><div class="spec-value">Erlangen, DE</div></div>
-      <div class="spec"><div class="spec-label">Working</div><div class="spec-value">Siemens Healthineers <span class="sub">/ HW Dev</span></div></div>
-      <div class="spec"><div class="spec-label">Studying</div><div class="spec-value">M.Sc. ICT <span class="sub">/ FAU</span></div></div>
-      <div class="spec"><div class="spec-label">Tinkering with</div><div class="spec-value">BLE–mioty module <span class="sub">/ KiCad</span></div></div>
+  <!-- ================= STAT STRIP ================= -->
+  <div class="stat-strip">
+    <div class="stat-strip-inner">
+      <div class="stat-cell"><div class="stat-label">BASED</div><div class="stat-value">Erlangen, DE</div></div>
+      <div class="stat-cell"><div class="stat-label">WORKING</div><div class="stat-value">Siemens Healthineers <span class="sub">/ HW Dev</span></div></div>
+      <div class="stat-cell"><div class="stat-label">STUDYING</div><div class="stat-value">M.Sc. ICT <span class="sub">/ FAU</span></div></div>
+      <div class="stat-cell"><div class="stat-label">TINKERING WITH</div><div class="stat-value">BLE–mioty module <span class="sub">/ KiCad</span></div></div>
     </div>
   </div>
 
-  <!-- §01 TIMELINE -->
-  <section class="wrap section" id="timeline">
-    <div class="section-head">
-      <div class="section-id">§ 01 · Timeline</div>
-      <h2 class="section-title">Where I've studied, worked, and learned the next thing.</h2>
+  <!-- ================= CAPABILITIES ================= -->
+  <div class="wrap" style="padding:72px 32px 64px;">
+    <h2 class="h2" style="margin-bottom:32px;">What I work on.</h2>
+    <div class="cap-grid">
+      <div class="cap-card">
+        <div class="cap-icon" style="border-radius:4px;"></div>
+        <h3>Hardware Design</h3>
+        <p>Schematic capture, multi-layer PCB layout, DFM and bring-up.</p>
+        <div class="cap-meta">KICAD · ALTIUM</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon" style="border-radius:50%;"></div>
+        <h3>Embedded Systems</h3>
+        <p>Bare-metal and RTOS firmware for ARM Cortex-M targets.</p>
+        <div class="cap-meta">C / C++ · ZEPHYR</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon" style="border-radius:4px;transform:rotate(45deg) scale(.82);"></div>
+        <h3>IC Design</h3>
+        <p>Analog and mixed-signal blocks, simulation and layout.</p>
+        <div class="cap-meta">CADENCE · SPICE</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon" style="border-radius:17px 4px;"></div>
+        <h3>RF &amp; Wireless</h3>
+        <p>Antenna matching, link budgets, BLE and sub-GHz protocols.</p>
+        <div class="cap-meta">BLE · MIOTY · 868 MHZ</div>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon" style="border-radius:4px 17px;"></div>
+        <h3>IoT</h3>
+        <p>Low-power sensor nodes, from energy budget to cloud uplink.</p>
+        <div class="cap-meta">LPWAN · MQTT</div>
+      </div>
     </div>
-    <div class="ledger">
-      <div class="ledger-head"><div>When</div><div>Role &amp; Scope</div><div class="right">Duration</div></div>
+  </div>
 
-      <article class="entry current">
-        <div class="entry-when"><div class="entry-year">2024<span class="range">SEP'24 – PRESENT</span></div></div>
-        <div class="entry-main">
-          <span class="entry-kind">Work · Working Student</span>
-          <h3 class="entry-title">Hardware Development</h3>
-          <div class="entry-org">Siemens Healthineers</div>
-          <div class="entry-loc">ERLANGEN, DE</div>
-          <p class="entry-summary">POCs using circuit design simulations for gate drivers and MOSFETs. High-voltage RF isolation for monolithic integration, PCB design and component placement, programmed analog RF receivers in VHDL.</p>
-          <div class="entry-tags"><span>PSpice</span><span>KiCad</span><span>VHDL</span><span>MATLAB</span><span>Xpedition</span><span>Python</span></div>
+  <!-- ================= FEATURED BUILD ================= -->
+  <div class="section-alt">
+    <div class="wrap" style="padding:72px 32px;">
+      <h2 class="h2">Featured Build.</h2>
+      <div class="feature-grid">
+        <div class="feature-media">
+          <img src="/projects/ble-mioty/PCB_3D_Blue.png" alt="BLE–mioty wireless module PCB render" />
+          <div class="feature-tag">P-01 · IN PROGRESS</div>
         </div>
-        <div class="entry-aside"><span class="duration">~1 yr</span><span class="status"><span class="dot"></span> Now</span></div>
-      </article>
-
-      <article class="entry edu current">
-        <div class="entry-when"><div class="entry-year">2024<span class="range">APR'24 – PRESENT</span></div></div>
-        <div class="entry-main">
-          <span class="entry-kind">Education · Master's</span>
-          <h3 class="entry-title">M.Sc. Information &amp; Communications Technology</h3>
-          <div class="entry-org">Friedrich-Alexander-Universität Erlangen-Nürnberg</div>
-          <div class="entry-loc">ERLANGEN, DE</div>
-          <p class="entry-summary">GPA 1.9/5.0 (1.0 highest). Coursework spans Information Theory, Approximate Computing, Communication Systems, Mobile Communication, QoS, Cybersecurity, Machine Learning, and Advanced C++.</p>
-          <div class="entry-tags"><span>Machine Learning</span><span>Cybersecurity</span><span>Communication Systems</span><span>Advanced C++</span></div>
+        <div class="feature-body">
+          <h3>BLE–mioty wireless module</h3>
+          <p>A compact dual-radio module combining Bluetooth Low Energy with the mioty low-power WAN protocol — schematic capture, 4-layer PCB layout, and antenna matching done in KiCad.</p>
+          <div class="spec-table">
+            <div class="spec-row"><div class="k">RADIO</div><div class="v">BLE 5.3 + mioty (868 MHz)</div></div>
+            <div class="spec-row"><div class="k">STACKUP</div><div class="v">4-layer, controlled impedance</div></div>
+            <div class="spec-row"><div class="k">TOOLING</div><div class="v">KiCad · C · nRF SDK</div></div>
+            <div class="spec-row"><div class="k">STATUS</div><div class="v accent">● Bring-up &amp; RF validation</div></div>
+          </div>
+          <div class="cta-row" style="margin-top:2px;">
+            <a class="btn btn-solid btn-sm" href="/projects/ble-mioty/">Read the build log →</a>
+            <a class="btn btn-outline btn-sm" href="https://github.com/gaurav-mk" target="_blank" rel="external nofollow noopener">Design files</a>
+          </div>
         </div>
-        <div class="entry-aside"><span class="duration">~2 yr</span><span class="status"><span class="dot"></span> Now</span></div>
-      </article>
-
-      <article class="entry">
-        <div class="entry-when"><div class="entry-year">2022<span class="range">JUN'22 – FEB'24</span></div></div>
-        <div class="entry-main">
-          <span class="entry-kind">Work · Analyst</span>
-          <h3 class="entry-title">Application Developer — Salesforce</h3>
-          <div class="entry-org">Deloitte US–India</div>
-          <div class="entry-loc">BENGALURU, IN</div>
-          <p class="entry-summary">Built supply chain systems using Salesforce for Pfizer. Led team and served as Salesforce Integration contact. 2× Applause Awardee — recognized for performance and independence.</p>
-          <div class="entry-tags"><span>Apex</span><span>LWC</span><span>Snowflake</span><span>Mulesoft</span><span>SOQL</span><span>Azure</span><span>Power BI</span></div>
-        </div>
-        <div class="entry-aside"><span class="duration">1.7 yr</span></div>
-      </article>
-
-      <article class="entry">
-        <div class="entry-when"><div class="entry-year">2021<span class="range">NOV'21 – JUN'22</span></div></div>
-        <div class="entry-main">
-          <span class="entry-kind">Work · Intern</span>
-          <h3 class="entry-title">IC Design — Standard Cell Library</h3>
-          <div class="entry-org">Epical Layouts Pvt. Ltd.</div>
-          <div class="entry-loc">CHENNAI, IN</div>
-          <p class="entry-summary">Created standard cell library to analyze radiation hardening of circuits for space applications using the ASAP7 7nm FinFET PDK.</p>
-          <div class="entry-tags"><span>Analog IC Design</span><span>Digital IC Design</span><span>PDK</span><span>Standard Cell</span><span>ASAP7</span></div>
-        </div>
-        <div class="entry-aside"><span class="duration">7 mo</span></div>
-      </article>
-
-      <article class="entry edu">
-        <div class="entry-when"><div class="entry-year">2018<span class="range">AUG'18 – MAR'22</span></div></div>
-        <div class="entry-main">
-          <span class="entry-kind">Education · Bachelor's</span>
-          <h3 class="entry-title">B.E. Electronics &amp; Communication Engineering</h3>
-          <div class="entry-org">Sathyabama Institute of Science &amp; Technology</div>
-          <div class="entry-loc">CHENNAI, IN</div>
-          <p class="entry-summary">GPA 9.8/10 · Gold Medalist (1st in Batch) · Star of Excellence Award · Dean's List. Secretary of Robotics Club — Arduino, Raspberry Pi, C/C++, LabVIEW.</p>
-          <div class="entry-tags"><span>VLSI</span><span>Embedded Systems</span><span>IoT</span><span>C/C++</span><span>LabVIEW</span></div>
-        </div>
-        <div class="entry-aside"><span class="duration">3.6 yr</span></div>
-      </article>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- §02 PROJECTS -->
-  <section class="wrap section" id="projects-section">
-    <div class="section-head">
-      <div class="section-id">§ 02 · Selected work</div>
-      <h2 class="section-title">A few projects I keep coming back to.</h2>
-      <div class="section-aside"><a href="/projects/">All projects →</a></div>
+  <!-- ================= PROJECT INDEX ================= -->
+  <div class="wrap" style="padding:72px 32px 64px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px;flex-wrap:wrap;gap:12px;">
+      <h2 class="h2">Selected work.</h2>
+      <a href="/projects/" style="font:500 12px var(--font-mono);letter-spacing:1px;">VIEW ALL →</a>
     </div>
-    <div class="proj-grid">
+    <div class="proj-table">
+      <div class="proj-table-head"><span>REF</span><span>PREVIEW</span><span>PROJECT</span><span>DOMAIN</span><span>YEAR</span><span></span></div>
 
-      <a class="proj" href="/projects/ble-mioty/">
-        <div class="proj-cover">
-          <svg viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
-            <defs><pattern id="g1" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#312e81" stroke-width="0.5" opacity="0.15"/></pattern></defs>
-            <rect width="320" height="180" fill="#ece9f6"/><rect width="320" height="180" fill="url(#g1)"/>
-            <circle cx="160" cy="90" r="60" fill="none" stroke="#312e81" stroke-width="1.5"/>
-            <path d="M130 75 L130 105" stroke="#312e81" stroke-width="1.5"/>
-            <path d="M130 75 L145 63 L145 90 L130 105 L145 118 L145 90" fill="none" stroke="#312e81" stroke-width="1.5"/>
-            <path d="M185 70 Q195 82 185 90" fill="none" stroke="#d6335c" stroke-width="1.5"/>
-            <path d="M190 65 Q205 82 190 100" fill="none" stroke="#d6335c" stroke-width="1.2" stroke-dasharray="3 2"/>
-            <rect x="152" y="82" width="16" height="16" rx="2" fill="#fff" stroke="#312e81" stroke-width="1"/>
-            <text x="160" y="174" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#86829e">BLE + mioty · 2.4 GHz · Coin-cell</text>
-          </svg>
-          <div class="proj-meta"><span class="tag">Embedded</span><span class="tag">Hardware</span></div>
-        </div>
-        <div class="proj-body">
-          <h3>Joint BLE &amp; mioty Localization Module</h3>
-          <p>Low-power localization tag combining BLE short-range tracking and mioty long-range fallback in a single 2.4 GHz transceiver. Custom circular PCB, 9-axis IMU, coin-cell powered.</p>
-          <div class="proj-stack"><span>BLE</span><span>mioty</span><span>KiCad</span><span>Firmware</span><span>IMU</span></div>
-        </div>
-        <div class="proj-link-row">
-          <span class="proj-link">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          <span class="proj-status-chip ongoing">● Ongoing</span>
-        </div>
+      <a class="proj-row" href="/projects/ble-mioty/">
+        <span class="ref">P-01</span>
+        <span class="thumb"></span>
+        <span><span class="name">BLE–mioty wireless module</span><span class="desc">Dual-radio module, 4-layer PCB in KiCad</span></span>
+        <span class="domain">RF / PCB</span>
+        <span class="year">2026</span>
+        <span class="arrow">→</span>
       </a>
-
-      <a class="proj" href="/projects/JESD204C_Clock_Tree_Thesis/">
-        <div class="proj-cover">
-          <svg viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
-            <defs><pattern id="g4h" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#312e81" stroke-width="0.5" opacity="0.15"/></pattern></defs>
-            <rect width="320" height="180" fill="#ece9f6"/><rect width="320" height="180" fill="url(#g4h)"/>
-            <polyline points="30,100 55,100 56,72 81,72 82,100 107,100 108,72 133,72 134,100 159,100 160,72 185,72 186,100 211,100 212,72 237,72 238,100 263,100" fill="none" stroke="#312e81" stroke-width="1.5"/>
-            <polyline points="30,145 60,138 90,126 120,118 150,115 180,113 210,112 240,112 270,112 290,112" fill="none" stroke="#d6335c" stroke-width="1.5" stroke-dasharray="4 2"/>
-            <rect x="200" y="50" width="40" height="20" rx="3" fill="#fff" stroke="#312e81" stroke-width="1"/>
-            <text x="220" y="64" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#312e81">PLL</text>
-            <line x1="240" y1="60" x2="265" y2="60" stroke="#312e81" stroke-width="1"/>
-            <polyline points="265,60 265,80 200,80 200,60" fill="none" stroke="#d6335c" stroke-width="1" stroke-dasharray="3 2"/>
-            <text x="160" y="174" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#86829e">JESD204C · LMX1205 · HMC7043</text>
-          </svg>
-          <div class="proj-meta"><span class="tag">RF Clocking</span><span class="tag">Thesis</span></div>
-        </div>
-        <div class="proj-body">
-          <h3>JESD204C Clock Tree — M.Sc. Thesis</h3>
-          <p>Experimental characterization, SPI-controlled reconfiguration, and optimization of JESD204C clock trees using the LMX1205 PLL and HMC7043 distributor. Deterministic latency and minimum jitter for multi-channel ADC/DAC systems.</p>
-          <div class="proj-stack"><span>JESD204C</span><span>LMX1205</span><span>HMC7043</span><span>SPI</span><span>Signal Integrity</span></div>
-        </div>
-        <div class="proj-link-row">
-          <span class="proj-link">View thesis <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          <span class="proj-status-chip ongoing">● Ongoing</span>
-        </div>
+      <a class="proj-row" href="/projects/JESD204C_Clock_Tree_Thesis/">
+        <span class="ref">P-02</span>
+        <span class="thumb"></span>
+        <span><span class="name">JESD204C Clock Tree — M.Sc. Thesis</span><span class="desc">LMX1205 PLL, HMC7043 distributor</span></span>
+        <span class="domain">RF CLOCKING</span>
+        <span class="year">2026</span>
+        <span class="arrow">→</span>
       </a>
-
-      <a class="proj" href="/projects/7nm-finfet-standard-cell-library/">
-        <div class="proj-cover">
-          <svg viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
-            <defs><pattern id="g2" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#312e81" stroke-width="0.5" opacity="0.15"/></pattern></defs>
-            <rect width="320" height="180" fill="#ece9f6"/><rect width="320" height="180" fill="url(#g2)"/>
-            <rect x="120" y="100" width="80" height="20" rx="2" fill="#312e81" opacity="0.15"/>
-            <rect x="150" y="72" width="20" height="28" rx="2" fill="#312e81" opacity="0.2"/>
-            <rect x="148" y="66" width="24" height="8" rx="1" fill="#d6335c" opacity="0.7"/>
-            <rect x="155" y="50" width="4" height="16" fill="#312e81" opacity="0.5"/>
-            <rect x="161" y="50" width="4" height="16" fill="#312e81" opacity="0.5"/>
-            <text x="160" y="40" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#312e81">7nm FINFET</text>
-            <text x="160" y="174" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#86829e">ASAP7 PDK · Standard Cell · IEEE</text>
-          </svg>
-          <div class="proj-meta"><span class="tag">IC Design</span><span class="tag">VLSI</span></div>
-        </div>
-        <div class="proj-body">
-          <h3>7nm FinFET Standard Cell Library</h3>
-          <p>Designed and assessed a 7nm FinFET standard cell library using the ASAP7 PDK. Adaptable logic gates, optimized layouts, minimal footprint. Published in IEEE.</p>
-          <div class="proj-stack"><span>FinFET</span><span>ASAP7 PDK</span><span>Standard Cell</span><span>VLSI</span></div>
-        </div>
-        <div class="proj-link-row">
-          <span class="proj-link">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          <span class="proj-status-chip published">✓ IEEE</span>
-        </div>
+      <a class="proj-row" href="/projects/7nm-finfet-standard-cell-library/">
+        <span class="ref">P-03</span>
+        <span class="thumb"></span>
+        <span><span class="name">7nm FinFET Standard Cell Library</span><span class="desc">ASAP7 PDK, published in IEEE</span></span>
+        <span class="domain">IC DESIGN</span>
+        <span class="year">2022</span>
+        <span class="arrow">→</span>
       </a>
-
-      <a class="proj" href="/projects/smart-home-automation-ups/">
-        <div class="proj-cover">
-          <svg viewBox="0 0 320 180" preserveAspectRatio="none" aria-hidden="true">
-            <defs><pattern id="g3" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#312e81" stroke-width="0.5" opacity="0.15"/></pattern></defs>
-            <rect width="320" height="180" fill="#ece9f6"/><rect width="320" height="180" fill="url(#g3)"/>
-            <polygon points="160,40 220,90 220,150 100,150 100,90" fill="none" stroke="#312e81" stroke-width="1.5"/>
-            <line x1="160" y1="40" x2="100" y2="90" stroke="#312e81" stroke-width="1.5"/>
-            <path d="M150 100 Q160 90 170 100" fill="none" stroke="#d6335c" stroke-width="1.5"/>
-            <path d="M145 95 Q160 82 175 95" fill="none" stroke="#d6335c" stroke-width="1" stroke-dasharray="3 2"/>
-            <circle cx="160" cy="104" r="3" fill="#d6335c"/>
-            <text x="160" y="174" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#86829e">IoT · UPS · Arduino · IEEE</text>
-          </svg>
-          <div class="proj-meta"><span class="tag">IoT</span><span class="tag">Power Electronics</span></div>
-        </div>
-        <div class="proj-body">
-          <h3>Smart Home Automation + UPS</h3>
-          <p>Automatic LED emergency lamp with an online UPS for low-power household appliances. Full circuit design, simulation, testing, and IoT integration. Published in IEEE.</p>
-          <div class="proj-stack"><span>IoT</span><span>Arduino</span><span>Power Electronics</span><span>Circuit Design</span></div>
-        </div>
-        <div class="proj-link-row">
-          <span class="proj-link">View project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-          <span class="proj-status-chip published">✓ IEEE</span>
-        </div>
+      <a class="proj-row" href="/projects/smart-home-automation-ups/">
+        <span class="ref">P-04</span>
+        <span class="thumb"></span>
+        <span><span class="name">Smart Home Automation + UPS</span><span class="desc">IoT + power electronics, IEEE published</span></span>
+        <span class="domain">IOT</span>
+        <span class="year">2021</span>
+        <span class="arrow">→</span>
       </a>
-
     </div>
-  </section>
+  </div>
 
-  <!-- §03 COURSES — moved to /courses/ -->
-  <section class="wrap section" id="courses-preview" style="padding:40px 0;">
-    <div class="section-head" style="margin-bottom:0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-      <div>
-        <div class="section-id">§ 03 · Courses</div>
-        <h2 class="section-title" style="font-size:clamp(18px,2vw,26px);">Graduate coursework and certifications.</h2>
-      </div>
-      <a href="/courses/" class="btn tonal" style="flex-shrink:0;">All courses →</a>
-    </div>
-  </section>
+  <!-- ================= TRAJECTORY ================= -->
+  <div class="section-alt">
+    <div class="wrap" style="padding:72px 32px;">
+      <h2 class="h2" style="margin-bottom:40px;">Where I've studied, worked, and learned the next thing.</h2>
+      <div class="ledger">
+        <div class="ledger-head"><div>When</div><div>Role &amp; Scope</div><div class="right">Duration</div></div>
 
-  <!-- §04 COMMUNITY — moved to /community/ -->
-  <section class="wrap section" id="community-preview" style="padding:40px 0;">
-    <div class="section-head" style="margin-bottom:0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-      <div>
-        <div class="section-id">§ 04 · Community</div>
-        <h2 class="section-title" style="font-size:clamp(18px,2vw,26px);">Leadership, awards, and publications.</h2>
-      </div>
-      <a href="/community/" class="btn tonal" style="flex-shrink:0;">See all →</a>
-    </div>
-  </section>
+        <article class="entry current">
+          <div class="entry-year">2024<span class="range">SEP'24 – PRESENT</span></div>
+          <div>
+            <div class="entry-kind">WORK · WORKING STUDENT</div>
+            <h3 class="entry-title">Hardware Development</h3>
+            <div class="entry-org">Siemens Healthineers</div>
+            <div class="entry-loc">ERLANGEN, DE</div>
+            <p class="entry-summary">POCs using circuit design simulations for gate drivers and MOSFETs. High-voltage RF isolation for monolithic integration, PCB design and component placement, programmed analog RF receivers in VHDL.</p>
+            <div class="entry-tags"><span>PSpice</span><span>KiCad</span><span>VHDL</span><span>MATLAB</span><span>Xpedition</span><span>Python</span></div>
+          </div>
+          <div class="entry-aside"><span class="entry-duration">~1 yr</span><span class="entry-status"><span class="dot"></span> Now</span></div>
+        </article>
 
+        <article class="entry current">
+          <div class="entry-year">2024<span class="range">APR'24 – PRESENT</span></div>
+          <div>
+            <div class="entry-kind">EDUCATION · MASTER'S</div>
+            <h3 class="entry-title">M.Sc. Information &amp; Communications Technology</h3>
+            <div class="entry-org">Friedrich-Alexander-Universität Erlangen-Nürnberg</div>
+            <div class="entry-loc">ERLANGEN, DE</div>
+            <p class="entry-summary">GPA 1.9/5.0 (1.0 highest). Coursework spans Information Theory, Approximate Computing, Communication Systems, Mobile Communication, QoS, Cybersecurity, Machine Learning, and Advanced C++.</p>
+            <div class="entry-tags"><span>Machine Learning</span><span>Cybersecurity</span><span>Communication Systems</span><span>Advanced C++</span></div>
+          </div>
+          <div class="entry-aside"><span class="entry-duration">~2 yr</span><span class="entry-status"><span class="dot"></span> Now</span></div>
+        </article>
 
-  <!-- §05 SKILLS -->
-  <section class="wrap section" id="skills">
-    <div class="section-head">
-      <div class="section-id">§ 05 · The toolbox</div>
-      <h2 class="section-title">Languages, tools, protocols, and platforms.</h2>
+        <article class="entry">
+          <div class="entry-year">2022<span class="range">JUN'22 – FEB'24</span></div>
+          <div>
+            <div class="entry-kind">WORK · ANALYST</div>
+            <h3 class="entry-title">Application Developer — Salesforce</h3>
+            <div class="entry-org">Deloitte US–India</div>
+            <div class="entry-loc">BENGALURU, IN</div>
+            <p class="entry-summary">Built supply chain systems using Salesforce for Pfizer. Led team and served as Salesforce Integration contact. 2× Applause Awardee — recognized for performance and independence.</p>
+            <div class="entry-tags"><span>Apex</span><span>LWC</span><span>Snowflake</span><span>Mulesoft</span><span>SOQL</span><span>Azure</span><span>Power BI</span></div>
+          </div>
+          <div class="entry-aside"><span class="entry-duration">1.7 yr</span></div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-year">2021<span class="range">NOV'21 – JUN'22</span></div>
+          <div>
+            <div class="entry-kind">WORK · INTERN</div>
+            <h3 class="entry-title">IC Design — Standard Cell Library</h3>
+            <div class="entry-org">Epical Layouts Pvt. Ltd.</div>
+            <div class="entry-loc">CHENNAI, IN</div>
+            <p class="entry-summary">Created standard cell library to analyze radiation hardening of circuits for space applications using the ASAP7 7nm FinFET PDK.</p>
+            <div class="entry-tags"><span>Analog IC Design</span><span>Digital IC Design</span><span>PDK</span><span>Standard Cell</span><span>ASAP7</span></div>
+          </div>
+          <div class="entry-aside"><span class="entry-duration">7 mo</span></div>
+        </article>
+
+        <article class="entry">
+          <div class="entry-year">2018<span class="range">AUG'18 – MAR'22</span></div>
+          <div>
+            <div class="entry-kind">EDUCATION · BACHELOR'S</div>
+            <h3 class="entry-title">B.E. Electronics &amp; Communication Engineering</h3>
+            <div class="entry-org">Sathyabama Institute of Science &amp; Technology</div>
+            <div class="entry-loc">CHENNAI, IN</div>
+            <p class="entry-summary">GPA 9.8/10 · Gold Medalist (1st in Batch) · Star of Excellence Award · Dean's List. Secretary of Robotics Club — Arduino, Raspberry Pi, C/C++, LabVIEW.</p>
+            <div class="entry-tags"><span>VLSI</span><span>Embedded Systems</span><span>IoT</span><span>C/C++</span><span>LabVIEW</span></div>
+          </div>
+          <div class="entry-aside"><span class="entry-duration">3.6 yr</span></div>
+        </article>
+      </div>
     </div>
-    <div class="skills">
-      <div class="skill-row">
-        <div class="skill-cat"><span class="idx">01</span> Hardware &amp; EDA</div>
-        <div class="skill-vals">
-          <span class="chip solid">KiCad</span><span class="chip solid">PSpice</span><span class="chip solid">Xpedition</span><span class="chip">Tina TI</span><span class="chip solid">VHDL</span><span class="chip">MATLAB</span><span class="chip">PDK</span><span class="chip">LabVIEW</span>
-        </div>
-      </div>
-      <div class="skill-row">
-        <div class="skill-cat"><span class="idx">02</span> Programming</div>
-        <div class="skill-vals">
-          <span class="chip solid">Python</span><span class="chip solid">C/C++</span><span class="chip">JavaScript</span><span class="chip">Java</span><span class="chip solid">Git</span>
-        </div>
-      </div>
-      <div class="skill-row">
-        <div class="skill-cat"><span class="idx">03</span> Wireless &amp; RF</div>
-        <div class="skill-vals">
-          <span class="chip solid">BLE</span><span class="chip solid">mioty</span><span class="chip">802.11 Wi-Fi</span><span class="chip">2.4 GHz RF</span><span class="chip solid">RF Isolation</span>
-        </div>
-      </div>
+  </div>
+
+  <!-- ================= TOOLING ================= -->
+  <div class="wrap tools-row">
+    <span class="label">DAILY DRIVERS →</span>
+    <div class="tools-chips">
+      <span class="tool-chip">KiCad</span>
+      <span class="tool-chip">C / C++</span>
+      <span class="tool-chip">Python</span>
+      <span class="tool-chip">MATLAB</span>
+      <span class="tool-chip">Zephyr RTOS</span>
+      <span class="tool-chip">Cadence Virtuoso</span>
+      <span class="tool-chip">LTspice</span>
+      <span class="tool-chip">Git</span>
     </div>
-  </section>
+  </div>
+
+  <!-- ================= CONTACT CTA ================= -->
+  <div class="contact-cta">
+    <div class="contact-cta-inner">
+      <div class="eyebrow">SIGNAL ACQUIRED</div>
+      <h2>Let's build something reliable.</h2>
+      <a class="btn btn-solid" href="/contact/" style="margin-top:6px;">Get in touch →</a>
+    </div>
+  </div>
 
 </main>
 
-<!-- FOOTER -->
-<footer class="contact" id="contact">
-  <div class="contact-inner" style="grid-template-columns:1fr;max-width:800px;">
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="footer-grid">
     <div>
-      <h2>Got a thesis idea, a hardware problem, or just want to connect?
-        <a href="mailto:mgaurav682@gmail.com">Send me a note.</a>
-      </h2>
-      <p style="margin-bottom:20px;">Open to thesis collaborations, working-student roles, and contract gigs around hardware design and embedded systems.</p>
-      <a href="/contact/" class="btn tonal" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;font-size:14px;font-weight:500;background:var(--primary-container);color:var(--on-primary-container);border:none;cursor:pointer;">Book an appointment →</a>
+      <div class="footer-brand">
+        <svg viewBox="0 0 100 100"><rect x="2" y="2" width="96" height="96" rx="10" fill="var(--accent)"></rect><g clip-path="url(#logoclip2)"><path d="M -28 14 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 38 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 62 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 86 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path></g><clipPath id="logoclip2"><rect x="8" y="8" width="84" height="84" rx="6"></rect></clipPath></svg>
+        <span class="word">GAURAV<span class="u">_</span>MISHRA</span>
+      </div>
+      <div class="footer-desc">Hardware engineering portfolio of Gaurav Kumar Mishra. Built in Erlangen, DE.</div>
+    </div>
+    <div class="footer-col">
+      <div class="head">PAGES</div>
+      <a href="/projects/">Projects</a>
+      <a href="/courses/">Courses</a>
+      <a href="/community/">Community</a>
+    </div>
+    <div class="footer-col">
+      <div class="head">ELSEWHERE</div>
+      <a href="https://github.com/gaurav-mk" target="_blank" rel="external nofollow noopener">GitHub</a>
+      <a href="https://linkedin.com/in/gaurav-25" target="_blank" rel="external nofollow noopener">LinkedIn</a>
+    </div>
+    <div class="footer-col">
+      <div class="head">CONTACT</div>
+      <a href="mailto:mgaurav682@gmail.com">mgaurav682@gmail.com</a>
+      <span>Erlangen, DE</span>
     </div>
   </div>
-  <div class="footnote">
-    <span>© 2026 Gaurav Kumar Mishra</span>
-    <span style="display:flex;gap:16px;">
-      <a href="/projects/" style="color:var(--primary);">Projects</a>
-      <a href="/courses/" style="color:var(--primary);">Courses</a>
-      <a href="/community/" style="color:var(--primary);">Community</a>
-      <a href="/contact/" style="color:var(--primary);">Contact</a>
-    </span>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner"><span>© 2026 GAURAV KUMAR MISHRA</span><span>SYS.OK · UPTIME 100%</span></div>
   </div>
 </footer>
 
-<script>
-  (function () {
-    const navLinks = document.querySelectorAll('#main-nav a[data-section]');
-    function setActive(sectionId) {
-      navLinks.forEach(a => a.classList.toggle('active', a.dataset.section === sectionId));
-    }
-    const sections = [
-      { id: 'home',     selector: '#home > .hero' },
-      { id: 'projects', selector: '#projects-section' },
-    ];
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const sec = sections.find(s => entry.target.matches(s.selector));
-          if (sec) setActive(sec.id);
-        }
-      });
-    }, { rootMargin: '-40% 0px -50% 0px' });
-    sections.forEach(s => { const el = document.querySelector(s.selector); if (el) observer.observe(el); });
-  })();
-</script>
+<a class="float-book" href="/contact/">
+  <span class="dot"></span>
+  Book an appointment
+</a>
 
+<script src="/assets/site.js"></script>
 
 </body>
 </html>
