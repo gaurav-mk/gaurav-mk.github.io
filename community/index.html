@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Community | Gaurav Kumar Mishra</title>
   <meta name="author" content="Gaurav Kumar Mishra" />
-  <meta name="description" content="Leadership, community involvement, awards, and publications by Gaurav Kumar Mishra." />
+  <meta name="description" content="Volunteering and community involvement by Gaurav Kumar Mishra." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
@@ -322,10 +322,6 @@ main { position: relative; z-index: 1; }
 .page-header h1 { margin: 0; font-size: 46px; line-height: 1.08; font-weight: 700; letter-spacing: -.8px; }
 .page-header p { margin: 16px 0 0; max-width: 560px; font-size: 15px; line-height: 1.65; color: var(--text-body); }
 
-/* ---------------------------------- category label ---------------------------------- */
-.category-label { display: flex; align-items: center; gap: 14px; font: 400 10px var(--font-mono); letter-spacing: 1.8px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 20px; }
-.category-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
 /* ---------------------------------- courses ---------------------------------- */
 .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 52px; }
 .course-card { border: 1px solid var(--border-strong); background: var(--bg-card); overflow: hidden; display: flex; flex-direction: column; transition: border-color .2s, transform .2s, box-shadow .2s; }
@@ -345,17 +341,6 @@ main { position: relative; z-index: 1; }
 .course-chip.current { color: var(--accent); border: 1px solid var(--accent); }
 .course-chip.done { color: var(--gold); border: 1px solid var(--gold); }
 .course-chip.planned { color: var(--text-faint); border: 1px solid var(--border-strong); }
-
-/* ---------------------------------- community ---------------------------------- */
-.comm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
-.comm-card { display: flex; gap: 18px; padding: 24px 22px; background: var(--bg-card); align-items: flex-start; transition: background .15s; }
-.comm-card:hover { background: #1a1f24; }
-.comm-ico { font-size: 1.5rem; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: var(--bg-alt); border: 1px solid var(--border-strong); flex-shrink: 0; }
-.comm-title { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
-.comm-role { font: 400 10.5px var(--font-mono); letter-spacing: .3px; color: var(--accent); margin-bottom: 8px; }
-.comm-desc { font-size: 13.5px; color: var(--text-body); line-height: 1.65; }
-.comm-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; font: 500 11px var(--font-mono); letter-spacing: .5px; color: var(--link); }
-.comm-link:hover { color: var(--link-hover); }
 
 /* ---------------------------------- contact page ---------------------------------- */
 .contact-wrap { max-width: 1200px; margin: 0 auto; padding: 48px 32px 80px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start; }
@@ -441,7 +426,6 @@ main { position: relative; z-index: 1; }
   .proj-card-media { min-height: 180px; border-right: none; border-bottom: 1px solid var(--border); }
   .proj-card-aside { border-left: none; border-top: 1px solid var(--border); flex-direction: row; justify-content: space-between; align-items: center; }
   .course-grid { grid-template-columns: 1fr 1fr; }
-  .comm-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; padding-top: 48px; }
@@ -479,7 +463,22 @@ main { position: relative; z-index: 1; }
   .float-book .label-short { display: inline; }
   .float-book { padding: 12px 16px; border-radius: 24px; font-size: 13px; gap: 8px; }
   .contact-cta h2 { font-size: 30px; }
+  .vol-row { grid-template-columns: 1fr !important; }
+  .vol-row .vol-media { order: -1; }
 }
+
+/* ---------------------------------- volunteering timeline ---------------------------------- */
+.vol-list { display: flex; flex-direction: column; gap: 18px; }
+.vol-row { display: grid; grid-template-columns: 1fr 1fr; align-items: center; border: 1px solid var(--border-strong); background: var(--bg-card); overflow: hidden; }
+.vol-media { position: relative; }
+.vol-media img { width: 100%; height: auto; display: block; }
+.vol-media-grid { display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; gap: 2px; }
+.vol-media .ph { position: relative; min-height: 240px; background: repeating-linear-gradient(45deg, var(--bg-card) 0 10px, #1c2126 10px 20px); display: flex; align-items: center; justify-content: center; }
+.vol-media .ph span { font: 400 10px var(--font-mono); color: var(--text-faint); border: 1px solid var(--border-strong); padding: 4px 8px; background: var(--bg-alt); letter-spacing: 1px; text-align: center; }
+.vol-body { padding: 32px 36px; display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+.vol-kicker { font: 400 10px var(--font-mono); color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase; }
+.vol-body h3 { margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -.2px; line-height: 1.3; }
+.vol-body p { margin: 0; font-size: 13px; line-height: 1.65; color: var(--text-body); }
 
   </style>
 </head>
@@ -508,91 +507,115 @@ main { position: relative; z-index: 1; }
 
   <div class="page-header">
     <h1>Community.</h1>
-    <p>Leadership roles, academic recognition, IEEE publications, and professional awards across my engineering career.</p>
+    <p>Volunteering and community involvement alongside my engineering career.</p>
   </div>
 
   <div class="wrap" style="padding:48px 32px 80px;">
 
     <div style="margin-bottom:48px;">
-      <div class="category-label">LEADERSHIP &amp; INVOLVEMENT</div>
-      <div class="comm-grid">
+      <div class="vol-list">
 
-        <div class="comm-card">
-          <div class="comm-ico">🤖</div>
-          <div>
-            <div class="comm-title">Robotics Club</div>
-            <div class="comm-role">// SECRETARY · SATHYABAMA INSTITUTE OF SCIENCE &amp; TECHNOLOGY</div>
-            <div class="comm-desc">Led club meetings, organized inter-college competitions, and delivered technical talks. Developed hands-on expertise in Arduino, Raspberry Pi, C/C++, LabVIEW, and Java alongside fellow members.</div>
+        <!-- 1. BEST Erlangen -->
+        <div class="vol-row">
+          <div class="vol-media"><img src="best.jpeg" alt="BEST Erlangen e.V." loading="lazy" /></div>
+          <div class="vol-body">
+            <div class="vol-kicker">BEST Erlangen e.V. · Full Member · 2025 to 2026</div>
+            <h3>Funds Responsible (Core Team), Spring Regional Meeting (sRM) 2026</h3>
+            <p>Full member of BEST Erlangen e.V., working on the Corporate Relations side of the group, an area I hadn't worked in before. Took on the role of Funds Responsible on the Core Team for the Spring Regional Meeting (sRM) 2026, a training event that brings around 100 engineering students from across Europe together to build skills in leadership, strategic management, and organizational agility.</p>
+            <p>The role involves finding and securing partnerships with organizations that support the event, and building relationships that connect the student side of BEST with the professional side. Secured partnerships with six organizations to help make the event possible.</p>
           </div>
         </div>
 
-        <div class="comm-card">
-          <div class="comm-ico">🎖️</div>
-          <div>
-            <div class="comm-title">Class Representative</div>
-            <div class="comm-role">// STUDENT UNION · SATHYABAMA INSTITUTE</div>
-            <div class="comm-desc">Represented the class in student union assemblies, bridging communication between peers and faculty. Advocated for student interests and coordinated academic events throughout the four-year programme.</div>
+        <!-- 2. EELISA Reporter -->
+        <div class="vol-row">
+          <div class="vol-body">
+            <div class="vol-kicker">EELISA European University · Reporter</div>
+            <h3>EELISA × evosoft Summer School, Product Prototyping and Design, Budapest</h3>
+            <p>Reporter for the EELISA European University at the evosoft Summer School on Product Prototyping and Design in Budapest, a multi day programme covering the full journey from idea to product, including user centred design, agile methods, and prototyping tools.</p>
+            <p>The programme ran through interactive sessions, team activities, and talks from industry experts, hosted by evosoft and organized by EELISA, with mentors, speakers, and coordinators running the sessions alongside the reporting work.</p>
+          </div>
+          <div class="vol-media"><img src="eelisa%20reporter-web.jpg" alt="EELISA x evosoft Summer School, Budapest" loading="lazy" /></div>
+        </div>
+
+        <!-- 3. Sommerfest volunteer -->
+        <div class="vol-row">
+          <div class="vol-media"><img src="sommerfest-web.jpg" alt="BEST Erlangen Sommerfest" loading="lazy" /></div>
+          <div class="vol-body">
+            <div class="vol-kicker">Sommerfest · Volunteer</div>
+            <h3>Sommerfest Volunteer</h3>
+            <p>Volunteered at BEST Erlangen's annual Sommerfest, helping put together the group's summer get together for members, alumni, and the partner companies that support our programmes throughout the year.</p>
+            <p>The day is equal parts logistics and hosting, setting up the venue, coordinating food and activities, and making sure guests from both the student and corporate side feel looked after. It's a smaller, more informal event than the big regional meetings like sRM, but it's just as important for keeping the BEST Erlangen community close and connected.</p>
           </div>
         </div>
 
-        <div class="comm-card">
-          <div class="comm-ico">🌍</div>
-          <div>
-            <div class="comm-title">Open to Collaborate</div>
-            <div class="comm-role">// RESEARCH · HARDWARE · EMBEDDED SYSTEMS</div>
-            <div class="comm-desc">Always keen to connect with engineers and researchers working on embedded systems, localization, RF hardware, or IC design. Reach out via email or LinkedIn — happy to explore thesis collaborations, side projects, or mentorship.</div>
-            <a class="comm-link" href="/contact/">Get in touch →</a>
+        <!-- 4. Ask a student advisor -->
+        <div class="vol-row">
+          <div class="vol-body">
+            <div class="vol-kicker">Student Advising</div>
+            <h3>Ask a Student Advisor</h3>
+            <p>Peer advisor for prospective and incoming international students at FAU, sharing first hand experience on settling into Erlangen, from enrolment and housing to navigating the cultural and administrative differences that trip up new arrivals.</p>
+            <p>Most conversations start with practical questions, things like Anmeldung, blocked accounts, and finding a room, but they usually turn into something closer to mentoring, covering what courses to expect, how the German academic system actually works day to day, and how to build a life here rather than just survive the paperwork.</p>
+          </div>
+          <div class="vol-media"><img src="ask%20a%20student.jpg" alt="Ask a Student Advisor" loading="lazy" /></div>
+        </div>
+
+        <!-- 5. Robotics Club Secretary -->
+        <div class="vol-row">
+          <div class="vol-media vol-media-grid">
+            <img src="robotics%20club%201-web.jpg" alt="Robotics Club, Sathyabama Institute" loading="lazy" />
+            <img src="robotics%20club%202-web.jpg" alt="Robotics Club, Sathyabama Institute" loading="lazy" />
+            <img src="robotics%20club%203-web.jpg" alt="Robotics Club, Sathyabama Institute" loading="lazy" />
+          </div>
+          <div class="vol-body">
+            <div class="vol-kicker">Sathyabama Institute of Science and Technology · Secretary</div>
+            <h3>Robotics Club, Secretary</h3>
+            <p>Served as Secretary of the Robotics Club at Sathyabama Institute of Science and Technology, leading club meetings, organizing inter college competitions, and delivering technical talks, and representing the club at events across other campuses.</p>
+            <p>Built hands on expertise in Arduino, Raspberry Pi, C, C++, LabVIEW, and Java alongside fellow club members, and helped pair newer members with more experienced ones along the way.</p>
           </div>
         </div>
 
-      </div>
-    </div>
+        <!-- 6. Class Representative -->
+        <div class="vol-row">
+          <div class="vol-body">
+            <div class="vol-kicker">Sathyabama Institute of Science and Technology · Class Representative</div>
+            <h3>Class Representative, Student Union</h3>
+            <p>Represented the class in student union assemblies at Sathyabama Institute, acting as the main point of contact between peers and faculty for four years.</p>
+            <p>The role meant a lot of unglamorous groundwork, chasing down scheduling conflicts, relaying feedback on courses and exams, and coordinating academic events, but it taught me how much smoother things run when someone is actually listening on both sides.</p>
+          </div>
+          <div class="vol-media"><img src="class%20rep.jpeg" alt="Class Representative, Sathyabama Institute" loading="lazy" /></div>
+        </div>
 
-    <div style="margin-bottom:48px;">
-      <div class="category-label">AWARDS &amp; RECOGNITION</div>
-      <div class="comm-grid">
+        <!-- 7. Viral Fission / Unacademy -->
+        <div class="vol-row">
+          <div class="vol-body">
+            <div class="vol-kicker">Viral Fission · Campus Ambassador</div>
+            <h3>Unacademy "Believe" Marketing Campaign</h3>
+            <p>Campus ambassador for Viral Fission's on-ground activation of Unacademy's "Believe" campaign, part of Viral Fission's broader network connecting Indian students with the brands they use every day.</p>
+            <p>The role was equal parts marketing and community building, running campus events, driving sign-ups and engagement through social promotion, and acting as the on-ground face of the campaign for students who would otherwise only see it online.</p>
+          </div>
+          <div class="vol-media"><img src="viral%20fission-web.jpg" alt="Viral Fission campus ambassador" loading="lazy" /></div>
+        </div>
 
-        <div class="comm-card">
-          <div class="comm-ico">🏆</div>
-          <div>
-            <div class="comm-title">2× Applause Award</div>
-            <div class="comm-role">// DELOITTE · RECOGNITION FOR EXCELLENCE</div>
-            <div class="comm-desc">Recognized twice by Deloitte leadership for outstanding performance, independence, and contributions to the Pfizer supply chain project — one of the highest performance honors at the firm.</div>
+        <!-- 8. Deloitte Impact Every Day -->
+        <div class="vol-row">
+          <div class="vol-media"><img src="impact%20everyday.jpg" alt="Deloitte Impact Every Day" loading="lazy" /></div>
+          <div class="vol-body">
+            <div class="vol-kicker">Deloitte · Impact Every Day</div>
+            <h3>Deloitte Impact Every Day</h3>
+            <p>Took part in Deloitte India's Impact Day, the firm's year round community volunteering initiative that puts thousands of employees' skills to work outside the office.</p>
+            <p>In a typical year, the India programme alone brings out over 55,000 volunteers across 500+ locations, running skills based volunteering and community projects that reach hundreds of thousands of people, trading laptops and calls for a day of hands on work with local not for profits.</p>
           </div>
         </div>
 
-        <div class="comm-card">
-          <div class="comm-ico">🥇</div>
-          <div>
-            <div class="comm-title">Gold Medalist — Star of Excellence</div>
-            <div class="comm-role">// SATHYABAMA INSTITUTE · BEST OUTGOING STUDENT 2022</div>
-            <div class="comm-desc">Graduated first in batch with a 9.8/10 GPA. Awarded the Star of Excellence as Best Outgoing Student of 2022. Also honored on the Dean's List throughout the undergraduate programme.</div>
+        <!-- 9. Hult Prize organizer -->
+        <div class="vol-row">
+          <div class="vol-body">
+            <div class="vol-kicker">Hult Prize · 2020 · Organizer</div>
+            <h3>Hult Prize Campus Organizer</h3>
+            <p>Organized the 2020 campus round of the Hult Prize, the global student competition that channels early stage social entrepreneurship into a path toward a $1M prize.</p>
+            <p>As Campus Director, the job was building the pipeline from scratch, recruiting an organizing committee, judges, and competing teams, promoting the challenge across campus, and running the training and pitch events that took student ideas from a first draft toward the national round.</p>
           </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div>
-      <div class="category-label">PUBLICATIONS</div>
-      <div class="comm-grid">
-
-        <div class="comm-card">
-          <div class="comm-ico">📡</div>
-          <div>
-            <div class="comm-title">7nm FinFET Standard Cell Library</div>
-            <div class="comm-role">// IEEE PUBLICATION · IC DESIGN</div>
-            <div class="comm-desc">Peer-reviewed paper on designing and assessing a 7nm FinFET standard cell library using the ASAP7 PDK. Adaptable logic gates, optimized layouts, and radiation hardening analysis for space applications.</div>
-          </div>
-        </div>
-
-        <div class="comm-card">
-          <div class="comm-ico">📡</div>
-          <div>
-            <div class="comm-title">Smart Home Automation + UPS</div>
-            <div class="comm-role">// IEEE PUBLICATION · IOT</div>
-            <div class="comm-desc">Peer-reviewed paper on automatic LED emergency lamp with an online UPS for low-power household appliances. Full circuit design, simulation, testing, and IoT integration for remote monitoring.</div>
-          </div>
+          <div class="vol-media"><img src="hult%20prize.jpeg" alt="Hult Prize campus round" loading="lazy" /></div>
         </div>
 
       </div>
