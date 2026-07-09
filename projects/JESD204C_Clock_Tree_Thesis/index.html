@@ -142,6 +142,36 @@
       .nav-links{width:100%;justify-content:center;gap:14px;font-size:12px}
       .nav-links a{padding:6px 0}
     }
+  
+    /* ================= shared site footer / CTA / float-book ================= */
+    .contact-cta{border-top:1px solid var(--outline-variant);background:linear-gradient(180deg,var(--surface-container-low),var(--surface))}
+    .contact-cta-inner{max-width:1240px;margin:0 auto;padding:76px 32px;display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:center}
+    .contact-cta-inner h2{font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-.6px;margin:0 0 16px}
+    .contact-cta-inner h2 a{color:var(--primary);border-bottom:2px solid color-mix(in oklab,var(--primary) 40%,transparent)}
+    .contact-cta-inner h2 a:hover{border-color:var(--primary)}
+    .contact-cta-inner p{margin:0;font-size:14px;line-height:1.65;color:var(--on-surface-variant);max-width:440px}
+    .site-footer{border-top:1px solid var(--outline-variant);background:#0d1013}
+    .footer-grid{max-width:1240px;margin:0 auto;padding:44px 32px 36px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+    .footer-brand{display:flex;align-items:center;gap:10px}
+    .footer-brand svg{width:26px;height:26px;display:block}
+    .footer-desc{font-size:12px;color:var(--on-surface-faint);margin-top:10px;line-height:1.6;max-width:260px}
+    .footer-col{display:flex;flex-direction:column;gap:9px}
+    .footer-col .head{font-family:var(--font-mono);font-size:9.5px;color:var(--on-surface-faint);letter-spacing:1.5px;margin-bottom:2px}
+    .footer-col a,.footer-col span{color:var(--on-surface-variant);font-size:12.5px;transition:color .15s,transform .15s;display:inline-block}
+    .footer-col a:hover{color:var(--on-surface);transform:translateX(4px)}
+    .footer-bottom{border-top:1px solid #1a1f24}
+    .footer-bottom-inner{max-width:1240px;margin:0 auto;padding:16px 32px;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;color:#3f464d;flex-wrap:wrap;gap:6px}
+    .float-book{position:fixed;right:28px;bottom:28px;z-index:60;display:flex;align-items:center;gap:10px;background:var(--primary);color:#0d1113;padding:14px 24px;border-radius:32px;font-size:14px;font-weight:600;box-shadow:0 10px 30px -8px rgba(0,0,0,.6);transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s,filter .18s}
+    .float-book:hover{transform:translateY(-3px);filter:brightness(1.1);box-shadow:0 14px 34px -8px var(--primary);color:#0d1113}
+    .float-book .dot{width:9px;height:9px;border-radius:50%;background:#0d1113;animation:led 2.4s infinite}
+    @media(max-width:900px){.contact-cta-inner{grid-template-columns:1fr;gap:32px}}
+    @media(max-width:640px){
+      .contact-cta-inner{padding:48px 20px}
+      .footer-grid{grid-template-columns:1fr 1fr;padding-left:20px;padding-right:20px}
+      .footer-bottom-inner{padding-left:20px;padding-right:20px}
+      .float-book .label{display:none}
+      .float-book{padding:14px;border-radius:50%}
+    }
   </style>
 </head>
 <body>
@@ -152,7 +182,7 @@
   <div class="nav-inner">
     <a class="nav-brand" href="/">
       <svg viewBox="0 0 100 100"><rect x="2" y="2" width="96" height="96" rx="10" fill="var(--primary)"></rect><g clip-path="url(#logoclip)"><path d="M -28 14 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 38 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 62 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 86 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path></g><clipPath id="logoclip"><rect x="8" y="8" width="84" height="84" rx="6"></rect></clipPath></svg>
-      <span class="word">GAURAV<span class="u">_</span>MISHRA</span>
+      <span class="word">GAURAV MISHRA</span>
     </a>
     <nav class="nav-links">
       <a href="/">Home</a>
@@ -161,7 +191,7 @@
       <a href="/community/">Community</a>
       <a href="/contact/">Contact</a>
     </nav>
-    <div class="nav-status"><span class="dot"></span>OPEN TO R&amp;D</div>
+    <div class="nav-status"><span class="dot"></span>OPEN TO WORK</div>
   </div>
 </header>
 
@@ -939,26 +969,55 @@
 </div><!-- /proj-body -->
 </main>
 
-<footer class="contact" id="contact">
-  <div class="contact-inner">
+<div class="contact-cta" id="contact">
+  <div class="contact-cta-inner">
     <div>
       <h2>Questions about JESD204C or RF clocking? <a href="/contact/">Let's connect.</a></h2>
       <p>Open to discussions on clock tree design, high-speed serial interfaces, and signal integrity. Based in Erlangen; remote is fine.</p>
     </div>
-    <div class="contact-links">
-      <a class="contact-link" href="mailto:mgaurav682@gmail.com">
-        <span class="k">EMAIL</span><span class="v">mgaurav682@gmail.com</span><span class="arrow">→</span>
-      </a>
-      <a class="contact-link" href="https://github.com/gaurav-mk" rel="external nofollow noopener" target="_blank">
-        <span class="k">GITHUB</span><span class="v">@gaurav-mk</span><span class="arrow">→</span>
-      </a>
-      <a class="contact-link" href="https://linkedin.com/in/gaurav-25" rel="external nofollow noopener" target="_blank">
-        <span class="k">LINKEDIN</span><span class="v">/in/gaurav-25</span><span class="arrow">→</span>
-      </a>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <a class="contact-link" href="mailto:mgaurav682@gmail.com"><span class="k">EMAIL</span><span class="v">mgaurav682@gmail.com</span><span class="arrow">→</span></a>
+      <a class="contact-link" href="https://github.com/gaurav-mk" target="_blank" rel="external nofollow noopener"><span class="k">GITHUB</span><span class="v">@gaurav-mk</span><span class="arrow">→</span></a>
+      <a class="contact-link" href="https://linkedin.com/in/gaurav-25" target="_blank" rel="external nofollow noopener"><span class="k">LINKEDIN</span><span class="v">/in/gaurav-25</span><span class="arrow">→</span></a>
     </div>
   </div>
-  <div class="footnote">© 2026 Gaurav Kumar Mishra</div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <svg viewBox="0 0 100 100"><rect x="2" y="2" width="96" height="96" rx="10" fill="var(--primary)"></rect><g clip-path="url(#logoclip2)"><path d="M -28 14 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 38 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 62 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 86 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path></g><clipPath id="logoclip2"><rect x="8" y="8" width="84" height="84" rx="6"></rect></clipPath></svg>
+        <span class="word">GAURAV MISHRA</span>
+      </div>
+      <div class="footer-desc">Hardware engineering portfolio of Gaurav Kumar Mishra. Built in Erlangen, DE.</div>
+    </div>
+    <div class="footer-col">
+      <div class="head">PAGES</div>
+      <a href="/projects/">Projects</a>
+      <a href="/courses/">Courses</a>
+      <a href="/community/">Community</a>
+    </div>
+    <div class="footer-col">
+      <div class="head">ELSEWHERE</div>
+      <a href="https://github.com/gaurav-mk" target="_blank" rel="external nofollow noopener">GitHub</a>
+      <a href="https://linkedin.com/in/gaurav-25" target="_blank" rel="external nofollow noopener">LinkedIn</a>
+    </div>
+    <div class="footer-col">
+      <div class="head">CONTACT</div>
+      <a href="mailto:mgaurav682@gmail.com">mgaurav682@gmail.com</a>
+      <span>Erlangen, DE</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner"><span>© 2026 GAURAV KUMAR MISHRA</span><span>SYS.OK · UPTIME 100%</span></div>
+  </div>
 </footer>
+
+<a class="float-book" href="/contact/">
+  <span class="dot"></span>
+  <span class="label">Book an appointment</span>
+</a>
 
 <script>
 (function () {
