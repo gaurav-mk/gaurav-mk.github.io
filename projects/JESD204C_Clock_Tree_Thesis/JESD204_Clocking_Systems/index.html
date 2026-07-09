@@ -9,25 +9,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..900&family=Roboto:wght@400;500&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
-    ::selection { background: rgba(31,58,87,.22); color: var(--on-surface) }
+    ::selection { background: rgba(49,46,129,.22); color: var(--on-surface) }
 
     :root {
-      --primary: #1f3a57;
-      --primary-hover: #173049;
+      --primary: #312e81;
+      --primary-hover: #26235f;
       --on-primary: #FFF;
-      --primary-container: #d9e5f2;
-      --on-primary-container: #0a2540;
-      --secondary: #2e5c8a;
-      --surface: #fafbfd;
+      --primary-container: #e3e1fb;
+      --on-primary-container: #211c5e;
+      --secondary: #d6335c;
+      --surface: #faf9fd;
       --surface-container-lowest: #FFF;
-      --surface-container-low: #f5f7fa;
-      --surface-container: #edf1f6;
-      --surface-container-high: #e5ebf2;
-      --on-surface: #14181e;
-      --on-surface-variant: #4b5663;
-      --on-surface-faint: #8693a3;
-      --outline: #b7bfc8;
-      --outline-variant: #d9dee5;
+      --surface-container-low: #f5f4fa;
+      --surface-container: #ece9f6;
+      --surface-container-high: #e2ddf1;
+      --on-surface: #18162a;
+      --on-surface-variant: #4c4966;
+      --on-surface-faint: #86829e;
+      --outline: #b8b3cc;
+      --outline-variant: #ddd9ec;
       --success: #1e7f4f;
       --warn: #7a4f00;
       --warn-container: #fef3e2;
@@ -45,7 +45,7 @@
 
     .grid-bg {
       position:fixed; inset:0; z-index:0; pointer-events:none;
-      background-image: linear-gradient(to right, rgba(31,58,87,.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(31,58,87,.04) 1px, transparent 1px);
+      background-image: linear-gradient(to right, rgba(49,46,129,.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(49,46,129,.04) 1px, transparent 1px);
       background-size:96px 96px;
       mask-image:linear-gradient(to bottom, black 0, black 60%, transparent 100%)
     }
@@ -53,7 +53,7 @@
     /* NAV */
     .topbar { position:sticky; top:0; z-index:50; backdrop-filter:blur(12px); background:rgba(250,251,253,.88) }
     .topbar-inner { max-width:1240px; margin:0 auto; padding:14px 32px; display:flex; justify-content:center; align-items:center }
-    .nav { display:inline-flex; gap:2px; padding:5px; background:var(--surface-container); border-radius:999px; box-shadow:0 10px 28px -18px rgba(31,58,87,.45) }
+    .nav { display:inline-flex; gap:2px; padding:5px; background:var(--surface-container); border-radius:999px; box-shadow:0 10px 28px -18px rgba(49,46,129,.45) }
     .nav a { padding:10px 22px; border-radius:999px; font-size:14px; font-weight:500; color:var(--on-surface-variant); transition:background .15s,color .15s; white-space:nowrap }
     .nav a:hover { color:var(--on-surface); background:color-mix(in oklab,var(--primary) 10%,transparent) }
     .nav a.active { background:var(--primary-container); color:var(--on-primary-container) }
@@ -449,17 +449,17 @@
           <div class="diag-body">
             <svg class="timing-svg" viewBox="0 0 600 160" fill="none" xmlns="http://www.w3.org/2000/svg">
               <!-- Device Clock -->
-              <text x="10" y="30" fill="#4b5663" font-size="11" font-family="monospace">Device</text>
-              <text x="10" y="43" fill="#4b5663" font-size="11" font-family="monospace">Clock</text>
+              <text x="10" y="30" fill="#4c4966" font-size="11" font-family="monospace">Device</text>
+              <text x="10" y="43" fill="#4c4966" font-size="11" font-family="monospace">Clock</text>
               <!-- clock waveform -->
-              <polyline points="80,55 80,25 120,25 120,55 160,55 160,25 200,25 200,55 240,55 240,25 280,25 280,55 320,55 320,25 360,25 360,55 400,55 400,25 440,25 440,55 480,55 480,25 520,25 520,55 560,55" stroke="#2e5c8a" stroke-width="2" fill="none"/>
+              <polyline points="80,55 80,25 120,25 120,55 160,55 160,25 200,25 200,55 240,55 240,25 280,25 280,55 320,55 320,25 360,25 360,55 400,55 400,25 440,25 440,55 480,55 480,25 520,25 520,55 560,55" stroke="#d6335c" stroke-width="2" fill="none"/>
               <!-- SYSREF -->
-              <text x="10" y="115" fill="#4b5663" font-size="11" font-family="monospace">SYSREF</text>
+              <text x="10" y="115" fill="#4c4966" font-size="11" font-family="monospace">SYSREF</text>
               <!-- sysref waveform -->
               <polyline points="80,135 80,135 220,135 220,95 380,95 380,135 560,135" stroke="#1e7f4f" stroke-width="2" fill="none"/>
               <!-- rising edge marker -->
-              <line x1="240" y1="15" x2="240" y2="155" stroke="#1f3a57" stroke-width="1.5" stroke-dasharray="4,3"/>
-              <text x="244" y="14" fill="#1f3a57" font-size="10" font-family="monospace">reference edge</text>
+              <line x1="240" y1="15" x2="240" y2="155" stroke="#312e81" stroke-width="1.5" stroke-dasharray="4,3"/>
+              <text x="244" y="14" fill="#312e81" font-size="10" font-family="monospace">reference edge</text>
               <!-- SYSREF arrow -->
               <line x1="220" y1="80" x2="238" y2="80" stroke="#1e7f4f" stroke-width="1.5" marker-end="url(#arr)"/>
               <text x="136" y="80" fill="#1e7f4f" font-size="10" font-family="monospace">SYSREF rises</text>
@@ -492,9 +492,9 @@
           <div class="sysref-card">
             <div class="sysref-card-title">Continuous SYSREF</div>
             <svg class="sysref-wave" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-              <text x="4" y="13" font-size="9" fill="#8693a3" font-family="monospace">CLK</text>
-              <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#2e5c8a" stroke-width="1.5" fill="none"/>
-              <text x="4" y="45" font-size="9" fill="#8693a3" font-family="monospace">SYS</text>
+              <text x="4" y="13" font-size="9" fill="#86829e" font-family="monospace">CLK</text>
+              <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#d6335c" stroke-width="1.5" fill="none"/>
+              <text x="4" y="45" font-size="9" fill="#86829e" font-family="monospace">SYS</text>
               <polyline points="30,52 30,36 50,36 50,52 70,36 70,52 90,36 90,52 110,36 110,52 130,36 130,52 150,36 150,52 170,36 170,52 190,36 190,52" stroke="#1e7f4f" stroke-width="1.5" fill="none"/>
             </svg>
             <p>SYSREF toggles continuously at a subharmonic of the device clock. <strong>Good for debug</strong> and measurement. Causes radiated spurious noise and extra power — not ideal for production.</p>
@@ -503,9 +503,9 @@
           <div class="sysref-card">
             <div class="sysref-card-title">One-Shot SYSREF</div>
             <svg class="sysref-wave" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-              <text x="4" y="13" font-size="9" fill="#8693a3" font-family="monospace">CLK</text>
-              <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#2e5c8a" stroke-width="1.5" fill="none"/>
-              <text x="4" y="45" font-size="9" fill="#8693a3" font-family="monospace">SYS</text>
+              <text x="4" y="13" font-size="9" fill="#86829e" font-family="monospace">CLK</text>
+              <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#d6335c" stroke-width="1.5" fill="none"/>
+              <text x="4" y="45" font-size="9" fill="#86829e" font-family="monospace">SYS</text>
               <polyline points="30,52 60,52 60,36 80,36 80,52 190,52" stroke="#1e7f4f" stroke-width="1.5" fill="none"/>
               <rect x="60" y="36" width="20" height="16" fill="none" stroke="#1e7f4f" stroke-width="1" stroke-dasharray="2,2"/>
             </svg>
@@ -515,9 +515,9 @@
           <div class="sysref-card">
             <div class="sysref-card-title">Gapped Periodic SYSREF</div>
             <svg class="sysref-wave" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-              <text x="4" y="13" font-size="9" fill="#8693a3" font-family="monospace">CLK</text>
-              <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#2e5c8a" stroke-width="1.5" fill="none"/>
-              <text x="4" y="45" font-size="9" fill="#8693a3" font-family="monospace">SYS</text>
+              <text x="4" y="13" font-size="9" fill="#86829e" font-family="monospace">CLK</text>
+              <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#d6335c" stroke-width="1.5" fill="none"/>
+              <text x="4" y="45" font-size="9" fill="#86829e" font-family="monospace">SYS</text>
               <polyline points="30,52 40,52 40,36 60,36 60,52 100,52 110,52 110,36 130,36 130,52 170,52 180,52 180,36 195,36" stroke="#1e7f4f" stroke-width="1.5" fill="none"/>
             </svg>
             <p>Periodic bursts with gaps. Subsequent one-shots are guaranteed to align to the <strong>same LMFC timing</strong> — essential when reprogramming receiver elements between pulses.</p>
@@ -593,12 +593,12 @@
           <div class="diag-body">
             <svg class="timing-svg" viewBox="0 0 580 180" fill="none" xmlns="http://www.w3.org/2000/svg">
               <!-- VCO label -->
-              <text x="8" y="30" fill="#4b5663" font-size="11" font-family="monospace">3 GHz VCO</text>
-              <polyline points="100,40 100,22 116,22 116,40 132,22 132,40 148,22 148,40 164,22 164,40 180,22 180,40 196,22 196,40 212,22 212,40 228,22 228,40 244,22 244,40 260,22 260,40 276,22 276,40 292,22 292,40 308,22 308,40 324,22 324,40 340,22 340,40 356,22 356,40 372,22 372,40 388,22 388,40 404,22 404,40 420,22 420,40 436,22 436,40 452,22 452,40 468,22 468,40 484,22 484,40 500,22 500,40 516,22 516,40 532,22 532,40 548,22 548,40 560,40" stroke="#8693a3" stroke-width="1" fill="none"/>
+              <text x="8" y="30" fill="#4c4966" font-size="11" font-family="monospace">3 GHz VCO</text>
+              <polyline points="100,40 100,22 116,22 116,40 132,22 132,40 148,22 148,40 164,22 164,40 180,22 180,40 196,22 196,40 212,22 212,40 228,22 228,40 244,22 244,40 260,22 260,40 276,22 276,40 292,22 292,40 308,22 308,40 324,22 324,40 340,22 340,40 356,22 356,40 372,22 372,40 388,22 388,40 404,22 404,40 420,22 420,40 436,22 436,40 452,22 452,40 468,22 468,40 484,22 484,40 500,22 500,40 516,22 516,40 532,22 532,40 548,22 548,40 560,40" stroke="#86829e" stroke-width="1" fill="none"/>
               <!-- Device clock label -->
-              <text x="8" y="80" fill="#2e5c8a" font-size="11" font-family="monospace">Device Clk</text>
-              <text x="8" y="93" fill="#2e5c8a" font-size="11" font-family="monospace">1 GHz</text>
-              <polyline points="100,110 100,62 148,62 148,110 196,62 196,110 244,62 244,110 292,62 292,110 340,62 340,110 388,62 388,110 436,62 436,110 484,62 484,110 532,62 532,110 560,110" stroke="#2e5c8a" stroke-width="2" fill="none"/>
+              <text x="8" y="80" fill="#d6335c" font-size="11" font-family="monospace">Device Clk</text>
+              <text x="8" y="93" fill="#d6335c" font-size="11" font-family="monospace">1 GHz</text>
+              <polyline points="100,110 100,62 148,62 148,110 196,62 196,110 244,62 244,110 292,62 292,110 340,62 340,110 388,62 388,110 436,62 436,110 484,62 484,110 532,62 532,110 560,110" stroke="#d6335c" stroke-width="2" fill="none"/>
               <!-- valid window -->
               <rect x="116" y="62" width="250" height="48" fill="rgba(30,127,79,0.15)" stroke="#1e7f4f" stroke-width="1.5" stroke-dasharray="4,3" rx="3"/>
               <text x="195" y="83" fill="#1e7f4f" font-size="11" font-family="monospace" text-anchor="middle">SYSREF valid window</text>
@@ -610,7 +610,7 @@
               <line x1="366" y1="126" x2="388" y2="126" stroke="#991b1b" stroke-width="1.5" marker-end="url(#arr2)" marker-start="url(#arr3)"/>
               <text x="377" y="140" fill="#991b1b" font-size="9" font-family="monospace" text-anchor="middle">Setup</text>
               <!-- SYSREF -->
-              <text x="8" y="165" fill="#4b5663" font-size="11" font-family="monospace">SYSREF</text>
+              <text x="8" y="165" fill="#4c4966" font-size="11" font-family="monospace">SYSREF</text>
               <polyline points="100,170 160,170 160,148 300,148 300,170 560,170" stroke="#1e7f4f" stroke-width="2" fill="none"/>
               <!-- ideal SYSREF edge arrow -->
               <line x1="160" y1="148" x2="160" y2="128" stroke="#1e7f4f" stroke-width="1" stroke-dasharray="3,2"/>
@@ -648,18 +648,18 @@
           <div class="diag-body">
             <svg class="timing-svg" viewBox="0 0 560 130" fill="none" xmlns="http://www.w3.org/2000/svg">
               <!-- columns -->
-              <text x="60"  y="14" fill="#4b5663" font-size="10" font-family="monospace" text-anchor="middle">−2 cycles</text>
-              <text x="180" y="14" fill="#4b5663" font-size="10" font-family="monospace" text-anchor="middle">−1 cycle</text>
+              <text x="60"  y="14" fill="#4c4966" font-size="10" font-family="monospace" text-anchor="middle">−2 cycles</text>
+              <text x="180" y="14" fill="#4c4966" font-size="10" font-family="monospace" text-anchor="middle">−1 cycle</text>
               <text x="300" y="14" fill="#1e7f4f" font-size="10" font-family="monospace" text-anchor="middle">±0 (ideal)</text>
-              <text x="420" y="14" fill="#4b5663" font-size="10" font-family="monospace" text-anchor="middle">+1 cycle</text>
+              <text x="420" y="14" fill="#4c4966" font-size="10" font-family="monospace" text-anchor="middle">+1 cycle</text>
               <!-- device clock edges -->
-              <line x1="20"  y1="20" x2="20"  y2="80" stroke="#2e5c8a" stroke-width="1.5"/>
-              <line x1="140" y1="20" x2="140" y2="80" stroke="#2e5c8a" stroke-width="1.5"/>
-              <line x1="260" y1="20" x2="260" y2="80" stroke="#2e5c8a" stroke-width="2" stroke-dasharray="0"/>
-              <line x1="380" y1="20" x2="380" y2="80" stroke="#2e5c8a" stroke-width="1.5"/>
-              <line x1="500" y1="20" x2="500" y2="80" stroke="#2e5c8a" stroke-width="1.5"/>
+              <line x1="20"  y1="20" x2="20"  y2="80" stroke="#d6335c" stroke-width="1.5"/>
+              <line x1="140" y1="20" x2="140" y2="80" stroke="#d6335c" stroke-width="1.5"/>
+              <line x1="260" y1="20" x2="260" y2="80" stroke="#d6335c" stroke-width="2" stroke-dasharray="0"/>
+              <line x1="380" y1="20" x2="380" y2="80" stroke="#d6335c" stroke-width="1.5"/>
+              <line x1="500" y1="20" x2="500" y2="80" stroke="#d6335c" stroke-width="1.5"/>
               <!-- device clock waveform segments -->
-              <polyline points="10,80 10,30 60,30 60,80 80,80 80,30 130,30 130,80 145,80 145,30 195,30 195,80 215,80 215,30 265,30 265,80 285,80 285,30 335,30 335,80 355,80 355,30 405,30 405,80 425,80 425,30 475,30 475,80 500,80" stroke="#2e5c8a" stroke-width="1.5" fill="none"/>
+              <polyline points="10,80 10,30 60,30 60,80 80,80 80,30 130,30 130,80 145,80 145,30 195,30 195,80 215,80 215,30 265,30 265,80 285,80 285,30 335,30 335,80 355,80 355,30 405,30 405,80 425,80 425,30 475,30 475,80 500,80" stroke="#d6335c" stroke-width="1.5" fill="none"/>
               <!-- valid window boxes -->
               <rect x="165" y="85" width="90" height="28" rx="3" fill="rgba(30,127,79,0.18)" stroke="#1e7f4f" stroke-width="1"/>
               <text x="210" y="102" fill="#1e7f4f" font-size="8.5" font-family="monospace" text-anchor="middle">valid window</text>
@@ -671,12 +671,12 @@
                 </marker>
               </defs>
               <!-- setup / hold boxes -->
-              <rect x="45"  y="85" width="90" height="28" rx="3" fill="rgba(148,163,184,.15)" stroke="#b7bfc8" stroke-width="1"/>
-              <text x="90"  y="98" fill="#8693a3" font-size="8" font-family="monospace" text-anchor="middle">Setup y ps</text>
-              <text x="90"  y="109" fill="#8693a3" font-size="8" font-family="monospace" text-anchor="middle">Hold x ps</text>
-              <rect x="285" y="85" width="90" height="28" rx="3" fill="rgba(148,163,184,.15)" stroke="#b7bfc8" stroke-width="1"/>
-              <text x="330" y="98" fill="#8693a3" font-size="8" font-family="monospace" text-anchor="middle">Setup y ps</text>
-              <text x="330" y="109" fill="#8693a3" font-size="8" font-family="monospace" text-anchor="middle">Hold x ps</text>
+              <rect x="45"  y="85" width="90" height="28" rx="3" fill="rgba(148,163,184,.15)" stroke="#b8b3cc" stroke-width="1"/>
+              <text x="90"  y="98" fill="#86829e" font-size="8" font-family="monospace" text-anchor="middle">Setup y ps</text>
+              <text x="90"  y="109" fill="#86829e" font-size="8" font-family="monospace" text-anchor="middle">Hold x ps</text>
+              <rect x="285" y="85" width="90" height="28" rx="3" fill="rgba(148,163,184,.15)" stroke="#b8b3cc" stroke-width="1"/>
+              <text x="330" y="98" fill="#86829e" font-size="8" font-family="monospace" text-anchor="middle">Setup y ps</text>
+              <text x="330" y="109" fill="#86829e" font-size="8" font-family="monospace" text-anchor="middle">Hold x ps</text>
             </svg>
           </div>
           <div class="diag-caption">When SYSREF is late (outside the valid window on the high side), the +1 cycle device clock edge gets marked instead of the intended ±0 edge — introducing a 1-cycle determinism error.</div>
@@ -735,8 +735,8 @@
             <!-- Diagram -->
             <svg class="timing-svg" viewBox="0 0 560 90" fill="none" xmlns="http://www.w3.org/2000/svg">
               <!-- clock period bracket -->
-              <line x1="40" y1="18" x2="440" y2="18" stroke="#2e5c8a" stroke-width="1" marker-end="url(#b2arr)" marker-start="url(#b2arrl)"/>
-              <text x="240" y="14" fill="#2e5c8a" font-size="10" font-family="monospace" text-anchor="middle">Device Clock Period · 666.7 ps</text>
+              <line x1="40" y1="18" x2="440" y2="18" stroke="#d6335c" stroke-width="1" marker-end="url(#b2arr)" marker-start="url(#b2arrl)"/>
+              <text x="240" y="14" fill="#d6335c" font-size="10" font-family="monospace" text-anchor="middle">Device Clock Period · 666.7 ps</text>
               <!-- hold -->
               <rect x="40" y="25" width="66" height="24" rx="3" fill="rgba(153,27,27,0.12)" stroke="#991b1b" stroke-width="1"/>
               <text x="73" y="41" fill="#991b1b" font-size="9.5" font-family="monospace" text-anchor="middle">Hold 50 ps</text>
@@ -747,17 +747,17 @@
               <rect x="374" y="25" width="66" height="24" rx="3" fill="rgba(153,27,27,0.12)" stroke="#991b1b" stroke-width="1"/>
               <text x="407" y="41" fill="#991b1b" font-size="9.5" font-family="monospace" text-anchor="middle">Setup 50 ps</text>
               <!-- three delay positions -->
-              <line x1="178" y1="55" x2="178" y2="80" stroke="#1f3a57" stroke-width="1.5"/>
-              <line x1="240" y1="55" x2="240" y2="80" stroke="#1f3a57" stroke-width="2" stroke-dasharray="0"/>
-              <line x1="302" y1="55" x2="302" y2="80" stroke="#1f3a57" stroke-width="1.5"/>
-              <text x="178" y="73" fill="#1f3a57" font-size="9" font-family="monospace" text-anchor="middle">①</text>
+              <line x1="178" y1="55" x2="178" y2="80" stroke="#312e81" stroke-width="1.5"/>
+              <line x1="240" y1="55" x2="240" y2="80" stroke="#312e81" stroke-width="2" stroke-dasharray="0"/>
+              <line x1="302" y1="55" x2="302" y2="80" stroke="#312e81" stroke-width="1.5"/>
+              <text x="178" y="73" fill="#312e81" font-size="9" font-family="monospace" text-anchor="middle">①</text>
               <text x="240" y="73" fill="#1e7f4f" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">② best</text>
-              <text x="302" y="73" fill="#1f3a57" font-size="9" font-family="monospace" text-anchor="middle">③</text>
-              <text x="206" y="90" fill="#8693a3" font-size="9" font-family="monospace" text-anchor="middle">←166.7 ps→</text>
-              <text x="270" y="90" fill="#8693a3" font-size="9" font-family="monospace" text-anchor="middle">←166.7 ps→</text>
+              <text x="302" y="73" fill="#312e81" font-size="9" font-family="monospace" text-anchor="middle">③</text>
+              <text x="206" y="90" fill="#86829e" font-size="9" font-family="monospace" text-anchor="middle">←166.7 ps→</text>
+              <text x="270" y="90" fill="#86829e" font-size="9" font-family="monospace" text-anchor="middle">←166.7 ps→</text>
               <defs>
-                <marker id="b2arr"  markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#2e5c8a"/></marker>
-                <marker id="b2arrl" markerWidth="5" markerHeight="5" refX="1" refY="2.5" orient="auto"><path d="M5,0 L0,2.5 L5,5 Z" fill="#2e5c8a"/></marker>
+                <marker id="b2arr"  markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#d6335c"/></marker>
+                <marker id="b2arrl" markerWidth="5" markerHeight="5" refX="1" refY="2.5" orient="auto"><path d="M5,0 L0,2.5 L5,5 Z" fill="#d6335c"/></marker>
               </defs>
             </svg>
           </div>

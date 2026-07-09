@@ -13,13 +13,13 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --primary:#1f3a57;--primary-hover:#173049;--on-primary:#FFF;
-      --primary-container:#d9e5f2;--on-primary-container:#0a2540;
-      --secondary:#2e5c8a;--surface:#fafbfd;
-      --surface-container-lowest:#FFF;--surface-container-low:#f5f7fa;
-      --surface-container:#edf1f6;--surface-container-high:#e5ebf2;
-      --on-surface:#14181e;--on-surface-variant:#4b5663;--on-surface-faint:#8693a3;
-      --outline:#b7bfc8;--outline-variant:#d9dee5;--success:#1e7f4f;
+      --primary:#312e81;--primary-hover:#26235f;--on-primary:#FFF;
+      --primary-container:#e3e1fb;--on-primary-container:#211c5e;
+      --secondary:#d6335c;--surface:#faf9fd;
+      --surface-container-lowest:#FFF;--surface-container-low:#f5f4fa;
+      --surface-container:#ece9f6;--surface-container-high:#e2ddf1;
+      --on-surface:#18162a;--on-surface-variant:#4c4966;--on-surface-faint:#86829e;
+      --outline:#b8b3cc;--outline-variant:#ddd9ec;--success:#1e7f4f;
       --font-display:'Roboto Flex','Roboto',system-ui,sans-serif;
       --font-body:'Roboto',system-ui,sans-serif;
       --font-mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -29,11 +29,11 @@
     body{font-family:var(--font-body);background:var(--surface);color:var(--on-surface);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.55}
     a{color:inherit;text-decoration:none!important}
 
-    .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(to right,rgba(31,58,87,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(31,58,87,0.04) 1px,transparent 1px);background-size:96px 96px;mask-image:linear-gradient(to bottom,black 0,black 60%,transparent 100%)}
+    .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(to right,rgba(49,46,129,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(49,46,129,0.04) 1px,transparent 1px);background-size:96px 96px;mask-image:linear-gradient(to bottom,black 0,black 60%,transparent 100%)}
 
     .topbar{position:sticky;top:0;z-index:50}
     .topbar-inner{max-width:1240px;margin:0 auto;padding:14px 32px;display:flex;justify-content:center;align-items:center}
-    .nav{display:inline-flex;gap:2px;padding:5px;background:var(--surface-container);border-radius:999px;box-shadow:0 10px 28px -18px rgba(31,58,87,0.45)}
+    .nav{display:inline-flex;gap:2px;padding:5px;background:var(--surface-container);border-radius:999px;box-shadow:0 10px 28px -18px rgba(49,46,129,0.45)}
     .nav a{padding:10px 22px;border-radius:999px;font-size:14px;font-weight:500;color:var(--on-surface-variant);transition:background .15s,color .15s;white-space:nowrap}
     .nav a:hover{color:var(--on-surface);background:color-mix(in oklab,var(--primary) 10%,transparent)}
     .nav a.active{background:var(--primary-container);color:var(--on-primary-container)}
@@ -204,39 +204,39 @@
       <p>Most asset-tracking tags are built around a single trade-off. BLE tags are cheap and accurate when a receiver is nearby — but the moment the tag drifts out of range, it goes dark. Long-range IoT radios solve coverage, but at the cost of energy and precision. This project asks a different question: what if one tag could do both on a single radio? The result is a joint BLE + mioty module that transmits frequent BLE advertisements for precise tracking near infrastructure, and occasional mioty telegrams for long-range fallback everywhere else — both from the same 2.4 GHz front end.</p>
       <div class="illus">
         <div class="illus-bar"><span class="dot"></span>Coverage Gap — BLE Precise vs. mioty Fallback</div>
-        <svg viewBox="0 0 720 198" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;">
+        <svg viewBox="0 0 720 198" xmlns="http://www.w3.org/2000/svg" style="background:#f5f4fa;">
           <defs>
-            <pattern id="cg-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path></pattern>
+            <pattern id="cg-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#312e81" stroke-width="0.25" opacity="0.1"></path></pattern>
             <clipPath id="cl-l"><rect x="10" y="10" width="290" height="178"></rect></clipPath>
             <clipPath id="cl-r"><rect x="420" y="10" width="290" height="178"></rect></clipPath>
           </defs>
           <rect width="720" height="198" fill="url(#cg-g)"></rect>
-          <rect x="10" y="10" width="290" height="178" rx="8" fill="color-mix(in oklab,#1F3A57 5%,#F5F7FA)" stroke="#D9DEE5" stroke-width="1"></rect>
-          <text x="22" y="29" font-family="Roboto Mono" font-size="8.5" fill="#8693A3" letter-spacing="0.12em">BLE ZONE</text>
-          <rect x="30" y="46" width="13" height="13" rx="2" fill="#1F3A57"></rect><text x="36" y="40" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">GW</text>
-          <circle cx="36" cy="52" r="54" fill="none" stroke="#1F3A57" stroke-width="0.6" stroke-dasharray="4 3" clip-path="url(#cl-l)"></circle>
-          <rect x="168" y="36" width="13" height="13" rx="2" fill="#1F3A57"></rect><text x="174" y="30" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">GW</text>
-          <circle cx="174" cy="42" r="54" fill="none" stroke="#1F3A57" stroke-width="0.6" stroke-dasharray="4 3" clip-path="url(#cl-l)"></circle>
-          <rect x="228" y="98" width="13" height="13" rx="2" fill="#1F3A57"></rect><text x="234" y="92" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">GW</text>
-          <circle cx="234" cy="104" r="50" fill="none" stroke="#1F3A57" stroke-width="0.6" stroke-dasharray="4 3" clip-path="url(#cl-l)"></circle>
-          <circle cx="120" cy="104" r="20" fill="color-mix(in oklab,#2E5C8A 8%,transparent)" stroke="#2E5C8A" stroke-width="1" stroke-dasharray="3 2"></circle>
-          <circle cx="120" cy="104" r="9" fill="none" stroke="#2E5C8A" stroke-width="1.5"></circle>
-          <circle cx="120" cy="104" r="3" fill="#2E5C8A"></circle>
-          <text x="120" y="140" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#1F3A57" font-weight="600">± 0.5 m</text>
-          <text x="120" y="155" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">precise fix</text>
-          <rect x="420" y="10" width="290" height="178" rx="8" fill="color-mix(in oklab,#2E5C8A 4%,#F5F7FA)" stroke="#D9DEE5" stroke-width="1"></rect>
-          <text x="432" y="29" font-family="Roboto Mono" font-size="8.5" fill="#8693A3" letter-spacing="0.12em">MIOTY ZONE</text>
-          <rect x="668" y="38" width="13" height="13" rx="2" fill="#2E5C8A"></rect><text x="674" y="32" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">BS</text>
-          <circle cx="674" cy="44" r="260" fill="none" stroke="#2E5C8A" stroke-width="0.6" stroke-dasharray="6 4" clip-path="url(#cl-r)"></circle>
-          <circle cx="555" cy="104" r="44" fill="color-mix(in oklab,#2E5C8A 5%,transparent)" stroke="#2E5C8A" stroke-width="0.7" stroke-dasharray="3 3"></circle>
-          <circle cx="555" cy="104" r="26" fill="color-mix(in oklab,#2E5C8A 9%,transparent)" stroke="#2E5C8A" stroke-width="1.2"></circle>
-          <circle cx="555" cy="104" r="3" fill="#2E5C8A"></circle>
-          <text x="555" y="162" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#2E5C8A" font-weight="600">± 30 m</text>
-          <text x="555" y="177" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">fallback coverage</text>
-          <text x="360" y="92" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">degrades</text>
-          <text x="360" y="104" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">gracefully</text>
-          <line x1="316" y1="96" x2="336" y2="96" stroke="#B7BFC8" stroke-width="1"></line><polygon points="332,92 339,96 332,100" fill="#B7BFC8"></polygon>
-          <line x1="384" y1="96" x2="404" y2="96" stroke="#B7BFC8" stroke-width="1"></line><polygon points="388,92 381,96 388,100" fill="#B7BFC8"></polygon>
+          <rect x="10" y="10" width="290" height="178" rx="8" fill="color-mix(in oklab,#312e81 5%,#f5f4fa)" stroke="#ddd9ec" stroke-width="1"></rect>
+          <text x="22" y="29" font-family="Roboto Mono" font-size="8.5" fill="#86829e" letter-spacing="0.12em">BLE ZONE</text>
+          <rect x="30" y="46" width="13" height="13" rx="2" fill="#312e81"></rect><text x="36" y="40" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">GW</text>
+          <circle cx="36" cy="52" r="54" fill="none" stroke="#312e81" stroke-width="0.6" stroke-dasharray="4 3" clip-path="url(#cl-l)"></circle>
+          <rect x="168" y="36" width="13" height="13" rx="2" fill="#312e81"></rect><text x="174" y="30" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">GW</text>
+          <circle cx="174" cy="42" r="54" fill="none" stroke="#312e81" stroke-width="0.6" stroke-dasharray="4 3" clip-path="url(#cl-l)"></circle>
+          <rect x="228" y="98" width="13" height="13" rx="2" fill="#312e81"></rect><text x="234" y="92" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">GW</text>
+          <circle cx="234" cy="104" r="50" fill="none" stroke="#312e81" stroke-width="0.6" stroke-dasharray="4 3" clip-path="url(#cl-l)"></circle>
+          <circle cx="120" cy="104" r="20" fill="color-mix(in oklab,#d6335c 8%,transparent)" stroke="#d6335c" stroke-width="1" stroke-dasharray="3 2"></circle>
+          <circle cx="120" cy="104" r="9" fill="none" stroke="#d6335c" stroke-width="1.5"></circle>
+          <circle cx="120" cy="104" r="3" fill="#d6335c"></circle>
+          <text x="120" y="140" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#312e81" font-weight="600">± 0.5 m</text>
+          <text x="120" y="155" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">precise fix</text>
+          <rect x="420" y="10" width="290" height="178" rx="8" fill="color-mix(in oklab,#d6335c 4%,#f5f4fa)" stroke="#ddd9ec" stroke-width="1"></rect>
+          <text x="432" y="29" font-family="Roboto Mono" font-size="8.5" fill="#86829e" letter-spacing="0.12em">MIOTY ZONE</text>
+          <rect x="668" y="38" width="13" height="13" rx="2" fill="#d6335c"></rect><text x="674" y="32" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">BS</text>
+          <circle cx="674" cy="44" r="260" fill="none" stroke="#d6335c" stroke-width="0.6" stroke-dasharray="6 4" clip-path="url(#cl-r)"></circle>
+          <circle cx="555" cy="104" r="44" fill="color-mix(in oklab,#d6335c 5%,transparent)" stroke="#d6335c" stroke-width="0.7" stroke-dasharray="3 3"></circle>
+          <circle cx="555" cy="104" r="26" fill="color-mix(in oklab,#d6335c 9%,transparent)" stroke="#d6335c" stroke-width="1.2"></circle>
+          <circle cx="555" cy="104" r="3" fill="#d6335c"></circle>
+          <text x="555" y="162" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#d6335c" font-weight="600">± 30 m</text>
+          <text x="555" y="177" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">fallback coverage</text>
+          <text x="360" y="92" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">degrades</text>
+          <text x="360" y="104" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">gracefully</text>
+          <line x1="316" y1="96" x2="336" y2="96" stroke="#b8b3cc" stroke-width="1"></line><polygon points="332,92 339,96 332,100" fill="#b8b3cc"></polygon>
+          <line x1="384" y1="96" x2="404" y2="96" stroke="#b8b3cc" stroke-width="1"></line><polygon points="388,92 381,96 388,100" fill="#b8b3cc"></polygon>
         </svg>
         <div class="illus-caption">Fig 1 — BLE delivers precise position within gateway range; mioty maintains coarse coverage almost everywhere. A dual-mode tag combines both so tracking degrades gracefully rather than dropping out at the coverage edge.</div>
       </div>
@@ -248,33 +248,33 @@
       <p>mioty is built on Telegram Splitting (ETSI TS-UNB): instead of one continuous packet, it chops messages into small sub-packets scattered across time and frequency. A receiver needs only a fraction of them to reconstruct the message — giving mioty its robustness and range. The novelty here is bringing that approach onto the same 2.4 GHz front end as BLE. BLE handles the common case with ~4 Hz three-channel hops for fine-grained tracking; mioty handles the fallback with infrequent split-telegrams that stay linked even when BLE coverage is absent. The two are complementary, not redundant — and both share a single SX1280 transceiver and antenna.</p>
       <div class="illus">
         <div class="illus-bar"><span class="dot"></span>Dual-Mode Operation — SX1280 Output Patterns</div>
-        <svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;">
-          <defs><pattern id="dm-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
+        <svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" style="background:#f5f4fa;">
+          <defs><pattern id="dm-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#312e81" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
           <rect width="720" height="240" fill="url(#dm-g)"></rect>
-          <rect x="276" y="96" width="168" height="58" rx="6" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect>
-          <text x="360" y="122" text-anchor="middle" font-family="Roboto Mono" font-size="10" font-weight="600" fill="#1F3A57">SX1280</text>
-          <text x="360" y="138" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">2.4 GHz TRANSCEIVER</text>
-          <line x1="360" y1="70" x2="360" y2="96" stroke="#1F3A57" stroke-width="1.2"></line>
-          <line x1="348" y1="70" x2="360" y2="50" stroke="#1F3A57" stroke-width="1.5"></line><line x1="372" y1="70" x2="360" y2="50" stroke="#1F3A57" stroke-width="1.5"></line>
-          <line x1="340" y1="76" x2="348" y2="64" stroke="#1F3A57" stroke-width="1"></line><line x1="380" y1="76" x2="372" y2="64" stroke="#1F3A57" stroke-width="1"></line>
-          <text x="360" y="44" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">AE1 / U.FL</text>
-          <line x1="276" y1="118" x2="190" y2="118" stroke="#1F3A57" stroke-width="1.2"></line>
-          <polygon points="196,114 189,118 196,122" fill="#1F3A57"></polygon>
-          <text x="130" y="34" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#1F3A57" font-weight="600" letter-spacing="0.08em">BLE PATH</text>
-          <g fill="#1F3A57">
-            <text x="20" y="72" font-family="Roboto Mono" font-size="8" fill="#4B5663">CH37</text>
-            <text x="20" y="110" font-family="Roboto Mono" font-size="8" fill="#4B5663">CH38</text>
-            <text x="20" y="148" font-family="Roboto Mono" font-size="8" fill="#4B5663">CH39</text>
-            <text x="20" y="168" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">2402 MHz</text>
-            <text x="20" y="206" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">2426 MHz</text>
-            <text x="20" y="224" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">2480 MHz</text>
+          <rect x="276" y="96" width="168" height="58" rx="6" fill="#FFFFFF" stroke="#312e81" stroke-width="1.5"></rect>
+          <text x="360" y="122" text-anchor="middle" font-family="Roboto Mono" font-size="10" font-weight="600" fill="#312e81">SX1280</text>
+          <text x="360" y="138" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4c4966">2.4 GHz TRANSCEIVER</text>
+          <line x1="360" y1="70" x2="360" y2="96" stroke="#312e81" stroke-width="1.2"></line>
+          <line x1="348" y1="70" x2="360" y2="50" stroke="#312e81" stroke-width="1.5"></line><line x1="372" y1="70" x2="360" y2="50" stroke="#312e81" stroke-width="1.5"></line>
+          <line x1="340" y1="76" x2="348" y2="64" stroke="#312e81" stroke-width="1"></line><line x1="380" y1="76" x2="372" y2="64" stroke="#312e81" stroke-width="1"></line>
+          <text x="360" y="44" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4c4966">AE1 / U.FL</text>
+          <line x1="276" y1="118" x2="190" y2="118" stroke="#312e81" stroke-width="1.2"></line>
+          <polygon points="196,114 189,118 196,122" fill="#312e81"></polygon>
+          <text x="130" y="34" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#312e81" font-weight="600" letter-spacing="0.08em">BLE PATH</text>
+          <g fill="#312e81">
+            <text x="20" y="72" font-family="Roboto Mono" font-size="8" fill="#4c4966">CH37</text>
+            <text x="20" y="110" font-family="Roboto Mono" font-size="8" fill="#4c4966">CH38</text>
+            <text x="20" y="148" font-family="Roboto Mono" font-size="8" fill="#4c4966">CH39</text>
+            <text x="20" y="168" font-family="Roboto Mono" font-size="7.5" fill="#86829e">2402 MHz</text>
+            <text x="20" y="206" font-family="Roboto Mono" font-size="7.5" fill="#86829e">2426 MHz</text>
+            <text x="20" y="224" font-family="Roboto Mono" font-size="7.5" fill="#86829e">2480 MHz</text>
           </g>
-          <g fill="#1F3A57">
+          <g fill="#312e81">
             <rect x="62" y="56" width="6" height="24" rx="1"></rect><rect x="74" y="60" width="6" height="20" rx="1"></rect><rect x="86" y="54" width="6" height="26" rx="1"></rect><rect x="98" y="59" width="6" height="20" rx="1"></rect>
             <rect x="122" y="57" width="6" height="24" rx="1"></rect><rect x="134" y="62" width="6" height="18" rx="1"></rect>
             <rect x="158" y="56" width="6" height="22" rx="1"></rect><rect x="170" y="60" width="6" height="18" rx="1"></rect>
           </g>
-          <g fill="#2E5C8A">
+          <g fill="#d6335c">
             <rect x="62" y="94" width="6" height="24" rx="1"></rect><rect x="74" y="98" width="6" height="20" rx="1"></rect><rect x="86" y="93" width="6" height="25" rx="1"></rect>
             <rect x="120" y="96" width="6" height="22" rx="1"></rect><rect x="132" y="100" width="6" height="17" rx="1"></rect>
             <rect x="158" y="95" width="6" height="22" rx="1"></rect><rect x="170" y="99" width="6" height="18" rx="1"></rect>
@@ -284,21 +284,21 @@
             <rect x="122" y="134" width="6" height="22" rx="1"></rect><rect x="134" y="137" width="6" height="18" rx="1"></rect>
             <rect x="156" y="134" width="6" height="22" rx="1"></rect><rect x="168" y="138" width="6" height="17" rx="1"></rect>
           </g>
-          <text x="113" y="208" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#8693A3">~ 4 Hz, hop CH37→38→39</text>
-          <line x1="444" y1="118" x2="530" y2="118" stroke="#2E5C8A" stroke-width="1.2"></line>
-          <polygon points="524,114 531,118 524,122" fill="#2E5C8A"></polygon>
-          <text x="592" y="34" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#2E5C8A" font-weight="600" letter-spacing="0.08em">MIOTY PATH</text>
-          <line x1="536" y1="175" x2="700" y2="175" stroke="#B7BFC8" stroke-width="1"></line>
-          <line x1="536" y1="55" x2="536" y2="175" stroke="#B7BFC8" stroke-width="1"></line>
-          <text x="618" y="190" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">time →</text>
-          <text x="514" y="115" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3" transform="rotate(-90,514,115)">freq →</text>
-          <g fill="#2E5C8A" opacity="0.85">
+          <text x="113" y="208" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#86829e">~ 4 Hz, hop CH37→38→39</text>
+          <line x1="444" y1="118" x2="530" y2="118" stroke="#d6335c" stroke-width="1.2"></line>
+          <polygon points="524,114 531,118 524,122" fill="#d6335c"></polygon>
+          <text x="592" y="34" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#d6335c" font-weight="600" letter-spacing="0.08em">MIOTY PATH</text>
+          <line x1="536" y1="175" x2="700" y2="175" stroke="#b8b3cc" stroke-width="1"></line>
+          <line x1="536" y1="55" x2="536" y2="175" stroke="#b8b3cc" stroke-width="1"></line>
+          <text x="618" y="190" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">time →</text>
+          <text x="514" y="115" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e" transform="rotate(-90,514,115)">freq →</text>
+          <g fill="#d6335c" opacity="0.85">
             <rect x="548" y="58" width="8" height="8" rx="1"></rect><rect x="600" y="68" width="8" height="8" rx="1"></rect><rect x="654" y="62" width="8" height="8" rx="1"></rect>
             <rect x="568" y="88" width="8" height="8" rx="1"></rect><rect x="630" y="82" width="8" height="8" rx="1"></rect><rect x="680" y="92" width="8" height="8" rx="1"></rect>
             <rect x="556" y="118" width="8" height="8" rx="1"></rect><rect x="612" y="108" width="8" height="8" rx="1"></rect><rect x="670" y="122" width="8" height="8" rx="1"></rect>
             <rect x="578" y="148" width="8" height="8" rx="1"></rect><rect x="640" y="138" width="8" height="8" rx="1"></rect><rect x="696" y="152" width="8" height="8" rx="1"></rect>
           </g>
-          <text x="618" y="208" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#8693A3">split-telegram, low duty cycle</text>
+          <text x="618" y="208" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#86829e">split-telegram, low duty cycle</text>
         </svg>
         <div class="illus-caption">Fig 2 — The SX1280 generates both radio modes. BLE hops the three advertising channels at ~4 Hz for fine-grained tracking; mioty scatters sub-packets across a time-frequency grid for robust long-range fallback.</div>
       </div>
@@ -310,57 +310,57 @@
       <p>The whole design bends toward one constraint: run from a CR2032 coin cell. The <strong style="color:var(--on-surface);">Semtech SX1280</strong> handles both radio roles from a single 2.4 GHz front end. The <strong style="color:var(--on-surface);">STM32F103CB</strong> orchestrates everything — building BLE advertising packets, driving the mioty telegram sequence, reading the IMU, and managing sleep. A 9-axis IMU (TDK ICM-45686 + ST IIS2MDCTR) does double duty: its hardware wake-on-motion interrupt keeps the STM32 in deep sleep when the tag is stationary, and its motion data feeds the localization layer for dead-reckoning between radio fixes.</p>
       <div class="illus">
         <div class="illus-bar"><span class="dot"></span>Block Diagram — Module Component Topology</div>
-        <svg viewBox="0 0 720 270" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;">
-          <defs><pattern id="bd-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
+        <svg viewBox="0 0 720 270" xmlns="http://www.w3.org/2000/svg" style="background:#f5f4fa;">
+          <defs><pattern id="bd-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#312e81" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
           <rect width="720" height="270" fill="url(#bd-g)"></rect>
-          <rect x="270" y="18" width="88" height="28" rx="5" fill="#FFFFFF" stroke="#B7BFC8" stroke-width="1"></rect>
-          <text x="314" y="30" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">CR2032</text>
-          <text x="314" y="41" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">coin cell</text>
-          <rect x="390" y="18" width="88" height="28" rx="5" fill="#FFFFFF" stroke="#B7BFC8" stroke-width="1"></rect>
-          <text x="434" y="30" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">tantalum cap</text>
-          <text x="434" y="41" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">TX pulse buffer</text>
-          <line x1="358" y1="32" x2="390" y2="32" stroke="#8693A3" stroke-width="1"></line><polygon points="386,28 393,32 386,36" fill="#8693A3"></polygon>
-          <line x1="434" y1="46" x2="434" y2="58" stroke="#8693A3" stroke-width="1"></line>
-          <line x1="314" y1="46" x2="314" y2="58" stroke="#8693A3" stroke-width="1"></line>
-          <line x1="314" y1="58" x2="434" y2="58" stroke="#8693A3" stroke-width="1"></line>
-          <text x="374" y="70" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">VCC</text>
-          <rect x="256" y="110" width="156" height="90" rx="7" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect>
-          <rect x="256" y="110" width="156" height="24" rx="7" fill="#1F3A57"></rect>
-          <rect x="256" y="120" width="156" height="14" fill="#1F3A57"></rect>
+          <rect x="270" y="18" width="88" height="28" rx="5" fill="#FFFFFF" stroke="#b8b3cc" stroke-width="1"></rect>
+          <text x="314" y="30" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4c4966">CR2032</text>
+          <text x="314" y="41" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">coin cell</text>
+          <rect x="390" y="18" width="88" height="28" rx="5" fill="#FFFFFF" stroke="#b8b3cc" stroke-width="1"></rect>
+          <text x="434" y="30" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4c4966">tantalum cap</text>
+          <text x="434" y="41" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">TX pulse buffer</text>
+          <line x1="358" y1="32" x2="390" y2="32" stroke="#86829e" stroke-width="1"></line><polygon points="386,28 393,32 386,36" fill="#86829e"></polygon>
+          <line x1="434" y1="46" x2="434" y2="58" stroke="#86829e" stroke-width="1"></line>
+          <line x1="314" y1="46" x2="314" y2="58" stroke="#86829e" stroke-width="1"></line>
+          <line x1="314" y1="58" x2="434" y2="58" stroke="#86829e" stroke-width="1"></line>
+          <text x="374" y="70" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">VCC</text>
+          <rect x="256" y="110" width="156" height="90" rx="7" fill="#FFFFFF" stroke="#312e81" stroke-width="1.5"></rect>
+          <rect x="256" y="110" width="156" height="24" rx="7" fill="#312e81"></rect>
+          <rect x="256" y="120" width="156" height="14" fill="#312e81"></rect>
           <text x="334" y="126" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#FFF" letter-spacing="0.06em">STM32F103CB</text>
-          <text x="334" y="151" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">Cortex-M3 @ 72 MHz</text>
-          <text x="334" y="165" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">128 KB Flash · 20 KB RAM</text>
-          <text x="270" y="215" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">8 MHz xtal</text>
-          <text x="270" y="227" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">32.768 kHz RTC</text>
-          <line x1="334" y1="76" x2="334" y2="110" stroke="#8693A3" stroke-width="1"></line>
-          <rect x="476" y="120" width="130" height="70" rx="7" fill="#FFFFFF" stroke="#2E5C8A" stroke-width="1.5"></rect>
-          <rect x="476" y="120" width="130" height="22" rx="7" fill="#2E5C8A"></rect>
-          <rect x="476" y="130" width="130" height="12" fill="#2E5C8A"></rect>
+          <text x="334" y="151" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4c4966">Cortex-M3 @ 72 MHz</text>
+          <text x="334" y="165" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">128 KB Flash · 20 KB RAM</text>
+          <text x="270" y="215" font-family="Roboto Mono" font-size="7.5" fill="#86829e">8 MHz xtal</text>
+          <text x="270" y="227" font-family="Roboto Mono" font-size="7.5" fill="#86829e">32.768 kHz RTC</text>
+          <line x1="334" y1="76" x2="334" y2="110" stroke="#86829e" stroke-width="1"></line>
+          <rect x="476" y="120" width="130" height="70" rx="7" fill="#FFFFFF" stroke="#d6335c" stroke-width="1.5"></rect>
+          <rect x="476" y="120" width="130" height="22" rx="7" fill="#d6335c"></rect>
+          <rect x="476" y="130" width="130" height="12" fill="#d6335c"></rect>
           <text x="541" y="135" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#FFF" letter-spacing="0.06em">SX1280</text>
-          <text x="541" y="156" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">2.4 GHz transceiver</text>
-          <text x="541" y="169" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">BLE + mioty band</text>
-          <text x="541" y="205" font-family="Roboto Mono" font-size="7.5" fill="#8693A3" text-anchor="middle">52 MHz xtal</text>
-          <line x1="412" y1="148" x2="476" y2="148" stroke="#1F3A57" stroke-width="1.5"></line>
-          <polygon points="470,144 477,148 470,152" fill="#1F3A57"></polygon>
-          <rect x="430" y="138" width="28" height="14" rx="3" fill="#EDF1F6" stroke="#D9DEE5" stroke-width="0.8"></rect>
-          <text x="444" y="148" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#1F3A57">SPI</text>
-          <line x1="606" y1="120" x2="606" y2="86" stroke="#2E5C8A" stroke-width="1.2"></line>
-          <line x1="594" y1="86" x2="606" y2="66" stroke="#2E5C8A" stroke-width="1.5"></line><line x1="618" y1="86" x2="606" y2="66" stroke="#2E5C8A" stroke-width="1.5"></line>
-          <line x1="588" y1="93" x2="596" y2="79" stroke="#2E5C8A" stroke-width="1"></line><line x1="624" y1="93" x2="616" y2="79" stroke="#2E5C8A" stroke-width="1"></line>
-          <text x="606" y="58" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#2E5C8A">AE1 / U.FL</text>
+          <text x="541" y="156" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4c4966">2.4 GHz transceiver</text>
+          <text x="541" y="169" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">BLE + mioty band</text>
+          <text x="541" y="205" font-family="Roboto Mono" font-size="7.5" fill="#86829e" text-anchor="middle">52 MHz xtal</text>
+          <line x1="412" y1="148" x2="476" y2="148" stroke="#312e81" stroke-width="1.5"></line>
+          <polygon points="470,144 477,148 470,152" fill="#312e81"></polygon>
+          <rect x="430" y="138" width="28" height="14" rx="3" fill="#ece9f6" stroke="#ddd9ec" stroke-width="0.8"></rect>
+          <text x="444" y="148" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#312e81">SPI</text>
+          <line x1="606" y1="120" x2="606" y2="86" stroke="#d6335c" stroke-width="1.2"></line>
+          <line x1="594" y1="86" x2="606" y2="66" stroke="#d6335c" stroke-width="1.5"></line><line x1="618" y1="86" x2="606" y2="66" stroke="#d6335c" stroke-width="1.5"></line>
+          <line x1="588" y1="93" x2="596" y2="79" stroke="#d6335c" stroke-width="1"></line><line x1="624" y1="93" x2="616" y2="79" stroke="#d6335c" stroke-width="1"></line>
+          <text x="606" y="58" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#d6335c">AE1 / U.FL</text>
           <rect x="64" y="120" width="144" height="70" rx="7" fill="#FFFFFF" stroke="#4F7AA6" stroke-width="1.5"></rect>
           <rect x="64" y="120" width="144" height="22" rx="7" fill="#4F7AA6"></rect>
           <rect x="64" y="130" width="144" height="12" fill="#4F7AA6"></rect>
           <text x="136" y="135" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#FFF" letter-spacing="0.06em">9-AXIS IMU</text>
-          <text x="136" y="156" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">ICM-45686 (accel + gyro)</text>
-          <text x="136" y="170" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">IIS2MDCTR (mag)</text>
+          <text x="136" y="156" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4c4966">ICM-45686 (accel + gyro)</text>
+          <text x="136" y="170" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4c4966">IIS2MDCTR (mag)</text>
           <line x1="208" y1="148" x2="256" y2="148" stroke="#4F7AA6" stroke-width="1.5"></line>
           <polygon points="250,144 257,148 250,152" fill="#4F7AA6"></polygon>
-          <rect x="218" y="138" width="28" height="14" rx="3" fill="#EDF1F6" stroke="#D9DEE5" stroke-width="0.8"></rect>
+          <rect x="218" y="138" width="28" height="14" rx="3" fill="#ece9f6" stroke="#ddd9ec" stroke-width="0.8"></rect>
           <text x="232" y="148" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4F7AA6">I2C</text>
           <path d="M 136,190 V 220 H 334 V 200" fill="none" stroke="#bd6a2e" stroke-width="1.2" stroke-dasharray="5 3"></path>
           <polygon points="330,204 334,197 338,204" fill="#bd6a2e"></polygon>
-          <rect x="188" y="240" width="110" height="14" rx="3" fill="color-mix(in oklab,#bd6a2e 10%,#F5F7FA)" stroke="color-mix(in oklab,#bd6a2e 25%,#D9DEE5)" stroke-width="0.8"></rect>
+          <rect x="188" y="240" width="110" height="14" rx="3" fill="color-mix(in oklab,#bd6a2e 10%,#f5f4fa)" stroke="color-mix(in oklab,#bd6a2e 25%,#ddd9ec)" stroke-width="0.8"></rect>
           <text x="243" y="250" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#bd6a2e">wake-on-motion IRQ</text>
         </svg>
         <div class="illus-caption">Fig 3 — Component topology. STM32F103CB at the centre drives the SX1280 over SPI and the 9-axis IMU over I²C. The IMU's wake-on-motion interrupt keeps the MCU in deep sleep when stationary, dramatically extending coin-cell life.</div>
@@ -474,49 +474,49 @@
       <p>The firmware is written in C against the STM32 HAL. The BLE path is working and verified, the tag is discoverable on standard scanners, confirmed in nRF Connect and Bluetooth LE Explorer. The SX1280 is configured for BLE at 1 Mbps with Gaussian shaping at +13 dBm, transmitting in Apple iBeacon format across all three advertising channels at ~4 Hz. Each iBeacon payload encodes a zone (Major field), an identity (Minor field), and a calibrated TX-power byte for distance estimation. The <strong style="color:var(--on-surface);">mioty transmit path</strong>, generating the split-telegram sub-packet sequence on the same transceiver, is the current active focus. Motion-gated power is central: the IMU's hardware wake-on-motion interrupt keeps the STM32 in deep sleep when the tag is stationary, ramps advertising back up the instant movement is detected, and provides dead-reckoning hints to the localization layer.</p>
       <div class="illus">
         <div class="illus-bar"><span class="dot"></span>Firmware Transmit Cycle — State Flow</div>
-        <svg viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;">
-          <defs><pattern id="fw-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
+        <svg viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg" style="background:#f5f4fa;">
+          <defs><pattern id="fw-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#312e81" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
           <rect width="720" height="210" fill="url(#fw-g)"></rect>
-          <rect x="12" y="72" width="90" height="36" rx="5" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect>
-          <text x="57" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57" font-weight="600">DEEP</text>
-          <text x="57" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57" font-weight="600">SLEEP</text>
-          <line x1="102" y1="90" x2="122" y2="90" stroke="#B7BFC8" stroke-width="1.2"></line><polygon points="118,86 125,90 118,94" fill="#B7BFC8"></polygon>
-          <polygon points="147,68 182,90 147,112 112,90" fill="#EDF1F6" stroke="#1F3A57" stroke-width="1.2"></polygon>
-          <text x="147" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#1F3A57">IMU</text>
-          <text x="147" y="97" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#1F3A57">IRQ?</text>
+          <rect x="12" y="72" width="90" height="36" rx="5" fill="#FFFFFF" stroke="#312e81" stroke-width="1.5"></rect>
+          <text x="57" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#312e81" font-weight="600">DEEP</text>
+          <text x="57" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#312e81" font-weight="600">SLEEP</text>
+          <line x1="102" y1="90" x2="122" y2="90" stroke="#b8b3cc" stroke-width="1.2"></line><polygon points="118,86 125,90 118,94" fill="#b8b3cc"></polygon>
+          <polygon points="147,68 182,90 147,112 112,90" fill="#ece9f6" stroke="#312e81" stroke-width="1.2"></polygon>
+          <text x="147" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#312e81">IMU</text>
+          <text x="147" y="97" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#312e81">IRQ?</text>
           <text x="196" y="86" font-family="Roboto Mono" font-size="8" fill="#3f9d6d">YES</text>
           <line x1="182" y1="90" x2="212" y2="90" stroke="#3f9d6d" stroke-width="1.2"></line><polygon points="208,86 215,90 208,94" fill="#3f9d6d"></polygon>
-          <rect x="215" y="72" width="78" height="36" rx="5" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.2"></rect>
-          <text x="254" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57">BLE</text>
-          <text x="254" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">CH37</text>
-          <text x="254" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">2402 MHz</text>
-          <line x1="293" y1="90" x2="308" y2="90" stroke="#1F3A57" stroke-width="1.2"></line><polygon points="304,86 311,90 304,94" fill="#1F3A57"></polygon>
-          <rect x="311" y="72" width="78" height="36" rx="5" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.2"></rect>
-          <text x="350" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57">BLE</text>
-          <text x="350" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">CH38</text>
-          <text x="350" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">2426 MHz</text>
-          <line x1="389" y1="90" x2="404" y2="90" stroke="#1F3A57" stroke-width="1.2"></line><polygon points="400,86 407,90 400,94" fill="#1F3A57"></polygon>
-          <rect x="407" y="72" width="78" height="36" rx="5" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.2"></rect>
-          <text x="446" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57">BLE</text>
-          <text x="446" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4B5663">CH39</text>
-          <text x="446" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">2480 MHz</text>
-          <line x1="485" y1="90" x2="500" y2="90" stroke="#1F3A57" stroke-width="1.2"></line><polygon points="496,86 503,90 496,94" fill="#1F3A57"></polygon>
-          <rect x="503" y="72" width="88" height="36" rx="5" fill="#EDF1F6" stroke="#2E5C8A" stroke-width="1.2" stroke-dasharray="5 3"></rect>
-          <text x="547" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#2E5C8A">mioty</text>
-          <text x="547" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">telegram</text>
-          <text x="547" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#8693A3">every Nth cycle</text>
-          <line x1="591" y1="90" x2="608" y2="90" stroke="#2E5C8A" stroke-width="1.2" stroke-dasharray="4 2"></line><polygon points="604,86 611,90 604,94" fill="#2E5C8A"></polygon>
-          <rect x="611" y="72" width="90" height="36" rx="5" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect>
-          <text x="656" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57" font-weight="600">DEEP</text>
-          <text x="656" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#1F3A57" font-weight="600">SLEEP</text>
-          <path d="M 701,108 V 180 H 57 V 108" fill="none" stroke="#B7BFC8" stroke-width="1" stroke-dasharray="4 3"></path>
-          <polygon points="53,112 57,105 61,112" fill="#B7BFC8"></polygon>
-          <text x="105" y="120" font-family="Roboto Mono" font-size="8" fill="#8693A3">NO</text>
-          <line x1="147" y1="112" x2="147" y2="148" stroke="#8693A3" stroke-width="1.2" stroke-dasharray="4 2"></line>
-          <rect x="88" y="148" width="118" height="28" rx="5" fill="color-mix(in oklab,#8693A3 10%,#F5F7FA)" stroke="#B7BFC8" stroke-width="1"></rect>
-          <text x="147" y="161" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#8693A3">heartbeat / stay</text>
-          <text x="147" y="173" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#8693A3">dormant ← power saving</text>
-          <path d="M 88,162 H 57 V 108" fill="none" stroke="#8693A3" stroke-width="1" stroke-dasharray="3 2"></path>
+          <rect x="215" y="72" width="78" height="36" rx="5" fill="#FFFFFF" stroke="#312e81" stroke-width="1.2"></rect>
+          <text x="254" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#312e81">BLE</text>
+          <text x="254" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4c4966">CH37</text>
+          <text x="254" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">2402 MHz</text>
+          <line x1="293" y1="90" x2="308" y2="90" stroke="#312e81" stroke-width="1.2"></line><polygon points="304,86 311,90 304,94" fill="#312e81"></polygon>
+          <rect x="311" y="72" width="78" height="36" rx="5" fill="#FFFFFF" stroke="#312e81" stroke-width="1.2"></rect>
+          <text x="350" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#312e81">BLE</text>
+          <text x="350" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4c4966">CH38</text>
+          <text x="350" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">2426 MHz</text>
+          <line x1="389" y1="90" x2="404" y2="90" stroke="#312e81" stroke-width="1.2"></line><polygon points="400,86 407,90 400,94" fill="#312e81"></polygon>
+          <rect x="407" y="72" width="78" height="36" rx="5" fill="#FFFFFF" stroke="#312e81" stroke-width="1.2"></rect>
+          <text x="446" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#312e81">BLE</text>
+          <text x="446" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#4c4966">CH39</text>
+          <text x="446" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">2480 MHz</text>
+          <line x1="485" y1="90" x2="500" y2="90" stroke="#312e81" stroke-width="1.2"></line><polygon points="496,86 503,90 496,94" fill="#312e81"></polygon>
+          <rect x="503" y="72" width="88" height="36" rx="5" fill="#ece9f6" stroke="#d6335c" stroke-width="1.2" stroke-dasharray="5 3"></rect>
+          <text x="547" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#d6335c">mioty</text>
+          <text x="547" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4c4966">telegram</text>
+          <text x="547" y="120" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">every Nth cycle</text>
+          <line x1="591" y1="90" x2="608" y2="90" stroke="#d6335c" stroke-width="1.2" stroke-dasharray="4 2"></line><polygon points="604,86 611,90 604,94" fill="#d6335c"></polygon>
+          <rect x="611" y="72" width="90" height="36" rx="5" fill="#FFFFFF" stroke="#312e81" stroke-width="1.5"></rect>
+          <text x="656" y="87" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#312e81" font-weight="600">DEEP</text>
+          <text x="656" y="100" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#312e81" font-weight="600">SLEEP</text>
+          <path d="M 701,108 V 180 H 57 V 108" fill="none" stroke="#b8b3cc" stroke-width="1" stroke-dasharray="4 3"></path>
+          <polygon points="53,112 57,105 61,112" fill="#b8b3cc"></polygon>
+          <text x="105" y="120" font-family="Roboto Mono" font-size="8" fill="#86829e">NO</text>
+          <line x1="147" y1="112" x2="147" y2="148" stroke="#86829e" stroke-width="1.2" stroke-dasharray="4 2"></line>
+          <rect x="88" y="148" width="118" height="28" rx="5" fill="color-mix(in oklab,#86829e 10%,#f5f4fa)" stroke="#b8b3cc" stroke-width="1"></rect>
+          <text x="147" y="161" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#86829e">heartbeat / stay</text>
+          <text x="147" y="173" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#86829e">dormant ← power saving</text>
+          <path d="M 88,162 H 57 V 108" fill="none" stroke="#86829e" stroke-width="1" stroke-dasharray="3 2"></path>
         </svg>
         <div class="illus-caption">Fig 5 — The MCU sleeps until the IMU's wake-on-motion interrupt fires. A stationary tag stays dormant on a slow heartbeat (the power-saving path); a moving tag hops all three BLE advertising channels at ~4 Hz, with a mioty split-telegram on a longer interval, before returning to deep sleep.</div>
       </div>
@@ -528,51 +528,51 @@
       <p>Hardware that transmits is only half a localization system. The BLE advertisements already carry the hooks: iBeacon Major and Minor fields name a tag's zone and identity, and the calibrated TX-power byte lets receivers estimate distance from RSSI. The planned localization layer will fuse fine-grained BLE measurements where available and coarse mioty presence where not, with the IMU's dead-reckoning bridging the gaps. The final output is a <strong style="color:var(--on-surface);">Leaflet-based web interface</strong> that places each tag on a live map, BLE fixes shown as tight rings, mioty-only fallback as wider uncertainty circles, so an operator immediately sees which tags are pinned down and which are in coverage-fallback mode.</p>
       <div class="illus">
         <div class="illus-bar"><span class="dot"></span>Localization Pipeline — Signals to Leaflet Map</div>
-        <svg viewBox="0 0 720 238" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;">
-          <defs><pattern id="vz-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
+        <svg viewBox="0 0 720 238" xmlns="http://www.w3.org/2000/svg" style="background:#f5f4fa;">
+          <defs><pattern id="vz-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#312e81" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
           <rect width="720" height="238" fill="url(#vz-g)"></rect>
-          <rect x="12" y="60" width="130" height="44" rx="6" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect>
-          <text x="77" y="79" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#1F3A57">BLE RECEIVERS</text>
-          <text x="77" y="94" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#4B5663">RSSI + iBeacon ID</text>
-          <rect x="12" y="120" width="130" height="44" rx="6" fill="#FFFFFF" stroke="#2E5C8A" stroke-width="1.5"></rect>
-          <text x="77" y="139" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#2E5C8A">MIOTY RX</text>
-          <text x="77" y="154" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#4B5663">split-telegram decode</text>
-          <rect x="12" y="184" width="130" height="36" rx="6" fill="#EDF1F6" stroke="#B7BFC8" stroke-width="1" stroke-dasharray="4 2"></rect>
-          <text x="77" y="200" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#8693A3">IMU dead-reckoning</text>
-          <text x="77" y="213" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#8693A3">gap-fill hint</text>
-          <line x1="142" y1="82" x2="245" y2="118" stroke="#1F3A57" stroke-width="1.2"></line>
-          <polygon points="241,113 248,117 243,123" fill="#1F3A57"></polygon>
-          <line x1="142" y1="142" x2="245" y2="128" stroke="#2E5C8A" stroke-width="1.2"></line>
-          <polygon points="241,122 248,127 243,133" fill="#2E5C8A"></polygon>
-          <line x1="142" y1="202" x2="245" y2="136" stroke="#B7BFC8" stroke-width="1" stroke-dasharray="4 2"></line>
-          <polygon points="241,130 248,135 243,141" fill="#B7BFC8"></polygon>
-          <rect x="245" y="96" width="138" height="60" rx="6" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect>
-          <rect x="245" y="96" width="138" height="22" rx="6" fill="#1F3A57"></rect>
-          <rect x="245" y="106" width="138" height="12" fill="#1F3A57"></rect>
+          <rect x="12" y="60" width="130" height="44" rx="6" fill="#FFFFFF" stroke="#312e81" stroke-width="1.5"></rect>
+          <text x="77" y="79" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#312e81">BLE RECEIVERS</text>
+          <text x="77" y="94" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#4c4966">RSSI + iBeacon ID</text>
+          <rect x="12" y="120" width="130" height="44" rx="6" fill="#FFFFFF" stroke="#d6335c" stroke-width="1.5"></rect>
+          <text x="77" y="139" text-anchor="middle" font-family="Roboto Mono" font-size="9" font-weight="600" fill="#d6335c">MIOTY RX</text>
+          <text x="77" y="154" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#4c4966">split-telegram decode</text>
+          <rect x="12" y="184" width="130" height="36" rx="6" fill="#ece9f6" stroke="#b8b3cc" stroke-width="1" stroke-dasharray="4 2"></rect>
+          <text x="77" y="200" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" fill="#86829e">IMU dead-reckoning</text>
+          <text x="77" y="213" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">gap-fill hint</text>
+          <line x1="142" y1="82" x2="245" y2="118" stroke="#312e81" stroke-width="1.2"></line>
+          <polygon points="241,113 248,117 243,123" fill="#312e81"></polygon>
+          <line x1="142" y1="142" x2="245" y2="128" stroke="#d6335c" stroke-width="1.2"></line>
+          <polygon points="241,122 248,127 243,133" fill="#d6335c"></polygon>
+          <line x1="142" y1="202" x2="245" y2="136" stroke="#b8b3cc" stroke-width="1" stroke-dasharray="4 2"></line>
+          <polygon points="241,130 248,135 243,141" fill="#b8b3cc"></polygon>
+          <rect x="245" y="96" width="138" height="60" rx="6" fill="#FFFFFF" stroke="#312e81" stroke-width="1.5"></rect>
+          <rect x="245" y="96" width="138" height="22" rx="6" fill="#312e81"></rect>
+          <rect x="245" y="106" width="138" height="12" fill="#312e81"></rect>
           <text x="314" y="111" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" font-weight="600" fill="#FFF" letter-spacing="0.06em">FUSION ENGINE</text>
-          <text x="314" y="132" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">RSSI fingerprinting</text>
-          <text x="314" y="147" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4B5663">two confidence levels</text>
-          <line x1="383" y1="126" x2="418" y2="126" stroke="#1F3A57" stroke-width="1.5"></line>
-          <polygon points="414,122 421,126 414,130" fill="#1F3A57"></polygon>
-          <rect x="421" y="54" width="280" height="162" rx="8" fill="#FFFFFF" stroke="#1F3A57" stroke-width="1.5"></rect>
-          <rect x="421" y="54" width="280" height="20" rx="8" fill="#1F3A57"></rect>
-          <rect x="421" y="64" width="280" height="10" fill="#1F3A57"></rect>
+          <text x="314" y="132" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4c4966">RSSI fingerprinting</text>
+          <text x="314" y="147" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4c4966">two confidence levels</text>
+          <line x1="383" y1="126" x2="418" y2="126" stroke="#312e81" stroke-width="1.5"></line>
+          <polygon points="414,122 421,126 414,130" fill="#312e81"></polygon>
+          <rect x="421" y="54" width="280" height="162" rx="8" fill="#FFFFFF" stroke="#312e81" stroke-width="1.5"></rect>
+          <rect x="421" y="54" width="280" height="20" rx="8" fill="#312e81"></rect>
+          <rect x="421" y="64" width="280" height="10" fill="#312e81"></rect>
           <text x="561" y="67" text-anchor="middle" font-family="Roboto Mono" font-size="8.5" font-weight="600" fill="#FFF" letter-spacing="0.05em">LEAFLET MAP</text>
-          <rect x="436" y="84" width="250" height="118" rx="3" fill="#F5F7FA"></rect>
-          <g stroke="#D9DEE5" stroke-width="1" fill="none">
+          <rect x="436" y="84" width="250" height="118" rx="3" fill="#f5f4fa"></rect>
+          <g stroke="#ddd9ec" stroke-width="1" fill="none">
             <rect x="445" y="90" width="230" height="105" rx="2"></rect>
             <line x1="528" y1="90" x2="528" y2="140"></line><line x1="528" y1="155" x2="528" y2="195"></line>
             <line x1="600" y1="90" x2="600" y2="195"></line>
             <line x1="445" y1="140" x2="528" y2="140"></line>
           </g>
-          <circle cx="487" cy="118" r="12" fill="color-mix(in oklab,#1F3A57 8%,#F5F7FA)" stroke="#1F3A57" stroke-width="1"></circle>
-          <circle cx="487" cy="118" r="5" fill="none" stroke="#1F3A57" stroke-width="1.5"></circle>
-          <circle cx="487" cy="118" r="2.5" fill="#1F3A57"></circle>
-          <text x="487" y="138" text-anchor="middle" font-family="Roboto Mono" font-size="6.5" fill="#1F3A57">BLE — precise</text>
-          <circle cx="570" cy="158" r="30" fill="color-mix(in oklab,#2E5C8A 5%,#F5F7FA)" stroke="#2E5C8A" stroke-width="0.8" stroke-dasharray="3 2"></circle>
-          <circle cx="570" cy="158" r="16" fill="color-mix(in oklab,#2E5C8A 9%,#F5F7FA)" stroke="#2E5C8A" stroke-width="1.2"></circle>
-          <circle cx="570" cy="158" r="2.5" fill="#2E5C8A"></circle>
-          <text x="570" y="195" text-anchor="middle" font-family="Roboto Mono" font-size="6.5" fill="#2E5C8A">mioty — fallback</text>
+          <circle cx="487" cy="118" r="12" fill="color-mix(in oklab,#312e81 8%,#f5f4fa)" stroke="#312e81" stroke-width="1"></circle>
+          <circle cx="487" cy="118" r="5" fill="none" stroke="#312e81" stroke-width="1.5"></circle>
+          <circle cx="487" cy="118" r="2.5" fill="#312e81"></circle>
+          <text x="487" y="138" text-anchor="middle" font-family="Roboto Mono" font-size="6.5" fill="#312e81">BLE — precise</text>
+          <circle cx="570" cy="158" r="30" fill="color-mix(in oklab,#d6335c 5%,#f5f4fa)" stroke="#d6335c" stroke-width="0.8" stroke-dasharray="3 2"></circle>
+          <circle cx="570" cy="158" r="16" fill="color-mix(in oklab,#d6335c 9%,#f5f4fa)" stroke="#d6335c" stroke-width="1.2"></circle>
+          <circle cx="570" cy="158" r="2.5" fill="#d6335c"></circle>
+          <text x="570" y="195" text-anchor="middle" font-family="Roboto Mono" font-size="6.5" fill="#d6335c">mioty — fallback</text>
         </svg>
         <div class="illus-caption">Fig 6 — BLE and mioty receivers feed a fusion layer that produces position estimates at two confidence levels. The Leaflet-based web interface renders these as live tag positions — BLE fixes as tight rings, mioty-only fallback as wider uncertainty circles.</div>
       </div>
@@ -676,8 +676,8 @@
       <a class="contact-link" href="https://github.com/gaurav-mk" rel="external nofollow noopener" target="_blank">
         <span class="k">GITHUB</span><span class="v">@gaurav-mk</span><span class="arrow">→</span>
       </a>
-      <a class="contact-link" href="https://www.linkedin.com/in/gaurav-kumar-mishra-/" rel="external nofollow noopener" target="_blank">
-        <span class="k">LINKEDIN</span><span class="v">/in/gaurav-kumar-mishra-</span><span class="arrow">→</span>
+      <a class="contact-link" href="https://linkedin.com/in/gaurav-25" rel="external nofollow noopener" target="_blank">
+        <span class="k">LINKEDIN</span><span class="v">/in/gaurav-25</span><span class="arrow">→</span>
       </a>
     </div>
   </div>

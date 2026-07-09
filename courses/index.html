@@ -12,13 +12,13 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --primary: #1f3a57; --primary-hover: #173049; --on-primary: #fff;
-      --primary-container: #d9e5f2; --on-primary-container: #0a2540;
-      --secondary: #2e5c8a; --surface: #fafbfd;
-      --surface-container-lowest: #fff; --surface-container-low: #f5f7fa;
-      --surface-container: #edf1f6; --surface-container-high: #e5ebf2;
-      --on-surface: #14181e; --on-surface-variant: #4b5663; --on-surface-faint: #8693a3;
-      --outline: #b7bfc8; --outline-variant: #d9dee5; --success: #1e7f4f;
+      --primary: #312e81; --primary-hover: #26235f; --on-primary: #fff;
+      --primary-container: #e3e1fb; --on-primary-container: #211c5e;
+      --secondary: #d6335c; --surface: #faf9fd;
+      --surface-container-lowest: #fff; --surface-container-low: #f5f4fa;
+      --surface-container: #ece9f6; --surface-container-high: #e2ddf1;
+      --on-surface: #18162a; --on-surface-variant: #4c4966; --on-surface-faint: #86829e;
+      --outline: #b8b3cc; --outline-variant: #ddd9ec; --success: #1e7f4f;
       --font-display: 'Roboto Flex','Roboto',system-ui,sans-serif;
       --font-body: 'Roboto',system-ui,sans-serif;
       --font-mono: 'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -27,12 +27,12 @@
     html, body { margin: 0; padding: 0; }
     body { font-family: var(--font-body); background: var(--surface); color: var(--on-surface); -webkit-font-smoothing: antialiased; font-size: 15px; line-height: 1.55; }
     a { color: inherit; text-decoration: none !important; }
-    .grid-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(to right, rgba(31,58,87,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(31,58,87,0.04) 1px, transparent 1px); background-size: 96px 96px; mask-image: linear-gradient(to bottom, black 0, black 60%, transparent 100%); }
+    .grid-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(to right, rgba(49,46,129,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(49,46,129,0.04) 1px, transparent 1px); background-size: 96px 96px; mask-image: linear-gradient(to bottom, black 0, black 60%, transparent 100%); }
 
     /* TOPBAR */
     .topbar { position: sticky; top: 0; z-index: 50; }
     .topbar-inner { max-width: 1240px; margin: 0 auto; padding: 14px 32px; display: flex; justify-content: center; align-items: center; }
-    .nav { display: inline-flex; gap: 2px; padding: 5px; background: var(--surface-container); border-radius: 999px; box-shadow: 0 10px 28px -18px rgba(31,58,87,0.45); }
+    .nav { display: inline-flex; gap: 2px; padding: 5px; background: var(--surface-container); border-radius: 999px; box-shadow: 0 10px 28px -18px rgba(49,46,129,0.45); }
     .nav a { padding: 10px 22px; border-radius: 999px; font-size: 14px; font-weight: 500; color: var(--on-surface-variant); transition: background 0.15s, color 0.15s; white-space: nowrap; }
     .nav a:hover { color: var(--on-surface); background: color-mix(in oklab, var(--primary) 10%, transparent); }
     .nav a.active { background: var(--primary-container); color: var(--on-primary-container); }
@@ -61,7 +61,7 @@
     /* COURSE CARDS — same structure as .proj */
     .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 52px; }
     .course-card { border: 1px solid var(--outline-variant); border-radius: var(--r-lg); background: var(--surface-container-lowest); overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s; }
-    a.course-card:hover { box-shadow: 0 8px 28px rgba(31,58,87,0.12); transform: translateY(-2px); }
+    a.course-card:hover { box-shadow: 0 8px 28px rgba(49,46,129,0.12); transform: translateY(-2px); }
 
     /* COVER */
     .course-cover { position: relative; overflow: hidden; }
@@ -69,13 +69,13 @@
     .course-cover-ph {
       height: 160px;
       background-color: var(--surface-container-low);
-      background-image: linear-gradient(to right, rgba(31,58,87,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(31,58,87,0.07) 1px, transparent 1px);
+      background-image: linear-gradient(to right, rgba(49,46,129,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(49,46,129,0.07) 1px, transparent 1px);
       background-size: 20px 20px;
       display: flex; align-items: center; justify-content: center;
       font-size: 2.6rem;
     }
     .course-cover-ph.accent-blue { background-color: color-mix(in oklab, var(--primary) 6%, var(--surface-container-low)); }
-    .course-cover-ph.accent-teal { background-color: color-mix(in oklab, #2e5c8a 6%, var(--surface-container-low)); }
+    .course-cover-ph.accent-teal { background-color: color-mix(in oklab, #d6335c 6%, var(--surface-container-low)); }
     .course-cover-ph.accent-green { background-color: color-mix(in oklab, #1e7f4f 5%, var(--surface-container-low)); }
     .course-meta { position: absolute; top: 10px; left: 10px; display: flex; gap: 5px; flex-wrap: wrap; }
     .course-meta .tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; padding: 3px 8px; border-radius: 999px; background: var(--primary); color: var(--on-primary); font-weight: 500; }
@@ -94,7 +94,7 @@
     .course-link.muted { color: var(--on-surface-faint); }
     .chip { margin-left: auto; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
     .chip.done { background: color-mix(in oklab, #1e7f4f 12%, transparent); color: var(--success); border: 1px solid color-mix(in oklab, #1e7f4f 28%, transparent); }
-    .chip.current { background: color-mix(in oklab, #2e5c8a 12%, transparent); color: var(--secondary); border: 1px solid color-mix(in oklab, #2e5c8a 28%, transparent); }
+    .chip.current { background: color-mix(in oklab, #d6335c 12%, transparent); color: var(--secondary); border: 1px solid color-mix(in oklab, #d6335c 28%, transparent); }
     .chip.planned { background: var(--surface-container); color: var(--on-surface-faint); border: 1px solid var(--outline-variant); }
 
     /* FOOTER */
@@ -149,7 +149,7 @@
     <div class="category-label">Self-Paced &amp; Online</div>
     <div class="course-grid">
 
-      <a class="course-card" href="/courses/cst-studio/">
+      <div class="course-card" style="cursor:default;">
         <div class="course-cover">
           <div class="course-cover-ph accent-blue">📡</div>
           <div class="course-meta"><span class="tag">Udemy</span><span class="tag">RF</span></div>
@@ -160,10 +160,10 @@
           <div class="course-tags"><span>CST Studio</span><span>EM Simulation</span><span>Antenna</span><span>RF</span></div>
         </div>
         <div class="course-foot">
-          <span class="course-link">View notes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          <span class="course-link" style="color:var(--on-surface-faint);">Notes coming soon</span>
           <span class="chip current">● In Progress</span>
         </div>
-      </a>
+      </div>
 
     </div>
 

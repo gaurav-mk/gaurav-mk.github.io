@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Smart Home Automation + UPS | Gaurav Kumar Mishra</title>
+  <meta name="author" content="Gaurav Kumar Mishra" />
+  <meta name="description" content="An automatic LED emergency lamp built on an online UPS topology, with Arduino + Bluetooth IoT control from a smartphone app — full circuit design, simulation, and testing. Published at IEEE ICAC3N 2021." />
+  <meta name="keywords" content="UPS, Arduino, IoT, Bluetooth, LED, home automation, power electronics, IEEE" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..900&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --primary:#312e81;--primary-hover:#26235f;--on-primary:#FFF;
+      --primary-container:#e3e1fb;--on-primary-container:#211c5e;
+      --secondary:#d6335c;--surface:#faf9fd;
+      --surface-container-lowest:#FFF;--surface-container-low:#f5f4fa;
+      --surface-container:#ece9f6;--surface-container-high:#e2ddf1;
+      --on-surface:#18162a;--on-surface-variant:#4c4966;--on-surface-faint:#86829e;
+      --outline:#b8b3cc;--outline-variant:#ddd9ec;--success:#1e7f4f;
+      --font-display:'Roboto Flex','Roboto',system-ui,sans-serif;
+      --font-body:'Roboto',system-ui,sans-serif;
+      --font-mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+      --r-xs:4px;--r-sm:8px;--r-md:12px;--r-lg:16px;--r-pill:999px;
+    }
+    html,body{margin:0;padding:0}
+    body{font-family:var(--font-body);background:var(--surface);color:var(--on-surface);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.55}
+    a{color:inherit;text-decoration:none!important}
+
+    .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(to right,rgba(49,46,129,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(49,46,129,0.04) 1px,transparent 1px);background-size:96px 96px;mask-image:linear-gradient(to bottom,black 0,black 60%,transparent 100%)}
+
+    .topbar{position:sticky;top:0;z-index:50}
+    .topbar-inner{max-width:1240px;margin:0 auto;padding:14px 32px;display:flex;justify-content:center;align-items:center}
+    .nav{display:inline-flex;gap:2px;padding:5px;background:var(--surface-container);border-radius:999px;box-shadow:0 10px 28px -18px rgba(49,46,129,0.45)}
+    .nav a{padding:10px 22px;border-radius:999px;font-size:14px;font-weight:500;color:var(--on-surface-variant);transition:background .15s,color .15s;white-space:nowrap}
+    .nav a:hover{color:var(--on-surface);background:color-mix(in oklab,var(--primary) 10%,transparent)}
+    .nav a.active{background:var(--primary-container);color:var(--on-primary-container)}
+
+    main{position:relative;z-index:1}
+
+    .proj-hero{padding:44px 32px 40px;max-width:1240px;margin:0 auto;border-bottom:1px solid var(--outline-variant)}
+    .back-link{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--on-surface-faint);margin-bottom:24px;transition:color .15s}
+    .back-link:hover{color:var(--primary)}
+    .back-link svg{width:12px;height:12px}
+    .proj-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--secondary);margin-bottom:16px}
+    .proj-eyebrow::before{content:"";width:24px;height:1px;background:var(--secondary);display:inline-block}
+    .proj-hero h1{font-family:var(--font-display);font-variation-settings:"opsz" 96,"wght" 600;font-size:clamp(28px,3.8vw,56px);line-height:1.05;letter-spacing:-0.02em;margin:0 0 12px;color:var(--on-surface);max-width:22ch}
+    .proj-hero .subtitle{font-size:16px;color:var(--on-surface-variant);max-width:60ch;margin:0 0 28px;line-height:1.6}
+    .meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+    .meta-chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;padding:4px 10px;border-radius:999px;border:1px solid var(--outline-variant);background:var(--surface-container-low);color:var(--on-surface-variant)}
+    .meta-chip.primary{background:var(--primary-container);border-color:color-mix(in oklab,var(--primary) 22%,transparent);color:var(--on-primary-container)}
+    .meta-chip.pub{background:color-mix(in oklab,var(--success) 12%,transparent);border-color:color-mix(in oklab,var(--success) 28%,transparent);color:var(--success)}
+    .meta-sep{color:var(--outline);font-family:var(--font-mono);font-size:12px}
+
+    .proj-body{max-width:1240px;margin:48px auto 0;padding:0 32px 80px;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:48px;align-items:start}
+    .proj-main{min-width:0;display:flex;flex-direction:column;gap:48px}
+    .section-block{display:flex;flex-direction:column;gap:16px}
+    .section-label{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-surface-faint);margin-bottom:4px}
+    .section-label::after{content:"";flex:1;height:1px;background:var(--outline-variant);width:40px}
+    .section-block h2{font-family:var(--font-display);font-variation-settings:"opsz" 48,"wght" 600;font-size:clamp(18px,2vw,24px);line-height:1.2;letter-spacing:-0.01em;margin:0;color:var(--on-surface);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .section-block p{font-size:14.5px;line-height:1.7;color:var(--on-surface-variant);margin:0}
+    .section-block ul{margin:2px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+    .section-block li{font-size:14.5px;line-height:1.65;color:var(--on-surface-variant)}
+    .section-block li strong{color:var(--on-surface);font-weight:600}
+
+    .illus{border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-low);overflow:hidden}
+    .illus-bar{padding:8px 14px;background:var(--surface-container);border-bottom:1px solid var(--outline-variant);display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint)}
+    .illus-bar .dot{width:7px;height:7px;border-radius:50%;background:var(--outline)}
+    .illus svg{display:block;width:100%}
+    .illus-caption{padding:10px 14px;border-top:1px solid var(--outline-variant);font-family:var(--font-mono);font-size:10.5px;color:var(--on-surface-faint);letter-spacing:.04em;line-height:1.5}
+
+    .bom{border:1px solid var(--outline-variant);border-radius:var(--r-md);overflow:hidden}
+    .bom-head{display:grid;grid-template-columns:170px 1fr;padding:9px 14px;background:var(--surface-container-low);border-bottom:1px solid var(--outline-variant);font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint)}
+    .bom-row{display:grid;grid-template-columns:170px 1fr;padding:10px 14px;border-bottom:1px solid var(--outline-variant);background:var(--surface-container-lowest);align-items:start;transition:background .15s}
+    .bom-row:last-child{border-bottom:0}
+    .bom-row:hover{background:var(--surface-container-low)}
+    .bc{font-size:13px;color:var(--on-surface);font-family:var(--font-mono)}
+    .bc.lbl{color:var(--on-surface-variant);font-size:12px;font-family:var(--font-body);font-weight:500}
+
+    .proj-sidebar{position:sticky;top:80px;display:flex;flex-direction:column;gap:20px}
+    .sidebar-card{border:1px solid var(--outline-variant);border-radius:var(--r-md);background:var(--surface-container-lowest);overflow:hidden}
+    .sidebar-head{padding:10px 14px;background:var(--surface-container-low);border-bottom:1px solid var(--outline-variant);font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-surface-faint)}
+    .sidebar-row{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:11px 14px;border-bottom:1px solid var(--outline-variant);align-items:start}
+    .sidebar-row:last-child{border-bottom:0}
+    .sidebar-key{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint);white-space:nowrap;padding-top:1px}
+    .sidebar-val{font-size:13px;color:var(--on-surface);line-height:1.5;font-weight:500;text-align:right}
+    .tool-list{padding:12px 14px;display:flex;flex-wrap:wrap;gap:5px}
+    .tool-chip{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;padding:3px 8px;border-radius:var(--r-xs);background:var(--surface-container);border:1px solid var(--outline-variant);color:var(--on-surface-variant)}
+
+    .nav-proj{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--outline-variant);border:1px solid var(--outline-variant);border-radius:var(--r-md);overflow:hidden}
+    .nav-proj a{padding:12px 14px;background:var(--surface-container-lowest);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--on-surface-faint);transition:background .15s,color .15s;display:flex;flex-direction:column;gap:4px}
+    .nav-proj a:hover{background:var(--surface-container);color:var(--primary)}
+    .nav-proj a span{font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--on-surface);letter-spacing:0;text-transform:none}
+    .nav-proj a.next{text-align:right}
+
+    .contact{border-top:1px solid var(--outline-variant);padding:44px 0 36px;background:var(--surface-container-low)}
+    .contact-inner{max-width:1240px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start}
+    .contact h2{font-family:var(--font-display);font-variation-settings:"opsz" 96,"wght" 500;font-size:clamp(26px,3.2vw,46px);line-height:1;letter-spacing:-0.02em;margin:0 0 14px}
+    .contact h2 a{color:var(--primary);border-bottom:2px solid color-mix(in oklab,var(--primary) 40%,transparent);transition:border-color .15s}
+    .contact h2 a:hover{border-color:var(--primary)}
+    .contact p{color:var(--on-surface-variant);max-width:50ch;margin:0}
+    .contact-links{display:grid;gap:1px;background:var(--outline-variant);border:1px solid var(--outline-variant);border-radius:var(--r-sm);overflow:hidden}
+    .contact-link{display:grid;grid-template-columns:88px 1fr auto;gap:16px;padding:11px 16px;background:var(--surface-container-lowest);align-items:center;transition:background .15s}
+    .contact-link:hover{background:var(--surface-container)}
+    .contact-link .k{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--on-surface-faint);text-transform:uppercase}
+    .contact-link .v{font-size:14px;color:var(--on-surface);font-weight:500}
+    .contact-link .arrow{font-family:var(--font-mono);color:var(--on-surface-faint)}
+    .contact-link:hover .arrow{color:var(--primary)}
+    .footnote{max-width:1240px;margin:32px auto 0;padding:0 32px 16px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);letter-spacing:.04em}
+
+    .article-toc{position:fixed;left:calc(25vw - 385px);top:50%;transform:translateY(-50%);width:196px;max-height:80vh;overflow-y:auto;z-index:10;padding:0 0 16px;scrollbar-width:none;opacity:0;visibility:hidden}
+    .article-toc.ready{visibility:visible;animation:toc-enter .45s cubic-bezier(0.2,0,0,1) .08s both}
+    @keyframes toc-enter{from{opacity:0;transform:translateY(-50%) translateX(-10px)}to{opacity:1;transform:translateY(-50%) translateX(0)}}
+    .article-toc::-webkit-scrollbar{display:none}
+    @media(max-width:1400px){.article-toc{display:none}.toc-pill{display:none!important}}
+    .toc-pill{position:absolute;border-radius:999px;pointer-events:none;z-index:9;transition:top .32s cubic-bezier(0.2,0,0,1),left .32s cubic-bezier(0.2,0,0,1),width .32s cubic-bezier(0.2,0,0,1),height .32s cubic-bezier(0.2,0,0,1),opacity .22s cubic-bezier(0.2,0,0,1);opacity:0;background:var(--primary-container)}
+    .article-toc a{position:relative;z-index:11;display:block;height:32px;line-height:32px;padding:0 16px;font-family:var(--font-mono);font-size:12.5px;font-weight:450;color:var(--on-surface-variant);border-radius:999px;margin:2px 4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .2s cubic-bezier(0.2,0,0,1),background .18s cubic-bezier(0.2,0,0,1)}
+    .article-toc a:hover{background:color-mix(in oklab,var(--primary) 7%,transparent);color:var(--on-surface)}
+    .article-toc a.active,.article-toc a.active:hover{color:var(--on-primary-container)!important;font-weight:600!important}
+
+    @media(max-width:960px){
+      .proj-body{grid-template-columns:1fr;gap:32px;padding:0 20px 60px;margin-top:32px}
+      .proj-hero{padding:32px 20px 28px}
+      .proj-sidebar{position:static}
+      .contact-inner{padding-left:20px;padding-right:20px;grid-template-columns:1fr}
+      .footnote{padding-left:20px;padding-right:20px}
+    }
+    @media(max-width:640px){
+      .topbar-inner{padding:10px 16px}
+      .nav a{padding:9px 14px;font-size:13px}
+      .bom-head,.bom-row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/projects/" class="active">Projects</a>
+      <a href="/courses/">Courses</a>
+      <a href="/community/">Community</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<aside class="article-toc ready" style="margin-top:0px;">
+  <a href="#heading-0" class="active">Overview</a>
+  <a href="#heading-1" class="">Architecture</a>
+  <a href="#heading-2" class="">Online UPS Circuit</a>
+  <a href="#heading-3" class="">IoT &amp; App Control</a>
+  <a href="#heading-4" class="">Testing</a>
+  <a href="#heading-5" class="">Scope &amp; Conclusion</a>
+  <div class="toc-pill" style="top:2px;left:4px;width:188px;height:32px;opacity:1;"></div>
+</aside>
+
+<div class="proj-hero">
+  <a class="back-link" href="/projects/">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg>
+    All Projects
+  </a>
+  <div class="proj-eyebrow">IEEE ICAC3N 2021 · Power Electronics + IoT</div>
+  <h1>Smart Home Automation + UPS</h1>
+  <p class="subtitle">An automatic LED emergency lamp on an online-UPS topology that switches to battery the instant mains drops — with Arduino + Bluetooth control from a smartphone app for manual or light-sensing automatic operation.</p>
+  <div class="meta-row">
+    <span class="meta-chip primary">IoT</span>
+    <span class="meta-chip primary">Power Electronics</span>
+    <span class="meta-chip primary">Home Automation</span>
+    <span class="meta-chip">Arduino Uno</span>
+    <span class="meta-chip">Bluetooth</span>
+    <span class="meta-chip">LM317</span>
+    <span class="meta-chip">MIT App Inventor</span>
+    <span class="meta-chip pub">✓ IEEE Published</span>
+    <span class="meta-sep">·</span>
+    <span class="meta-chip">Sathyabama Institute · 2021</span>
+  </div>
+</div>
+
+<div class="proj-body">
+  <div class="proj-main">
+
+    <div class="section-block">
+      <div class="section-label">Overview</div>
+      <h2 data-toc="Overview" id="heading-0">Backup Power Meets IoT</h2>
+      <p>Emergency lamps and UPS units are old, well-understood ideas — but most stay dumb: on or off, nothing more. This project rebuilds the emergency-lamp-plus-UPS pattern on an <strong style="color:var(--on-surface);">online UPS</strong> configuration, where the load always runs from the regulated, battery-backed rail rather than switching over after a mains failure is detected, so there's no interruption at all when power drops. On top of that base, an Arduino Uno and a Bluetooth module add a control layer: the lamp can be switched manually from a smartphone app, or left to a Light Dependent Resistor (LDR) that turns it on automatically once ambient light falls below a threshold.</p>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">System Architecture</div>
+      <h2 data-toc="Architecture" id="heading-1">From Mains to Lamp</h2>
+      <p>Two subsystems share one load. The power path steps 230&nbsp;V mains down, rectifies and filters it, and uses the regulated output both to power the load directly and to trickle-charge a battery. The control path reads an LDR and a Bluetooth link into the Arduino, which drives a relay across the same lamp.</p>
+      <div class="illus">
+        <div class="illus-bar"><span class="dot"></span>Block Diagram — Power Path + Control Path</div>
+        <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" style="background:#f5f4fa;">
+          <defs>
+            <pattern id="ba-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#312e81" stroke-width="0.25" opacity="0.1"></path></pattern>
+            <marker id="ba-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#312e81"></path></marker>
+            <marker id="ba-arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#d6335c"></path></marker>
+          </defs>
+          <rect width="720" height="260" fill="url(#ba-g)"></rect>
+          <text x="20" y="24" font-family="Roboto Mono" font-size="9" fill="#312e81" font-weight="600" letter-spacing="0.1em">POWER PATH</text>
+          <g font-family="Roboto Mono" font-size="8.5" font-weight="600" fill="#18162a" text-anchor="middle">
+            <rect x="16"  y="34" width="90" height="34" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="61" y="55">AC 230V</text>
+            <rect x="130" y="34" width="90" height="34" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="175" y="49">TRANSFORMER</text><text x="175" y="60" font-size="7" font-weight="400" fill="#86829e">230/15V</text>
+            <rect x="244" y="34" width="100" height="34" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="294" y="49">RECTIFIER</text><text x="294" y="60" font-size="7" font-weight="400" fill="#86829e">+ FILTER</text>
+            <rect x="368" y="34" width="110" height="34" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="423" y="49">LM317</text><text x="423" y="60" font-size="7" font-weight="400" fill="#86829e">REGULATOR · 9V</text>
+            <rect x="502" y="16" width="90" height="34" rx="5" fill="#e3e1fb" stroke="#312e81" stroke-width="1.2"></rect><text x="547" y="37" fill="#211c5e">BATTERY</text>
+            <rect x="502" y="58" width="90" height="30" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="547" y="77" font-size="8">CHARGER</text>
+            <rect x="620" y="34" width="86" height="34" rx="5" fill="#fff" stroke="#d6335c" stroke-width="1.4"></rect><text x="663" y="49" fill="#d6335c">RELAY</text><text x="663" y="60" font-size="7" font-weight="400" fill="#86829e">→ LAMP</text>
+          </g>
+          <g stroke="#312e81" stroke-width="1.3" marker-end="url(#ba-arr)" fill="none">
+            <line x1="106" y1="51" x2="129" y2="51"></line>
+            <line x1="220" y1="51" x2="243" y2="51"></line>
+            <line x1="344" y1="51" x2="367" y2="51"></line>
+            <line x1="478" y1="42" x2="501" y2="34"></line>
+            <line x1="478" y1="60" x2="501" y2="70"></line>
+            <line x1="547" y1="50" x2="547" y2="57"></line>
+          </g>
+          <line x1="478" y1="51" x2="663" y2="51" stroke="#312e81" stroke-width="1.3" marker-end="url(#ba-arr)"></line>
+          <text x="20" y="118" font-family="Roboto Mono" font-size="9" fill="#d6335c" font-weight="600" letter-spacing="0.1em">CONTROL PATH</text>
+          <g font-family="Roboto Mono" font-size="8.5" font-weight="600" fill="#18162a" text-anchor="middle">
+            <rect x="16"  y="128" width="90" height="34" rx="5" fill="#fff" stroke="#d6335c" stroke-width="1.2"></rect><text x="61" y="149">LDR</text>
+            <rect x="130" y="128" width="120" height="34" rx="5" fill="#fff" stroke="#d6335c" stroke-width="1.4"></rect><text x="190" y="143">ARDUINO</text><text x="190" y="154" font-size="7" font-weight="400" fill="#86829e">UNO</text>
+            <rect x="16"  y="180" width="90" height="34" rx="5" fill="#fff" stroke="#d6335c" stroke-width="1.2"></rect><text x="61" y="195">SMARTPHONE</text><text x="61" y="206" font-size="7" font-weight="400" fill="#86829e">app</text>
+            <rect x="130" y="180" width="120" height="34" rx="5" fill="#fff" stroke="#d6335c" stroke-width="1.2"></rect><text x="190" y="195">BLUETOOTH</text><text x="190" y="206" font-size="7" font-weight="400" fill="#86829e">module</text>
+          </g>
+          <g stroke="#d6335c" stroke-width="1.3" marker-end="url(#ba-arr2)" fill="none">
+            <line x1="106" y1="145" x2="129" y2="145"></line>
+            <line x1="106" y1="197" x2="129" y2="197"></line>
+            <line x1="190" y1="180" x2="190" y2="163"></line>
+          </g>
+          <path d="M 250,145 H 663 V 68" fill="none" stroke="#d6335c" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#ba-arr2)"></path>
+          <text x="450" y="140" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">Arduino drives relay from LDR or app command</text>
+        </svg>
+        <div class="illus-caption">Fig 1 — The power path (top) keeps the lamp online off a regulated, battery-backed rail. The control path (bottom) drives the same relay from either the LDR or a Bluetooth command from the phone app.</div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Circuit Design</div>
+      <h2 data-toc="Online UPS Circuit" id="heading-2">The Online UPS Circuit</h2>
+      <p>230&nbsp;V, 50&nbsp;Hz mains steps down through a 230V/15V, 1A transformer, is rectified by a bridge rectifier, and smoothed by a capacitive filter. An <strong style="color:var(--on-surface);">LM317</strong> adjustable regulator sets the output to a fixed 9&nbsp;V via its potentiometer. A zener diode across the battery terminal acts as overcharge protection — once terminal voltage exceeds 9&nbsp;V, the zener breaks down and diverts current to ground, lighting a red status LED rather than continuing to force current into a full battery. Because the topology is <em>online</em>, the load is powered from this same regulated rail continuously; when mains disappears, the battery already sitting on that rail keeps supplying it with zero switchover gap.</p>
+      <div class="bom">
+        <div class="bom-head"><div>Parameter</div><div>Value</div></div>
+        <div class="bom-row"><div class="bc lbl">Output voltage (V₀)</div><div class="bc">9 V</div></div>
+        <div class="bom-row"><div class="bc lbl">Output current (I₀)</div><div class="bc">0.17 A</div></div>
+        <div class="bom-row"><div class="bc lbl">Charging current (I꜀)</div><div class="bc">0.06 A</div></div>
+        <div class="bom-row"><div class="bc lbl">Load current (I_L)</div><div class="bc">0.11 A</div></div>
+        <div class="bom-row"><div class="bc lbl">Charging time (T꜀)</div><div class="bc">5 hours</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">IoT Integration</div>
+      <h2 data-toc="IoT &amp; App Control" id="heading-3">Bluetooth, Arduino, and the App</h2>
+      <p>A 4-pin Bluetooth module (Rx, Tx, VCC, GND — Rx/Tx cross-wired to the Arduino) bridges the phone to the microcontroller. The Android app, built in <strong style="color:var(--on-surface);">MIT App Inventor</strong>, lists nearby Bluetooth devices, connects, and exposes three controls that each send a single character over the link: <code style="font-family:var(--font-mono);background:var(--surface-container);padding:1px 5px;border-radius:4px;">'O'</code> turns the lamp on manually, <code style="font-family:var(--font-mono);background:var(--surface-container);padding:1px 5px;border-radius:4px;">'F'</code> turns it off manually, and <code style="font-family:var(--font-mono);background:var(--surface-container);padding:1px 5px;border-radius:4px;">'A'</code> — the default state — hands control to the LDR. In automatic mode, the Arduino reads the LDR on digital pin 7 against a threshold of 5 (on a 0–20 scale): below threshold reads as dark and closes the relay to turn the LED on, above threshold reads as daylight and opens it.</p>
+      <div class="bom">
+        <div class="bom-head"><div>Signal</div><div>Behaviour</div></div>
+        <div class="bom-row"><div class="bc">'A'</div><div class="bc lbl">Automatic — Arduino follows the LDR (default state)</div></div>
+        <div class="bom-row"><div class="bc">'O'</div><div class="bc lbl">Manual on — relay closes, LED lights regardless of ambient light</div></div>
+        <div class="bom-row"><div class="bc">'F'</div><div class="bc lbl">Manual off — relay opens, LED stays off regardless of ambient light</div></div>
+        <div class="bom-row"><div class="bc">LDR &lt; 5</div><div class="bc lbl">Dark reading → relay closed → LED on (auto mode only)</div></div>
+        <div class="bom-row"><div class="bc">LDR &gt; 5</div><div class="bc lbl">Daylight reading → relay open → LED off (auto mode only)</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Testing</div>
+      <h2 data-toc="Testing" id="heading-4">Verifying Both Control Paths</h2>
+      <p>The system was tested by switching the ambient source light on and off: in automatic mode, exposing the LDR to light reliably opened the relay and dropped the lamp, and removing the light source closed it again. Manual on/off from the smartphone app was verified independently of ambient light. Finally, the power path itself was tested by pulling mains: the battery picked up the load with no observable interruption, and could still be commanded manually or automatically while running from battery — confirming the "automatic emergency LED lamp" behaviour end to end.</p>
+    </div>
+
+    <div class="section-block">
+      <div class="section-label">Scope &amp; Conclusion</div>
+      <h2 data-toc="Scope &amp; Conclusion" id="heading-5">From Prototype to Product</h2>
+      <p>The prototype meets its brief for single-lamp, low-power household use; scaling the same topology to industrial loads would need a redesign rather than a bigger battery. At projected retail volumes the estimated unit cost sits around ₹300–350, with further headroom if components are sourced at mass-production scale. The larger point of the project is the pattern, not the lamp: an always-on, battery-backed power rail with an IoT control layer bolted on top generalizes cleanly to lighting and small appliances across homes, offices, and campuses, wherever "the power should just not go out" matters more than the specific load being an LED.</p>
+    </div>
+
+  </div>
+
+  <aside class="proj-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-head">Publication</div>
+      <div class="sidebar-row"><span class="sidebar-key">Venue</span><span class="sidebar-val">IEEE ICAC3N 2021</span></div>
+      <div class="sidebar-row"><span class="sidebar-key">Pages</span><span class="sidebar-val">799–803</span></div>
+      <div class="sidebar-row"><span class="sidebar-key">DOI</span><span class="sidebar-val" style="font-family:var(--font-mono);font-size:11px;">10.1109/ICAC3N53548.2021.9725604</span></div>
+      <div class="sidebar-row"><span class="sidebar-key">ISBN</span><span class="sidebar-val" style="font-family:var(--font-mono);font-size:11px;">978-1-6654-3811-7</span></div>
+      <div class="sidebar-row"><span class="sidebar-key">Role</span><span class="sidebar-val">Co-author</span></div>
+      <div class="sidebar-row"><span class="sidebar-key">Authors</span><span class="sidebar-val" style="font-weight:400;">Anirudh L, G. K. Mishra, Mathan N.</span></div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-head">Tools &amp; Components</div>
+      <div class="tool-list">
+        <span class="tool-chip">Arduino Uno</span>
+        <span class="tool-chip">ATmega328</span>
+        <span class="tool-chip">Bluetooth Module</span>
+        <span class="tool-chip">LM317</span>
+        <span class="tool-chip">LDR</span>
+        <span class="tool-chip">Relay</span>
+        <span class="tool-chip">MIT App Inventor</span>
+      </div>
+    </div>
+    <div class="nav-proj">
+      <a href="/projects/">
+        ← All
+        <span>All Projects</span>
+      </a>
+      <a href="/contact/" class="next">
+        Contact →
+        <span>Get in Touch</span>
+      </a>
+    </div>
+  </aside>
+
+</div><!-- /proj-body -->
+</main>
+
+<footer class="contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <h2>Working on power electronics or IoT control? <a href="/contact/">Let's connect.</a></h2>
+      <p>Open to thesis collaborations, working-student opportunities, and projects around embedded firmware, RF hardware, or IC design. Based in Erlangen; remote is fine.</p>
+    </div>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:mgaurav682@gmail.com">
+        <span class="k">EMAIL</span><span class="v">mgaurav682@gmail.com</span><span class="arrow">→</span>
+      </a>
+      <a class="contact-link" href="https://github.com/gaurav-mk" rel="external nofollow noopener" target="_blank">
+        <span class="k">GITHUB</span><span class="v">@gaurav-mk</span><span class="arrow">→</span>
+      </a>
+      <a class="contact-link" href="https://linkedin.com/in/gaurav-25" rel="external nofollow noopener" target="_blank">
+        <span class="k">LINKEDIN</span><span class="v">/in/gaurav-25</span><span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+  <div class="footnote">© 2026 Gaurav Kumar Mishra</div>
+</footer>
+
+<script>
+(function () {
+  var toc = document.querySelector('.article-toc');
+  if (!toc) return;
+  var content = document.querySelector('.proj-main');
+  if (!content) return;
+  var nodes = [...content.querySelectorAll('h2[id]')];
+  var links = [...toc.querySelectorAll('a[href^="#"]')];
+  var pill = toc.querySelector('.toc-pill');
+
+  function place(link) {
+    if (!pill) return;
+    if (!link) { pill.style.opacity = '0'; return; }
+    pill.style.top    = link.offsetTop   + 'px';
+    pill.style.left   = link.offsetLeft  + 'px';
+    pill.style.width  = link.offsetWidth  + 'px';
+    pill.style.height = link.offsetHeight + 'px';
+    pill.style.opacity = '1';
+  }
+
+  function update() {
+    var top = window.scrollY + 110;
+    var hit = nodes[0];
+    var atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 25);
+    if (atBottom) {
+      hit = nodes[nodes.length - 1];
+    } else {
+      for (var n of nodes) { if (n.offsetTop <= top) hit = n; }
+    }
+    var href = hit ? '#' + hit.id : '';
+    var active = null;
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === href;
+      a.classList.toggle('active', on);
+      if (on) active = a;
+    });
+    place(active);
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+
+</body>
+</html>

@@ -13,25 +13,25 @@
     rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
-    ::selection { background: rgba(31,58,87,.22); color: var(--on-surface) }
+    ::selection { background: rgba(49,46,129,.22); color: var(--on-surface) }
 
     :root {
-      --primary: #1f3a57;
-      --primary-hover: #173049;
+      --primary: #312e81;
+      --primary-hover: #26235f;
       --on-primary: #FFF;
-      --primary-container: #d9e5f2;
-      --on-primary-container: #0a2540;
-      --secondary: #2e5c8a;
-      --surface: #fafbfd;
+      --primary-container: #e3e1fb;
+      --on-primary-container: #211c5e;
+      --secondary: #d6335c;
+      --surface: #faf9fd;
       --surface-container-lowest: #FFF;
-      --surface-container-low: #f5f7fa;
-      --surface-container: #edf1f6;
-      --surface-container-high: #e5ebf2;
-      --on-surface: #14181e;
-      --on-surface-variant: #4b5663;
-      --on-surface-faint: #8693a3;
-      --outline: #b7bfc8;
-      --outline-variant: #d9dee5;
+      --surface-container-low: #f5f4fa;
+      --surface-container: #ece9f6;
+      --surface-container-high: #e2ddf1;
+      --on-surface: #18162a;
+      --on-surface-variant: #4c4966;
+      --on-surface-faint: #86829e;
+      --outline: #b8b3cc;
+      --outline-variant: #ddd9ec;
       --success: #1e7f4f;
       --warn: #7a4f00;
       --warn-container: #fef3e2;
@@ -63,8 +63,8 @@
     .grid-bg {
       position:fixed; inset:0; z-index:0; pointer-events:none;
       background-image:
-        linear-gradient(to right, rgba(31,58,87,.04) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(31,58,87,.04) 1px, transparent 1px);
+        linear-gradient(to right, rgba(49,46,129,.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(49,46,129,.04) 1px, transparent 1px);
       background-size:96px 96px;
       mask-image:linear-gradient(to bottom, black 0, black 60%, transparent 100%)
     }
@@ -78,7 +78,7 @@
     .nav {
       display:inline-flex; gap:2px; padding:5px;
       background:var(--surface-container); border-radius:999px;
-      box-shadow:0 10px 28px -18px rgba(31,58,87,.45)
+      box-shadow:0 10px 28px -18px rgba(49,46,129,.45)
     }
     .nav a {
       padding:10px 22px; border-radius:999px; font-size:14px; font-weight:500;

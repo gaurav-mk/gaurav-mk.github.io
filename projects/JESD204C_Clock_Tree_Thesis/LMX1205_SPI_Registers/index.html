@@ -23,22 +23,22 @@
     }
 
     :root {
-      --primary: #1f3a57;
-      --primary-hover: #173049;
+      --primary: #312e81;
+      --primary-hover: #26235f;
       --on-primary: #FFF;
-      --primary-container: #d9e5f2;
-      --on-primary-container: #0a2540;
-      --secondary: #2e5c8a;
-      --surface: #fafbfd;
+      --primary-container: #e3e1fb;
+      --on-primary-container: #211c5e;
+      --secondary: #d6335c;
+      --surface: #faf9fd;
       --surface-container-lowest: #FFF;
-      --surface-container-low: #f5f7fa;
-      --surface-container: #edf1f6;
-      --surface-container-high: #e5ebf2;
-      --on-surface: #14181e;
-      --on-surface-variant: #4b5663;
-      --on-surface-faint: #8693a3;
-      --outline: #b7bfc8;
-      --outline-variant: #d9dee5;
+      --surface-container-low: #f5f4fa;
+      --surface-container: #ece9f6;
+      --surface-container-high: #e2ddf1;
+      --on-surface: #18162a;
+      --on-surface-variant: #4c4966;
+      --on-surface-faint: #86829e;
+      --outline: #b8b3cc;
+      --outline-variant: #ddd9ec;
       --success: #1e7f4f;
       --font-display: 'Roboto Flex', 'Roboto', system-ui, sans-serif;
       --font-body: 'Roboto', system-ui, sans-serif;
@@ -75,7 +75,7 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background-image: linear-gradient(to right, rgba(31, 58, 87, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(31, 58, 87, 0.04) 1px, transparent 1px);
+      background-image: linear-gradient(to right, rgba(49, 46, 129, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(49, 46, 129, 0.04) 1px, transparent 1px);
       background-size: 96px 96px;
       mask-image: linear-gradient(to bottom, black 0, black 60%, transparent 100%)
     }
@@ -101,7 +101,7 @@
       padding: 5px;
       background: var(--surface-container);
       border-radius: 999px;
-      box-shadow: 0 10px 28px -18px rgba(31, 58, 87, 0.45)
+      box-shadow: 0 10px 28px -18px rgba(49, 46, 129, 0.45)
     }
 
     .nav a {
@@ -628,7 +628,7 @@
     }
 
     .reg-card:hover {
-      box-shadow: 0 3px 16px -6px rgba(31, 58, 87, .15)
+      box-shadow: 0 3px 16px -6px rgba(49, 46, 129, .15)
     }
 
     .reg-card.rg-hidden {
@@ -1166,21 +1166,21 @@
             ringing.</p>
           <div class="illus">
             <div class="illus-bar"><span class="dot"></span>SPI Timing — 24-Bit Write Transaction</div>
-            <svg viewBox="0 0 720 160" xmlns="http://www.w3.org/2000/svg" style="background:#F5F7FA;width:100%">
+            <svg viewBox="0 0 720 160" xmlns="http://www.w3.org/2000/svg" style="background:#f5f4fa;width:100%">
               <defs>
                 <pattern id="sp-g" width="24" height="24" patternUnits="userSpaceOnUse">
-                  <path d="M24 0L0 0 0 24" fill="none" stroke="#1F3A57" stroke-width="0.25" opacity="0.1"></path>
+                  <path d="M24 0L0 0 0 24" fill="none" stroke="#312e81" stroke-width="0.25" opacity="0.1"></path>
                 </pattern>
               </defs>
               <rect width="720" height="160" fill="url(#sp-g)"></rect>
-              <text x="14" y="32" font-family="Roboto Mono" font-size="9" fill="#4B5663" font-weight="600">CS#</text>
-              <polyline points="56,20 70,20 70,40 640,40 640,20 680,20" fill="none" stroke="#1F3A57" stroke-width="1.5">
+              <text x="14" y="32" font-family="Roboto Mono" font-size="9" fill="#4c4966" font-weight="600">CS#</text>
+              <polyline points="56,20 70,20 70,40 640,40 640,20 680,20" fill="none" stroke="#312e81" stroke-width="1.5">
               </polyline>
-              <text x="14" y="72" font-family="Roboto Mono" font-size="9" fill="#4B5663" font-weight="600">SCK</text>
+              <text x="14" y="72" font-family="Roboto Mono" font-size="9" fill="#4c4966" font-weight="600">SCK</text>
               <polyline
                 points="56,80 70,80 70,60 90,60 90,80 110,80 110,60 130,60 130,80 150,80 150,60 170,60 170,80 190,80 190,60 210,60 210,80 230,80 230,60 250,60 250,80 270,80 270,60 290,60 290,80 310,80 310,60 330,60 330,80 350,80 350,60 370,60 370,80 390,80 390,60 410,60 410,80 430,80 430,60 450,60 450,80 470,80 470,60 490,60 490,80 510,80 510,60 530,60 530,80 550,80 550,60 570,60 570,80 590,80 590,60 610,60 610,80 630,80 630,60 640,60 640,80 680,80"
-                fill="none" stroke="#1F3A57" stroke-width="1.5"></polyline>
-              <text x="14" y="122" font-family="Roboto Mono" font-size="9" fill="#4B5663" font-weight="600">SDI</text>
+                fill="none" stroke="#312e81" stroke-width="1.5"></polyline>
+              <text x="14" y="122" font-family="Roboto Mono" font-size="9" fill="#4c4966" font-weight="600">SDI</text>
               <rect x="70" y="105" width="20" height="20" rx="2" fill="#dc2626" opacity=".85"></rect>
               <text x="80" y="118" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#fff"
                 font-weight="700">R/W</text>
@@ -1218,7 +1218,7 @@
                 <button class="mtab" data-m="3" onclick="setSpiMode(3)">Mode 3</button>
               </div>
             </div>
-            <div style="display:flex;background:#F5F7FA">
+            <div style="display:flex;background:#f5f4fa">
               <svg id="cpolSvg" viewBox="0 0 560 224" xmlns="http://www.w3.org/2000/svg"
                 style="flex:1;min-width:0;display:block"></svg>
               <div id="modeInfo"
@@ -1811,16 +1811,16 @@
       const amp = 24;
       const HI = c => c - amp, LO = c => c + amp;
       const bits = [1, 0, 1, 1, 0, 1];
-      const CC = '#1f3a57', CK = '#2563eb', CD = '#16a34a', CS = '#dc2626';
+      const CC = '#312e81', CK = '#2563eb', CD = '#16a34a', CS = '#dc2626';
 
       function pl(pts, col, w = 1.6) {
         return `<polyline points="${pts.map(([x, y]) => `${+x.toFixed(1)},${+y.toFixed(1)}`).join(' ')}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"/>`;
       }
 
-      let s = `<rect width="${W}" height="${H}" fill="#F5F7FA"/>`;
+      let s = `<rect width="${W}" height="${H}" fill="#f5f4fa"/>`;
       s += `<line x1="${lx - 8}" y1="${rs[0].cy + amp + 14}" x2="${W}" y2="${rs[0].cy + amp + 14}" stroke="#dde3ec" stroke-width="0.5"/>`;
       s += `<line x1="${lx - 8}" y1="${rs[1].cy + amp + 14}" x2="${W}" y2="${rs[1].cy + amp + 14}" stroke="#dde3ec" stroke-width="0.5"/>`;
-      rs.forEach(r => s += `<text x="${lx - 8}" y="${r.cy + 4}" font-family="Roboto Mono" font-size="9.5" fill="#4B5663" font-weight="600" text-anchor="end">${r.l}</text>`);
+      rs.forEach(r => s += `<text x="${lx - 8}" y="${r.cy + 4}" font-family="Roboto Mono" font-size="9.5" fill="#4c4966" font-weight="600" text-anchor="end">${r.l}</text>`);
 
       // CS# — always the same
       const r0 = rs[0];
