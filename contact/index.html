@@ -408,10 +408,11 @@ main { position: relative; z-index: 1; }
 .cal-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; cursor: default; transition: all .15s; border: 1px solid transparent; position: relative; }
 .cal-cell.empty { background: transparent; }
 .cal-cell.past, .cal-cell.weekend { color: var(--text-faint); background: transparent; opacity: .5; }
-.cal-cell.today { border-color: var(--accent); color: var(--accent); font-weight: 700; }
-.cal-cell.available { background: var(--bg-card); border-color: var(--border-strong); color: var(--text); cursor: pointer; }
-.cal-cell.available:hover { background: rgba(124,179,66,.15); border-color: var(--accent); color: var(--text); transform: scale(1.07); }
-.cal-cell.booked { background: var(--bg-alt); border-color: var(--border); color: var(--text-faint); cursor: not-allowed; opacity: .6; }
+.cal-cell.available { background: var(--bg-card); border: 1px solid var(--accent); color: var(--text); cursor: pointer; }
+.cal-cell.available:hover { background: rgba(124,179,66,.2); border-color: var(--accent); color: var(--text); transform: scale(1.07); }
+.cal-cell.booked { background: var(--bg-alt); border: 1px solid var(--danger); color: var(--text-faint); cursor: not-allowed; opacity: .7; }
+.cal-cell.today { background: var(--accent); border-color: var(--accent); color: #0d1113; font-weight: 700; }
+.cal-cell.today:hover { background: var(--accent); filter: brightness(1.08); transform: scale(1.07); }
 .cal-cell .booked-dot { position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
 .cal-legend { display: flex; gap: 1.2rem; margin-top: .8rem; flex-wrap: wrap; }
 .legend-item { display: flex; align-items: center; gap: .35rem; font-size: 11px; color: var(--text-faint); font-family: var(--font-mono); }
@@ -571,9 +572,9 @@ main { position: relative; z-index: 1; }
           <div class="cal-day-name" style="opacity:0.4;">Sat</div><div class="cal-day-name" style="opacity:0.4;">Sun</div>
         </div>
         <div class="cal-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:var(--bg-card);border:1px solid var(--border-strong);"></div> Available</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--bg-alt);border:1px solid var(--border);opacity:.6;"></div> Booked</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--bg-card);border:2px solid var(--accent);"></div> Today</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--bg-card);border:1px solid var(--accent);"></div> Available</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--bg-alt);border:1px solid var(--danger);opacity:.7;"></div> Not available</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent);border:1px solid var(--accent);"></div> Today</div>
         </div>
       </div>
     </div>
