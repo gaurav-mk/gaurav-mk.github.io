@@ -555,7 +555,7 @@ main { position: relative; z-index: 1; }
     </div>
 
     <!-- Right: calendar -->
-    <div>
+    <div style="order: -1;">
       <div class="booking-section" id="book-an-appointment">
         <div class="booking-title">// book an appointment</div>
         <div class="cal-header">
@@ -571,9 +571,9 @@ main { position: relative; z-index: 1; }
           <div class="cal-day-name" style="opacity:0.4;">Sat</div><div class="cal-day-name" style="opacity:0.4;">Sun</div>
         </div>
         <div class="cal-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:rgba(124,179,66,.15);border:1px solid var(--accent);"></div> Available</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--bg-alt);border:1px solid var(--border-strong);"></div> Booked</div>
-          <div class="legend-item"><div class="legend-dot" style="border:1px solid var(--accent);background:transparent;"></div> Today</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--bg-card);border:1px solid var(--border-strong);"></div> Available</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--bg-alt);border:1px solid var(--border);opacity:.6;"></div> Booked</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--bg-card);border:2px solid var(--accent);"></div> Today</div>
         </div>
       </div>
     </div>
