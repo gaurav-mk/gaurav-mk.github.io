@@ -106,13 +106,6 @@
     .contact h2 a{color:var(--primary);border-bottom:2px solid color-mix(in oklab,var(--primary) 40%,transparent);transition:border-color .15s}
     .contact h2 a:hover{border-color:var(--primary)}
     .contact p{color:var(--on-surface-variant);max-width:50ch;margin:0}
-    .contact-links{display:grid;gap:1px;background:var(--outline-variant);border:1px solid var(--outline-variant);border-radius:var(--r-sm);overflow:hidden}
-    .contact-link{display:grid;grid-template-columns:88px 1fr auto;gap:16px;padding:11px 16px;background:var(--surface-container-lowest);align-items:center;transition:background .15s}
-    .contact-link:hover{background:var(--surface-container)}
-    .contact-link .k{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;color:var(--on-surface-faint);text-transform:uppercase}
-    .contact-link .v{font-size:14px;color:var(--on-surface);font-weight:500}
-    .contact-link .arrow{font-family:var(--font-mono);color:var(--on-surface-faint)}
-    .contact-link:hover .arrow{color:var(--primary)}
     .footnote{max-width:1240px;margin:32px auto 0;padding:0 32px 16px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);letter-spacing:.04em}
 
     .article-toc{position:fixed;left:calc(25vw - 385px);top:50%;transform:translateY(-50%);width:196px;max-height:80vh;overflow-y:auto;z-index:10;padding:0 0 16px;scrollbar-width:none;opacity:0;visibility:hidden}
@@ -141,13 +134,7 @@
       .nav-links a{padding:6px 0}
     }
   
-    /* ================= shared site footer / CTA / float-book ================= */
-    .contact-cta{position:relative;z-index:1;border-top:1px solid var(--outline-variant);background:linear-gradient(180deg,var(--surface-container-low),var(--surface))}
-    .contact-cta-inner{max-width:1240px;margin:0 auto;padding:76px 32px;display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:center}
-    .contact-cta-inner h2{font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-.6px;margin:0 0 16px}
-    .contact-cta-inner h2 a{color:var(--primary);border-bottom:2px solid color-mix(in oklab,var(--primary) 40%,transparent)}
-    .contact-cta-inner h2 a:hover{border-color:var(--primary)}
-    .contact-cta-inner p{margin:0;font-size:14px;line-height:1.65;color:var(--on-surface-variant);max-width:440px}
+    /* ================= shared site footer / float-book ================= */
     .site-footer{position:relative;z-index:1;border-top:1px solid var(--outline-variant);background:#0d1013}
     .footer-grid{max-width:1240px;margin:0 auto;padding:44px 32px 36px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
     .footer-brand{display:flex;align-items:center;gap:10px}
@@ -163,9 +150,7 @@
     .float-book:hover{transform:translateY(-3px);filter:brightness(1.1);box-shadow:0 14px 34px -8px var(--primary);color:#0d1113}
     .float-book .dot{width:9px;height:9px;border-radius:50%;background:#0d1113;animation:led 2.4s infinite}
     .float-book .label-short{display:none}
-    @media(max-width:900px){.contact-cta-inner{grid-template-columns:1fr;gap:32px}}
     @media(max-width:640px){
-      .contact-cta-inner{padding:48px 20px}
       .footer-grid{grid-template-columns:1fr 1fr;padding-left:20px;padding-right:20px}
       .footer-bottom-inner{padding-left:20px;padding-right:20px}
       .float-book .label{display:none}
@@ -968,19 +953,6 @@
 </div><!-- /proj-body -->
 </main>
 
-<div class="contact-cta" id="contact">
-  <div class="contact-cta-inner">
-    <div>
-      <h2>Questions about JESD204C or RF clocking? <a href="/contact/">Let's connect.</a></h2>
-      <p>Open to discussions on clock tree design, high-speed serial interfaces, and signal integrity. Based in Erlangen; remote is fine.</p>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:12px;">
-      <a class="contact-link" href="mailto:mgaurav682@gmail.com"><span class="k">EMAIL</span><span class="v">mgaurav682@gmail.com</span><span class="arrow">→</span></a>
-      <a class="contact-link" href="https://github.com/gaurav-mk" target="_blank" rel="external nofollow noopener"><span class="k">GITHUB</span><span class="v">@gaurav-mk</span><span class="arrow">→</span></a>
-      <a class="contact-link" href="https://linkedin.com/in/gaurav-25" target="_blank" rel="external nofollow noopener"><span class="k">LINKEDIN</span><span class="v">/in/gaurav-25</span><span class="arrow">→</span></a>
-    </div>
-  </div>
-</div>
 
 <footer class="site-footer">
   <div class="footer-grid">
