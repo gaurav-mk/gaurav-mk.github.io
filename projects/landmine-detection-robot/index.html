@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -9,31 +9,31 @@
   <meta name="keywords" content="robot, landmine detection, microcontroller, RF, GPS, GSM, proximity sensor, DSPIC" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..900&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --primary:#312e81;--primary-hover:#26235f;--on-primary:#FFF;
-      --primary-container:#e3e1fb;--on-primary-container:#211c5e;
-      --secondary:#d6335c;--surface:#faf9fd;
-      --surface-container-lowest:#FFF;--surface-container-low:#f5f4fa;
-      --surface-container:#ece9f6;--surface-container-high:#e2ddf1;
-      --on-surface:#18162a;--on-surface-variant:#4c4966;--on-surface-faint:#86829e;
-      --outline:#b8b3cc;--outline-variant:#ddd9ec;--success:#1e7f4f;
-      --font-display:'Roboto Flex','Roboto',system-ui,sans-serif;
-      --font-body:'Roboto',system-ui,sans-serif;
-      --font-mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+      --primary:#7cb342;--primary-hover:#5c8a2e;--on-primary:#0d1113;
+      --primary-container:#1a2417;--on-primary-container:#bfe08f;
+      --secondary:#e0a458;--surface:#101418;
+      --surface-container-lowest:#171b1f;--surface-container-low:#12161a;
+      --surface-container:#171b1f;--surface-container-high:#20262b;
+      --on-surface:#e8eaec;--on-surface-variant:#a7b0b7;--on-surface-faint:#5f676e;
+      --outline:#3a4046;--outline-variant:#262c31;--success:#7cb342;
+      --font-display:'IBM Plex Sans',system-ui,sans-serif;
+      --font-body:'IBM Plex Sans',system-ui,sans-serif;
+      --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
       --r-xs:4px;--r-sm:8px;--r-md:12px;--r-lg:16px;--r-pill:999px;
     }
     html,body{margin:0;padding:0}
     body{font-family:var(--font-body);background:var(--surface);color:var(--on-surface);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.55}
     a{color:inherit;text-decoration:none!important}
 
-    .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(to right,rgba(49,46,129,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(49,46,129,0.04) 1px,transparent 1px);background-size:96px 96px;mask-image:linear-gradient(to bottom,black 0,black 60%,transparent 100%)}
+    .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(to right,rgba(255,255,255,0.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,0.035) 1px,transparent 1px);background-size:96px 96px;mask-image:linear-gradient(to bottom,black 0,black 60%,transparent 100%)}
 
     .topbar{position:sticky;top:0;z-index:50}
     .topbar-inner{max-width:1240px;margin:0 auto;padding:14px 32px;display:flex;justify-content:center;align-items:center}
-    .nav{display:inline-flex;gap:2px;padding:5px;background:var(--surface-container);border-radius:999px;box-shadow:0 10px 28px -18px rgba(49,46,129,0.45)}
+    .nav{display:inline-flex;gap:2px;padding:5px;background:var(--surface-container);border-radius:999px;box-shadow:0 10px 28px -18px rgba(0,0,0,0.45)}
     .nav a{padding:10px 22px;border-radius:999px;font-size:14px;font-weight:500;color:var(--on-surface-variant);transition:background .15s,color .15s;white-space:nowrap}
     .nav a:hover{color:var(--on-surface);background:color-mix(in oklab,var(--primary) 10%,transparent)}
     .nav a.active{background:var(--primary-container);color:var(--on-primary-container)}
@@ -200,27 +200,27 @@
       <p>A <strong style="color:var(--on-surface);">DSPIC30F4013</strong> microcontroller sits at the centre of the robot, tying together drive, sensing, and communication. Two 6V batteries feed a regulated +5V rail. The metal/proximity sensors connect directly to the controller; the GPS and GSM modems connect over RS232 (needed because the controller can't interface their pins directly); and the RF receiver feeds a decoder, which hands drive commands to the controller, which in turn drives a relay bank to switch the DC motors.</p>
       <div class="illus">
         <div class="illus-bar"><span class="dot"></span>Layout Diagram — Robot Vehicle Electronics</div>
-        <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" style="background:#f5f4fa;">
+        <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" style="background:#12161a;">
           <defs>
-            <pattern id="lr-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#312e81" stroke-width="0.25" opacity="0.1"></path></pattern>
-            <marker id="lr-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#312e81"></path></marker>
+            <pattern id="lr-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#7cb342" stroke-width="0.25" opacity="0.1"></path></pattern>
+            <marker id="lr-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7cb342"></path></marker>
           </defs>
           <rect width="720" height="260" fill="url(#lr-g)"></rect>
-          <rect x="300" y="100" width="120" height="70" rx="7" fill="#e3e1fb" stroke="#312e81" stroke-width="1.6"></rect>
-          <text x="360" y="130" text-anchor="middle" font-family="Roboto Mono" font-size="9.5" font-weight="700" fill="#211c5e">DSPIC</text>
-          <text x="360" y="144" text-anchor="middle" font-family="Roboto Mono" font-size="9.5" font-weight="700" fill="#211c5e">30F4013</text>
-          <text x="360" y="160" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#4c4966">central controller</text>
-          <g font-family="Roboto Mono" font-size="8.5" font-weight="600" fill="#18162a" text-anchor="middle">
-            <rect x="30" y="20" width="90" height="32" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="75" y="40">GPS</text>
-            <rect x="30" y="70" width="90" height="32" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="75" y="90">GSM</text>
-            <rect x="30" y="120" width="90" height="32" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="75" y="136">METAL</text><text x="75" y="147" font-size="7" font-weight="400" fill="#86829e">SENSOR</text>
-            <rect x="600" y="20" width="90" height="32" rx="5" fill="#fff" stroke="#d6335c" stroke-width="1.2"></rect><text x="645" y="40" fill="#d6335c">RF RX</text>
-            <rect x="600" y="70" width="90" height="32" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="645" y="90">DECODER</text>
-            <rect x="600" y="120" width="90" height="32" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="645" y="136">RELAY</text><text x="645" y="147" font-size="7" font-weight="400" fill="#86829e">DRIVER</text>
-            <rect x="600" y="170" width="90" height="32" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="645" y="190">DC MOTORS</text>
-            <rect x="270" y="210" width="180" height="32" rx="5" fill="#fff" stroke="#312e81" stroke-width="1.2"></rect><text x="360" y="230">2× 6V BATTERY → +5V SUPPLY</text>
+          <rect x="300" y="100" width="120" height="70" rx="7" fill="#1a2417" stroke="#7cb342" stroke-width="1.6"></rect>
+          <text x="360" y="130" text-anchor="middle" font-family="Roboto Mono" font-size="9.5" font-weight="700" fill="#bfe08f">DSPIC</text>
+          <text x="360" y="144" text-anchor="middle" font-family="Roboto Mono" font-size="9.5" font-weight="700" fill="#bfe08f">30F4013</text>
+          <text x="360" y="160" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#a7b0b7">central controller</text>
+          <g font-family="Roboto Mono" font-size="8.5" font-weight="600" fill="#e8eaec" text-anchor="middle">
+            <rect x="30" y="20" width="90" height="32" rx="5" fill="#fff" stroke="#7cb342" stroke-width="1.2"></rect><text x="75" y="40">GPS</text>
+            <rect x="30" y="70" width="90" height="32" rx="5" fill="#fff" stroke="#7cb342" stroke-width="1.2"></rect><text x="75" y="90">GSM</text>
+            <rect x="30" y="120" width="90" height="32" rx="5" fill="#fff" stroke="#7cb342" stroke-width="1.2"></rect><text x="75" y="136">METAL</text><text x="75" y="147" font-size="7" font-weight="400" fill="#5f676e">SENSOR</text>
+            <rect x="600" y="20" width="90" height="32" rx="5" fill="#fff" stroke="#e0a458" stroke-width="1.2"></rect><text x="645" y="40" fill="#e0a458">RF RX</text>
+            <rect x="600" y="70" width="90" height="32" rx="5" fill="#fff" stroke="#7cb342" stroke-width="1.2"></rect><text x="645" y="90">DECODER</text>
+            <rect x="600" y="120" width="90" height="32" rx="5" fill="#fff" stroke="#7cb342" stroke-width="1.2"></rect><text x="645" y="136">RELAY</text><text x="645" y="147" font-size="7" font-weight="400" fill="#5f676e">DRIVER</text>
+            <rect x="600" y="170" width="90" height="32" rx="5" fill="#fff" stroke="#7cb342" stroke-width="1.2"></rect><text x="645" y="190">DC MOTORS</text>
+            <rect x="270" y="210" width="180" height="32" rx="5" fill="#fff" stroke="#7cb342" stroke-width="1.2"></rect><text x="360" y="230">2× 6V BATTERY → +5V SUPPLY</text>
           </g>
-          <g stroke="#312e81" stroke-width="1.2" marker-end="url(#lr-arr)" fill="none">
+          <g stroke="#7cb342" stroke-width="1.2" marker-end="url(#lr-arr)" fill="none">
             <path d="M120,36 H260 Q300,36 300,80 V100"></path>
             <path d="M120,86 H260 Q300,86 300,100" ></path>
             <line x1="120" y1="136" x2="299" y2="136"></line>
@@ -230,8 +230,8 @@
             <line x1="645" y1="152" x2="645" y2="169"></line>
             <line x1="360" y1="210" x2="360" y2="170"></line>
           </g>
-          <text x="497" y="80" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">RS232</text>
-          <text x="497" y="130" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">direct</text>
+          <text x="497" y="80" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#5f676e">RS232</text>
+          <text x="497" y="130" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#5f676e">direct</text>
         </svg>
         <div class="illus-caption">Fig 1 — GPS, GSM (via RS232) and the metal sensor feed the DSPIC30F4013; the RF link decodes drive commands into relay-switched motor control. Two 6V batteries supply a regulated +5V rail throughout.</div>
       </div>
@@ -249,18 +249,18 @@
       <p>Once a mine is detected, the robot needs to hand off a precise, actionable location — not just an alarm. The onboard GPS receiver listens to at least four satellites simultaneously; from the time each signal takes to arrive, it estimates distance to each satellite and resolves its own position in three dimensions by <strong style="color:var(--on-surface);">trilateration</strong> — the more satellites in view, the tighter the fix. That latitude/longitude is displayed locally on an onboard LCD, and simultaneously handed to a SIM-based GSM modem, which sends it as an SMS directly to a bomb squad member's phone — turning "a mine is somewhere in this field" into a coordinate a team can drive straight to.</p>
       <div class="illus">
         <div class="illus-bar"><span class="dot"></span>Trilateration — Resolving Position from Satellite Range</div>
-        <svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" style="background:#f5f4fa;">
-          <defs><pattern id="tr-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#312e81" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
+        <svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" style="background:#12161a;">
+          <defs><pattern id="tr-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#7cb342" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
           <rect width="720" height="200" fill="url(#tr-g)"></rect>
-          <circle cx="260" cy="70" r="90" fill="none" stroke="#312e81" stroke-width="1.3" stroke-dasharray="5 3" opacity="0.75"></circle>
-          <circle cx="440" cy="90" r="95" fill="none" stroke="#d6335c" stroke-width="1.3" stroke-dasharray="5 3" opacity="0.75"></circle>
+          <circle cx="260" cy="70" r="90" fill="none" stroke="#7cb342" stroke-width="1.3" stroke-dasharray="5 3" opacity="0.75"></circle>
+          <circle cx="440" cy="90" r="95" fill="none" stroke="#e0a458" stroke-width="1.3" stroke-dasharray="5 3" opacity="0.75"></circle>
           <circle cx="360" cy="150" r="80" fill="none" stroke="#4f7aa6" stroke-width="1.3" stroke-dasharray="5 3" opacity="0.75"></circle>
-          <rect x="248" y="18" width="24" height="16" rx="2" fill="#312e81"></rect><text x="260" y="12" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#312e81" font-weight="600">SAT A</text>
-          <rect x="428" y="38" width="24" height="16" rx="2" fill="#d6335c"></rect><text x="440" y="32" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#d6335c" font-weight="600">SAT B</text>
+          <rect x="248" y="18" width="24" height="16" rx="2" fill="#7cb342"></rect><text x="260" y="12" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#7cb342" font-weight="600">SAT A</text>
+          <rect x="428" y="38" width="24" height="16" rx="2" fill="#e0a458"></rect><text x="440" y="32" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#e0a458" font-weight="600">SAT B</text>
           <rect x="348" y="112" width="24" height="16" rx="2" fill="#4f7aa6"></rect><text x="360" y="106" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#4f7aa6" font-weight="600">SAT C</text>
-          <circle cx="352" cy="108" r="4.5" fill="#18162a"></circle>
-          <text x="352" y="130" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#18162a" font-weight="700">ROBOT FIX</text>
-          <text x="360" y="185" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#86829e">range from ≥ 4 satellites narrows position to a single point in 3-D</text>
+          <circle cx="352" cy="108" r="4.5" fill="#e8eaec"></circle>
+          <text x="352" y="130" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#e8eaec" font-weight="700">ROBOT FIX</text>
+          <text x="360" y="185" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#5f676e">range from ≥ 4 satellites narrows position to a single point in 3-D</text>
         </svg>
         <div class="illus-caption">Fig 2 — Each satellite's signal delay gives a range circle; where enough of them overlap pins down the robot's — and the mine's — position.</div>
       </div>

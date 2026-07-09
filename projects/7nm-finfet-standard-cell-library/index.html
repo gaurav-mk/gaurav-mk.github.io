@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -9,31 +9,31 @@
   <meta name="keywords" content="FinFET, ASAP7, standard cell library, 7nm, VLSI, IC design, DRC, LVS, IEEE" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..900&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --primary:#312e81;--primary-hover:#26235f;--on-primary:#FFF;
-      --primary-container:#e3e1fb;--on-primary-container:#211c5e;
-      --secondary:#d6335c;--surface:#faf9fd;
-      --surface-container-lowest:#FFF;--surface-container-low:#f5f4fa;
-      --surface-container:#ece9f6;--surface-container-high:#e2ddf1;
-      --on-surface:#18162a;--on-surface-variant:#4c4966;--on-surface-faint:#86829e;
-      --outline:#b8b3cc;--outline-variant:#ddd9ec;--success:#1e7f4f;
-      --font-display:'Roboto Flex','Roboto',system-ui,sans-serif;
-      --font-body:'Roboto',system-ui,sans-serif;
-      --font-mono:'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+      --primary:#7cb342;--primary-hover:#5c8a2e;--on-primary:#0d1113;
+      --primary-container:#1a2417;--on-primary-container:#bfe08f;
+      --secondary:#e0a458;--surface:#101418;
+      --surface-container-lowest:#171b1f;--surface-container-low:#12161a;
+      --surface-container:#171b1f;--surface-container-high:#20262b;
+      --on-surface:#e8eaec;--on-surface-variant:#a7b0b7;--on-surface-faint:#5f676e;
+      --outline:#3a4046;--outline-variant:#262c31;--success:#7cb342;
+      --font-display:'IBM Plex Sans',system-ui,sans-serif;
+      --font-body:'IBM Plex Sans',system-ui,sans-serif;
+      --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
       --r-xs:4px;--r-sm:8px;--r-md:12px;--r-lg:16px;--r-pill:999px;
     }
     html,body{margin:0;padding:0}
     body{font-family:var(--font-body);background:var(--surface);color:var(--on-surface);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.55}
     a{color:inherit;text-decoration:none!important}
 
-    .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(to right,rgba(49,46,129,0.04) 1px,transparent 1px),linear-gradient(to bottom,rgba(49,46,129,0.04) 1px,transparent 1px);background-size:96px 96px;mask-image:linear-gradient(to bottom,black 0,black 60%,transparent 100%)}
+    .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(to right,rgba(255,255,255,0.035) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,255,255,0.035) 1px,transparent 1px);background-size:96px 96px;mask-image:linear-gradient(to bottom,black 0,black 60%,transparent 100%)}
 
     .topbar{position:sticky;top:0;z-index:50}
     .topbar-inner{max-width:1240px;margin:0 auto;padding:14px 32px;display:flex;justify-content:center;align-items:center}
-    .nav{display:inline-flex;gap:2px;padding:5px;background:var(--surface-container);border-radius:999px;box-shadow:0 10px 28px -18px rgba(49,46,129,0.45)}
+    .nav{display:inline-flex;gap:2px;padding:5px;background:var(--surface-container);border-radius:999px;box-shadow:0 10px 28px -18px rgba(0,0,0,0.45)}
     .nav a{padding:10px 22px;border-radius:999px;font-size:14px;font-weight:500;color:var(--on-surface-variant);transition:background .15s,color .15s;white-space:nowrap}
     .nav a:hover{color:var(--on-surface);background:color-mix(in oklab,var(--primary) 10%,transparent)}
     .nav a.active{background:var(--primary-container);color:var(--on-primary-container)}
@@ -201,32 +201,32 @@
       <p>Planar CMOS scaling runs out of road below 22nm: short-channel effects worsen, gate leakage climbs, and device-to-device variability makes timing closure harder. FinFET answers this by wrapping the gate around three sides of a raised silicon fin instead of controlling the channel from one side only — gate control tightens, leakage drops, and the device keeps scaling where planar transistors can't. That's also why the standard-cell design problem changes shape: cell height becomes a fin count, drive strength becomes a fin-per-device choice, and layout has to respect lithography constraints (double patterning, restricted routing) that didn't exist a few nodes back.</p>
       <div class="illus">
         <div class="illus-bar"><span class="dot"></span>Planar MOSFET vs. FinFET — Channel Control</div>
-        <svg viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg" style="background:#f5f4fa;">
-          <defs><pattern id="fp-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#312e81" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
+        <svg viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg" style="background:#12161a;">
+          <defs><pattern id="fp-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#7cb342" stroke-width="0.25" opacity="0.1"></path></pattern></defs>
           <rect width="720" height="210" fill="url(#fp-g)"></rect>
-          <rect x="30" y="20" width="300" height="170" rx="8" fill="#ffffff" stroke="#ddd9ec" stroke-width="1"></rect>
-          <text x="180" y="42" text-anchor="middle" font-family="Roboto Mono" font-size="9.5" fill="#4c4966" letter-spacing="0.1em">PLANAR MOSFET</text>
-          <rect x="70" y="140" width="220" height="24" fill="#e2ddf1"></rect>
-          <text x="180" y="156" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">SILICON SUBSTRATE</text>
-          <rect x="100" y="115" width="160" height="25" fill="#d6335c" opacity="0.18"></rect>
-          <text x="180" y="132" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">OXIDE</text>
-          <rect x="130" y="88" width="100" height="27" fill="#312e81"></rect>
+          <rect x="30" y="20" width="300" height="170" rx="8" fill="#ffffff" stroke="#262c31" stroke-width="1"></rect>
+          <text x="180" y="42" text-anchor="middle" font-family="Roboto Mono" font-size="9.5" fill="#a7b0b7" letter-spacing="0.1em">PLANAR MOSFET</text>
+          <rect x="70" y="140" width="220" height="24" fill="#20262b"></rect>
+          <text x="180" y="156" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#5f676e">SILICON SUBSTRATE</text>
+          <rect x="100" y="115" width="160" height="25" fill="#e0a458" opacity="0.18"></rect>
+          <text x="180" y="132" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#5f676e">OXIDE</text>
+          <rect x="130" y="88" width="100" height="27" fill="#7cb342"></rect>
           <text x="180" y="105" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#fff" font-weight="600">GATE</text>
-          <line x1="130" y1="115" x2="130" y2="140" stroke="#312e81" stroke-width="1.5" stroke-dasharray="2 2"></line>
-          <line x1="230" y1="115" x2="230" y2="140" stroke="#312e81" stroke-width="1.5" stroke-dasharray="2 2"></line>
-          <text x="180" y="180" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">gate controls channel from 1 side</text>
-          <rect x="390" y="20" width="300" height="170" rx="8" fill="#ffffff" stroke="#ddd9ec" stroke-width="1"></rect>
-          <text x="540" y="42" text-anchor="middle" font-family="Roboto Mono" font-size="9.5" fill="#4c4966" letter-spacing="0.1em">FINFET</text>
-          <rect x="430" y="140" width="220" height="24" fill="#e2ddf1"></rect>
-          <text x="540" y="156" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">SILICON SUBSTRATE</text>
-          <rect x="460" y="115" width="160" height="25" fill="#d6335c" opacity="0.18"></rect>
-          <text x="540" y="132" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#86829e">OXIDE</text>
-          <rect x="528" y="70" width="24" height="70" fill="#d6335c"></rect>
-          <text x="596" y="80" font-family="Roboto Mono" font-size="7.5" fill="#d6335c" font-weight="600">FIN</text>
-          <rect x="490" y="82" width="100" height="26" fill="#312e81" opacity="0.92"></rect>
+          <line x1="130" y1="115" x2="130" y2="140" stroke="#7cb342" stroke-width="1.5" stroke-dasharray="2 2"></line>
+          <line x1="230" y1="115" x2="230" y2="140" stroke="#7cb342" stroke-width="1.5" stroke-dasharray="2 2"></line>
+          <text x="180" y="180" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#5f676e">gate controls channel from 1 side</text>
+          <rect x="390" y="20" width="300" height="170" rx="8" fill="#ffffff" stroke="#262c31" stroke-width="1"></rect>
+          <text x="540" y="42" text-anchor="middle" font-family="Roboto Mono" font-size="9.5" fill="#a7b0b7" letter-spacing="0.1em">FINFET</text>
+          <rect x="430" y="140" width="220" height="24" fill="#20262b"></rect>
+          <text x="540" y="156" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#5f676e">SILICON SUBSTRATE</text>
+          <rect x="460" y="115" width="160" height="25" fill="#e0a458" opacity="0.18"></rect>
+          <text x="540" y="132" text-anchor="middle" font-family="Roboto Mono" font-size="7" fill="#5f676e">OXIDE</text>
+          <rect x="528" y="70" width="24" height="70" fill="#e0a458"></rect>
+          <text x="596" y="80" font-family="Roboto Mono" font-size="7.5" fill="#e0a458" font-weight="600">FIN</text>
+          <rect x="490" y="82" width="100" height="26" fill="#7cb342" opacity="0.92"></rect>
           <text x="540" y="99" text-anchor="middle" font-family="Roboto Mono" font-size="8" fill="#fff" font-weight="600">GATE</text>
-          <path d="M528 82 v-8 a4 4 0 0 1 4 -4 h16 a4 4 0 0 1 4 4 v8" fill="none" stroke="#312e81" stroke-width="2"></path>
-          <text x="540" y="180" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">gate wraps 3 sides of the fin</text>
+          <path d="M528 82 v-8 a4 4 0 0 1 4 -4 h16 a4 4 0 0 1 4 4 v8" fill="none" stroke="#7cb342" stroke-width="2"></path>
+          <text x="540" y="180" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#5f676e">gate wraps 3 sides of the fin</text>
         </svg>
         <div class="illus-caption">Fig 1 — In a planar device the gate faces the channel from above only. FinFET raises the channel into a fin and wraps the gate around three sides, giving far tighter electrostatic control at advanced nodes.</div>
       </div>
@@ -238,22 +238,22 @@
       <p>Every cell in the library goes through the same seven-stage flow, moving from a paper specification to a DRC/LVS-clean, characterized layout. The device characteristics, model card, and layout design rules all come from the ASAP7 PDK itself.</p>
       <div class="illus">
         <div class="illus-bar"><span class="dot"></span>Standard Cell Design Flow</div>
-        <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg" style="background:#f5f4fa;">
+        <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg" style="background:#12161a;">
           <defs>
-            <pattern id="df-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#312e81" stroke-width="0.25" opacity="0.1"></path></pattern>
-            <marker id="df-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#86829e"></path></marker>
+            <pattern id="df-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#7cb342" stroke-width="0.25" opacity="0.1"></path></pattern>
+            <marker id="df-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5f676e"></path></marker>
           </defs>
           <rect width="720" height="130" fill="url(#df-g)"></rect>
-          <g font-family="Roboto Mono" font-size="8.5" fill="#18162a" font-weight="600" text-anchor="middle">
-            <rect x="6"   y="46" width="94" height="38" rx="6" fill="#fff" stroke="#312e81" stroke-width="1.3"></rect><text x="53" y="63">PROBLEM</text><text x="53" y="75">DEFINITION</text>
-            <rect x="108" y="46" width="94" height="38" rx="6" fill="#fff" stroke="#312e81" stroke-width="1.3"></rect><text x="155" y="69">SCHEMATIC</text>
-            <rect x="210" y="46" width="100" height="38" rx="6" fill="#fff" stroke="#312e81" stroke-width="1.3"></rect><text x="260" y="63">PRE-LAYOUT</text><text x="260" y="75">SIMULATION</text>
-            <rect x="318" y="46" width="84" height="38" rx="6" fill="#fff" stroke="#d6335c" stroke-width="1.3"></rect><text x="360" y="69" fill="#d6335c">LAYOUT</text>
-            <rect x="410" y="46" width="104" height="38" rx="6" fill="#fff" stroke="#312e81" stroke-width="1.3"></rect><text x="462" y="63">POST-LAYOUT</text><text x="462" y="75">SIMULATION</text>
-            <rect x="522" y="46" width="100" height="38" rx="6" fill="#fff" stroke="#312e81" stroke-width="1.3"></rect><text x="572" y="63">LIBRARY</text><text x="572" y="75">CONSTRUCTION</text>
-            <rect x="630" y="46" width="86" height="38" rx="6" fill="#e3e1fb" stroke="#312e81" stroke-width="1.3"></rect><text x="673" y="63" fill="#211c5e">PERFORMANCE</text><text x="673" y="75" fill="#211c5e">EVALUATION</text>
+          <g font-family="Roboto Mono" font-size="8.5" fill="#e8eaec" font-weight="600" text-anchor="middle">
+            <rect x="6"   y="46" width="94" height="38" rx="6" fill="#fff" stroke="#7cb342" stroke-width="1.3"></rect><text x="53" y="63">PROBLEM</text><text x="53" y="75">DEFINITION</text>
+            <rect x="108" y="46" width="94" height="38" rx="6" fill="#fff" stroke="#7cb342" stroke-width="1.3"></rect><text x="155" y="69">SCHEMATIC</text>
+            <rect x="210" y="46" width="100" height="38" rx="6" fill="#fff" stroke="#7cb342" stroke-width="1.3"></rect><text x="260" y="63">PRE-LAYOUT</text><text x="260" y="75">SIMULATION</text>
+            <rect x="318" y="46" width="84" height="38" rx="6" fill="#fff" stroke="#e0a458" stroke-width="1.3"></rect><text x="360" y="69" fill="#e0a458">LAYOUT</text>
+            <rect x="410" y="46" width="104" height="38" rx="6" fill="#fff" stroke="#7cb342" stroke-width="1.3"></rect><text x="462" y="63">POST-LAYOUT</text><text x="462" y="75">SIMULATION</text>
+            <rect x="522" y="46" width="100" height="38" rx="6" fill="#fff" stroke="#7cb342" stroke-width="1.3"></rect><text x="572" y="63">LIBRARY</text><text x="572" y="75">CONSTRUCTION</text>
+            <rect x="630" y="46" width="86" height="38" rx="6" fill="#1a2417" stroke="#7cb342" stroke-width="1.3"></rect><text x="673" y="63" fill="#bfe08f">PERFORMANCE</text><text x="673" y="75" fill="#bfe08f">EVALUATION</text>
           </g>
-          <g stroke="#86829e" stroke-width="1.3" marker-end="url(#df-arr)">
+          <g stroke="#5f676e" stroke-width="1.3" marker-end="url(#df-arr)">
             <line x1="100" y1="65" x2="107" y2="65"></line>
             <line x1="202" y1="65" x2="209" y2="65"></line>
             <line x1="310" y1="65" x2="317" y2="65"></line>
@@ -261,7 +261,7 @@
             <line x1="514" y1="65" x2="521" y2="65"></line>
             <line x1="622" y1="65" x2="629" y2="65"></line>
           </g>
-          <text x="360" y="112" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#86829e">device characteristics · model card · layout rules supplied by ASAP7 PDK throughout</text>
+          <text x="360" y="112" text-anchor="middle" font-family="Roboto Mono" font-size="7.5" fill="#5f676e">device characteristics · model card · layout rules supplied by ASAP7 PDK throughout</text>
         </svg>
         <div class="illus-caption">Fig 2 — Every cell moves through the same seven stages, from problem definition to a fully characterized library entry.</div>
       </div>
