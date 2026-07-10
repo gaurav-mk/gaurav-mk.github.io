@@ -1,42 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>JESD204B/C Clocking Systems | Gaurav Kumar Mishra</title>
   <meta name="author" content="Gaurav Kumar Mishra">
   <meta name="description" content="A detailed guide to JESD204B/C clocking: subclasses, SYSREF, determinism, device skew, and timing examples — based on TI Precision Labs.">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..900&family=Roboto:wght@400;500&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
-    ::selection { background: rgba(49,46,129,.22); color: var(--on-surface) }
+    ::selection { background: rgba(124,179,66,.25); color: var(--on-surface) }
 
     :root {
-      --primary: #312e81;
-      --primary-hover: #26235f;
-      --on-primary: #FFF;
-      --primary-container: #e3e1fb;
-      --on-primary-container: #211c5e;
-      --secondary: #d6335c;
-      --surface: #faf9fd;
-      --surface-container-lowest: #FFF;
-      --surface-container-low: #f5f4fa;
-      --surface-container: #ece9f6;
-      --surface-container-high: #e2ddf1;
-      --on-surface: #18162a;
-      --on-surface-variant: #4c4966;
-      --on-surface-faint: #86829e;
-      --outline: #b8b3cc;
-      --outline-variant: #ddd9ec;
-      --success: #1e7f4f;
-      --warn: #7a4f00;
-      --warn-container: #fef3e2;
-      --font-display: 'Roboto Flex','Roboto',system-ui,sans-serif;
-      --font-body: 'Roboto',system-ui,sans-serif;
-      --font-mono: 'Roboto Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+      --primary: #7cb342;
+      --primary-hover: #5c8a2e;
+      --on-primary: #0d1113;
+      --primary-container: #1a2417;
+      --on-primary-container: #bfe08f;
+      --secondary: #e0a458;
+      --surface: #101418;
+      --surface-container-lowest: #171b1f;
+      --surface-container-low: #12161a;
+      --surface-container: #171b1f;
+      --surface-container-high: #20262b;
+      --on-surface: #e8eaec;
+      --on-surface-variant: #a7b0b7;
+      --on-surface-faint: #5f676e;
+      --outline: #3a4046;
+      --outline-variant: #262c31;
+      --success: #7cb342;
+      --warn: #e0a458;
+      --warn-container: color-mix(in oklab, #bd6a2e 16%, #171b1f);
+      --font-display: 'IBM Plex Sans',system-ui,sans-serif;
+      --font-body: 'IBM Plex Sans',system-ui,sans-serif;
+      --font-mono: 'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
       --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-pill: 999px;
-      --c1: #c8daf5; --c2: #d4edda; --c3: #fff3cd;
-      --c4: #e8d5f5; --c5: #fde0dc; --c6: #d1f0eb;
     }
 
     html, body { margin:0; padding:0 }
@@ -45,18 +45,25 @@
 
     .grid-bg {
       position:fixed; inset:0; z-index:0; pointer-events:none;
-      background-image: linear-gradient(to right, rgba(49,46,129,.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(49,46,129,.04) 1px, transparent 1px);
+      background-image: linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px);
       background-size:96px 96px;
       mask-image:linear-gradient(to bottom, black 0, black 60%, transparent 100%)
     }
 
     /* NAV */
-    .topbar { position:sticky; top:0; z-index:50; backdrop-filter:blur(12px); background:rgba(250,251,253,.88) }
-    .topbar-inner { max-width:1240px; margin:0 auto; padding:14px 32px; display:flex; justify-content:center; align-items:center }
-    .nav { display:inline-flex; gap:2px; padding:5px; background:var(--surface-container); border-radius:999px; box-shadow:0 10px 28px -18px rgba(49,46,129,.45) }
-    .nav a { padding:10px 22px; border-radius:999px; font-size:14px; font-weight:500; color:var(--on-surface-variant); transition:background .15s,color .15s; white-space:nowrap }
-    .nav a:hover { color:var(--on-surface); background:color-mix(in oklab,var(--primary) 10%,transparent) }
-    .nav a.active { background:var(--primary-container); color:var(--on-primary-container) }
+    .nav-bar { position:sticky; top:0; z-index:50; background:rgba(13,16,19,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--outline-variant) }
+    .nav-inner { max-width:1240px; margin:0 auto; padding:0 32px; height:64px; display:flex; align-items:center; justify-content:space-between; gap:24px }
+    .nav-brand { display:flex; align-items:center; gap:12px; color:var(--on-surface); flex-shrink:0 }
+    .nav-brand svg { width:32px; height:32px; display:block }
+    .nav-brand .word { font:500 13px var(--font-mono); letter-spacing:1.5px; white-space:nowrap }
+    .nav-brand .word .u { color:var(--primary) }
+    .nav-links { display:flex; gap:28px; font-size:13px; flex-wrap:wrap }
+    .nav-links a { color:var(--on-surface-variant); padding:20px 0; border-bottom:2px solid transparent; transition:color .18s,border-color .18s }
+    .nav-links a:hover { color:var(--on-surface); border-bottom-color:var(--primary) }
+    .nav-links a.active { color:var(--on-surface); font-weight:600; border-bottom-color:var(--primary) }
+    .nav-status { display:flex; align-items:center; gap:8px; border:1px solid var(--outline); border-radius:20px; padding:6px 14px; font:500 10.5px var(--font-mono); color:var(--on-surface-variant); flex-shrink:0; white-space:nowrap }
+    .nav-status .dot { width:7px; height:7px; border-radius:50%; background:var(--primary); animation:led 2.4s infinite }
+    @keyframes led { 0%,100%{opacity:1} 50%{opacity:.35} }
 
     main { position:relative; z-index:1 }
 
@@ -72,10 +79,11 @@
     .meta-row { display:flex; flex-wrap:wrap; gap:8px; align-items:center }
     .meta-chip { display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em; padding:4px 10px; border-radius:999px; border:1px solid var(--outline-variant); background:var(--surface-container-low); color:var(--on-surface-variant) }
     .meta-chip.primary { background:var(--primary-container); border-color:color-mix(in oklab,var(--primary) 22%,transparent); color:var(--on-primary-container) }
+    .meta-sep { color:var(--outline); font-family:var(--font-mono); font-size:12px }
 
     /* BODY LAYOUT */
-    .proj-body { max-width:1240px; margin:48px auto 0; padding:0 32px 80px; display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:48px; align-items:start }
-    .proj-main { min-width:0; display:flex; flex-direction:column; gap:56px }
+    .proj-body { max-width:1240px; margin:48px auto 0; padding:0 32px 80px; display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:48px; align-items:start }
+    .proj-main { min-width:0; display:flex; flex-direction:column; gap:48px }
     .proj-sidebar { position:sticky; top:80px; display:flex; flex-direction:column; gap:20px }
 
     /* SIDEBAR */
@@ -94,14 +102,15 @@
     .nav-proj a.next { text-align:right }
 
     /* LEFT FIXED TOC — only visible when viewport is wide enough to avoid overlap */
-    .article-toc { position:fixed; left:calc(50vw - 820px); top:50%; transform:translateY(-50%); width:200px; max-height:80vh; overflow-y:auto; z-index:10; padding:0 0 16px; scrollbar-width:none }
+    .article-toc { position:fixed; left:calc(25vw - 385px); top:50%; transform:translateY(-50%); width:196px; max-height:80vh; overflow-y:auto; z-index:10; padding:0 0 16px; scrollbar-width:none; opacity:0; visibility:hidden }
+    .article-toc.ready { visibility:visible; animation:toc-enter .45s cubic-bezier(0.2,0,0,1) .08s both }
+    @keyframes toc-enter { from{opacity:0;transform:translateY(-50%) translateX(-10px)} to{opacity:1;transform:translateY(-50%) translateX(0)} }
     .article-toc::-webkit-scrollbar { display:none }
-    @media(max-width:1700px) { .article-toc { display:none } }
-    .toc-label { font-family:var(--font-mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--on-surface-faint); padding:0 18px 6px; display:block }
-    .toc-pill { position:absolute; border-radius:999px; pointer-events:none; z-index:0; transition:top .32s cubic-bezier(.2,0,0,1), height .32s cubic-bezier(.2,0,0,1), opacity .22s cubic-bezier(.2,0,0,1); opacity:0; background:var(--primary-container) }
-    .article-toc a { display:block; height:30px; line-height:30px; padding:0 14px; font-family:var(--font-mono); font-size:11.5px; font-weight:450; color:var(--on-surface-variant); border-radius:999px; margin:2px 4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; transition:color .2s,background .18s; position:relative; z-index:1 }
+    @media(max-width:1400px) { .article-toc { display:none } .toc-pill { display:none!important } }
+    .toc-pill { position:absolute; border-radius:999px; pointer-events:none; z-index:9; transition:top .32s cubic-bezier(0.2,0,0,1), left .32s cubic-bezier(0.2,0,0,1), width .32s cubic-bezier(0.2,0,0,1), height .32s cubic-bezier(0.2,0,0,1), opacity .22s cubic-bezier(0.2,0,0,1); opacity:0; background:var(--primary-container) }
+    .article-toc a { position:relative; z-index:11; display:block; height:32px; line-height:32px; padding:0 16px; font-family:var(--font-mono); font-size:12.5px; font-weight:450; color:var(--on-surface-variant); border-radius:999px; margin:2px 4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; transition:color .2s cubic-bezier(0.2,0,0,1), background .18s cubic-bezier(0.2,0,0,1) }
     .article-toc a:hover { background:color-mix(in oklab,var(--primary) 7%,transparent); color:var(--on-surface) }
-    .article-toc a.active { color:var(--on-primary-container); font-weight:600 }
+    .article-toc a.active, .article-toc a.active:hover { color:var(--on-primary-container)!important; font-weight:600!important }
 
     /* SECTION */
     .sec { display:flex; flex-direction:column; gap:22px; scroll-margin-top:90px }
@@ -115,8 +124,8 @@
     /* CALLOUT */
     .callout { border:1px solid var(--outline-variant); border-left:3px solid var(--primary); border-radius:var(--r-sm); background:var(--primary-container); padding:13px 16px; font-size:13.5px; line-height:1.65; color:var(--on-primary-container) }
     .callout strong { color:var(--primary) }
-    .callout-warn { border:1px solid var(--outline-variant); border-left:3px solid #b45309; border-radius:var(--r-sm); background:var(--warn-container); padding:13px 16px; font-size:13.5px; line-height:1.65; color:var(--warn) }
-    .callout-warn strong { color:#92400e }
+    .callout-warn { border:1px solid var(--outline-variant); border-left:3px solid #bd6a2e; border-radius:var(--r-sm); background:var(--warn-container); padding:13px 16px; font-size:13.5px; line-height:1.65; color:#e0a458 }
+    .callout-warn strong { color:#e0a458 }
     .callout-success { border:1px solid var(--outline-variant); border-left:3px solid var(--success); border-radius:var(--r-sm); background:color-mix(in oklab,var(--success) 8%,var(--surface-container-lowest)); padding:13px 16px; font-size:13.5px; line-height:1.65; color:var(--on-surface-variant) }
     .callout-success strong { color:var(--success) }
 
@@ -134,7 +143,7 @@
     tbody tr:hover { background:var(--surface-container-low) }
     tbody td { padding:9px 14px; color:var(--on-surface-variant); vertical-align:top }
     tbody td:first-child { color:var(--on-surface); font-weight:500; font-size:13px }
-    .td-yes { color:#1e7f4f; font-weight:600; font-family:var(--font-mono) }
+    .td-yes { color:#3f9d6d; font-weight:600; font-family:var(--font-mono) }
     .td-no { color:var(--on-surface-faint); font-family:var(--font-mono) }
     .td-hl { background:color-mix(in oklab,var(--primary-container) 50%,transparent) }
 
@@ -152,7 +161,7 @@
     .sub-card-head { padding:10px 14px; border-bottom:1px solid var(--outline-variant); display:flex; align-items:center; justify-content:space-between }
     .sub-card-title { font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--on-surface) }
     .sub-badge { font-family:var(--font-mono); font-size:9.5px; letter-spacing:.08em; padding:2px 8px; border-radius:var(--r-pill) }
-    .sub-badge.active { background:color-mix(in oklab,#1e7f4f 12%,transparent); color:#1e7f4f; border:1px solid color-mix(in oklab,#1e7f4f 28%,transparent) }
+    .sub-badge.active { background:color-mix(in oklab,#3f9d6d 12%,transparent); color:#3f9d6d; border:1px solid color-mix(in oklab,#3f9d6d 28%,transparent) }
     .sub-badge.secondary { background:var(--surface-container); color:var(--on-surface-faint); border:1px solid var(--outline-variant) }
     .sub-card-body { padding:12px 14px; font-size:13px; line-height:1.65; color:var(--on-surface-variant) }
     .sub-card.highlight { border-color:color-mix(in oklab,var(--primary) 30%,transparent); box-shadow:0 0 0 1px color-mix(in oklab,var(--primary) 14%,transparent) }
@@ -181,7 +190,7 @@
     /* STEP LIST */
     .step-list { display:flex; flex-direction:column; gap:12px }
     .step { display:flex; gap:14px; align-items:flex-start }
-    .step-num { width:28px; height:28px; border-radius:50%; background:var(--primary); color:#fff; font-family:var(--font-mono); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px }
+    .step-num { width:28px; height:28px; border-radius:50%; background:var(--primary); color:var(--on-primary); font-family:var(--font-mono); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px }
     .step-body { font-size:14px; line-height:1.68; color:var(--on-surface-variant) }
     .step-body strong { color:var(--on-surface) }
 
@@ -191,8 +200,34 @@
       .proj-sidebar { position:static }
     }
     @media(max-width:640px) {
-      .topbar-inner { padding:10px 16px }
-      .nav a { padding:9px 14px; font-size:13px }
+      .nav-inner { flex-wrap:wrap; height:auto; padding:10px 16px; row-gap:8px }
+      .nav-status { display:none }
+      .nav-links { width:100%; justify-content:center; gap:14px; font-size:12px }
+      .nav-links a { padding:6px 0 }
+    }
+
+    /* ================= shared site footer / float-book ================= */
+    .site-footer { position:relative; z-index:1; border-top:1px solid var(--outline-variant); background:#0d1013 }
+    .footer-grid { max-width:1240px; margin:0 auto; padding:44px 32px 36px; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:32px }
+    .footer-brand { display:flex; align-items:center; gap:10px }
+    .footer-brand svg { width:26px; height:26px; display:block }
+    .footer-desc { font-size:12px; color:var(--on-surface-faint); margin-top:10px; line-height:1.6; max-width:260px }
+    .footer-col { display:flex; flex-direction:column; gap:9px }
+    .footer-col .head { font-family:var(--font-mono); font-size:9.5px; color:var(--on-surface-faint); letter-spacing:1.5px; margin-bottom:2px }
+    .footer-col a, .footer-col span { color:var(--on-surface-variant); font-size:12.5px; transition:color .15s,transform .15s; display:inline-block }
+    .footer-col a:hover { color:var(--on-surface); transform:translateX(4px) }
+    .footer-bottom { border-top:1px solid #1a1f24 }
+    .footer-bottom-inner { max-width:1240px; margin:0 auto; padding:16px 32px; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; color:#3f464d; flex-wrap:wrap; gap:6px }
+    .float-book { position:fixed; right:28px; bottom:28px; z-index:60; display:flex; align-items:center; gap:10px; background:var(--primary); color:#0d1113; padding:14px 24px; border-radius:32px; font-size:14px; font-weight:600; box-shadow:0 10px 30px -8px rgba(0,0,0,.6); transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s,filter .18s }
+    .float-book:hover { transform:translateY(-3px); filter:brightness(1.1); box-shadow:0 14px 34px -8px var(--primary); color:#0d1113 }
+    .float-book .dot { width:9px; height:9px; border-radius:50%; background:#0d1113; animation:led 2.4s infinite }
+    .float-book .label-short { display:none }
+    @media(max-width:640px) {
+      .footer-grid { grid-template-columns:1fr 1fr; padding-left:20px; padding-right:20px }
+      .footer-bottom-inner { padding-left:20px; padding-right:20px }
+      .float-book .label { display:none }
+      .float-book .label-short { display:inline }
+      .float-book { padding:12px 16px; border-radius:24px; font-size:13px; gap:8px }
     }
   </style>
 </head>
@@ -200,11 +235,27 @@
 
 <div class="grid-bg"></div>
 
-<!-- LEFT TOC -->
-<nav class="article-toc" id="articleToc">
-  <div class="toc-pill" id="tocPill"></div>
-  <span class="toc-label">On this page</span>
-  <a href="#intro">Introduction</a>
+<header class="nav-bar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/">
+      <svg viewBox="0 0 100 100"><rect x="2" y="2" width="96" height="96" rx="10" fill="var(--primary)"></rect><g clip-path="url(#logoclip)"><path d="M -28 14 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 38 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 62 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 86 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path></g><clipPath id="logoclip"><rect x="8" y="8" width="84" height="84" rx="6"></rect></clipPath></svg>
+      <span class="word">GAURAV MISHRA</span>
+    </a>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/projects/" class="active">Projects</a>
+      <a href="/courses/">Courses</a>
+      <a href="/community/">Community</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <div class="nav-status"><span class="dot"></span>OPEN TO WORK</div>
+  </div>
+</header>
+
+<main>
+
+<aside class="article-toc ready" style="margin-top:0px;">
+  <a href="#intro" class="active">Introduction</a>
   <a href="#what-is-jesd">What is JESD204?</a>
   <a href="#trad-vs-jesd">Traditional vs JESD204B</a>
   <a href="#subclasses">JESD204B Subclasses</a>
@@ -215,740 +266,773 @@
   <a href="#device-skew">Device Skew</a>
   <a href="#timing-examples">Timing Examples</a>
   <a href="#interface">Clock Interface</a>
-</nav>
+  <div class="toc-pill" style="top:2px;left:4px;width:188px;height:32px;opacity:1;"></div>
+</aside>
 
-<!-- TOPBAR -->
-<header class="topbar">
-  <div class="topbar-inner">
-    <nav class="nav">
-      <a href="/">Home</a>
-      <a href="/projects/" class="active">Projects</a>
+<div class="proj-hero">
+  <a class="back-link" href="/projects/JESD204C_Clock_Tree_Thesis/">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg>
+    Thesis Overview
+  </a>
+  <div class="proj-eyebrow">JESD204C Clock Tree Thesis</div>
+  <h1>Clocking JESD204B/C Systems</h1>
+  <p class="subtitle">How JESD204B/C clocking achieves deterministic data sampling between multiple ADCs, DACs, and logic devices — from subclass selection to SYSREF timing margins.</p>
+  <div class="meta-row">
+    <span class="meta-chip primary">JESD204B/C</span>
+    <span class="meta-chip">SYSREF</span>
+    <span class="meta-chip">Determinism</span>
+    <span class="meta-chip">Clock Skew</span>
+    <span class="meta-chip">Texas Instruments</span>
+  </div>
+</div>
+
+<div class="proj-body">
+  <div class="proj-main">
+
+    <!-- 1. INTRODUCTION -->
+    <section class="sec">
+      <div class="sec-eyebrow">01 · Introduction</div>
+      <h2 id="intro">Why JESD204B/C clocking?</h2>
+      <p>High-speed data converter systems — ADCs, DACs, and FPGAs working in concert — need every device to agree on a common time reference. Without that, each device resets its internal counters at slightly different moments on power-up, and the latency between samples becomes unpredictable from boot to boot.</p>
+      <p>JESD204B/C clocking solves this by adding a second signal, <strong>SYSREF</strong>, alongside the familiar device clock. SYSREF provides a system-wide time reference that forces every device to reset its internal dividers to the same state simultaneously — making the data pipeline latency <em>deterministic</em> across power cycles and across all devices in the system.</p>
+      <div class="callout">
+        <strong>Key insight:</strong> JESD204C allows higher lane rates (up to 32 Gbps vs 12.5 Gbps for B) but the clocking architecture — device clock + SYSREF — is identical between B and C. Everything on this page applies equally to both.
+      </div>
+    </section>
+
+    <div class="sec-divider"></div>
+
+    <!-- 2. WHAT IS JESD204 -->
+    <section class="sec">
+      <div class="sec-eyebrow">02 · Standard Background</div>
+      <h2 id="what-is-jesd">What is JESD204?</h2>
+      <p>JESD204 is a JEDEC standard that defines a serialized high-speed interface between data converters (ADCs, DACs) and logic devices (FPGAs, ASICs). Instead of parallel buses with strict trace-length matching, it uses a small number of serial lanes — dramatically simplifying PCB layout.</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>JESD204</th>
+              <th>JESD204A</th>
+              <th class="hl">JESD204B</th>
+              <th class="hl">JESD204C</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>JEDEC release</td>
+              <td>2006</td>
+              <td>2008</td>
+              <td class="td-hl">2011</td>
+              <td class="td-hl">2017</td>
+            </tr>
+            <tr>
+              <td>Max lane rate (Gbps)</td>
+              <td>3.125</td>
+              <td>3.125</td>
+              <td class="td-hl">12.5</td>
+              <td class="td-hl">32</td>
+            </tr>
+            <tr>
+              <td>Multiple lanes</td>
+              <td class="td-no">No</td>
+              <td class="td-yes">Yes</td>
+              <td class="td-yes td-hl">Yes</td>
+              <td class="td-yes td-hl">Yes</td>
+            </tr>
+            <tr>
+              <td>Lane synchronization</td>
+              <td class="td-no">No</td>
+              <td class="td-yes">Yes</td>
+              <td class="td-yes td-hl">Yes</td>
+              <td class="td-yes td-hl">Yes</td>
+            </tr>
+            <tr>
+              <td>Multi-device synchronization</td>
+              <td class="td-no">No</td>
+              <td class="td-yes">Yes</td>
+              <td class="td-yes td-hl">Yes</td>
+              <td class="td-yes td-hl">Yes</td>
+            </tr>
+            <tr>
+              <td>Deterministic latency</td>
+              <td class="td-no">No</td>
+              <td class="td-no">No</td>
+              <td class="td-yes td-hl">Yes</td>
+              <td class="td-yes td-hl">Yes</td>
+            </tr>
+            <tr>
+              <td>Harmonic clocking</td>
+              <td class="td-no">No</td>
+              <td class="td-no">No</td>
+              <td class="td-yes td-hl">Yes</td>
+              <td class="td-yes td-hl">Yes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>The jump from JESD204A to JESD204B was the critical one: it introduced <em>deterministic latency</em> via SYSREF-based synchronization (Subclass 1) and the multi-frame clock (LMFC). JESD204C kept the same clocking model and bumped the lane rate ceiling.</p>
+    </section>
+
+    <div class="sec-divider"></div>
+
+    <!-- 3. TRADITIONAL VS JESD204B -->
+    <section class="sec">
+      <div class="sec-eyebrow">03 · Architecture</div>
+      <h2 id="trad-vs-jesd">Traditional clocking vs. JESD204B</h2>
+
+      <div class="two-col">
+        <div class="diag-frame">
+          <div class="diag-bar"><span class="dot"></span> Traditional</div>
+          <div class="diag-body" style="display:flex;flex-direction:column;gap:14px;">
+            <p style="font-size:13px;color:var(--on-surface-variant);">Each converter and the logic device receive a <strong style="color:var(--on-surface)">single clock</strong>. Data is moved over many parallel lanes with tight trace-length matching. Synchronization is left entirely to the user.</p>
+            <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:12px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);line-height:1.8;">
+              ADC ──────── many parallel data lanes ──→ FPGA<br>
+              DAC ←─────── many parallel data lanes ─── FPGA<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↑ tight length matching required ↑
+            </div>
+            <ul style="font-size:13px;padding-left:18px;display:flex;flex-direction:column;gap:4px;color:var(--on-surface-variant);">
+              <li>Many parallel PCB traces</li>
+              <li>Strict trace length matching</li>
+              <li>Non-deterministic latency on power-up</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="diag-frame">
+          <div class="diag-bar"><span class="dot"></span> JESD204B/C</div>
+          <div class="diag-body" style="display:flex;flex-direction:column;gap:14px;">
+            <p style="font-size:13px;color:var(--on-surface-variant);">Each converter and the logic device receive a <strong style="color:var(--on-surface)">device clock + SYSREF</strong>. Data travels over a few high-speed serial lanes. No trace length matching needed.</p>
+            <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:12px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);line-height:1.8;">
+              ADC ── 1–4 serial JESD lanes ──→ FPGA<br>
+              DAC ←─ 1–4 serial JESD lanes ─── FPGA<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↑ no length matching ↑<br>
+              SYSREF ────────────────────────→ all
+            </div>
+            <ul style="font-size:13px;padding-left:18px;display:flex;flex-direction:column;gap:4px;color:var(--on-surface-variant);">
+              <li>Few high-speed serial lanes</li>
+              <li>No length matching required</li>
+              <li>Deterministic latency every power-up</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <p>The internal clocks inside each JESD204B device — Frame Clock, Local Multi-Frame Clock (LMFC) — are all derived by dividing the device clock. SYSREF instructs every device to reset these dividers simultaneously. Once aligned, the user can know the exact time between any two samples anywhere in the system to within one LMFC period.</p>
+
+      <div class="analogy">
+        <span class="analogy-label">Analogy</span>
+        Think of SYSREF as the starter's gun at a race. Every runner (device) has been warming up (running their internal clocks) independently. The gun fires (SYSREF edge arrives) and everyone resets to the same starting block. From then on, the whole system is synchronized.
+      </div>
+    </section>
+
+    <div class="sec-divider"></div>
+
+    <!-- 4. SUBCLASSES -->
+    <section class="sec">
+      <div class="sec-eyebrow">04 · Subclass Selection</div>
+      <h2 id="subclasses">JESD204B Subclasses</h2>
+      <p>JESD204B defines three subclasses that differ in <em>how</em> deterministic latency is achieved. Only Subclasses 1 and 2 provide determinism; Subclass 0 is essentially backward-compatible legacy mode.</p>
+
+      <div class="sub-grid">
+        <div class="sub-card">
+          <div class="sub-card-head">
+            <span class="sub-card-title">Subclass 0</span>
+            <span class="sub-badge secondary">Legacy</span>
+          </div>
+          <div class="sub-card-body">
+            No support for deterministic latency. Backward compatible with JESD204A. Use only when determinism is not required.
+          </div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-card-head">
+            <span class="sub-card-title">Subclass 2</span>
+            <span class="sub-badge secondary">Less common</span>
+          </div>
+          <div class="sub-card-body">
+            Uses the <code style="font-family:var(--font-mono);background:var(--surface-container);padding:1px 5px;border-radius:3px;">~SYNC</code> signal (which also requests link initialization) as the timing reference. Not usable at higher frequencies and less popular than Subclass 1.
+          </div>
+        </div>
+
+        <div class="sub-card highlight">
+          <div class="sub-card-head">
+            <span class="sub-card-title">Subclass 1</span>
+            <span class="sub-badge active">Recommended</span>
+          </div>
+          <div class="sub-card-body">
+            Uses an external <strong>SYSREF</strong> signal as the timing reference. Works at all frequencies, supports continuous and one-shot SYSREF modes. The industry standard choice for high-speed systems.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>This page focuses on Subclass 1.</strong> The LMX1205 is a Subclass 1 clocking device — it generates device clocks and SYSREF outputs with programmable delays to precisely position the SYSREF edge inside each receiver's valid window.
+      </div>
+    </section>
+
+    <div class="sec-divider"></div>
+
+    <!-- 5. SUBCLASS 1 OPERATION -->
+    <section class="sec">
+      <div class="sec-eyebrow">05 · Subclass 1</div>
+      <h2 id="subclass1">Subclass 1 Operation</h2>
+      <p>The mechanism is elegantly simple: after a rising edge of SYSREF, the <em>very next</em> rising edge of the device clock becomes a universal time reference point. Every device in the system resets its internal frame clock and LMFC dividers at that edge.</p>
+
+      <div class="diag-frame">
+        <div class="diag-bar"><span class="dot"></span><span class="dot"></span> Subclass 1 Timing Diagram</div>
+        <div class="diag-body">
+          <svg class="timing-svg" viewBox="0 0 600 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="background:#12161a;">
+            <!-- Device Clock -->
+            <text x="10" y="30" fill="#a7b0b7" font-size="11" font-family="monospace">Device</text>
+            <text x="10" y="43" fill="#a7b0b7" font-size="11" font-family="monospace">Clock</text>
+            <!-- clock waveform -->
+            <polyline points="80,55 80,25 120,25 120,55 160,55 160,25 200,25 200,55 240,55 240,25 280,25 280,55 320,55 320,25 360,25 360,55 400,55 400,25 440,25 440,55 480,55 480,25 520,25 520,55 560,55" stroke="#7cb342" stroke-width="2" fill="none"/>
+            <!-- SYSREF -->
+            <text x="10" y="115" fill="#a7b0b7" font-size="11" font-family="monospace">SYSREF</text>
+            <!-- sysref waveform -->
+            <polyline points="80,135 80,135 220,135 220,95 380,95 380,135 560,135" stroke="#bd6a2e" stroke-width="2" fill="none"/>
+            <!-- rising edge marker -->
+            <line x1="240" y1="15" x2="240" y2="155" stroke="#4F7AA6" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="244" y="14" fill="#4F7AA6" font-size="10" font-family="monospace">reference edge</text>
+            <!-- SYSREF arrow -->
+            <line x1="220" y1="80" x2="238" y2="80" stroke="#bd6a2e" stroke-width="1.5" marker-end="url(#arr)"/>
+            <text x="136" y="80" fill="#bd6a2e" font-size="10" font-family="monospace">SYSREF rises</text>
+            <defs>
+              <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6 Z" fill="#bd6a2e"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+        <div class="diag-caption">After SYSREF rises, the next device clock rising edge (dashed line) resets all internal LMFC dividers. Every device in the system lands on this same edge.</div>
+      </div>
+
+      <p>Sometimes more than one SYSREF edge is required to reset all elements for phase determinism — especially when multiple JESD204B devices need to be aligned. The clocking device can be programmed to send exactly the right number of pulses.</p>
+
+      <div class="callout">
+        <strong>LMFC = Local Multi-Frame Clock.</strong> Derived by dividing the device clock by K×F (where K = frames per multiframe, F = octets per frame). SYSREF resets this divider so all devices in the system share the same LMFC phase.
+      </div>
+    </section>
+
+    <div class="sec-divider"></div>
+
+    <!-- 6. SYSREF TYPES -->
+    <section class="sec">
+      <div class="sec-eyebrow">06 · SYSREF Modes</div>
+      <h2 id="sysref-types">Types of SYSREF signals</h2>
+      <p>There are three ways to deliver SYSREF to the system, each with different trade-offs between noise, convenience, and control:</p>
+
+      <div class="sysref-grid">
+        <div class="sysref-card">
+          <div class="sysref-card-title">Continuous SYSREF</div>
+          <svg class="sysref-wave" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+            <text x="4" y="13" font-size="9" fill="#5f676e" font-family="monospace">CLK</text>
+            <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#7cb342" stroke-width="1.5" fill="none"/>
+            <text x="4" y="45" font-size="9" fill="#5f676e" font-family="monospace">SYS</text>
+            <polyline points="30,52 30,36 50,36 50,52 70,36 70,52 90,36 90,52 110,36 110,52 130,36 130,52 150,36 150,52 170,36 170,52 190,36 190,52" stroke="#bd6a2e" stroke-width="1.5" fill="none"/>
+          </svg>
+          <p>SYSREF toggles continuously at a subharmonic of the device clock. <strong>Good for debug</strong> and measurement. Causes radiated spurious noise and extra power — not ideal for production.</p>
+        </div>
+
+        <div class="sysref-card">
+          <div class="sysref-card-title">One-Shot SYSREF</div>
+          <svg class="sysref-wave" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+            <text x="4" y="13" font-size="9" fill="#5f676e" font-family="monospace">CLK</text>
+            <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#7cb342" stroke-width="1.5" fill="none"/>
+            <text x="4" y="45" font-size="9" fill="#5f676e" font-family="monospace">SYS</text>
+            <polyline points="30,52 60,52 60,36 80,36 80,52 190,52" stroke="#bd6a2e" stroke-width="1.5" fill="none"/>
+            <rect x="60" y="36" width="20" height="16" fill="none" stroke="#bd6a2e" stroke-width="1" stroke-dasharray="2,2"/>
+          </svg>
+          <p>Single (or few) pulses sent only when a resync is needed. <strong>Minimizes radiated noise.</strong> May require re-programming receiver registers between pulses to mask different JESD204B elements.</p>
+        </div>
+
+        <div class="sysref-card">
+          <div class="sysref-card-title">Gapped Periodic SYSREF</div>
+          <svg class="sysref-wave" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+            <text x="4" y="13" font-size="9" fill="#5f676e" font-family="monospace">CLK</text>
+            <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#7cb342" stroke-width="1.5" fill="none"/>
+            <text x="4" y="45" font-size="9" fill="#5f676e" font-family="monospace">SYS</text>
+            <polyline points="30,52 40,52 40,36 60,36 60,52 100,52 110,52 110,36 130,36 130,52 170,52 180,52 180,36 195,36" stroke="#bd6a2e" stroke-width="1.5" fill="none"/>
+          </svg>
+          <p>Periodic bursts with gaps. Subsequent one-shots are guaranteed to align to the <strong>same LMFC timing</strong> — essential when reprogramming receiver elements between pulses.</p>
+        </div>
+      </div>
+
+      <div class="callout-warn">
+        <strong>AC coupling consideration:</strong> When SYSREF is AC coupled, a single pulse won't DC-balance the signal. Continuous SYSREF must be used temporarily during initialization — send it, wait for DC balance, let the receiver synchronize, then turn it off.
+      </div>
+    </section>
+
+    <div class="sec-divider"></div>
+
+    <!-- 7. DESIGN BENEFITS -->
+    <section class="sec">
+      <div class="sec-eyebrow">07 · Why Use It</div>
+      <h2 id="benefits">Design benefits of JESD204B/C</h2>
+
+      <div class="two-col">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="callout-success">
+            <strong>Fewer PCB traces.</strong> Traditional interfaces need dozens of parallel data lanes, all length-matched to picosecond accuracy. JESD204B replaces them with 1–8 high-speed serial lanes with no length matching required.
+          </div>
+          <div class="callout-success">
+            <strong>Same device clock for all converters.</strong> Each device's internal dividers reduce the shared device clock to whatever sample rate the converter needs. This eliminates the need for multiple clock frequencies at the clocking IC output.
+          </div>
+          <div class="callout-success">
+            <strong>Reduced cross-talk.</strong> Fewer clock signals at different frequencies means less opportunity for inter-clock interference on the PCB and inside the clocking IC.
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="diag-frame">
+            <div class="diag-bar"><span class="dot"></span> PCB Complexity Comparison</div>
+            <div class="diag-body" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div>
+                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint);margin-bottom:8px;">Traditional</div>
+                <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:10px;font-family:var(--font-mono);font-size:10px;line-height:1.9;color:var(--on-surface-variant);">
+                  ADC ══╦══ FPGA<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;╠══<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;╠══<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;╚══<br>
+                  <span style="color:#bd6a2e">⚠ many lanes</span>
+                </div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint);margin-bottom:8px;">JESD204B</div>
+                <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:10px;font-family:var(--font-mono);font-size:10px;line-height:1.9;color:var(--on-surface-variant);">
+                  ADC ─── FPGA<br>
+                  <br>
+                  <br>
+                  <br>
+                  <span style="color:#3f9d6d">✓ few lanes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>One exception: some FPGAs or DSPs can't accept the high device clock rates that converters need. In those cases the clocking IC may still need to produce a divided-down frequency for the logic device — but the converter side still benefits from the serialized interface.</p>
+    </section>
+
+    <div class="sec-divider"></div>
+
+    <!-- 8. DETERMINISM -->
+    <section class="sec">
+      <div class="sec-eyebrow">08 · Core Concept</div>
+      <h2 id="determinism">Determinism &amp; the SYSREF valid window</h2>
+      <p>For Subclass 1 determinism to work, SYSREF must "mark" the <em>same</em> device clock rising edge every time — across power cycles, temperature changes, and board-to-board variation. The way this is guaranteed is by ensuring the SYSREF rising edge falls inside the <strong>SYSREF valid window</strong> of every receiving device.</p>
+
+      <div class="diag-frame">
+        <div class="diag-bar"><span class="dot"></span> SYSREF Valid Window</div>
+        <div class="diag-body">
+          <svg class="timing-svg" viewBox="0 0 580 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="background:#12161a;">
+            <!-- VCO label -->
+            <text x="8" y="30" fill="#5f676e" font-size="11" font-family="monospace">3 GHz VCO</text>
+            <polyline points="100,40 100,22 116,22 116,40 132,22 132,40 148,22 148,40 164,22 164,40 180,22 180,40 196,22 196,40 212,22 212,40 228,22 228,40 244,22 244,40 260,22 260,40 276,22 276,40 292,22 292,40 308,22 308,40 324,22 324,40 340,22 340,40 356,22 356,40 372,22 372,40 388,22 388,40 404,22 404,40 420,22 420,40 436,22 436,40 452,22 452,40 468,22 468,40 484,22 484,40 500,22 500,40 516,22 516,40 532,22 532,40 548,22 548,40 560,40" stroke="#5f676e" stroke-width="1" fill="none"/>
+            <!-- Device clock label -->
+            <text x="8" y="80" fill="#7cb342" font-size="11" font-family="monospace">Device Clk</text>
+            <text x="8" y="93" fill="#7cb342" font-size="11" font-family="monospace">1 GHz</text>
+            <polyline points="100,110 100,62 148,62 148,110 196,62 196,110 244,62 244,110 292,62 292,110 340,62 340,110 388,62 388,110 436,62 436,110 484,62 484,110 532,62 532,110 560,110" stroke="#7cb342" stroke-width="2" fill="none"/>
+            <!-- valid window -->
+            <rect x="116" y="62" width="250" height="48" fill="rgba(63,157,109,0.15)" stroke="#3f9d6d" stroke-width="1.5" stroke-dasharray="4,3" rx="3"/>
+            <text x="195" y="83" fill="#3f9d6d" font-size="11" font-family="monospace" text-anchor="middle">SYSREF valid window</text>
+            <text x="195" y="97" fill="#3f9d6d" font-size="10" font-family="monospace" text-anchor="middle">= period − setup − hold</text>
+            <!-- hold time bracket -->
+            <line x1="100" y1="126" x2="116" y2="126" stroke="#bd6a2e" stroke-width="1.5" marker-end="url(#arr2)" marker-start="url(#arr3)"/>
+            <text x="108" y="140" fill="#bd6a2e" font-size="9" font-family="monospace" text-anchor="middle">Hold</text>
+            <!-- setup time bracket -->
+            <line x1="366" y1="126" x2="388" y2="126" stroke="#bd6a2e" stroke-width="1.5" marker-end="url(#arr2)" marker-start="url(#arr3)"/>
+            <text x="377" y="140" fill="#bd6a2e" font-size="9" font-family="monospace" text-anchor="middle">Setup</text>
+            <!-- SYSREF -->
+            <text x="8" y="165" fill="#a7b0b7" font-size="11" font-family="monospace">SYSREF</text>
+            <polyline points="100,170 160,170 160,148 300,148 300,170 560,170" stroke="#bd6a2e" stroke-width="2" fill="none"/>
+            <!-- ideal SYSREF edge arrow -->
+            <line x1="160" y1="148" x2="160" y2="128" stroke="#3f9d6d" stroke-width="1" stroke-dasharray="3,2"/>
+            <defs>
+              <marker id="arr2" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
+                <path d="M0,0 L5,2.5 L0,5 Z" fill="#bd6a2e"/>
+              </marker>
+              <marker id="arr3" markerWidth="5" markerHeight="5" refX="1" refY="2.5" orient="auto">
+                <path d="M5,0 L0,2.5 L5,5 Z" fill="#bd6a2e"/>
+              </marker>
+            </defs>
+          </svg>
+        </div>
+        <div class="diag-caption">The SYSREF valid window = Device clock period − Setup time − Hold time. The SYSREF edge must land inside this window to deterministically mark the same device clock edge every time.</div>
+      </div>
+
+      <div class="eq-box">
+        <span class="eq-hl">SYSREF valid window = T<sub>device_clock</sub> − t<sub>setup</sub> − t<sub>hold</sub></span><br>
+        <span style="color:var(--on-surface-faint);font-size:11px;">Where setup and hold times are found in the converter's datasheet</span>
+      </div>
+
+      <p>The maximum setup time is typically approximated as the device clock period minus the hold time. Both setup and hold times are specified per-device in the converter's datasheet and vary with supply voltage, temperature, and process.</p>
+    </section>
+
+    <div class="sec-divider"></div>
+
+    <!-- 9. DEVICE SKEW -->
+    <section class="sec">
+      <div class="sec-eyebrow">09 · Timing Violations</div>
+      <h2 id="device-skew">What happens if timing is missed? (Device skew)</h2>
+      <p>If the SYSREF edge lands outside the valid window — violating setup or hold — a different device clock edge gets marked. The device sees its LMFC divider reset one full clock cycle too early or too late. From the system's perspective this looks like a <strong>1-cycle digital skew</strong> on that device.</p>
+
+      <div class="diag-frame">
+        <div class="diag-bar"><span class="dot"></span> Missed Timing Scenarios</div>
+        <div class="diag-body">
+          <svg class="timing-svg" viewBox="0 0 560 130" fill="none" xmlns="http://www.w3.org/2000/svg" style="background:#12161a;">
+            <!-- columns -->
+            <text x="60"  y="14" fill="#a7b0b7" font-size="10" font-family="monospace" text-anchor="middle">−2 cycles</text>
+            <text x="180" y="14" fill="#a7b0b7" font-size="10" font-family="monospace" text-anchor="middle">−1 cycle</text>
+            <text x="300" y="14" fill="#3f9d6d" font-size="10" font-family="monospace" text-anchor="middle">±0 (ideal)</text>
+            <text x="420" y="14" fill="#a7b0b7" font-size="10" font-family="monospace" text-anchor="middle">+1 cycle</text>
+            <!-- device clock edges -->
+            <line x1="20"  y1="20" x2="20"  y2="80" stroke="#7cb342" stroke-width="1.5"/>
+            <line x1="140" y1="20" x2="140" y2="80" stroke="#7cb342" stroke-width="1.5"/>
+            <line x1="260" y1="20" x2="260" y2="80" stroke="#7cb342" stroke-width="2" stroke-dasharray="0"/>
+            <line x1="380" y1="20" x2="380" y2="80" stroke="#7cb342" stroke-width="1.5"/>
+            <line x1="500" y1="20" x2="500" y2="80" stroke="#7cb342" stroke-width="1.5"/>
+            <!-- device clock waveform segments -->
+            <polyline points="10,80 10,30 60,30 60,80 80,80 80,30 130,30 130,80 145,80 145,30 195,30 195,80 215,80 215,30 265,30 265,80 285,80 285,30 335,30 335,80 355,80 355,30 405,30 405,80 425,80 425,30 475,30 475,80 500,80" stroke="#7cb342" stroke-width="1.5" fill="none"/>
+            <!-- valid window boxes -->
+            <rect x="165" y="85" width="90" height="28" rx="3" fill="rgba(63,157,109,0.18)" stroke="#3f9d6d" stroke-width="1"/>
+            <text x="210" y="102" fill="#3f9d6d" font-size="8.5" font-family="monospace" text-anchor="middle">valid window</text>
+            <!-- SYSREF arrow at ideal position -->
+            <line x1="260" y1="80" x2="260" y2="95" stroke="#3f9d6d" stroke-width="2" marker-end="url(#greena)"/>
+            <defs>
+              <marker id="greena" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                <path d="M0,0 L6,3 L0,6 Z" fill="#3f9d6d"/>
+              </marker>
+            </defs>
+            <!-- setup / hold boxes -->
+            <rect x="45"  y="85" width="90" height="28" rx="3" fill="rgba(167,176,183,.08)" stroke="#3a4046" stroke-width="1"/>
+            <text x="90"  y="98" fill="#5f676e" font-size="8" font-family="monospace" text-anchor="middle">Setup y ps</text>
+            <text x="90"  y="109" fill="#5f676e" font-size="8" font-family="monospace" text-anchor="middle">Hold x ps</text>
+            <rect x="285" y="85" width="90" height="28" rx="3" fill="rgba(167,176,183,.08)" stroke="#3a4046" stroke-width="1"/>
+            <text x="330" y="98" fill="#5f676e" font-size="8" font-family="monospace" text-anchor="middle">Setup y ps</text>
+            <text x="330" y="109" fill="#5f676e" font-size="8" font-family="monospace" text-anchor="middle">Hold x ps</text>
+          </svg>
+        </div>
+        <div class="diag-caption">When SYSREF is late (outside the valid window on the high side), the +1 cycle device clock edge gets marked instead of the intended ±0 edge — introducing a 1-cycle determinism error.</div>
+      </div>
+
+      <p>Two delay adjustment mechanisms exist to move the SYSREF edge into the valid window:</p>
+
+      <div class="step-list">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body"><strong>Digital delay</strong> — Coarse adjustment. Step size equals the half-period of the VCO clock driving the SYSREF output divider. For a 3 GHz VCO: ½ × (1/3 GHz) ≈ <strong>166.7 ps per step</strong>. Very repeatable over temperature and voltage.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body"><strong>Analog delay</strong> — Fine adjustment. Typically 10–150 ps per step. Less repeatable than digital delay — accuracy degrades over temperature and voltage. Used to fine-tune after digital delay has coarsely positioned the edge.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Device clock timing adjustments</strong> are used to minimize skew <em>between</em> device clocks at different converters. <strong>SYSREF timing adjustments</strong> are used to position the SYSREF edge inside the valid window. These are independent knobs.
+      </div>
+    </section>
+
+    <div class="sec-divider"></div>
+
+    <!-- 10. TIMING EXAMPLES -->
+    <section class="sec">
+      <div class="sec-eyebrow">10 · Margin Calculations</div>
+      <h2 id="timing-examples">SYSREF timing margin examples</h2>
+      <p>The goal is to select a digital delay setting where the SYSREF edge sits as far from both edges of the valid window as possible. The margin you achieve depends on how the valid window compares to the digital delay step size.</p>
+
+      <!-- Example 1 -->
+      <div class="diag-frame">
+        <div class="diag-bar"><span class="dot"></span> Example 1 — Valid window &gt; 3× delay step</div>
+        <div class="diag-body" style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);letter-spacing:.1em;text-transform:uppercase;">Parameters</div>
+              <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:12px;font-family:var(--font-mono);font-size:12px;line-height:2;color:var(--on-surface-variant);">
+                VCO frequency: <strong style="color:var(--on-surface)">3000 MHz</strong><br>
+                Device clock: <strong style="color:var(--on-surface)">1500 MHz</strong><br>
+                Clock period: <strong style="color:var(--on-surface)">666.7 ps</strong><br>
+                Setup time: <strong style="color:var(--on-surface)">50 ps</strong><br>
+                Hold time: <strong style="color:var(--on-surface)">50 ps</strong><br>
+                Valid window: <strong style="color:#3f9d6d">566.7 ps</strong><br>
+                Delay step: <strong style="color:var(--on-surface)">166.7 ps</strong>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);letter-spacing:.1em;text-transform:uppercase;">Result</div>
+              <div class="callout-success">
+                <strong>3 delay steps fit inside the valid window.</strong> Select the middle one — margin is at least 1 full delay step size (166.7 ps). Provided the SYSREF routing skew is less than one step size, determinism is guaranteed.
+              </div>
+            </div>
+          </div>
+          <!-- Diagram -->
+          <svg class="timing-svg" viewBox="0 0 560 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- clock period bracket -->
+            <line x1="40" y1="18" x2="440" y2="18" stroke="#7cb342" stroke-width="1" marker-end="url(#b2arr)" marker-start="url(#b2arrl)"/>
+            <text x="240" y="14" fill="#7cb342" font-size="10" font-family="monospace" text-anchor="middle">Device Clock Period · 666.7 ps</text>
+            <!-- hold -->
+            <rect x="40" y="25" width="66" height="24" rx="3" fill="rgba(189,106,46,0.15)" stroke="#bd6a2e" stroke-width="1"/>
+            <text x="73" y="41" fill="#bd6a2e" font-size="9.5" font-family="monospace" text-anchor="middle">Hold 50 ps</text>
+            <!-- valid window -->
+            <rect x="106" y="25" width="268" height="24" rx="3" fill="rgba(63,157,109,0.15)" stroke="#3f9d6d" stroke-width="1.5"/>
+            <text x="240" y="41" fill="#3f9d6d" font-size="10" font-family="monospace" text-anchor="middle">SYSREF valid window · 566.7 ps</text>
+            <!-- setup -->
+            <rect x="374" y="25" width="66" height="24" rx="3" fill="rgba(189,106,46,0.15)" stroke="#bd6a2e" stroke-width="1"/>
+            <text x="407" y="41" fill="#bd6a2e" font-size="9.5" font-family="monospace" text-anchor="middle">Setup 50 ps</text>
+            <!-- three delay positions -->
+            <line x1="178" y1="55" x2="178" y2="80" stroke="#4F7AA6" stroke-width="1.5"/>
+            <line x1="240" y1="55" x2="240" y2="80" stroke="#4F7AA6" stroke-width="2" stroke-dasharray="0"/>
+            <line x1="302" y1="55" x2="302" y2="80" stroke="#4F7AA6" stroke-width="1.5"/>
+            <text x="178" y="73" fill="#4F7AA6" font-size="9" font-family="monospace" text-anchor="middle">①</text>
+            <text x="240" y="73" fill="#3f9d6d" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">② best</text>
+            <text x="302" y="73" fill="#4F7AA6" font-size="9" font-family="monospace" text-anchor="middle">③</text>
+            <text x="206" y="90" fill="#5f676e" font-size="9" font-family="monospace" text-anchor="middle">←166.7 ps→</text>
+            <text x="270" y="90" fill="#5f676e" font-size="9" font-family="monospace" text-anchor="middle">←166.7 ps→</text>
+            <defs>
+              <marker id="b2arr"  markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#7cb342"/></marker>
+              <marker id="b2arrl" markerWidth="5" markerHeight="5" refX="1" refY="2.5" orient="auto"><path d="M5,0 L0,2.5 L5,5 Z" fill="#7cb342"/></marker>
+            </defs>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Example 2 -->
+      <div class="diag-frame">
+        <div class="diag-bar"><span class="dot"></span> Example 2 — Valid window &lt; 3× delay step</div>
+        <div class="diag-body" style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);letter-spacing:.1em;text-transform:uppercase;">Parameters</div>
+              <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:12px;font-family:var(--font-mono);font-size:12px;line-height:2;color:var(--on-surface-variant);">
+                Valid window: <strong style="color:var(--on-surface)">300 ps</strong><br>
+                Delay step size: <strong style="color:var(--on-surface)">200 ps</strong><br>
+                Margin = (300 − 200) / 2 = <strong style="color:#3f9d6d">50 ps</strong>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);letter-spacing:.1em;text-transform:uppercase;">Result</div>
+              <div class="callout-warn">
+                <strong>Worst case:</strong> only 50 ps margin. The system will be deterministic only if routing skew between device clock and SYSREF is less than 50 ps. Consider adding analog delay or improving routing to increase margin.
+              </div>
+            </div>
+          </div>
+
+          <div class="eq-box">
+            When valid window &lt; 3 × delay step:<br>
+            <span class="eq-hl">Margin = (SYSREF valid window − delay step size) ÷ 2</span><br><br>
+            <span style="color:var(--on-surface-faint);font-size:11px;">Use min/max delay step sizes to account for non-uniform step sizes across corners.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sec-divider"></div>
+
+    <!-- 11. INTERFACE -->
+    <section class="sec">
+      <div class="sec-eyebrow">11 · Hardware</div>
+      <h2 id="interface">Clock interface: AC vs DC coupling</h2>
+      <p>The physical electrical interface between the clocking IC and each converter matters — especially for SYSREF, where single pulses need to faithfully transfer without distortion.</p>
+
+      <div class="two-col">
+        <div class="diag-frame">
+          <div class="diag-bar"><span class="dot"></span> DC Coupled</div>
+          <div class="diag-body" style="display:flex;flex-direction:column;gap:12px;">
+            <p style="font-size:13px;color:var(--on-surface-variant);"><strong>Simplest approach for SYSREF.</strong> Allows single pulses to transfer cleanly. Common mode must be matched manually using resistor dividers (Rs, Rb) at the receiver input.</p>
+            <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:12px;font-family:var(--font-mono);font-size:11px;line-height:1.8;color:var(--on-surface-variant);">
+              LVDS: direct 50Ω trace → receiver<br>
+              LVPECL: use Rs (series) + Rb (to GND)<br>
+              to voltage-divide to correct common mode
+            </div>
+            <ul style="font-size:13px;color:var(--on-surface-variant);padding-left:18px;gap:4px;display:flex;flex-direction:column;">
+              <li>Works with one-shot SYSREF</li>
+              <li>Must manage common mode voltage</li>
+              <li>Simpler synchronization procedure</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="diag-frame">
+          <div class="diag-bar"><span class="dot"></span> AC Coupled</div>
+          <div class="diag-body" style="display:flex;flex-direction:column;gap:12px;">
+            <p style="font-size:13px;color:var(--on-surface-variant);"><strong>Eliminates common-mode matching.</strong> But a single SYSREF pulse won't DC balance — you need a special initialization procedure.</p>
+            <div class="step-list" style="gap:8px;">
+              <div class="step">
+                <div class="step-num" style="width:20px;height:20px;font-size:10px;">1</div>
+                <div class="step-body" style="font-size:12px;">Turn <strong>on</strong> continuous SYSREF</div>
+              </div>
+              <div class="step">
+                <div class="step-num" style="width:20px;height:20px;font-size:10px;">2</div>
+                <div class="step-body" style="font-size:12px;">Wait for AC lines to reach DC balance</div>
+              </div>
+              <div class="step">
+                <div class="step-num" style="width:20px;height:20px;font-size:10px;">3</div>
+                <div class="step-body" style="font-size:12px;">Allow receiver to sync (toggle register if needed)</div>
+              </div>
+              <div class="step">
+                <div class="step-num" style="width:20px;height:20px;font-size:10px;">4</div>
+                <div class="step-body" style="font-size:12px;">Turn SYSREF <strong>off</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p>In practice, DC coupling is preferred for the SYSREF path in Subclass 1 systems because it enables clean one-shot operation. AC coupling is common for the device clock path (where the signal is always continuous) since it removes common-mode voltage constraints.</p>
+    </section>
+
+  </div><!-- /proj-main -->
+
+  <!-- SIDEBAR -->
+  <aside class="proj-sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-head">Page Info</div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Standard</span>
+        <span class="sidebar-val">JESD204B/C</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Subclass</span>
+        <span class="sidebar-val">1 (SYSREF)</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Source</span>
+        <span class="sidebar-val">TI Precision Labs</span>
+      </div>
+      <div class="sidebar-row">
+        <span class="sidebar-key">Topics</span>
+        <span class="sidebar-val">11 sections</span>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-head">Key Equations</div>
+      <div class="sidebar-row" style="display:flex;flex-direction:column;gap:6px;padding:11px 14px;">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);">Valid window</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--on-surface);">T<sub>clk</sub> − t<sub>setup</sub> − t<sub>hold</sub></div>
+      </div>
+      <div class="sidebar-row" style="display:flex;flex-direction:column;gap:6px;padding:11px 14px;border-bottom:0;">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);">Margin (small window)</div>
+        <div style="font-family:var(--font-mono);font-size:12px;color:var(--on-surface);">(window − step) ÷ 2</div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-head">Concepts</div>
+      <div class="tool-list">
+        <span class="tool-chip">SYSREF</span>
+        <span class="tool-chip">LMFC</span>
+        <span class="tool-chip">Valid Window</span>
+        <span class="tool-chip">Digital Delay</span>
+        <span class="tool-chip">Analog Delay</span>
+        <span class="tool-chip">Subclass 1</span>
+        <span class="tool-chip">DC Coupling</span>
+        <span class="tool-chip">AC Coupling</span>
+        <span class="tool-chip">Determinism</span>
+        <span class="tool-chip">Device Skew</span>
+      </div>
+    </div>
+
+    <div class="nav-proj">
+      <a href="/projects/JESD204C_Clock_Tree_Thesis/">
+        ← Prev
+        <span>Thesis Overview</span>
+      </a>
+      <a href="/projects/JESD204C_Clock_Tree_Thesis/TI_LMX1205_Datasheet/" class="next">
+        Next →
+        <span>LMX1205 Datasheet</span>
+      </a>
+    </div>
+  </aside>
+
+</div><!-- /proj-body -->
+</main>
+
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <svg viewBox="0 0 100 100"><rect x="2" y="2" width="96" height="96" rx="10" fill="var(--primary)"></rect><g clip-path="url(#logoclip2)"><path d="M -28 14 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 38 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 62 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 86 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path></g><clipPath id="logoclip2"><rect x="8" y="8" width="84" height="84" rx="6"></rect></clipPath></svg>
+        <span class="word">GAURAV MISHRA</span>
+      </div>
+      <div class="footer-desc">Hardware engineering portfolio of Gaurav Kumar Mishra. Built in Erlangen, DE.</div>
+    </div>
+    <div class="footer-col">
+      <div class="head">PAGES</div>
+      <a href="/projects/">Projects</a>
       <a href="/courses/">Courses</a>
       <a href="/community/">Community</a>
-      <a href="/contact/">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <!-- HERO -->
-  <div class="proj-hero">
-    <a class="back-link" href="/projects/JESD204C_Clock_Tree_Thesis/">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      Thesis Overview
-    </a>
-    <div class="proj-eyebrow">JESD204C Clock Tree Thesis</div>
-    <h1>Clocking JESD204B/C Systems</h1>
-    <p class="subtitle">How JESD204B/C clocking achieves deterministic data sampling between multiple ADCs, DACs, and logic devices — from subclass selection to SYSREF timing margins.</p>
-    <div class="meta-row">
-      <span class="meta-chip primary">JESD204B/C</span>
-      <span class="meta-chip">SYSREF</span>
-      <span class="meta-chip">Determinism</span>
-      <span class="meta-chip">Clock Skew</span>
-      <span class="meta-chip">Texas Instruments</span>
+    </div>
+    <div class="footer-col">
+      <div class="head">ELSEWHERE</div>
+      <a href="https://github.com/gaurav-mk" target="_blank" rel="external nofollow noopener">GitHub</a>
+      <a href="https://linkedin.com/in/gaurav-25" target="_blank" rel="external nofollow noopener">LinkedIn</a>
+    </div>
+    <div class="footer-col">
+      <div class="head">CONTACT</div>
+      <a href="mailto:mgaurav682@gmail.com">mgaurav682@gmail.com</a>
+      <span>Erlangen, DE</span>
     </div>
   </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner"><span>© 2026 GAURAV KUMAR MISHRA</span><span>SYS.OK · UPTIME 100%</span></div>
+  </div>
+</footer>
 
-  <div class="proj-body">
-    <div class="proj-main">
-
-      <!-- 1. INTRODUCTION -->
-      <section class="sec" id="intro">
-        <div class="sec-eyebrow">01 · Introduction</div>
-        <h2>Why JESD204B/C clocking?</h2>
-        <p>High-speed data converter systems — ADCs, DACs, and FPGAs working in concert — need every device to agree on a common time reference. Without that, each device resets its internal counters at slightly different moments on power-up, and the latency between samples becomes unpredictable from boot to boot.</p>
-        <p>JESD204B/C clocking solves this by adding a second signal, <strong>SYSREF</strong>, alongside the familiar device clock. SYSREF provides a system-wide time reference that forces every device to reset its internal dividers to the same state simultaneously — making the data pipeline latency <em>deterministic</em> across power cycles and across all devices in the system.</p>
-        <div class="callout">
-          <strong>Key insight:</strong> JESD204C allows higher lane rates (up to 32 Gbps vs 12.5 Gbps for B) but the clocking architecture — device clock + SYSREF — is identical between B and C. Everything on this page applies equally to both.
-        </div>
-      </section>
-
-      <div class="sec-divider"></div>
-
-      <!-- 2. WHAT IS JESD204 -->
-      <section class="sec" id="what-is-jesd">
-        <div class="sec-eyebrow">02 · Standard Background</div>
-        <h2>What is JESD204?</h2>
-        <p>JESD204 is a JEDEC standard that defines a serialized high-speed interface between data converters (ADCs, DACs) and logic devices (FPGAs, ASICs). Instead of parallel buses with strict trace-length matching, it uses a small number of serial lanes — dramatically simplifying PCB layout.</p>
-
-        <div class="tbl-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Feature</th>
-                <th>JESD204</th>
-                <th>JESD204A</th>
-                <th class="hl">JESD204B</th>
-                <th class="hl">JESD204C</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>JEDEC release</td>
-                <td>2006</td>
-                <td>2008</td>
-                <td class="td-hl">2011</td>
-                <td class="td-hl">2017</td>
-              </tr>
-              <tr>
-                <td>Max lane rate (Gbps)</td>
-                <td>3.125</td>
-                <td>3.125</td>
-                <td class="td-hl">12.5</td>
-                <td class="td-hl">32</td>
-              </tr>
-              <tr>
-                <td>Multiple lanes</td>
-                <td class="td-no">No</td>
-                <td class="td-yes">Yes</td>
-                <td class="td-yes td-hl">Yes</td>
-                <td class="td-yes td-hl">Yes</td>
-              </tr>
-              <tr>
-                <td>Lane synchronization</td>
-                <td class="td-no">No</td>
-                <td class="td-yes">Yes</td>
-                <td class="td-yes td-hl">Yes</td>
-                <td class="td-yes td-hl">Yes</td>
-              </tr>
-              <tr>
-                <td>Multi-device synchronization</td>
-                <td class="td-no">No</td>
-                <td class="td-yes">Yes</td>
-                <td class="td-yes td-hl">Yes</td>
-                <td class="td-yes td-hl">Yes</td>
-              </tr>
-              <tr>
-                <td>Deterministic latency</td>
-                <td class="td-no">No</td>
-                <td class="td-no">No</td>
-                <td class="td-yes td-hl">Yes</td>
-                <td class="td-yes td-hl">Yes</td>
-              </tr>
-              <tr>
-                <td>Harmonic clocking</td>
-                <td class="td-no">No</td>
-                <td class="td-no">No</td>
-                <td class="td-yes td-hl">Yes</td>
-                <td class="td-yes td-hl">Yes</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p>The jump from JESD204A to JESD204B was the critical one: it introduced <em>deterministic latency</em> via SYSREF-based synchronization (Subclass 1) and the multi-frame clock (LMFC). JESD204C kept the same clocking model and bumped the lane rate ceiling.</p>
-      </section>
-
-      <div class="sec-divider"></div>
-
-      <!-- 3. TRADITIONAL VS JESD204B -->
-      <section class="sec" id="trad-vs-jesd">
-        <div class="sec-eyebrow">03 · Architecture</div>
-        <h2>Traditional clocking vs. JESD204B</h2>
-
-        <div class="two-col">
-          <div class="diag-frame">
-            <div class="diag-bar"><span class="dot"></span> Traditional</div>
-            <div class="diag-body" style="display:flex;flex-direction:column;gap:14px;">
-              <p style="font-size:13px;color:var(--on-surface-variant);">Each converter and the logic device receive a <strong style="color:var(--on-surface)">single clock</strong>. Data is moved over many parallel lanes with tight trace-length matching. Synchronization is left entirely to the user.</p>
-              <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:12px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);line-height:1.8;">
-                ADC ──────── many parallel data lanes ──→ FPGA<br>
-                DAC ←─────── many parallel data lanes ─── FPGA<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↑ tight length matching required ↑
-              </div>
-              <ul style="font-size:13px;padding-left:18px;display:flex;flex-direction:column;gap:4px;color:var(--on-surface-variant);">
-                <li>Many parallel PCB traces</li>
-                <li>Strict trace length matching</li>
-                <li>Non-deterministic latency on power-up</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="diag-frame">
-            <div class="diag-bar"><span class="dot"></span> JESD204B/C</div>
-            <div class="diag-body" style="display:flex;flex-direction:column;gap:14px;">
-              <p style="font-size:13px;color:var(--on-surface-variant);">Each converter and the logic device receive a <strong style="color:var(--on-surface)">device clock + SYSREF</strong>. Data travels over a few high-speed serial lanes. No trace length matching needed.</p>
-              <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:12px;font-family:var(--font-mono);font-size:11px;color:var(--on-surface-variant);line-height:1.8;">
-                ADC ── 1–4 serial JESD lanes ──→ FPGA<br>
-                DAC ←─ 1–4 serial JESD lanes ─── FPGA<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↑ no length matching ↑<br>
-                SYSREF ────────────────────────→ all
-              </div>
-              <ul style="font-size:13px;padding-left:18px;display:flex;flex-direction:column;gap:4px;color:var(--on-surface-variant);">
-                <li>Few high-speed serial lanes</li>
-                <li>No length matching required</li>
-                <li>Deterministic latency every power-up</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <p>The internal clocks inside each JESD204B device — Frame Clock, Local Multi-Frame Clock (LMFC) — are all derived by dividing the device clock. SYSREF instructs every device to reset these dividers simultaneously. Once aligned, the user can know the exact time between any two samples anywhere in the system to within one LMFC period.</p>
-
-        <div class="analogy">
-          <span class="analogy-label">Analogy</span>
-          Think of SYSREF as the starter's gun at a race. Every runner (device) has been warming up (running their internal clocks) independently. The gun fires (SYSREF edge arrives) and everyone resets to the same starting block. From then on, the whole system is synchronized.
-        </div>
-      </section>
-
-      <div class="sec-divider"></div>
-
-      <!-- 4. SUBCLASSES -->
-      <section class="sec" id="subclasses">
-        <div class="sec-eyebrow">04 · Subclass Selection</div>
-        <h2>JESD204B Subclasses</h2>
-        <p>JESD204B defines three subclasses that differ in <em>how</em> deterministic latency is achieved. Only Subclasses 1 and 2 provide determinism; Subclass 0 is essentially backward-compatible legacy mode.</p>
-
-        <div class="sub-grid">
-          <div class="sub-card">
-            <div class="sub-card-head">
-              <span class="sub-card-title">Subclass 0</span>
-              <span class="sub-badge secondary">Legacy</span>
-            </div>
-            <div class="sub-card-body">
-              No support for deterministic latency. Backward compatible with JESD204A. Use only when determinism is not required.
-            </div>
-          </div>
-
-          <div class="sub-card">
-            <div class="sub-card-head">
-              <span class="sub-card-title">Subclass 2</span>
-              <span class="sub-badge secondary">Less common</span>
-            </div>
-            <div class="sub-card-body">
-              Uses the <code style="font-family:var(--font-mono);background:var(--surface-container);padding:1px 5px;border-radius:3px;">~SYNC</code> signal (which also requests link initialization) as the timing reference. Not usable at higher frequencies and less popular than Subclass 1.
-            </div>
-          </div>
-
-          <div class="sub-card highlight">
-            <div class="sub-card-head">
-              <span class="sub-card-title">Subclass 1</span>
-              <span class="sub-badge active">Recommended</span>
-            </div>
-            <div class="sub-card-body">
-              Uses an external <strong>SYSREF</strong> signal as the timing reference. Works at all frequencies, supports continuous and one-shot SYSREF modes. The industry standard choice for high-speed systems.
-            </div>
-          </div>
-        </div>
-
-        <div class="callout">
-          <strong>This page focuses on Subclass 1.</strong> The LMX1205 is a Subclass 1 clocking device — it generates device clocks and SYSREF outputs with programmable delays to precisely position the SYSREF edge inside each receiver's valid window.
-        </div>
-      </section>
-
-      <div class="sec-divider"></div>
-
-      <!-- 5. SUBCLASS 1 OPERATION -->
-      <section class="sec" id="subclass1">
-        <div class="sec-eyebrow">05 · Subclass 1</div>
-        <h2>Subclass 1 Operation</h2>
-        <p>The mechanism is elegantly simple: after a rising edge of SYSREF, the <em>very next</em> rising edge of the device clock becomes a universal time reference point. Every device in the system resets its internal frame clock and LMFC dividers at that edge.</p>
-
-        <div class="diag-frame">
-          <div class="diag-bar"><span class="dot"></span><span class="dot"></span> Subclass 1 Timing Diagram</div>
-          <div class="diag-body">
-            <svg class="timing-svg" viewBox="0 0 600 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Device Clock -->
-              <text x="10" y="30" fill="#4c4966" font-size="11" font-family="monospace">Device</text>
-              <text x="10" y="43" fill="#4c4966" font-size="11" font-family="monospace">Clock</text>
-              <!-- clock waveform -->
-              <polyline points="80,55 80,25 120,25 120,55 160,55 160,25 200,25 200,55 240,55 240,25 280,25 280,55 320,55 320,25 360,25 360,55 400,55 400,25 440,25 440,55 480,55 480,25 520,25 520,55 560,55" stroke="#d6335c" stroke-width="2" fill="none"/>
-              <!-- SYSREF -->
-              <text x="10" y="115" fill="#4c4966" font-size="11" font-family="monospace">SYSREF</text>
-              <!-- sysref waveform -->
-              <polyline points="80,135 80,135 220,135 220,95 380,95 380,135 560,135" stroke="#1e7f4f" stroke-width="2" fill="none"/>
-              <!-- rising edge marker -->
-              <line x1="240" y1="15" x2="240" y2="155" stroke="#312e81" stroke-width="1.5" stroke-dasharray="4,3"/>
-              <text x="244" y="14" fill="#312e81" font-size="10" font-family="monospace">reference edge</text>
-              <!-- SYSREF arrow -->
-              <line x1="220" y1="80" x2="238" y2="80" stroke="#1e7f4f" stroke-width="1.5" marker-end="url(#arr)"/>
-              <text x="136" y="80" fill="#1e7f4f" font-size="10" font-family="monospace">SYSREF rises</text>
-              <defs>
-                <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-                  <path d="M0,0 L6,3 L0,6 Z" fill="#1e7f4f"/>
-                </marker>
-              </defs>
-            </svg>
-          </div>
-          <div class="diag-caption">After SYSREF rises, the next device clock rising edge (dashed line) resets all internal LMFC dividers. Every device in the system lands on this same edge.</div>
-        </div>
-
-        <p>Sometimes more than one SYSREF edge is required to reset all elements for phase determinism — especially when multiple JESD204B devices need to be aligned. The clocking device can be programmed to send exactly the right number of pulses.</p>
-
-        <div class="callout">
-          <strong>LMFC = Local Multi-Frame Clock.</strong> Derived by dividing the device clock by K×F (where K = frames per multiframe, F = octets per frame). SYSREF resets this divider so all devices in the system share the same LMFC phase.
-        </div>
-      </section>
-
-      <div class="sec-divider"></div>
-
-      <!-- 6. SYSREF TYPES -->
-      <section class="sec" id="sysref-types">
-        <div class="sec-eyebrow">06 · SYSREF Modes</div>
-        <h2>Types of SYSREF signals</h2>
-        <p>There are three ways to deliver SYSREF to the system, each with different trade-offs between noise, convenience, and control:</p>
-
-        <div class="sysref-grid">
-          <div class="sysref-card">
-            <div class="sysref-card-title">Continuous SYSREF</div>
-            <svg class="sysref-wave" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-              <text x="4" y="13" font-size="9" fill="#86829e" font-family="monospace">CLK</text>
-              <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#d6335c" stroke-width="1.5" fill="none"/>
-              <text x="4" y="45" font-size="9" fill="#86829e" font-family="monospace">SYS</text>
-              <polyline points="30,52 30,36 50,36 50,52 70,36 70,52 90,36 90,52 110,36 110,52 130,36 130,52 150,36 150,52 170,36 170,52 190,36 190,52" stroke="#1e7f4f" stroke-width="1.5" fill="none"/>
-            </svg>
-            <p>SYSREF toggles continuously at a subharmonic of the device clock. <strong>Good for debug</strong> and measurement. Causes radiated spurious noise and extra power — not ideal for production.</p>
-          </div>
-
-          <div class="sysref-card">
-            <div class="sysref-card-title">One-Shot SYSREF</div>
-            <svg class="sysref-wave" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-              <text x="4" y="13" font-size="9" fill="#86829e" font-family="monospace">CLK</text>
-              <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#d6335c" stroke-width="1.5" fill="none"/>
-              <text x="4" y="45" font-size="9" fill="#86829e" font-family="monospace">SYS</text>
-              <polyline points="30,52 60,52 60,36 80,36 80,52 190,52" stroke="#1e7f4f" stroke-width="1.5" fill="none"/>
-              <rect x="60" y="36" width="20" height="16" fill="none" stroke="#1e7f4f" stroke-width="1" stroke-dasharray="2,2"/>
-            </svg>
-            <p>Single (or few) pulses sent only when a resync is needed. <strong>Minimizes radiated noise.</strong> May require re-programming receiver registers between pulses to mask different JESD204B elements.</p>
-          </div>
-
-          <div class="sysref-card">
-            <div class="sysref-card-title">Gapped Periodic SYSREF</div>
-            <svg class="sysref-wave" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-              <text x="4" y="13" font-size="9" fill="#86829e" font-family="monospace">CLK</text>
-              <polyline points="30,18 30,6 50,6 50,18 70,6 70,18 90,6 90,18 110,6 110,18 130,6 130,18 150,6 150,18 170,6 170,18 190,6 190,18" stroke="#d6335c" stroke-width="1.5" fill="none"/>
-              <text x="4" y="45" font-size="9" fill="#86829e" font-family="monospace">SYS</text>
-              <polyline points="30,52 40,52 40,36 60,36 60,52 100,52 110,52 110,36 130,36 130,52 170,52 180,52 180,36 195,36" stroke="#1e7f4f" stroke-width="1.5" fill="none"/>
-            </svg>
-            <p>Periodic bursts with gaps. Subsequent one-shots are guaranteed to align to the <strong>same LMFC timing</strong> — essential when reprogramming receiver elements between pulses.</p>
-          </div>
-        </div>
-
-        <div class="callout-warn">
-          <strong>AC coupling consideration:</strong> When SYSREF is AC coupled, a single pulse won't DC-balance the signal. Continuous SYSREF must be used temporarily during initialization — send it, wait for DC balance, let the receiver synchronize, then turn it off.
-        </div>
-      </section>
-
-      <div class="sec-divider"></div>
-
-      <!-- 7. DESIGN BENEFITS -->
-      <section class="sec" id="benefits">
-        <div class="sec-eyebrow">07 · Why Use It</div>
-        <h2>Design benefits of JESD204B/C</h2>
-
-        <div class="two-col">
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div class="callout-success">
-              <strong>Fewer PCB traces.</strong> Traditional interfaces need dozens of parallel data lanes, all length-matched to picosecond accuracy. JESD204B replaces them with 1–8 high-speed serial lanes with no length matching required.
-            </div>
-            <div class="callout-success">
-              <strong>Same device clock for all converters.</strong> Each device's internal dividers reduce the shared device clock to whatever sample rate the converter needs. This eliminates the need for multiple clock frequencies at the clocking IC output.
-            </div>
-            <div class="callout-success">
-              <strong>Reduced cross-talk.</strong> Fewer clock signals at different frequencies means less opportunity for inter-clock interference on the PCB and inside the clocking IC.
-            </div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div class="diag-frame">
-              <div class="diag-bar"><span class="dot"></span> PCB Complexity Comparison</div>
-              <div class="diag-body" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-                <div>
-                  <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint);margin-bottom:8px;">Traditional</div>
-                  <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:10px;font-family:var(--font-mono);font-size:10px;line-height:1.9;color:var(--on-surface-variant);">
-                    ADC ══╦══ FPGA<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;╠══<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;╠══<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;╚══<br>
-                    <span style="color:#991b1b">⚠ many lanes</span>
-                  </div>
-                </div>
-                <div>
-                  <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-surface-faint);margin-bottom:8px;">JESD204B</div>
-                  <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:10px;font-family:var(--font-mono);font-size:10px;line-height:1.9;color:var(--on-surface-variant);">
-                    ADC ─── FPGA<br>
-                    <br>
-                    <br>
-                    <br>
-                    <span style="color:#1e7f4f">✓ few lanes</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p>One exception: some FPGAs or DSPs can't accept the high device clock rates that converters need. In those cases the clocking IC may still need to produce a divided-down frequency for the logic device — but the converter side still benefits from the serialized interface.</p>
-      </section>
-
-      <div class="sec-divider"></div>
-
-      <!-- 8. DETERMINISM -->
-      <section class="sec" id="determinism">
-        <div class="sec-eyebrow">08 · Core Concept</div>
-        <h2>Determinism &amp; the SYSREF valid window</h2>
-        <p>For Subclass 1 determinism to work, SYSREF must "mark" the <em>same</em> device clock rising edge every time — across power cycles, temperature changes, and board-to-board variation. The way this is guaranteed is by ensuring the SYSREF rising edge falls inside the <strong>SYSREF valid window</strong> of every receiving device.</p>
-
-        <div class="diag-frame">
-          <div class="diag-bar"><span class="dot"></span> SYSREF Valid Window</div>
-          <div class="diag-body">
-            <svg class="timing-svg" viewBox="0 0 580 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- VCO label -->
-              <text x="8" y="30" fill="#4c4966" font-size="11" font-family="monospace">3 GHz VCO</text>
-              <polyline points="100,40 100,22 116,22 116,40 132,22 132,40 148,22 148,40 164,22 164,40 180,22 180,40 196,22 196,40 212,22 212,40 228,22 228,40 244,22 244,40 260,22 260,40 276,22 276,40 292,22 292,40 308,22 308,40 324,22 324,40 340,22 340,40 356,22 356,40 372,22 372,40 388,22 388,40 404,22 404,40 420,22 420,40 436,22 436,40 452,22 452,40 468,22 468,40 484,22 484,40 500,22 500,40 516,22 516,40 532,22 532,40 548,22 548,40 560,40" stroke="#86829e" stroke-width="1" fill="none"/>
-              <!-- Device clock label -->
-              <text x="8" y="80" fill="#d6335c" font-size="11" font-family="monospace">Device Clk</text>
-              <text x="8" y="93" fill="#d6335c" font-size="11" font-family="monospace">1 GHz</text>
-              <polyline points="100,110 100,62 148,62 148,110 196,62 196,110 244,62 244,110 292,62 292,110 340,62 340,110 388,62 388,110 436,62 436,110 484,62 484,110 532,62 532,110 560,110" stroke="#d6335c" stroke-width="2" fill="none"/>
-              <!-- valid window -->
-              <rect x="116" y="62" width="250" height="48" fill="rgba(30,127,79,0.15)" stroke="#1e7f4f" stroke-width="1.5" stroke-dasharray="4,3" rx="3"/>
-              <text x="195" y="83" fill="#1e7f4f" font-size="11" font-family="monospace" text-anchor="middle">SYSREF valid window</text>
-              <text x="195" y="97" fill="#1e7f4f" font-size="10" font-family="monospace" text-anchor="middle">= period − setup − hold</text>
-              <!-- hold time bracket -->
-              <line x1="100" y1="126" x2="116" y2="126" stroke="#991b1b" stroke-width="1.5" marker-end="url(#arr2)" marker-start="url(#arr3)"/>
-              <text x="108" y="140" fill="#991b1b" font-size="9" font-family="monospace" text-anchor="middle">Hold</text>
-              <!-- setup time bracket -->
-              <line x1="366" y1="126" x2="388" y2="126" stroke="#991b1b" stroke-width="1.5" marker-end="url(#arr2)" marker-start="url(#arr3)"/>
-              <text x="377" y="140" fill="#991b1b" font-size="9" font-family="monospace" text-anchor="middle">Setup</text>
-              <!-- SYSREF -->
-              <text x="8" y="165" fill="#4c4966" font-size="11" font-family="monospace">SYSREF</text>
-              <polyline points="100,170 160,170 160,148 300,148 300,170 560,170" stroke="#1e7f4f" stroke-width="2" fill="none"/>
-              <!-- ideal SYSREF edge arrow -->
-              <line x1="160" y1="148" x2="160" y2="128" stroke="#1e7f4f" stroke-width="1" stroke-dasharray="3,2"/>
-              <defs>
-                <marker id="arr2" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
-                  <path d="M0,0 L5,2.5 L0,5 Z" fill="#991b1b"/>
-                </marker>
-                <marker id="arr3" markerWidth="5" markerHeight="5" refX="1" refY="2.5" orient="auto">
-                  <path d="M5,0 L0,2.5 L5,5 Z" fill="#991b1b"/>
-                </marker>
-              </defs>
-            </svg>
-          </div>
-          <div class="diag-caption">The SYSREF valid window = Device clock period − Setup time − Hold time. The SYSREF edge must land inside this window to deterministically mark the same device clock edge every time.</div>
-        </div>
-
-        <div class="eq-box">
-          <span class="eq-hl">SYSREF valid window = T<sub>device_clock</sub> − t<sub>setup</sub> − t<sub>hold</sub></span><br>
-          <span style="color:var(--on-surface-faint);font-size:11px;">Where setup and hold times are found in the converter's datasheet</span>
-        </div>
-
-        <p>The maximum setup time is typically approximated as the device clock period minus the hold time. Both setup and hold times are specified per-device in the converter's datasheet and vary with supply voltage, temperature, and process.</p>
-      </section>
-
-      <div class="sec-divider"></div>
-
-      <!-- 9. DEVICE SKEW -->
-      <section class="sec" id="device-skew">
-        <div class="sec-eyebrow">09 · Timing Violations</div>
-        <h2>What happens if timing is missed? (Device skew)</h2>
-        <p>If the SYSREF edge lands outside the valid window — violating setup or hold — a different device clock edge gets marked. The device sees its LMFC divider reset one full clock cycle too early or too late. From the system's perspective this looks like a <strong>1-cycle digital skew</strong> on that device.</p>
-
-        <div class="diag-frame">
-          <div class="diag-bar"><span class="dot"></span> Missed Timing Scenarios</div>
-          <div class="diag-body">
-            <svg class="timing-svg" viewBox="0 0 560 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- columns -->
-              <text x="60"  y="14" fill="#4c4966" font-size="10" font-family="monospace" text-anchor="middle">−2 cycles</text>
-              <text x="180" y="14" fill="#4c4966" font-size="10" font-family="monospace" text-anchor="middle">−1 cycle</text>
-              <text x="300" y="14" fill="#1e7f4f" font-size="10" font-family="monospace" text-anchor="middle">±0 (ideal)</text>
-              <text x="420" y="14" fill="#4c4966" font-size="10" font-family="monospace" text-anchor="middle">+1 cycle</text>
-              <!-- device clock edges -->
-              <line x1="20"  y1="20" x2="20"  y2="80" stroke="#d6335c" stroke-width="1.5"/>
-              <line x1="140" y1="20" x2="140" y2="80" stroke="#d6335c" stroke-width="1.5"/>
-              <line x1="260" y1="20" x2="260" y2="80" stroke="#d6335c" stroke-width="2" stroke-dasharray="0"/>
-              <line x1="380" y1="20" x2="380" y2="80" stroke="#d6335c" stroke-width="1.5"/>
-              <line x1="500" y1="20" x2="500" y2="80" stroke="#d6335c" stroke-width="1.5"/>
-              <!-- device clock waveform segments -->
-              <polyline points="10,80 10,30 60,30 60,80 80,80 80,30 130,30 130,80 145,80 145,30 195,30 195,80 215,80 215,30 265,30 265,80 285,80 285,30 335,30 335,80 355,80 355,30 405,30 405,80 425,80 425,30 475,30 475,80 500,80" stroke="#d6335c" stroke-width="1.5" fill="none"/>
-              <!-- valid window boxes -->
-              <rect x="165" y="85" width="90" height="28" rx="3" fill="rgba(30,127,79,0.18)" stroke="#1e7f4f" stroke-width="1"/>
-              <text x="210" y="102" fill="#1e7f4f" font-size="8.5" font-family="monospace" text-anchor="middle">valid window</text>
-              <!-- SYSREF arrow at ideal position -->
-              <line x1="260" y1="80" x2="260" y2="95" stroke="#1e7f4f" stroke-width="2" marker-end="url(#greena)"/>
-              <defs>
-                <marker id="greena" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-                  <path d="M0,0 L6,3 L0,6 Z" fill="#1e7f4f"/>
-                </marker>
-              </defs>
-              <!-- setup / hold boxes -->
-              <rect x="45"  y="85" width="90" height="28" rx="3" fill="rgba(148,163,184,.15)" stroke="#b8b3cc" stroke-width="1"/>
-              <text x="90"  y="98" fill="#86829e" font-size="8" font-family="monospace" text-anchor="middle">Setup y ps</text>
-              <text x="90"  y="109" fill="#86829e" font-size="8" font-family="monospace" text-anchor="middle">Hold x ps</text>
-              <rect x="285" y="85" width="90" height="28" rx="3" fill="rgba(148,163,184,.15)" stroke="#b8b3cc" stroke-width="1"/>
-              <text x="330" y="98" fill="#86829e" font-size="8" font-family="monospace" text-anchor="middle">Setup y ps</text>
-              <text x="330" y="109" fill="#86829e" font-size="8" font-family="monospace" text-anchor="middle">Hold x ps</text>
-            </svg>
-          </div>
-          <div class="diag-caption">When SYSREF is late (outside the valid window on the high side), the +1 cycle device clock edge gets marked instead of the intended ±0 edge — introducing a 1-cycle determinism error.</div>
-        </div>
-
-        <p>Two delay adjustment mechanisms exist to move the SYSREF edge into the valid window:</p>
-
-        <div class="step-list">
-          <div class="step">
-            <div class="step-num">1</div>
-            <div class="step-body"><strong>Digital delay</strong> — Coarse adjustment. Step size equals the half-period of the VCO clock driving the SYSREF output divider. For a 3 GHz VCO: ½ × (1/3 GHz) ≈ <strong>166.7 ps per step</strong>. Very repeatable over temperature and voltage.</div>
-          </div>
-          <div class="step">
-            <div class="step-num">2</div>
-            <div class="step-body"><strong>Analog delay</strong> — Fine adjustment. Typically 10–150 ps per step. Less repeatable than digital delay — accuracy degrades over temperature and voltage. Used to fine-tune after digital delay has coarsely positioned the edge.</div>
-          </div>
-        </div>
-
-        <div class="callout">
-          <strong>Device clock timing adjustments</strong> are used to minimize skew <em>between</em> device clocks at different converters. <strong>SYSREF timing adjustments</strong> are used to position the SYSREF edge inside the valid window. These are independent knobs.
-        </div>
-      </section>
-
-      <div class="sec-divider"></div>
-
-      <!-- 10. TIMING EXAMPLES -->
-      <section class="sec" id="timing-examples">
-        <div class="sec-eyebrow">10 · Margin Calculations</div>
-        <h2>SYSREF timing margin examples</h2>
-        <p>The goal is to select a digital delay setting where the SYSREF edge sits as far from both edges of the valid window as possible. The margin you achieve depends on how the valid window compares to the digital delay step size.</p>
-
-        <!-- Example 1 -->
-        <div class="diag-frame">
-          <div class="diag-bar"><span class="dot"></span> Example 1 — Valid window &gt; 3× delay step</div>
-          <div class="diag-body" style="display:flex;flex-direction:column;gap:16px;">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;">
-              <div style="display:flex;flex-direction:column;gap:8px;">
-                <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);letter-spacing:.1em;text-transform:uppercase;">Parameters</div>
-                <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:12px;font-family:var(--font-mono);font-size:12px;line-height:2;color:var(--on-surface-variant);">
-                  VCO frequency: <strong style="color:var(--on-surface)">3000 MHz</strong><br>
-                  Device clock: <strong style="color:var(--on-surface)">1500 MHz</strong><br>
-                  Clock period: <strong style="color:var(--on-surface)">666.7 ps</strong><br>
-                  Setup time: <strong style="color:var(--on-surface)">50 ps</strong><br>
-                  Hold time: <strong style="color:var(--on-surface)">50 ps</strong><br>
-                  Valid window: <strong style="color:#1e7f4f">566.7 ps</strong><br>
-                  Delay step: <strong style="color:var(--on-surface)">166.7 ps</strong>
-                </div>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:8px;">
-                <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);letter-spacing:.1em;text-transform:uppercase;">Result</div>
-                <div class="callout-success">
-                  <strong>3 delay steps fit inside the valid window.</strong> Select the middle one — margin is at least 1 full delay step size (166.7 ps). Provided the SYSREF routing skew is less than one step size, determinism is guaranteed.
-                </div>
-              </div>
-            </div>
-            <!-- Diagram -->
-            <svg class="timing-svg" viewBox="0 0 560 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- clock period bracket -->
-              <line x1="40" y1="18" x2="440" y2="18" stroke="#d6335c" stroke-width="1" marker-end="url(#b2arr)" marker-start="url(#b2arrl)"/>
-              <text x="240" y="14" fill="#d6335c" font-size="10" font-family="monospace" text-anchor="middle">Device Clock Period · 666.7 ps</text>
-              <!-- hold -->
-              <rect x="40" y="25" width="66" height="24" rx="3" fill="rgba(153,27,27,0.12)" stroke="#991b1b" stroke-width="1"/>
-              <text x="73" y="41" fill="#991b1b" font-size="9.5" font-family="monospace" text-anchor="middle">Hold 50 ps</text>
-              <!-- valid window -->
-              <rect x="106" y="25" width="268" height="24" rx="3" fill="rgba(30,127,79,0.15)" stroke="#1e7f4f" stroke-width="1.5"/>
-              <text x="240" y="41" fill="#1e7f4f" font-size="10" font-family="monospace" text-anchor="middle">SYSREF valid window · 566.7 ps</text>
-              <!-- setup -->
-              <rect x="374" y="25" width="66" height="24" rx="3" fill="rgba(153,27,27,0.12)" stroke="#991b1b" stroke-width="1"/>
-              <text x="407" y="41" fill="#991b1b" font-size="9.5" font-family="monospace" text-anchor="middle">Setup 50 ps</text>
-              <!-- three delay positions -->
-              <line x1="178" y1="55" x2="178" y2="80" stroke="#312e81" stroke-width="1.5"/>
-              <line x1="240" y1="55" x2="240" y2="80" stroke="#312e81" stroke-width="2" stroke-dasharray="0"/>
-              <line x1="302" y1="55" x2="302" y2="80" stroke="#312e81" stroke-width="1.5"/>
-              <text x="178" y="73" fill="#312e81" font-size="9" font-family="monospace" text-anchor="middle">①</text>
-              <text x="240" y="73" fill="#1e7f4f" font-size="9" font-family="monospace" text-anchor="middle" font-weight="bold">② best</text>
-              <text x="302" y="73" fill="#312e81" font-size="9" font-family="monospace" text-anchor="middle">③</text>
-              <text x="206" y="90" fill="#86829e" font-size="9" font-family="monospace" text-anchor="middle">←166.7 ps→</text>
-              <text x="270" y="90" fill="#86829e" font-size="9" font-family="monospace" text-anchor="middle">←166.7 ps→</text>
-              <defs>
-                <marker id="b2arr"  markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="#d6335c"/></marker>
-                <marker id="b2arrl" markerWidth="5" markerHeight="5" refX="1" refY="2.5" orient="auto"><path d="M5,0 L0,2.5 L5,5 Z" fill="#d6335c"/></marker>
-              </defs>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Example 2 -->
-        <div class="diag-frame">
-          <div class="diag-bar"><span class="dot"></span> Example 2 — Valid window &lt; 3× delay step</div>
-          <div class="diag-body" style="display:flex;flex-direction:column;gap:16px;">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;">
-              <div style="display:flex;flex-direction:column;gap:8px;">
-                <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);letter-spacing:.1em;text-transform:uppercase;">Parameters</div>
-                <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:12px;font-family:var(--font-mono);font-size:12px;line-height:2;color:var(--on-surface-variant);">
-                  Valid window: <strong style="color:var(--on-surface)">300 ps</strong><br>
-                  Delay step size: <strong style="color:var(--on-surface)">200 ps</strong><br>
-                  Margin = (300 − 200) / 2 = <strong style="color:#1e7f4f">50 ps</strong>
-                </div>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:8px;">
-                <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);letter-spacing:.1em;text-transform:uppercase;">Result</div>
-                <div class="callout-warn">
-                  <strong>Worst case:</strong> only 50 ps margin. The system will be deterministic only if routing skew between device clock and SYSREF is less than 50 ps. Consider adding analog delay or improving routing to increase margin.
-                </div>
-              </div>
-            </div>
-
-            <div class="eq-box">
-              When valid window &lt; 3 × delay step:<br>
-              <span class="eq-hl">Margin = (SYSREF valid window − delay step size) ÷ 2</span><br><br>
-              <span style="color:var(--on-surface-faint);font-size:11px;">Use min/max delay step sizes to account for non-uniform step sizes across corners.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="sec-divider"></div>
-
-      <!-- 11. INTERFACE -->
-      <section class="sec" id="interface">
-        <div class="sec-eyebrow">11 · Hardware</div>
-        <h2>Clock interface: AC vs DC coupling</h2>
-        <p>The physical electrical interface between the clocking IC and each converter matters — especially for SYSREF, where single pulses need to faithfully transfer without distortion.</p>
-
-        <div class="two-col">
-          <div class="diag-frame">
-            <div class="diag-bar"><span class="dot"></span> DC Coupled</div>
-            <div class="diag-body" style="display:flex;flex-direction:column;gap:12px;">
-              <p style="font-size:13px;color:var(--on-surface-variant);"><strong>Simplest approach for SYSREF.</strong> Allows single pulses to transfer cleanly. Common mode must be matched manually using resistor dividers (Rs, Rb) at the receiver input.</p>
-              <div style="background:var(--surface-container);border-radius:var(--r-sm);padding:12px;font-family:var(--font-mono);font-size:11px;line-height:1.8;color:var(--on-surface-variant);">
-                LVDS: direct 50Ω trace → receiver<br>
-                LVPECL: use Rs (series) + Rb (to GND)<br>
-                to voltage-divide to correct common mode
-              </div>
-              <ul style="font-size:13px;color:var(--on-surface-variant);padding-left:18px;gap:4px;display:flex;flex-direction:column;">
-                <li>Works with one-shot SYSREF</li>
-                <li>Must manage common mode voltage</li>
-                <li>Simpler synchronization procedure</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="diag-frame">
-            <div class="diag-bar"><span class="dot"></span> AC Coupled</div>
-            <div class="diag-body" style="display:flex;flex-direction:column;gap:12px;">
-              <p style="font-size:13px;color:var(--on-surface-variant);"><strong>Eliminates common-mode matching.</strong> But a single SYSREF pulse won't DC balance — you need a special initialization procedure.</p>
-              <div class="step-list" style="gap:8px;">
-                <div class="step">
-                  <div class="step-num" style="width:20px;height:20px;font-size:10px;">1</div>
-                  <div class="step-body" style="font-size:12px;">Turn <strong>on</strong> continuous SYSREF</div>
-                </div>
-                <div class="step">
-                  <div class="step-num" style="width:20px;height:20px;font-size:10px;">2</div>
-                  <div class="step-body" style="font-size:12px;">Wait for AC lines to reach DC balance</div>
-                </div>
-                <div class="step">
-                  <div class="step-num" style="width:20px;height:20px;font-size:10px;">3</div>
-                  <div class="step-body" style="font-size:12px;">Allow receiver to sync (toggle register if needed)</div>
-                </div>
-                <div class="step">
-                  <div class="step-num" style="width:20px;height:20px;font-size:10px;">4</div>
-                  <div class="step-body" style="font-size:12px;">Turn SYSREF <strong>off</strong></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p>In practice, DC coupling is preferred for the SYSREF path in Subclass 1 systems because it enables clean one-shot operation. AC coupling is common for the device clock path (where the signal is always continuous) since it removes common-mode voltage constraints.</p>
-      </section>
-
-    </div><!-- /proj-main -->
-
-    <!-- SIDEBAR -->
-    <aside class="proj-sidebar">
-      <div class="sidebar-card">
-        <div class="sidebar-head">Page Info</div>
-        <div class="sidebar-row">
-          <span class="sidebar-key">Standard</span>
-          <span class="sidebar-val">JESD204B/C</span>
-        </div>
-        <div class="sidebar-row">
-          <span class="sidebar-key">Subclass</span>
-          <span class="sidebar-val">1 (SYSREF)</span>
-        </div>
-        <div class="sidebar-row">
-          <span class="sidebar-key">Source</span>
-          <span class="sidebar-val">TI Precision Labs</span>
-        </div>
-        <div class="sidebar-row">
-          <span class="sidebar-key">Topics</span>
-          <span class="sidebar-val">11 sections</span>
-        </div>
-      </div>
-
-      <div class="sidebar-card">
-        <div class="sidebar-head">Key Equations</div>
-        <div class="sidebar-row" style="display:flex;flex-direction:column;gap:6px;padding:11px 14px;">
-          <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);">Valid window</div>
-          <div style="font-family:var(--font-mono);font-size:12px;color:var(--on-surface);">T<sub>clk</sub> − t<sub>setup</sub> − t<sub>hold</sub></div>
-        </div>
-        <div class="sidebar-row" style="display:flex;flex-direction:column;gap:6px;padding:11px 14px;border-bottom:0;">
-          <div style="font-family:var(--font-mono);font-size:11px;color:var(--on-surface-faint);">Margin (small window)</div>
-          <div style="font-family:var(--font-mono);font-size:12px;color:var(--on-surface);">(window − step) ÷ 2</div>
-        </div>
-      </div>
-
-      <div class="sidebar-card">
-        <div class="sidebar-head">Concepts</div>
-        <div class="tool-list">
-          <span class="tool-chip">SYSREF</span>
-          <span class="tool-chip">LMFC</span>
-          <span class="tool-chip">Valid Window</span>
-          <span class="tool-chip">Digital Delay</span>
-          <span class="tool-chip">Analog Delay</span>
-          <span class="tool-chip">Subclass 1</span>
-          <span class="tool-chip">DC Coupling</span>
-          <span class="tool-chip">AC Coupling</span>
-          <span class="tool-chip">Determinism</span>
-          <span class="tool-chip">Device Skew</span>
-        </div>
-      </div>
-
-      <div class="nav-proj">
-        <a href="/projects/JESD204C_Clock_Tree_Thesis/">
-          ← Prev
-          <span>Thesis Overview</span>
-        </a>
-        <a href="/projects/JESD204C_Clock_Tree_Thesis/TI_LMX1205_Datasheet/" class="next">
-          Next →
-          <span>LMX1205 Datasheet</span>
-        </a>
-      </div>
-    </aside>
-
-  </div><!-- /proj-body -->
-</main>
+<a class="float-book" href="/contact/">
+  <span class="dot"></span>
+  <span class="label">Book an appointment</span>
+  <span class="label-short">Book</span>
+</a>
 
 <script>
 (function () {
-  /* ── Scroll-spy TOC ── */
-  var toc     = document.getElementById('articleToc');
-  var pill    = document.getElementById('tocPill');
-  var links   = Array.from(toc.querySelectorAll('a'));
-  var ids     = links.map(function (a) { return a.getAttribute('href').slice(1) });
-  var secs    = ids.map(function (id) { return document.getElementById(id) }).filter(Boolean);
+  var toc = document.querySelector('.article-toc');
+  if (!toc) return;
+  var content = document.querySelector('.proj-main');
+  if (!content) return;
+  var nodes = [...content.querySelectorAll('h2[id]')];
+  var links = [...toc.querySelectorAll('a[href^="#"]')];
+  var pill = toc.querySelector('.toc-pill');
 
-  function setActive(el) {
-    links.forEach(function (a) { a.classList.remove('active') });
-    if (!el) { pill.style.opacity = '0'; return; }
-    el.classList.add('active');
-    var r  = el.getBoundingClientRect();
-    var pr = toc.getBoundingClientRect();
+  function place(link) {
+    if (!pill) return;
+    if (!link) { pill.style.opacity = '0'; return; }
+    pill.style.top    = link.offsetTop   + 'px';
+    pill.style.left   = link.offsetLeft  + 'px';
+    pill.style.width  = link.offsetWidth  + 'px';
+    pill.style.height = link.offsetHeight + 'px';
     pill.style.opacity = '1';
-    pill.style.top     = (r.top  - pr.top  + toc.scrollTop)  + 'px';
-    pill.style.left    = '4px';
-    pill.style.width   = (toc.offsetWidth - 8) + 'px';
-    pill.style.height  = r.height + 'px';
   }
 
-  function onScroll() {
-    var scrollY = window.scrollY + 100;
-    var active  = null;
-    secs.forEach(function (sec, i) {
-      if (sec && sec.offsetTop <= scrollY) active = links[i];
+  function update() {
+    var top = window.scrollY + 110;
+    var hit = nodes[0];
+    var atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 25);
+    if (atBottom) {
+      hit = nodes[nodes.length - 1];
+    } else {
+      for (var n of nodes) { if (n.offsetTop <= top) hit = n; }
+    }
+    var href = hit ? '#' + hit.id : '';
+    var active = null;
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === href;
+      a.classList.toggle('active', on);
+      if (on) active = a;
     });
-    setActive(active);
+    place(active);
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  window.addEventListener('scroll', update, { passive: true });
+  update();
 })();
 </script>
+
 </body>
 </html>
