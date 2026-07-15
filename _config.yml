@@ -1,0 +1,8 @@
+title: Gaurav Kumar Mishra
+description: Portfolio of Gaurav Kumar Mishra, hardware developer and M.Sc. ICT student at FAU Erlangen-Nürnberg.
+
+# Static site — Jekyll is only used here to stitch the shared nav/footer
+# (see _includes/) into every page at build time. No posts, no plugins.
+exclude:
+  - README.md
+  - Templates/
