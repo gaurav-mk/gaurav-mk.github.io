@@ -1,8 +1,8 @@
 (function () {
-  var STATUS = {
-    current: { text: '● ONGOING', color: 'var(--accent)' },
-    ieee: { text: '✓ IEEE', color: 'var(--gold)' },
-    published: { text: '✓ PUBLISHED', color: 'var(--gold)' }
+  var CAT_COLOR = {
+    green: 'var(--accent)',
+    yellow: '#e6c229',
+    orange: 'var(--gold)'
   };
 
   function esc(s) {
@@ -11,32 +11,26 @@
     });
   }
 
-  function mediaHTML(p, ref) {
-    var inner = p.cover
-      ? '<img src="/projects/' + esc(encodeURIComponent(p.folder)) + '/' + esc(encodeURIComponent(p.cover)) + '" alt="' + esc(p.title) + '" />'
-      : '<div class="ph"><span>BOARD PHOTO / RENDER</span></div>';
-    return '<div class="proj-card-media">' + inner + '<div class="proj-card-ref">' + esc(ref) + '</div></div>';
+  function mediaHTML(p) {
+    return p.cover
+      ? '<div class="proj-card-media"><img src="/projects/' + esc(encodeURIComponent(p.folder)) + '/' + esc(encodeURIComponent(p.cover)) + '" alt="' + esc(p.title) + '" /></div>'
+      : '<div class="proj-card-media"><div class="ph"><span>BOARD PHOTO / RENDER</span></div></div>';
   }
 
-  function projectCardHTML(p, index) {
-    var ref = 'P-' + String(index + 1).padStart(2, '0');
-    var st = STATUS[p.status] || { text: esc(p.status || ''), color: 'var(--text-faint)' };
+  function projectCardHTML(p) {
+    var color = CAT_COLOR[p.catColor] || 'var(--text-faint)';
     var tags = (p.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
     return (
       '<a class="proj-card" data-group="' + esc(p.category) + '" href="/projects/' + esc(encodeURIComponent(p.folder)) + '/">' +
-        mediaHTML(p, ref) +
+        mediaHTML(p) +
         '<div class="proj-card-body">' +
-          '<div class="proj-card-kicker">' + esc(p.kicker) + '</div>' +
           '<h2>' + esc(p.title) + '</h2>' +
           '<p>' + esc(p.description) + '</p>' +
           '<div class="proj-card-tags">' + tags + '</div>' +
         '</div>' +
         '<div class="proj-card-aside">' +
-          '<div class="proj-card-badges">' +
-            '<span class="proj-card-badge" style="color:' + st.color + ';">' + st.text + '</span>' +
-            '<span class="proj-card-group">' + esc(p.category) + '</span>' +
-          '</div>' +
-          '<span class="proj-card-cta">' + esc(p.cta || 'View project →') + '</span>' +
+          '<span class="proj-card-badge" style="color:' + color + ';">● ' + esc(p.category) + '</span>' +
+          '<span class="proj-card-cta">View project →</span>' +
         '</div>' +
       '</a>'
     );
