@@ -1,0 +1,43 @@
+/* ---------------------------------- note page ---------------------------------- */
+.note-header { max-width: 900px; margin: 0 auto; padding: 72px 32px 28px; }
+.note-back { display: inline-flex; align-items: center; gap: 6px; font: 500 11px var(--font-mono); letter-spacing: .5px; color: var(--text-faint); margin-bottom: 18px; }
+.note-back:hover { color: var(--accent); }
+.note-header h1 { margin: 0; font-size: 38px; line-height: 1.12; font-weight: 700; letter-spacing: -.6px; }
+.note-meta-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.note-chip { font: 500 10.5px var(--font-mono); letter-spacing: .5px; padding: 4px 11px; }
+.note-chip.current { color: var(--accent); border: 1px solid var(--accent); }
+.note-chip.done { color: var(--gold); border: 1px solid var(--gold); }
+.note-chip.planned { color: var(--text-faint); border: 1px solid var(--border-strong); }
+.note-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.note-tags span { font: 400 10.5px var(--font-mono); padding: 3px 9px; border-radius: 3px; background: var(--bg-alt); border: 1px solid var(--border); color: var(--text-body); }
+
+.note-content { max-width: 900px; margin: 0 auto; padding: 0 32px 100px; }
+.note-body { font-size: 15px; line-height: 1.75; color: var(--text-body); }
+.note-body h1, .note-body h2, .note-body h3, .note-body h4 { color: var(--text); font-weight: 700; letter-spacing: -.3px; margin: 34px 0 14px; }
+.note-body h1:first-child, .note-body h2:first-child, .note-body h3:first-child { margin-top: 0; }
+.note-body h1 { font-size: 26px; }
+.note-body h2 { font-size: 21px; }
+.note-body h3 { font-size: 17px; }
+.note-body p { margin: 0 0 16px; }
+.note-body ul, .note-body ol { margin: 0 0 16px; padding-left: 22px; }
+.note-body li { margin-bottom: 8px; }
+.note-body li > ul, .note-body li > ol { margin-top: 8px; margin-bottom: 0; }
+.note-body strong { color: var(--text); font-weight: 600; }
+.note-body a { border-bottom: 1px solid rgba(124,179,66,.4); }
+.note-body a:hover { border-color: var(--accent); }
+.note-body code { font-family: var(--font-mono); font-size: .88em; background: var(--bg-card); border: 1px solid var(--border); padding: 2px 6px; border-radius: 3px; color: var(--gold); }
+.note-body pre { background: var(--bg-card); border: 1px solid var(--border); padding: 16px 18px; overflow-x: auto; margin: 0 0 18px; }
+.note-body pre code { background: none; border: none; padding: 0; color: var(--text-body); }
+.note-body blockquote { margin: 0 0 16px; padding: 4px 18px; border-left: 3px solid var(--accent); background: var(--bg-alt); color: var(--text-body); }
+.note-body blockquote p:last-child { margin-bottom: 0; }
+.note-body img { max-width: 100%; display: block; margin: 8px 0 20px; border: 1px solid var(--border-strong); }
+.note-body hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+.note-body .wikilink { color: var(--link); border-bottom: 1px dashed var(--text-faint); }
+.note-empty { color: var(--text-faint); font: 400 13px var(--font-mono); padding: 40px 0; }
+.note-empty a { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .note-header { padding: 48px 20px 24px; }
+  .note-header h1 { font-size: 28px; }
+  .note-content { padding: 0 20px 80px; }
+}
