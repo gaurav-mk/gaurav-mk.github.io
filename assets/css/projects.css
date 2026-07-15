@@ -8,7 +8,7 @@
 .filter-chip:hover { border-color: var(--accent); }
 .filter-chip.active { background: var(--accent); border-color: var(--accent); color: #0d1113; }
 
-.proj-cards { display: flex; flex-direction: column; gap: 18px; }
+.proj-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .proj-card {
   display: flex; flex-direction: column; overflow: hidden;
   border: 1px solid var(--border-strong); background: var(--bg-card);
@@ -34,7 +34,11 @@ a.proj-card, a.proj-card:hover { color: var(--text); text-decoration: none; curs
 .proj-card-cta { border: 1px solid var(--border-strong); color: #c6cbd0; padding: 10px 18px; font-size: 12.5px; font-weight: 500; white-space: nowrap; transition: transform .18s, border-color .18s, color .18s; }
 .proj-card-cta:hover { border-color: var(--accent); color: var(--text); transform: translateY(-3px); }
 
+@media (max-width: 1024px) {
+  .proj-cards { grid-template-columns: 1fr 1fr; }
+}
 @media (max-width: 640px) {
+  .proj-cards { grid-template-columns: 1fr; }
   .proj-card-media { min-height: 180px; }
   .proj-card-body { padding: 20px 20px 16px; }
   .proj-card-aside { padding: 14px 20px; }

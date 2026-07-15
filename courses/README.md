@@ -6,14 +6,16 @@ either HTML file to add, edit, or remove a course.
 
 ## Adding a new course
 
-1. Create a folder for it under `courses/`, e.g. `courses/My New Course/`.
+1. Create a folder for it under `courses/`, using a URL-safe, kebab-case
+   name, e.g. `courses/my-new-course/` — this name doubles as the course's
+   slug, so keep it lowercase with hyphens instead of spaces.
 2. Put your write-up in there as a `.md` file, e.g.
-   `courses/My New Course/my-new-course.md`.
+   `courses/my-new-course/my-new-course.md`.
 3. Put any images used by that note in the same folder.
 4. Add one object to `courses.json` (see schema below).
 
 That's it — the course card appears on `/courses/` automatically, and
-`/courses/course.html?slug=<slug>` renders the note.
+`/courses/course.html?slug=<folder>` renders the note.
 
 ## `courses.json` schema
 
@@ -21,12 +23,11 @@ Each course is one object in the top-level array:
 
 ```json
 {
-  "slug": "cst-studio-masterclass",
   "title": "CST Studio Masterclass",
   "cover": "8b10bencoding.png",
   "tags": ["CST Studio", "EM Simulation", "Antenna", "RF"],
   "status": "current",
-  "folder": "CST Studio Masterclass",
+  "folder": "cst-studio-masterclass",
   "notesFile": "cst-studio-masterclass.md",
   "visible": true
 }
@@ -34,12 +35,11 @@ Each course is one object in the top-level array:
 
 | Field       | Type              | Required | Notes |
 |-------------|-------------------|----------|-------|
-| `slug`      | string            | yes      | Unique, URL-safe id (lowercase, hyphens, no spaces). Used in `course.html?slug=...`. Must not collide with any other course. |
 | `title`     | string            | yes      | Shown on the card and as the note's `<h1>`. |
 | `cover`     | string or `null`  | yes      | Filename of an image **inside `folder`** to use as the card's cover photo (e.g. a diagram or screenshot from the course). Resolved as `folder/cover`, same rule as Obsidian image embeds below. Use `null` if you don't have one yet — shows a "NO COVER" placeholder instead. |
 | `tags`      | array of string   | yes      | Rendered as small pill labels. Empty array `[]` is fine if you don't have any yet. |
 | `status`    | string            | yes      | One of `current`, `done`, `planned` — see table below. Controls the badge color/label. |
-| `folder`    | string            | yes      | Folder name under `courses/` where the note + its images live. Must match the real folder exactly, including spaces/case. |
+| `folder`    | string            | yes      | Folder name under `courses/` where the note + its images live — **and** the course's URL slug (used in `course.html?slug=...`), so it does double duty. Must match the real folder exactly, and must be unique across courses. Keep it kebab-case (lowercase, hyphens, no spaces) since it ends up in a URL. |
 | `notesFile` | string or `null`  | yes      | Filename of the `.md` note inside `folder`. Use `null` if you haven't written the note yet — the course still shows on the grid, just with "Notes coming soon" instead of a link. |
 | `visible`   | boolean           | yes      | Whether the course card shows up on `/courses/` at all. Set to `false` to keep a course in `courses.json` as a draft/placeholder without it appearing on the site yet — flip to `true` when it's ready. Doesn't block direct access to `course.html?slug=...` if someone already has the link. |
 
@@ -81,12 +81,11 @@ not the repo root.
 
 ```json
 {
-  "slug": "digital-ic-design",
   "title": "Digital IC Design Fundamentals",
   "cover": "some-diagram.png",
   "tags": ["VLSI", "RTL", "Verilog"],
   "status": "done",
-  "folder": "Digital IC Design Fundamentals",
+  "folder": "digital-ic-design",
   "notesFile": "digital-ic-design.md",
   "visible": true
 }
@@ -95,8 +94,8 @@ not the repo root.
 with the file at:
 
 ```
-courses/Digital IC Design Fundamentals/digital-ic-design.md
-courses/Digital IC Design Fundamentals/some-diagram.png
+courses/digital-ic-design/digital-ic-design.md
+courses/digital-ic-design/some-diagram.png
 ```
 
 and inside the `.md`:

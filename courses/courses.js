@@ -20,7 +20,7 @@
       ? '<img src="' + esc(encodePath(c.folder, c.cover)) + '" alt="" loading="lazy" />'
       : '<span>NO COVER</span>';
     var tag = c.notesFile ? 'a' : 'div';
-    var hrefAttr = c.notesFile ? ' href="course.html?slug=' + encodeURIComponent(c.slug) + '"' : '';
+    var hrefAttr = c.notesFile ? ' href="course.html?slug=' + encodeURIComponent(c.folder) + '"' : '';
     return (
       '<' + tag + ' class="course-card"' + hrefAttr + '>' +
         '<div class="course-cover' + (c.cover ? '' : ' no-cover') + '">' + cover + '</div>' +

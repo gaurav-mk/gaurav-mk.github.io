@@ -1,6 +1,6 @@
 [
     {
-        "slug": "cst-studio-masterclass",
+        "folder": "cst-studio-masterclass",
         "title": "CST Studio Masterclass",
         "cover": "8b10bencoding.png",
         "tags": [
@@ -10,12 +10,11 @@
             "RF"
         ],
         "status": "current",
-        "folder": "CST Studio Masterclass",
         "notesFile": "cst-studio-masterclass.md",
         "visible": true
     },
     {
-        "slug": "digital-ic-design",
+        "folder": "digital-ic-design",
         "title": "Digital IC Design Fundamentals",
         "cover": null,
         "tags": [
@@ -24,12 +23,11 @@
             "Verilog"
         ],
         "status": "done",
-        "folder": "Digital IC Design Fundamentals",
         "notesFile": null,
         "visible": false
     },
     {
-        "slug": "jesd204c-deep-dive",
+        "folder": "jesd204c-deep-dive",
         "title": "JESD204C Deep Dive",
         "cover": null,
         "tags": [
@@ -37,7 +35,6 @@
             "SerDes"
         ],
         "status": "planned",
-        "folder": "JESD204C Deep Dive",
         "notesFile": null,
         "visible": false
     }

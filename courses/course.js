@@ -47,7 +47,7 @@
   fetch('courses.json')
     .then(function (r) { return r.json(); })
     .then(function (courses) {
-      var course = courses.find(function (c) { return c.slug === slug; });
+      var course = courses.find(function (c) { return c.folder === slug; });
       if (!course) {
         titleEl.textContent = 'Course not found';
         bodyEl.innerHTML = '<p class="note-empty">No course matches "' + esc(slug) + '". <a href="/courses/">Back to courses.</a></p>';

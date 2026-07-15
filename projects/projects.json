@@ -1,0 +1,91 @@
+[
+    {
+        "folder": "ble-mioty",
+        "title": "Joint Bluetooth and MIOTY Localisation Module",
+        "kicker": "BLE + MIOTY · 2.4 GHZ · COIN-CELL POWERED",
+        "description": "Low-power localization tag combining BLE short-range tracking and mioty long-range fallback in a single 2.4 GHz transceiver. Custom circular PCB, 9-axis IMU, coin-cell powered.",
+        "cover": "PCB_3D_Blue.png",
+        "tags": [
+            "BLE",
+            "MIOTY",
+            "Ki-CAD"
+        ],
+        "status": "current",
+        "category": "ONGOING",
+        "cta": "View project →",
+        "visible": true
+    },
+    {
+        "folder": "JESD204C_Clock_Tree_Thesis",
+        "title": "JESD204C Clock Tree — M.Sc. Thesis",
+        "kicker": "PLL · LMX1205 · HMC7043 · FAU",
+        "description": "Experimental characterization, SPI-controlled reconfiguration, and optimization of JESD204C clock trees using the LMX1205 PLL and HMC7043 distributor. Targets deterministic latency and minimum jitter for multi-channel ADC/DAC systems.",
+        "cover": null,
+        "tags": [
+            "JESD204C",
+            "LMX1205",
+            "HMC7043",
+            "SPI",
+            "Signal Integrity",
+            "Jitter"
+        ],
+        "status": "current",
+        "category": "ACADEMIC",
+        "cta": "View thesis →",
+        "visible": true
+    },
+    {
+        "folder": "7nm-finfet-standard-cell-library",
+        "title": "7nm FinFET Standard Cell Library",
+        "kicker": "7NM FINFET · ASAP7 PDK · STANDARD CELL LIBRARY",
+        "description": "Designed and assessed a 7nm FinFET standard cell library using the ASAP7 PDK. Adaptable logic gates, optimized layouts, minimal footprint, and radiation hardening analysis for space applications.",
+        "cover": null,
+        "tags": [
+            "FinFET",
+            "ASAP7 PDK",
+            "Standard Cell",
+            "VLSI",
+            "Radiation Hardening"
+        ],
+        "status": "ieee",
+        "category": "PUBLISHED",
+        "cta": "View project →",
+        "visible": true
+    },
+    {
+        "folder": "smart-home-automation-ups",
+        "title": "Smart Home Automation + UPS",
+        "kicker": "IOT · UPS · ARDUINO · CIRCUIT DESIGN",
+        "description": "Automatic LED emergency lamp with an online UPS for low-power household appliances. Full circuit design, simulation, testing, and IoT integration for remote monitoring.",
+        "cover": null,
+        "tags": [
+            "IoT",
+            "Arduino",
+            "Power Electronics",
+            "Circuit Design",
+            "Raspberry Pi"
+        ],
+        "status": "ieee",
+        "category": "PUBLISHED",
+        "cta": "View project →",
+        "visible": true
+    },
+    {
+        "folder": "landmine-detection-robot",
+        "title": "Landmine Detection Robot",
+        "kicker": "DSPIC · GPS · GSM · RF REMOTE",
+        "description": "Remotely-driven robot that detects buried landmines with dual inductive proximity sensors, tags the find with GPS, and SMS-alerts a bomb squad over GSM. Wireless camera for navigation.",
+        "cover": null,
+        "tags": [
+            "DSPIC",
+            "GPS",
+            "GSM",
+            "RF Remote",
+            "Robotics"
+        ],
+        "status": "published",
+        "category": "PUBLISHED",
+        "cta": "View project →",
+        "visible": true
+    }
+]
