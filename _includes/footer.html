@@ -44,8 +44,18 @@
   </div>
 </footer>
 
-<a class="float-book" href="{% if page.url contains '/contact/' %}#book-an-appointment{% else %}/contact/{% endif %}">
-  <span class="dot"></span>
-  <span class="label">Book an appointment</span>
-  <span class="label-short">Book Appointment</span>
-</a>
+{% assign resume_file = site.static_files | where_exp: "f", "f.path contains '/Resume/'" | first %}
+<div class="float-actions">
+  {% if resume_file %}
+  <a class="float-resume" href="{{ resume_file.path }}" download="Gaurav_Kumar_Mishra{{ resume_file.extname }}">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+    <span>Resume</span>
+  </a>
+  {% endif %}
+
+  <a class="float-book" href="{% if page.url contains '/contact/' %}#book-an-appointment{% else %}/contact/{% endif %}">
+    <span class="dot"></span>
+    <span class="label">Book an appointment</span>
+    <span class="label-short">Book Appointment</span>
+  </a>
+</div>
