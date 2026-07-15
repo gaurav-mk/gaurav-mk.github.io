@@ -21,13 +21,17 @@ a.proj-card, a.proj-card:hover { color: var(--text); text-decoration: none; curs
 .proj-card-media .ph span { font: 400 10px var(--font-mono); color: var(--text-faint); border: 1px solid var(--border); padding: 4px 8px; background: var(--bg-alt); }
 .proj-card-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .proj-card-body { padding: 24px 26px 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
-.proj-card-body h2 { margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -.2px; }
+.proj-card-body h2 {
+  margin: 0; font-size: 21px; font-weight: 700; letter-spacing: -.2px; line-height: 1.3;
+  height: 2.6em; /* fixed to exactly 2 lines — shorter titles just leave the rest blank */
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
 .proj-card-body p {
   margin: 0; font-size: 13px; line-height: 1.6; color: var(--text-body);
   height: 8em; /* fixed to exactly 5 lines — shorter text just leaves the rest blank */
   display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;
 }
-.proj-card-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 2px; }
+.proj-card-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 2px; height: 48px; overflow: hidden; }
 .proj-card-tags span { font: 400 10px var(--font-mono); color: var(--text-muted); border: 1px solid var(--border); padding: 4px 10px; border-radius: 3px; }
 .proj-card-aside { padding: 16px 26px; border-top: 1px solid var(--border); display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 14px; }
 .proj-card-badge { font: 500 10.5px var(--font-mono); letter-spacing: 1px; }
