@@ -330,9 +330,9 @@ main { position: relative; z-index: 1; }
 .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 52px; }
 .course-card { border: 1px solid var(--border-strong); background: var(--bg-card); overflow: hidden; display: flex; flex-direction: column; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .course-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 14px 30px -12px rgba(0,0,0,.7); }
-.course-cover { position: relative; height: 150px; background: repeating-linear-gradient(45deg, var(--bg-card) 0 10px, #1c2126 10px 20px); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; border-bottom: 1px solid var(--border); }
-.course-meta { position: absolute; top: 10px; left: 10px; display: flex; gap: 5px; flex-wrap: wrap; }
-.course-meta .tag { font: 400 10px var(--font-mono); letter-spacing: .5px; padding: 3px 8px; background: rgba(13,17,19,.85); border: 1px solid var(--border-strong); color: var(--accent); }
+.course-cover { position: relative; height: 150px; background: repeating-linear-gradient(45deg, var(--bg-card) 0 10px, #1c2126 10px 20px); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; border-bottom: 1px solid var(--border); overflow: hidden; }
+.course-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.course-cover.no-cover span { font: 400 10px var(--font-mono); color: var(--text-faint); border: 1px solid var(--border-strong); padding: 4px 8px; background: var(--bg-alt); letter-spacing: 1.5px; }
 .course-body { padding: 18px 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
 .course-body h3 { font-size: 15px; font-weight: 600; letter-spacing: -.1px; margin: 0; }
 .course-body p { font-size: 13px; color: var(--text-body); line-height: 1.65; flex: 1; }
@@ -537,14 +537,21 @@ main { position: relative; z-index: 1; }
     });
   }
 
+  function encodePath(folder, file) {
+    return folder.split('/').map(encodeURIComponent).join('/') + '/' + encodeURIComponent(file);
+  }
+
   function courseCardHTML(c) {
     var tags = (c.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
     var footLink = c.notesFile
       ? '<a class="course-link" href="course.html?slug=' + encodeURIComponent(c.slug) + '">Read notes →</a>'
       : '<span class="course-link muted">Notes coming soon</span>';
+    var cover = c.cover
+      ? '<img src="' + esc(encodePath(c.folder, c.cover)) + '" alt="" loading="lazy" />'
+      : '<span>NO COVER</span>';
     return (
       '<div class="course-card">' +
-        '<div class="course-cover">' + esc(c.icon || '📘') + '</div>' +
+        '<div class="course-cover' + (c.cover ? '' : ' no-cover') + '">' + cover + '</div>' +
         '<div class="course-body">' +
           '<h3>' + esc(c.title) + '</h3>' +
           '<div class="course-tags">' + tags + '</div>' +
@@ -560,11 +567,12 @@ main { position: relative; z-index: 1; }
   fetch('courses.json')
     .then(function (r) { return r.json(); })
     .then(function (courses) {
+      var visible = courses.filter(function (c) { return c.visible !== false; });
       var grid = document.getElementById('course-grid');
-      grid.innerHTML = courses.map(courseCardHTML).join('');
-      document.getElementById('stat-total').textContent = courses.length;
+      grid.innerHTML = visible.map(courseCardHTML).join('');
+      document.getElementById('stat-total').textContent = visible.length;
       document.getElementById('stat-in-progress').textContent =
-        courses.filter(function (c) { return c.status === 'current'; }).length;
+        visible.filter(function (c) { return c.status === 'current'; }).length;
     })
     .catch(function (err) {
       document.getElementById('course-grid').innerHTML =

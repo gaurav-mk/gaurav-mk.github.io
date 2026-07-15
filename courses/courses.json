@@ -2,7 +2,7 @@
     {
         "slug": "cst-studio-masterclass",
         "title": "CST Studio Masterclass",
-        "icon": "📡",
+        "cover": "8b10bencoding.png",
         "tags": [
             "CST Studio",
             "EM Simulation",
@@ -11,12 +11,13 @@
         ],
         "status": "current",
         "folder": "CST Studio Masterclass",
-        "notesFile": "cst-studio-masterclass.md"
+        "notesFile": "cst-studio-masterclass.md",
+        "visible": true
     },
     {
         "slug": "digital-ic-design",
         "title": "Digital IC Design Fundamentals",
-        "icon": "🧩",
+        "cover": null,
         "tags": [
             "VLSI",
             "RTL",
@@ -24,18 +25,20 @@
         ],
         "status": "done",
         "folder": "Digital IC Design Fundamentals",
-        "notesFile": null
+        "notesFile": null,
+        "visible": false
     },
     {
         "slug": "jesd204c-deep-dive",
         "title": "JESD204C Deep Dive",
-        "icon": "⏱️",
+        "cover": null,
         "tags": [
             "Clocking",
             "SerDes"
         ],
         "status": "planned",
         "folder": "JESD204C Deep Dive",
-        "notesFile": null
+        "notesFile": null,
+        "visible": false
     }
 ]
