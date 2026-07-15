@@ -77,7 +77,7 @@
             "Viral Fission",
             "Campus Ambassador"
         ],
-        "mediaPosition": "right",
+        "mediaPosition": "left",
         "visible": true
     },
     {
@@ -88,7 +88,7 @@
             "Deloitte",
             "Impact Every Day"
         ],
-        "mediaPosition": "left",
+        "mediaPosition": "right",
         "visible": true
     },
     {
@@ -100,7 +100,7 @@
             "2020",
             "Organizer"
         ],
-        "mediaPosition": "right",
+        "mediaPosition": "left",
         "visible": true
     }
 ]

@@ -14,13 +14,15 @@
   function courseCardHTML(c) {
     var tags = (c.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
     var footLink = c.notesFile
-      ? '<a class="course-link" href="course.html?slug=' + encodeURIComponent(c.slug) + '">Read notes →</a>'
+      ? '<span class="course-link">Read notes →</span>'
       : '<span class="course-link muted">Notes coming soon</span>';
     var cover = c.cover
       ? '<img src="' + esc(encodePath(c.folder, c.cover)) + '" alt="" loading="lazy" />'
       : '<span>NO COVER</span>';
+    var tag = c.notesFile ? 'a' : 'div';
+    var hrefAttr = c.notesFile ? ' href="course.html?slug=' + encodeURIComponent(c.slug) + '"' : '';
     return (
-      '<div class="course-card">' +
+      '<' + tag + ' class="course-card"' + hrefAttr + '>' +
         '<div class="course-cover' + (c.cover ? '' : ' no-cover') + '">' + cover + '</div>' +
         '<div class="course-body">' +
           '<h3>' + esc(c.title) + '</h3>' +
@@ -30,7 +32,7 @@
           footLink +
           '<span class="course-chip ' + esc(c.status) + '">' + esc(STATUS_LABEL[c.status] || c.status) + '</span>' +
         '</div>' +
-      '</div>'
+      '</' + tag + '>'
     );
   }
 

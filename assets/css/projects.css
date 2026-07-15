@@ -15,6 +15,7 @@
   transition: border-color .2s, transform .2s, box-shadow .2s;
 }
 .proj-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 16px 34px -14px rgba(0,0,0,.7); }
+a.proj-card, a.proj-card:hover { color: var(--text); text-decoration: none; cursor: pointer; }
 .proj-card-media { position: relative; min-height: 210px; border-right: 1px solid var(--border); }
 .proj-card-media .ph { position: absolute; inset: 0; background: repeating-linear-gradient(45deg, var(--bg-card) 0 10px, #1c2126 10px 20px); display: flex; align-items: center; justify-content: center; }
 .proj-card-media .ph span { font: 400 10px var(--font-mono); color: var(--text-faint); border: 1px solid var(--border); padding: 4px 8px; background: var(--bg-alt); }
