@@ -1,6 +1,5 @@
-[
-    {
-        "folder": "ble-mioty",
+{
+    "ble-mioty": {
         "title": "Joint Bluetooth and MIOTY Localisation Module",
         "description": "Low-power localization tag combining BLE short-range tracking and mioty long-range fallback in a single 2.4 GHz transceiver. Custom circular PCB, 9-axis IMU, coin-cell powered.",
         "cover": "PCB_3D_Blue.png",
@@ -13,8 +12,7 @@
         "catColor": "green",
         "visible": true
     },
-    {
-        "folder": "JESD204C_Clock_Tree_Thesis",
+    "JESD204C_Clock_Tree_Thesis": {
         "title": "JESD204C Clock Tree — M.Sc. Thesis",
         "description": "Experimental characterization, SPI-controlled reconfiguration, and optimization of JESD204C clock trees using the LMX1205 PLL and HMC7043 distributor. Targets deterministic latency and minimum jitter for multi-channel ADC/DAC systems.",
         "cover": null,
@@ -30,8 +28,7 @@
         "catColor": "green",
         "visible": true
     },
-    {
-        "folder": "7nm-finfet-standard-cell-library",
+    "7nm-finfet-standard-cell-library": {
         "title": "7nm FinFET Standard Cell Library",
         "description": "Designed and assessed a 7nm FinFET standard cell library using the ASAP7 PDK. Adaptable logic gates, optimized layouts, minimal footprint, and radiation hardening analysis for space applications.",
         "cover": null,
@@ -46,8 +43,7 @@
         "catColor": "orange",
         "visible": true
     },
-    {
-        "folder": "smart-home-automation-ups",
+    "smart-home-automation-ups": {
         "title": "Smart Home Automation + UPS",
         "description": "Automatic LED emergency lamp with an online UPS for low-power household appliances. Full circuit design, simulation, testing, and IoT integration for remote monitoring.",
         "cover": null,
@@ -62,8 +58,7 @@
         "catColor": "orange",
         "visible": true
     },
-    {
-        "folder": "landmine-detection-robot",
+    "landmine-detection-robot": {
         "title": "Landmine Detection Robot",
         "description": "Remotely-driven robot that detects buried landmines with dual inductive proximity sensors, tags the find with GPS, and SMS-alerts a bomb squad over GSM. Wireless camera for navigation.",
         "cover": null,
@@ -78,8 +73,7 @@
         "catColor": "orange",
         "visible": true
     },
-    {
-        "folder": "USB2Optical-Converter",
+    "USB2Optical-Converter": {
         "title": "USB to Optical Converter",
         "description": "A device that converts USB signals to optical signals for long-distance communication.",
         "cover": null,
@@ -92,4 +86,4 @@
         "catColor": "orange",
         "visible": true
     }
-]
+}

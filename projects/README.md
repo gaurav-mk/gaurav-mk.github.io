@@ -14,31 +14,34 @@ that side of things.
 1. Make sure the project's own page already exists at
    `projects/<folder>/index.html` (this file doesn't create that page,
    just the card that links to it).
-2. Add one object to `projects.json` (see schema below).
+2. Add one key to `projects.json` (see schema below), keyed by the
+   project's folder name.
 
 That's it — the card appears on `/projects/` automatically, in the order
-it appears in the JSON array, numbered `P-01`, `P-02`, ... by position.
+its key appears in the JSON object.
 
 ## `projects.json` schema
 
-Each project is one object in the top-level array:
+`projects.json` is a single object keyed by `folder` — the folder name
+itself is the unique key, so it's never repeated inside the value:
 
 ```json
 {
-  "folder": "ble-mioty",
-  "title": "Joint Bluetooth and MIOTY Localisation Module",
-  "description": "Low-power localization tag combining BLE short-range tracking and mioty long-range fallback in a single 2.4 GHz transceiver. Custom circular PCB, 9-axis IMU, coin-cell powered.",
-  "cover": "PCB_3D_Blue.png",
-  "tags": ["BLE", "MIOTY", "Ki-CAD"],
-  "category": "ONGOING",
-  "catColor": "green",
-  "visible": true
+  "ble-mioty": {
+    "title": "Joint Bluetooth and MIOTY Localisation Module",
+    "description": "Low-power localization tag combining BLE short-range tracking and mioty long-range fallback in a single 2.4 GHz transceiver. Custom circular PCB, 9-axis IMU, coin-cell powered.",
+    "cover": "PCB_3D_Blue.png",
+    "tags": ["BLE", "MIOTY", "Ki-CAD"],
+    "category": "ONGOING",
+    "catColor": "green",
+    "visible": true
+  }
 }
 ```
 
 | Field         | Type              | Required | Notes |
 |---------------|-------------------|----------|-------|
-| `folder`      | string            | yes      | The real folder name under `projects/` (e.g. `ble-mioty`, `JESD204C_Clock_Tree_Thesis`) — used to build both the card's link (`/projects/<folder>/`) and the cover image path. Must match the actual folder exactly, including case/underscores. |
+| *(key)*       | string            | yes      | The real folder name under `projects/` (e.g. `ble-mioty`, `JESD204C_Clock_Tree_Thesis`) — used as the object key, and to build both the card's link (`/projects/<folder>/`) and the cover image path. Must match the actual folder exactly, including case/underscores. |
 | `title`       | string            | yes      | The card's heading. |
 | `description` | string            | yes      | The one-paragraph summary shown on the card. |
 | `cover`       | string or `null`  | yes      | Filename of an image **inside `folder`** to use as the card's photo. Resolved as `/projects/<folder>/<cover>`. Use `null` to show the "BOARD PHOTO / RENDER" placeholder instead (for projects without a good listing-page photo yet). |

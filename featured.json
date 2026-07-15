@@ -1,0 +1,8 @@
+{
+    "main": "ble-mioty",
+    "other": [
+        "JESD204C_Clock_Tree_Thesis",
+        "7nm-finfet-standard-cell-library",
+        "smart-home-automation-ups"
+    ]
+}
