@@ -31,7 +31,10 @@ a.proj-card, a.proj-card:hover { color: var(--text); text-decoration: none; curs
   height: 8em; /* fixed to exactly 5 lines — shorter text just leaves the rest blank */
   display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;
 }
-.proj-card-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 2px; height: 48px; overflow: hidden; }
+.proj-card-tags {
+  display: flex; align-items: flex-start; align-content: flex-start; gap: 7px; flex-wrap: wrap;
+  margin-top: 2px; height: 52px; overflow: hidden;
+}
 .proj-card-tags span { font: 400 10px var(--font-mono); color: var(--text-muted); border: 1px solid var(--border); padding: 4px 10px; border-radius: 3px; }
 .proj-card-aside { padding: 16px 26px; border-top: 1px solid var(--border); display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 14px; }
 .proj-card-badge { font: 500 10.5px var(--font-mono); letter-spacing: 1px; }

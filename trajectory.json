@@ -1,0 +1,17 @@
+[
+    {
+        "year": "2024",
+        "year": "2024",
+        "title": "Joint Bluetooth and MIOTY Localisation Module",
+        "description": "Low-power localization tag combining BLE short-range tracking and mioty long-range fallback in a single 2.4 GHz transceiver. Custom circular PCB, 9-axis IMU, coin-cell powered.",
+        "cover": "PCB_3D_Blue.png",
+        "tags": [
+            "BLE",
+            "MIOTY",
+            "Ki-CAD"
+        ],
+        "category": "ONGOING",
+        "catColor": "green",
+        "visible": true
+    }
+]
