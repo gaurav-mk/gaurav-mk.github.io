@@ -69,18 +69,17 @@
 /* ---------------------------------- project index table (home preview) ---------------------------------- */
 .proj-table { border: 1px solid var(--border-strong); }
 .proj-table-head {
-  display: grid; grid-template-columns: 64px 96px 1fr 170px 90px 40px; gap: 0 18px; align-items: center;
+  display: grid; grid-template-columns: 96px 1fr 170px 90px 40px; gap: 0 18px; align-items: center;
   padding: 10px 20px; border-bottom: 1px solid var(--border-strong);
   font: 400 9.5px var(--font-mono); color: var(--text-faint); letter-spacing: 1.5px;
 }
 .proj-row {
-  display: grid; grid-template-columns: 64px 96px 1fr 170px 90px 40px; gap: 0 18px; align-items: center;
+  display: grid; grid-template-columns: 96px 1fr 170px 90px 40px; gap: 0 18px; align-items: center;
   padding: 14px 20px; border-bottom: 1px solid var(--border-soft); color: var(--text);
   transition: background .15s, box-shadow .15s;
 }
 .proj-row:last-child { border-bottom: none; }
 .proj-row:hover { background: #181d22; box-shadow: inset 3px 0 0 var(--accent); }
-.proj-row .ref { font: 500 10.5px var(--font-mono); color: var(--accent); }
 .proj-row .thumb { display: block; width: 96px; height: 54px; background: repeating-linear-gradient(45deg, var(--bg-card) 0 8px, #1c2126 8px 16px); border: 1px solid var(--border); }
 .proj-row .name { display: block; font-size: 14.5px; font-weight: 600; }
 .proj-row .desc { display: block; font-size: 11.5px; color: var(--text-muted); margin-top: 3px; }
@@ -143,8 +142,8 @@
   .portrait-frame { max-width: 320px; margin: 0 auto; }
   .ledger-head, .entry { grid-template-columns: 76px 1fr; }
   .ledger-head .right, .entry-aside { display: none; }
-  .proj-table-head, .proj-row { grid-template-columns: 40px 1fr 40px; }
-  .proj-table-head span:nth-child(2), .proj-row .thumb, .proj-table-head span:nth-child(4), .proj-row .domain, .proj-table-head span:nth-child(5), .proj-row .year { display: none; }
+  .proj-table-head, .proj-row { grid-template-columns: 1fr 40px; }
+  .proj-table-head span:nth-child(1), .proj-row .thumb, .proj-table-head span:nth-child(3), .proj-row .domain, .proj-table-head span:nth-child(4), .proj-row .year { display: none; }
 }
 @media (max-width: 480px) {
   .cap-grid { grid-template-columns: 1fr 1fr; }
