@@ -1,0 +1,41 @@
+[
+    {
+        "slug": "cst-studio-masterclass",
+        "title": "CST Studio Masterclass",
+        "icon": "📡",
+        "tags": [
+            "CST Studio",
+            "EM Simulation",
+            "Antenna",
+            "RF"
+        ],
+        "status": "current",
+        "folder": "CST Studio Masterclass",
+        "notesFile": "cst-studio-masterclass.md"
+    },
+    {
+        "slug": "digital-ic-design",
+        "title": "Digital IC Design Fundamentals",
+        "icon": "🧩",
+        "tags": [
+            "VLSI",
+            "RTL",
+            "Verilog"
+        ],
+        "status": "done",
+        "folder": "Digital IC Design Fundamentals",
+        "notesFile": null
+    },
+    {
+        "slug": "jesd204c-deep-dive",
+        "title": "JESD204C Deep Dive",
+        "icon": "⏱️",
+        "tags": [
+            "Clocking",
+            "SerDes"
+        ],
+        "status": "planned",
+        "folder": "JESD204C Deep Dive",
+        "notesFile": null
+    }
+]

@@ -1,0 +1,8 @@
+# Phase Jitter (Phase Noise)
+- An ideal sine wave has a continuous and even progression of phase with time from 0° to 360° for each cycle. Actual signals, however, display a certain amount of variation from ideal phase progression over time. This phenomenon is phase jitter. Although many causes can contribute to phase jitter, one major cause is random noise, which is characterized statistically as being Gaussian (normal) in distribution.
+- This phase jitter leads to the energy of the sine wave in the frequency domain spreading out, producing a continuous power spectrum. This power spectrum is usually reported as a series of values whose units are dBc/Hz at a given offset in frequency from the sine wave (carrier).
+>- The value is a ratio (expressed in decibels) of the power contained within a 1 Hz bandwidth with respect to the power at the carrier frequency. For each measurement, the offset from the carrier frequency is also given.
+- It is meaningful to integrate the total power contained within some interval of offset frequencies (for example, 10 kHz to 10 MHz). This is the integrated phase noise over that frequency offset interval and can be readily related to the time jitter due to the phase noise within that offset frequency interval.
+- Phase noise has a detrimental effect on the performance of analog to digital converters (ADCs), digital to analog converters (DACs), and RF mixers. It lowers the achievable dynamic range of the converters and mixers, although they are affected in somewhat different ways.
+
+![[8b10bencoding.png]]

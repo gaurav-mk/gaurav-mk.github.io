@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title id="page-title">Course | Gaurav Kumar Mishra</title>
+  <meta name="author" content="Gaurav Kumar Mishra" />
+  <meta name="description" content="Course notes by Gaurav Kumar Mishra." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+/* ==========================================================================
+   GKM Portfolio — shared dark theme design system
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --bg: #101418;
+  --bg-alt: #12161a;
+  --bg-card: #171b1f;
+  --bg-footer: #0d1013;
+  --border: #262c31;
+  --border-strong: #2e353b;
+  --border-soft: #22272c;
+  --text: #e8eaec;
+  --text-body: #a7b0b7;
+  --text-muted: #8b939a;
+  --text-faint: #5f676e;
+  --text-footer-faint: #3f464d;
+  --accent: #7cb342;
+  --link: #4db6ac;
+  --link-hover: #7fd6cd;
+  --gold: #e0a458;
+  --danger: #e0705a;
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  font-size: 15px;
+  line-height: 1.55;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); }
+main { position: relative; z-index: 1; }
+
+@keyframes led { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@keyframes griddrift { from { background-position: 0 0, 0 0, 0 0; } to { background-position: 440px 440px, 0 0, 0 0; } }
+
+/* ---------------------------------- wave backdrop ---------------------------------- */
+.wave-bg {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-color: var(--bg);
+  background-image: radial-gradient(1100px circle at 88% -6%, rgba(124,179,66,.07), transparent 70%),
+                     radial-gradient(900px circle at 4% 102%, rgba(124,179,66,.04), transparent 70%);
+}
+.wave-bg svg { width: 100%; height: 100%; display: block; }
+.wave-bg path { fill: none; stroke: rgba(255,255,255,.055); stroke-width: 1; }
+
+/* ---------------------------------- nav ---------------------------------- */
+.nav-bar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(13,16,19,.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 32px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.nav-brand { display: flex; align-items: center; gap: 12px; color: var(--text); flex-shrink: 0; }
+.nav-brand svg { width: 32px; height: 32px; display: block; }
+.nav-brand .word { font: 500 13px var(--font-mono); letter-spacing: 1.5px; white-space: nowrap; }
+.nav-brand .word .u { color: var(--accent); }
+.nav-links { display: flex; gap: 28px; font-size: 13px; flex-wrap: wrap; }
+.nav-links a {
+  color: var(--text-muted); padding: 20px 0; border-bottom: 2px solid transparent;
+  transition: color .18s, border-color .18s;
+}
+.nav-links a:hover { color: var(--text); border-bottom-color: var(--accent); }
+.nav-links a.active { color: var(--text); font-weight: 600; border-bottom-color: var(--accent); }
+.nav-status {
+  display: flex; align-items: center; gap: 8px; border: 1px solid var(--border-strong);
+  border-radius: 20px; padding: 6px 14px; font: 500 10.5px var(--font-mono); color: var(--text-body);
+  flex-shrink: 0; white-space: nowrap;
+}
+.nav-status .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: led 2.4s infinite; }
+
+/* ---------------------------------- layout helpers ---------------------------------- */
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+/* ---------------------------------- footer ---------------------------------- */
+.site-footer { position: relative; z-index: 1; border-top: 1px solid var(--border); background: var(--bg-footer); }
+.footer-grid { max-width: 1200px; margin: 0 auto; padding: 44px 32px 36px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
+.footer-brand { display: flex; align-items: center; gap: 10px; }
+.footer-brand svg { width: 26px; height: 26px; display: block; }
+.footer-desc { font-size: 12px; color: var(--text-faint); margin-top: 10px; line-height: 1.6; max-width: 260px; }
+.footer-col { display: flex; flex-direction: column; gap: 9px; }
+.footer-col .head { font: 400 9.5px var(--font-mono); color: var(--text-faint); letter-spacing: 1.5px; margin-bottom: 2px; }
+.footer-col a, .footer-col span { color: var(--text-body); font-size: 12.5px; transition: color .15s, transform .15s; display: inline-block; }
+.footer-col a:hover { color: var(--text); transform: translateX(4px); }
+.footer-bottom { border-top: 1px solid #1a1f24; }
+.footer-bottom-inner { max-width: 1200px; margin: 0 auto; padding: 16px 32px; display: flex; justify-content: space-between; font: 400 10px var(--font-mono); color: var(--text-footer-faint); flex-wrap: wrap; gap: 6px; }
+
+/* floating book button */
+.float-book {
+  position: fixed; right: 28px; bottom: 28px; z-index: 60;
+  display: flex; align-items: center; gap: 10px; background: var(--accent); color: #0d1113;
+  padding: 14px 24px; border-radius: 32px; font-size: 14px; font-weight: 600;
+  box-shadow: 0 10px 30px -8px rgba(0,0,0,.6);
+  transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s, filter .18s;
+}
+.float-book:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 14px 34px -8px var(--accent); color: #0d1113; }
+.float-book .dot { width: 9px; height: 9px; border-radius: 50%; background: #0d1113; animation: led 2.4s infinite; }
+.float-book .label-short { display: none; }
+
+/* ---------------------------------- note page ---------------------------------- */
+.note-header { max-width: 900px; margin: 0 auto; padding: 72px 32px 28px; }
+.note-back { display: inline-flex; align-items: center; gap: 6px; font: 500 11px var(--font-mono); letter-spacing: .5px; color: var(--text-faint); margin-bottom: 18px; }
+.note-back:hover { color: var(--accent); }
+.note-header h1 { margin: 0; font-size: 38px; line-height: 1.12; font-weight: 700; letter-spacing: -.6px; }
+.note-meta-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+.note-chip { font: 500 10.5px var(--font-mono); letter-spacing: .5px; padding: 4px 11px; }
+.note-chip.current { color: var(--accent); border: 1px solid var(--accent); }
+.note-chip.done { color: var(--gold); border: 1px solid var(--gold); }
+.note-chip.planned { color: var(--text-faint); border: 1px solid var(--border-strong); }
+.note-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.note-tags span { font: 400 10.5px var(--font-mono); padding: 3px 9px; border-radius: 3px; background: var(--bg-alt); border: 1px solid var(--border); color: var(--text-body); }
+
+.note-content { max-width: 900px; margin: 0 auto; padding: 0 32px 100px; }
+.note-body { font-size: 15px; line-height: 1.75; color: var(--text-body); }
+.note-body h1, .note-body h2, .note-body h3, .note-body h4 { color: var(--text); font-weight: 700; letter-spacing: -.3px; margin: 34px 0 14px; }
+.note-body h1:first-child, .note-body h2:first-child, .note-body h3:first-child { margin-top: 0; }
+.note-body h1 { font-size: 26px; }
+.note-body h2 { font-size: 21px; }
+.note-body h3 { font-size: 17px; }
+.note-body p { margin: 0 0 16px; }
+.note-body ul, .note-body ol { margin: 0 0 16px; padding-left: 22px; }
+.note-body li { margin-bottom: 8px; }
+.note-body li > ul, .note-body li > ol { margin-top: 8px; margin-bottom: 0; }
+.note-body strong { color: var(--text); font-weight: 600; }
+.note-body a { border-bottom: 1px solid rgba(124,179,66,.4); }
+.note-body a:hover { border-color: var(--accent); }
+.note-body code { font-family: var(--font-mono); font-size: .88em; background: var(--bg-card); border: 1px solid var(--border); padding: 2px 6px; border-radius: 3px; color: var(--gold); }
+.note-body pre { background: var(--bg-card); border: 1px solid var(--border); padding: 16px 18px; overflow-x: auto; margin: 0 0 18px; }
+.note-body pre code { background: none; border: none; padding: 0; color: var(--text-body); }
+.note-body blockquote { margin: 0 0 16px; padding: 4px 18px; border-left: 3px solid var(--accent); background: var(--bg-alt); color: var(--text-body); }
+.note-body blockquote p:last-child { margin-bottom: 0; }
+.note-body img { max-width: 100%; display: block; margin: 8px 0 20px; border: 1px solid var(--border-strong); }
+.note-body hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+.note-body .wikilink { color: var(--link); border-bottom: 1px dashed var(--text-faint); }
+.note-empty { color: var(--text-faint); font: 400 13px var(--font-mono); padding: 40px 0; }
+.note-empty a { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .note-header { padding: 48px 20px 24px; }
+  .note-header h1 { font-size: 28px; }
+  .note-content { padding: 0 20px 80px; }
+}
+
+  </style>
+</head>
+<body>
+
+<div class="wave-bg" id="wave-bg"></div>
+
+<header class="nav-bar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="/">
+      <svg viewBox="0 0 100 100"><rect x="2" y="2" width="96" height="96" rx="10" fill="var(--accent)"></rect><g clip-path="url(#logoclip)"><path d="M -28 14 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 38 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 62 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 86 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path></g><clipPath id="logoclip"><rect x="8" y="8" width="84" height="84" rx="6"></rect></clipPath></svg>
+      <span class="word">GAURAV MISHRA</span>
+    </a>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/projects/">Projects</a>
+      <a href="/courses/" class="active">Courses</a>
+      <a href="/community/">Community</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <div class="nav-status"><span class="dot"></span>OPEN TO WORK</div>
+  </div>
+</header>
+
+<main>
+
+  <div class="note-header">
+    <a class="note-back" href="/courses/">← Back to courses</a>
+    <h1 id="note-title">Loading…</h1>
+    <div class="note-meta-row" id="note-meta"></div>
+  </div>
+
+  <div class="note-content">
+    <div class="note-body" id="note-body"><p style="color:var(--text-faint);font:400 12.5px var(--font-mono);">Loading notes…</p></div>
+  </div>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">
+        <svg viewBox="0 0 100 100"><rect x="2" y="2" width="96" height="96" rx="10" fill="var(--accent)"></rect><g clip-path="url(#logoclip2)"><path d="M -28 14 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 38 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 62 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path><path d="M -28 86 q 7 -6 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0 t 14 0" fill="none" stroke="#0d1113" stroke-width="4.5" stroke-linecap="round"></path></g><clipPath id="logoclip2"><rect x="8" y="8" width="84" height="84" rx="6"></rect></clipPath></svg>
+        <span class="word">GAURAV MISHRA</span>
+      </div>
+      <div class="footer-desc">Hardware engineering portfolio of Gaurav Kumar Mishra. Built in Erlangen, DE.</div>
+    </div>
+    <div class="footer-col">
+      <div class="head">PAGES</div>
+      <a href="/projects/">Projects</a>
+      <a href="/courses/">Courses</a>
+      <a href="/community/">Community</a>
+    </div>
+    <div class="footer-col">
+      <div class="head">ELSEWHERE</div>
+      <a href="https://github.com/gaurav-mk" target="_blank" rel="external nofollow noopener">GitHub</a>
+      <a href="https://linkedin.com/in/gaurav-25" target="_blank" rel="external nofollow noopener">LinkedIn</a>
+    </div>
+    <div class="footer-col">
+      <div class="head">CONTACT</div>
+      <a href="mailto:mgaurav682@gmail.com">mgaurav682@gmail.com</a>
+      <span>Erlangen, DE</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner"><span>© 2026 GAURAV KUMAR MISHRA</span><span>SYS.OK · UPTIME 100%</span></div>
+  </div>
+</footer>
+
+<a class="float-book" href="/contact/">
+  <span class="dot"></span>
+  <span class="label">Book an appointment</span>
+  <span class="label-short">Book</span>
+</a>
+
+<script src="../assets/vendor/marked.min.js"></script>
+<script>
+// Animated wave-grid backdrop, shared across all pages.
+(function () {
+  var bg = document.getElementById('wave-bg');
+  if (!bg) return;
+
+  var sp = 54, A = 10, wl = 360, W = 1440, H = 810;
+
+  function lineD(i, horiz, ph) {
+    var base = sp / 2 + i * sp, lph = i * 0.7;
+    var len = horiz ? W : H;
+    var d = '';
+    for (var t = 0; t <= len; t += 30) {
+      var off = A * Math.sin((2 * Math.PI * t) / wl + lph + ph);
+      var a = horiz ? t : base + off, b = horiz ? base + off : t;
+      d += (t === 0 ? 'M' : 'L') + a.toFixed(1) + ' ' + b.toFixed(1);
+    }
+    return d;
+  }
+
+  var svgNS = 'http://www.w3.org/2000/svg';
+  var svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('viewBox', '0 0 1440 810');
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  bg.appendChild(svg);
+
+  var meta = [];
+  for (var i = 0; i < 15; i++) meta.push({ i: i, horiz: true });
+  for (var j = 0; j < 27; j++) meta.push({ i: j, horiz: false });
+
+  var paths = meta.map(function (m) {
+    var p = document.createElementNS(svgNS, 'path');
+    p.setAttribute('d', lineD(m.i, m.horiz, 0));
+    svg.appendChild(p);
+    return p;
+  });
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var period = 9000;
+    requestAnimationFrame(function tick(ts) {
+      var ph = ((ts % period) / period) * 2 * Math.PI;
+      for (var k = 0; k < paths.length; k++) {
+        var m = meta[k];
+        paths[k].setAttribute('d', lineD(m.i, m.horiz, m.horiz ? ph : -ph));
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+})();
+
+// ---------------------------------- note loader ----------------------------------
+(function () {
+  var STATUS_LABEL = { current: '● In Progress', done: '✓ Completed', planned: '○ Planned' };
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function encodePath(folder, file) {
+    return folder.split('/').map(encodeURIComponent).join('/') + '/' + encodeURIComponent(file);
+  }
+
+  // Converts Obsidian-style embeds/links into normal markdown before handing off to marked.js:
+  //   ![[image.png]]        -> ![image.png](folder/image.png)
+  //   ![[image.png|alt]]    -> ![alt](folder/image.png)
+  //   [[Some Note]]         -> styled span (no cross-note linking yet, just avoids raw "[[ ]]" text)
+  function preprocessObsidian(md, folder) {
+    md = md.replace(/!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, function (_, file, alias) {
+      var alt = alias || file;
+      return '![' + alt + '](' + encodePath(folder, file.trim()) + ')';
+    });
+    md = md.replace(/\[\[([^\]]+)\]\]/g, function (_, label) {
+      return '<span class="wikilink">' + esc(label) + '</span>';
+    });
+    return md;
+  }
+
+  function renderMeta(course) {
+    var chip = '<span class="note-chip ' + esc(course.status) + '">' + esc(STATUS_LABEL[course.status] || course.status) + '</span>';
+    var tags = '<div class="note-tags">' + (course.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') + '</div>';
+    return chip + tags;
+  }
+
+  var params = new URLSearchParams(window.location.search);
+  var slug = params.get('slug');
+  var bodyEl = document.getElementById('note-body');
+  var titleEl = document.getElementById('note-title');
+  var metaEl = document.getElementById('note-meta');
+
+  if (!slug) {
+    titleEl.textContent = 'Course not found';
+    bodyEl.innerHTML = '<p class="note-empty">No course specified. <a href="/courses/">Back to courses.</a></p>';
+    return;
+  }
+
+  fetch('courses.json')
+    .then(function (r) { return r.json(); })
+    .then(function (courses) {
+      var course = courses.find(function (c) { return c.slug === slug; });
+      if (!course) {
+        titleEl.textContent = 'Course not found';
+        bodyEl.innerHTML = '<p class="note-empty">No course matches "' + esc(slug) + '". <a href="/courses/">Back to courses.</a></p>';
+        return;
+      }
+
+      document.getElementById('page-title').textContent = course.title + ' | Gaurav Kumar Mishra';
+      titleEl.textContent = course.title;
+      metaEl.innerHTML = renderMeta(course);
+
+      if (!course.notesFile) {
+        bodyEl.innerHTML = '<p class="note-empty">Notes for this course haven\'t been written up yet — check back soon.</p>';
+        return;
+      }
+
+      var path = encodePath(course.folder, course.notesFile);
+      fetch(path)
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.text();
+        })
+        .then(function (md) {
+          var processed = preprocessObsidian(md, course.folder);
+          bodyEl.innerHTML = window.marked.parse(processed);
+        })
+        .catch(function (err) {
+          bodyEl.innerHTML = '<p class="note-empty">Could not load notes (' + esc(err.message) + ').</p>';
+        });
+    })
+    .catch(function (err) {
+      titleEl.textContent = 'Error';
+      bodyEl.innerHTML = '<p class="note-empty">Could not load courses.json (' + esc(err.message) + ').</p>';
+    });
+})();
+</script>
+
+</body>
+</html>

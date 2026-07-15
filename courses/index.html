@@ -512,36 +512,66 @@ main { position: relative; z-index: 1; }
   </div>
 
   <div class="stat-strip">
-    <div class="stat-strip-inner" style="grid-template-columns:repeat(2,1fr);">
-      <div class="stat-cell"><div class="stat-label">IN PROGRESS</div><div class="stat-value">1</div></div>
-      <div class="stat-cell"><div class="stat-label">PLATFORM</div><div class="stat-value">Udemy</div></div>
+    <div class="stat-strip-inner" style="grid-template-columns:repeat(2,1fr);" id="course-stats">
+      <div class="stat-cell"><div class="stat-label">IN PROGRESS</div><div class="stat-value" id="stat-in-progress">–</div></div>
+      <div class="stat-cell"><div class="stat-label">TOTAL COURSES</div><div class="stat-value" id="stat-total">–</div></div>
     </div>
   </div>
 
   <div class="wrap" style="padding:48px 32px 80px;">
     <div class="category-label">SELF-PACED &amp; ONLINE</div>
-    <div class="course-grid">
-
-      <div class="course-card">
-        <div class="course-cover">
-          📡
-          <div class="course-meta"><span class="tag">UDEMY</span><span class="tag">RF</span></div>
-        </div>
-        <div class="course-body">
-          <h3>CST Studio Masterclass</h3>
-          <p>Hands-on electromagnetic simulation using CST Studio Suite — antenna design, S-parameter analysis, and RF component modelling.</p>
-          <div class="course-tags"><span>CST Studio</span><span>EM Simulation</span><span>Antenna</span><span>RF</span></div>
-        </div>
-        <div class="course-foot">
-          <span class="course-link muted">Notes coming soon</span>
-          <span class="course-chip current">● In Progress</span>
-        </div>
-      </div>
-
+    <div class="course-grid" id="course-grid">
+      <p style="color:var(--text-faint);font:400 12.5px var(--font-mono);">Loading courses…</p>
     </div>
   </div>
 
 </main>
+
+<script>
+(function () {
+  var STATUS_LABEL = { current: '● In Progress', done: '✓ Completed', planned: '○ Planned' };
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function courseCardHTML(c) {
+    var tags = (c.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
+    var footLink = c.notesFile
+      ? '<a class="course-link" href="course.html?slug=' + encodeURIComponent(c.slug) + '">Read notes →</a>'
+      : '<span class="course-link muted">Notes coming soon</span>';
+    return (
+      '<div class="course-card">' +
+        '<div class="course-cover">' + esc(c.icon || '📘') + '</div>' +
+        '<div class="course-body">' +
+          '<h3>' + esc(c.title) + '</h3>' +
+          '<div class="course-tags">' + tags + '</div>' +
+        '</div>' +
+        '<div class="course-foot">' +
+          footLink +
+          '<span class="course-chip ' + esc(c.status) + '">' + esc(STATUS_LABEL[c.status] || c.status) + '</span>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  fetch('courses.json')
+    .then(function (r) { return r.json(); })
+    .then(function (courses) {
+      var grid = document.getElementById('course-grid');
+      grid.innerHTML = courses.map(courseCardHTML).join('');
+      document.getElementById('stat-total').textContent = courses.length;
+      document.getElementById('stat-in-progress').textContent =
+        courses.filter(function (c) { return c.status === 'current'; }).length;
+    })
+    .catch(function (err) {
+      document.getElementById('course-grid').innerHTML =
+        '<p style="color:var(--danger);font:400 12.5px var(--font-mono);">Could not load courses.json (' + err + ')</p>';
+    });
+})();
+</script>
 
 <!-- ================= FOOTER ================= -->
 <footer class="site-footer">
