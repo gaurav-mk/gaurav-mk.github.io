@@ -77,5 +77,19 @@
         "category": "PUBLISHED",
         "catColor": "orange",
         "visible": true
+    },
+    {
+        "folder": "USB2Optical-Converter",
+        "title": "USB to Optical Converter",
+        "description": "A device that converts USB signals to optical signals for long-distance communication.",
+        "cover": null,
+        "tags": [
+            "USB",
+            "Optical Communication",
+            "Signal Conversion"
+        ],
+        "category": "PUBLISHED",
+        "catColor": "orange",
+        "visible": true
     }
 ]
