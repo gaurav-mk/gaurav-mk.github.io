@@ -1,6 +1,4 @@
 (function () {
-  var STATUS_LABEL = { current: '● In Progress', done: '✓ Completed', planned: '○ Planned' };
-
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -48,18 +46,11 @@
     window.initTocScrollspy('.note-body');
   }
 
-  function renderMeta(course) {
-    var chip = '<span class="note-chip ' + esc(course.status) + '">' + esc(STATUS_LABEL[course.status] || course.status) + '</span>';
-    var tags = '<div class="note-tags">' + (course.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') + '</div>';
-    return chip + tags;
-  }
-
   var params = new URLSearchParams(window.location.search);
   var slug = params.get('slug');
   var noteParam = params.get('note');
   var bodyEl = document.getElementById('note-body');
   var titleEl = document.getElementById('note-title');
-  var metaEl = document.getElementById('note-meta');
   var backEl = document.getElementById('note-back');
 
   if (!slug) {
@@ -77,8 +68,6 @@
         bodyEl.innerHTML = '<p class="note-empty">No course matches "' + esc(slug) + '". <a href="/courses/">Back to courses.</a></p>';
         return;
       }
-
-      metaEl.innerHTML = renderMeta(course);
 
       var noteFile = noteParam || course.notesFile;
       if (!noteFile) {
