@@ -57,6 +57,8 @@
         heroEl.innerHTML = renderHero(hero);
         document.getElementById('note-layout').classList.add('has-hero');
         document.getElementById('note-header').classList.add('has-hero');
+        var tocEl = document.getElementById('note-toc');
+        if (tocEl) tocEl.classList.add('has-hero');
       })
       .catch(function () { /* no hero.json for this project — stay single column */ });
   }
