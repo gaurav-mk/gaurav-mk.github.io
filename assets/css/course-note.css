@@ -23,9 +23,9 @@
 .note-layout .note-content { max-width: none; margin: 0; padding-left: 0; padding-right: 0; }
 .note-main { min-width: 0; }
 
-.article-toc.has-hero { position: sticky; top: 80px; left: auto; transform: none; max-height: none; display: block; animation: none; opacity: 1; visibility: visible; margin-top: 72px; }
+.article-toc.has-hero { position: sticky; top: 50%; left: auto; transform: translateY(-50%); max-height: none; display: block; animation: none; opacity: 1; visibility: visible; }
 
-.note-hero { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 20px; margin-top: 72px; }
+.note-hero { position: sticky; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 20px; }
 .hero-block { border: 1px solid var(--border); border-radius: 6px; background: var(--bg-card); overflow: hidden; }
 .hero-block-label { padding: 10px 14px; background: var(--bg-alt); border-bottom: 1px solid var(--border); font: 500 10px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text-faint); }
 .hero-table { display: flex; flex-direction: column; }
