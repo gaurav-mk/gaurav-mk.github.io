@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/7nm-finfet-standard-cell-library/7nm-finfet-standard-cell-library.md",
+                "file": "projects/ble-mioty/ble-mioty.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "7nm-finfet-standard-cell-library"
+              "title": "ble-mioty"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/7nm-finfet-standard-cell-library/7nm-finfet-standard-cell-library.md",
+                "file": "projects/ble-mioty/ble-mioty.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 7nm-finfet-standard-cell-library"
+              "title": "Backlinks for ble-mioty"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/7nm-finfet-standard-cell-library/7nm-finfet-standard-cell-library.md",
+                "file": "projects/ble-mioty/ble-mioty.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 7nm-finfet-standard-cell-library"
+              "title": "Outgoing links from ble-mioty"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/7nm-finfet-standard-cell-library/7nm-finfet-standard-cell-library.md",
+                "file": "projects/ble-mioty/ble-mioty.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 7nm-finfet-standard-cell-library"
+              "title": "Outline of ble-mioty"
             }
           }
         ]
@@ -185,6 +185,13 @@
   },
   "active": "78a7a0fe532bd261",
   "lastOpenFiles": [
+    "projects/smart-home-automation-ups/smart-home-automation-ups.md",
+    "projects/landmine-detection-robot/landmine-detection-robot.md",
+    "projects/ble-mioty/hero.json",
+    "projects/ble-mioty/hero.json.tmp.8596.f63c5929fbc6",
+    "projects/ble-mioty/ble-mioty.md",
+    "projects/ble-mioty/ble-mioty.md.tmp.8596.9f06586379c3",
+    "projects/7nm-finfet-standard-cell-library/7nm-finfet-standard-cell-library.md",
     "assets/css/course-note.css.tmp.8596.0de948335e71",
     "assets/css/course-note.css.tmp.8596.94591304ec06",
     "assets/css/course-note.css.tmp.8596.e12e0b705192",
@@ -192,15 +199,8 @@
     "assets/css/course-note.css.tmp.8596.01aa8cbc90f8",
     "projects/project.js.tmp.8596.2bb7fdccafe8",
     "projects/project.html.tmp.8596.5f1c96c6db62",
-    "assets/css/course-note.css.tmp.8596.933184700ac0",
-    "assets/css/course-note.css.tmp.8596.af624edc2011",
-    "projects/project.html.tmp.8596.36820beaeaf0",
     "projects/README.md",
-    "projects/landmine-detection-robot/landmine-detection-robot.md.tmp.8596.4f9e82f938cc",
-    "projects/7nm-finfet-standard-cell-library/7nm-finfet-standard-cell-library.md",
     "projects/USB2Optical-Converter/USB2Optical-Converter.md",
-    "projects/smart-home-automation-ups/smart-home-automation-ups.md",
-    "projects/landmine-detection-robot/landmine-detection-robot.md",
     "courses/landmine-detection-robot/landmine-detection-robot.md",
     "courses/landmine-detection-robot/JESD204B.md",
     "courses/landmine-detection-robot/landmine.webp",

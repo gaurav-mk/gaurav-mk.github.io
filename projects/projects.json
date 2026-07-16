@@ -10,6 +10,7 @@
         ],
         "category": "ONGOING",
         "catColor": "green",
+        "md": true,
         "visible": true
     },
     "JESD204C_Clock_Tree_Thesis": {

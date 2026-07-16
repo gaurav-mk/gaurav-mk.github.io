@@ -1,0 +1,22 @@
+{
+    "Project Info": {
+        "Institute": "LIKE, FAU Erlangen-Nürnberg",
+        "Role": "Student / M.Sc.",
+        "Period": "2025 – ongoing",
+        "Domain": "IoT · RF Hardware · Localization"
+    },
+    "Tools & Stack": [
+        "KiCad",
+        "STM32 HAL",
+        "C (Embedded)",
+        "BLE / SX1280",
+        "mioty",
+        "nRF Connect",
+        "BLE Explorer",
+        "SWD / JTAG",
+        "Leaflet.js",
+        "iBeacon",
+        "ICM-45686",
+        "IIS2MDCTR"
+    ]
+}

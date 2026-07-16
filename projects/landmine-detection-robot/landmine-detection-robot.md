@@ -10,7 +10,6 @@ A **DSPIC30F4013** microcontroller sits at the centre of the robot, tying togeth
 
 <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" style="background:#12161a;">
 <defs>
-<pattern id="lr-g" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0L0 0 0 24" fill="none" stroke="#7cb342" stroke-width="0.25" opacity="0.1"></path></pattern>
 <marker id="lr-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#7cb342"></path></marker>
 </defs>
 <rect width="720" height="260" fill="url(#lr-g)"></rect>
