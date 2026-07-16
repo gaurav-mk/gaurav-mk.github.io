@@ -11,7 +11,7 @@
         ],
         "status": "current",
         "notesFile": "cst-studio-masterclass.md",
-        "visible": true
+        "visible": false
     },
     {
         "folder": "landmine-detection-robot",
@@ -23,7 +23,7 @@
         ],
         "status": "done",
         "notesFile": "landmine-detection-robot.md",
-        "visible": true
+        "visible": false
     },
     {
         "folder": "digital-ic-design",
