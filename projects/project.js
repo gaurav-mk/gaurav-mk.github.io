@@ -53,8 +53,12 @@
     if (!heroEl) return;
     fetch(encodePath(folder, 'hero.json'))
       .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-      .then(function (hero) { heroEl.innerHTML = renderHero(hero); })
-      .catch(function () { /* no hero.json for this project — that's fine, no hero section */ });
+      .then(function (hero) {
+        heroEl.innerHTML = renderHero(hero);
+        document.getElementById('note-layout').classList.add('has-hero');
+        document.getElementById('note-header').classList.add('has-hero');
+      })
+      .catch(function () { /* no hero.json for this project — stay single column */ });
   }
 
   var params = new URLSearchParams(window.location.search);

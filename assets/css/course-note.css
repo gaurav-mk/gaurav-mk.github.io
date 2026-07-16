@@ -1,19 +1,26 @@
 /* ---------------------------------- note page ---------------------------------- */
 .note-header { max-width: 900px; margin: 0 auto; padding: 72px 32px 28px; }
+.note-header.has-hero { max-width: 1200px; }
 .note-back { display: inline-flex; align-items: center; gap: 6px; font: 500 11px var(--font-mono); letter-spacing: .5px; color: var(--text-faint); margin-bottom: 18px; }
 .note-back:hover { color: var(--accent); }
 .note-header h1 { margin: 0; font-size: 38px; line-height: 1.12; font-weight: 700; letter-spacing: -.6px; }
 
-/* optional per-project hero.json blocks (table for object values, tags for array values) */
-.note-hero { max-width: 900px; margin: 8px auto 28px; padding: 0 32px; display: flex; flex-wrap: wrap; gap: 14px; }
-.note-hero:empty { display: none; margin: 0; }
-.hero-block { flex: 1 1 240px; min-width: 220px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 14px 18px; }
-.hero-block-label { font: 500 10px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
-.hero-table { display: flex; flex-direction: column; gap: 6px; }
-.hero-row { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
-.hero-key { color: var(--text-faint); }
-.hero-val { color: var(--text); font-weight: 500; text-align: right; }
-.hero-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+/* .note-layout wraps .note-content + the optional right-side .note-hero sidebar
+   (built from a project's hero.json, if one exists) — plain single column by
+   default, widens into a two-column layout only once a hero is actually loaded. */
+.note-layout { max-width: 900px; margin: 0 auto; padding: 0 32px 100px; }
+.note-layout.has-hero { max-width: 1200px; display: grid; grid-template-columns: minmax(0,1fr) 280px; gap: 48px; align-items: start; }
+.note-layout.has-hero .note-content { max-width: none; margin: 0; padding: 0; }
+
+.note-hero { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 20px; }
+.hero-block { border: 1px solid var(--border); border-radius: 6px; background: var(--bg-card); overflow: hidden; }
+.hero-block-label { padding: 10px 14px; background: var(--bg-alt); border-bottom: 1px solid var(--border); font: 500 10px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text-faint); }
+.hero-table { display: flex; flex-direction: column; }
+.hero-row { display: grid; grid-template-columns: auto 1fr; gap: 12px; padding: 11px 14px; border-bottom: 1px solid var(--border); align-items: start; }
+.hero-row:last-child { border-bottom: 0; }
+.hero-key { font: 400 10px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-faint); white-space: nowrap; padding-top: 1px; }
+.hero-val { font-size: 13px; color: var(--text); line-height: 1.5; font-weight: 500; text-align: right; }
+.hero-tags { padding: 12px 14px; display: flex; flex-wrap: wrap; gap: 6px; }
 .hero-tags span { font: 400 10.5px var(--font-mono); padding: 3px 9px; border-radius: 3px; background: var(--bg-alt); border: 1px solid var(--border); color: var(--text-body); }
 
 .note-content { max-width: 900px; margin: 0 auto; padding: 0 32px 100px; }
@@ -45,8 +52,13 @@
 .note-empty { color: var(--text-faint); font: 400 13px var(--font-mono); padding: 40px 0; }
 .note-empty a { color: var(--accent); }
 
+@media (max-width: 960px) {
+  .note-layout.has-hero { grid-template-columns: 1fr; }
+  .note-hero { position: static; }
+}
 @media (max-width: 640px) {
   .note-header { padding: 48px 20px 24px; }
   .note-header h1 { font-size: 28px; }
   .note-content { padding: 0 20px 80px; }
+  .note-layout.has-hero { padding-left: 20px; padding-right: 20px; }
 }
