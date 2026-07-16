@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "courses/landmine-detection-robot/landmine-detection-robot.md",
+                "file": "projects/README.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "landmine-detection-robot"
+              "title": "README"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "courses/landmine-detection-robot/landmine-detection-robot.md",
+                "file": "projects/README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for landmine-detection-robot"
+              "title": "Backlinks for README"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "courses/landmine-detection-robot/landmine-detection-robot.md",
+                "file": "projects/README.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from landmine-detection-robot"
+              "title": "Outgoing links from README"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "courses/landmine-detection-robot/landmine-detection-robot.md",
+                "file": "projects/README.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of landmine-detection-robot"
+              "title": "Outline of README"
             }
           }
         ]
@@ -185,6 +185,11 @@
   },
   "active": "78a7a0fe532bd261",
   "lastOpenFiles": [
+    "projects/landmine-detection-robot/index.html.tmp.8596.08ca23e5be4c",
+    "projects/landmine-detection-robot/landmine-detection-robot.md",
+    "projects/landmine-detection-robot/landmine-detection-robot.md.tmp.8596.6858542be8e7",
+    "projects/project.js",
+    "courses/landmine-detection-robot/landmine-detection-robot.md",
     "assets/css/course-note.css.tmp.8596.201f69d83e69",
     "courses/course.js.tmp.8596.5f71e8907571",
     "courses/course.js.tmp.8596.7fb6e77f3705",
@@ -193,17 +198,14 @@
     "assets/js/toc-scrollspy.js.tmp.8596.4137642d0f50",
     "assets/css/project-detail.css.tmp.8596.e20045d85616",
     "courses/landmine-detection-robot/JESD204B.md",
-    "courses/landmine-detection-robot/landmine-detection-robot.md",
     "courses/landmine-detection-robot/landmine.webp",
     "courses/cst-studio-masterclass/cst-studio-masterclass.md",
     "courses/landmine-detection-robot/Unconfirmed 265641.crdownload",
     "courses/landmine-detection-robot/cst-studio-masterclass.md",
     "courses/landmine-detection-robot/8b10bencoding.webp",
-    "courses/landmine-detection-robot",
     "courses/cst-studio-masterclass - Copy/JESD204B.md",
     "courses/cst-studio-masterclass - Copy/cst-studio-masterclass.md",
     "courses/cst-studio-masterclass - Copy/8b10bencoding.webp",
-    "courses/cst-studio-masterclass - Copy",
     "courses/cst-studio-masterclass/JESD204B.md"
   ]
 }
