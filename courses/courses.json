@@ -11,7 +11,7 @@
         ],
         "status": "current",
         "notesFile": "cst-studio-masterclass.md",
-        "visible": false
+        "visible": true
     },
     {
         "folder": "landmine-detection-robot",
