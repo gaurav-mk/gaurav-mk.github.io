@@ -20,7 +20,7 @@ Each entry is one object in the top-level array:
 {
   "title": "Funds Responsible (Core Team), Spring Regional Meeting (sRM) 2026",
   "description": "First paragraph.</br>Second paragraph.",
-  "cover": "best.jpeg",
+  "cover": "best.webp",
   "tags": ["BEST Erlangen e.V.", "Full Member", "2025 to 2026"],
   "mediaPosition": "left",
   "visible": true

@@ -2,7 +2,7 @@
     "ble-mioty": {
         "title": "Joint Bluetooth and MIOTY Localisation Module",
         "description": "Low-power localization tag combining BLE short-range tracking and mioty long-range fallback in a single 2.4 GHz transceiver. Custom circular PCB, 9-axis IMU, coin-cell powered.",
-        "cover": "PCB_3D_Blue.png",
+        "cover": "PCB_3D_Blue.webp",
         "tags": [
             "BLE",
             "MIOTY",
@@ -15,7 +15,7 @@
     "JESD204C_Clock_Tree_Thesis": {
         "title": "JESD204C Clock Tree — M.Sc. Thesis",
         "description": "Experimental characterization, SPI-controlled reconfiguration, and optimization of JESD204C clock trees using the LMX1205 PLL and HMC7043 distributor. Targets deterministic latency and minimum jitter for multi-channel ADC/DAC systems.",
-        "cover": "LMX Multisite.png",
+        "cover": "LMX Multisite.webp",
         "tags": [
             "JESD204C",
             "LMX1205",
@@ -31,7 +31,7 @@
     "7nm-finfet-standard-cell-library": {
         "title": "7nm FinFET Standard Cell Library",
         "description": "Designed and assessed a 7nm FinFET standard cell library using the ASAP7 PDK. Adaptable logic gates, optimized layouts, minimal footprint, and radiation hardening analysis for space applications.",
-        "cover": "cover.png",
+        "cover": "cover.webp",
         "tags": [
             "FinFET",
             "ASAP7 PDK",
@@ -46,7 +46,7 @@
     "smart-home-automation-ups": {
         "title": "Smart Home Automation + UPS",
         "description": "Automatic LED emergency lamp with an online UPS for low-power household appliances. Full circuit design, simulation, testing, and IoT integration for remote monitoring.",
-        "cover": "smart.png",
+        "cover": "smart.webp",
         "tags": [
             "IoT",
             "Arduino",
@@ -76,7 +76,7 @@
     "USB2Optical-Converter": {
         "title": "USB to Optical Converter",
         "description": "A device that converts USB signals to optical signals for long-distance communication.",
-        "cover": "U2O.png",
+        "cover": "U2O.webp",
         "tags": [
             "USB",
             "Optical Communication",

@@ -30,7 +30,7 @@ itself is the unique key, so it's never repeated inside the value:
   "ble-mioty": {
     "title": "Joint Bluetooth and MIOTY Localisation Module",
     "description": "Low-power localization tag combining BLE short-range tracking and mioty long-range fallback in a single 2.4 GHz transceiver. Custom circular PCB, 9-axis IMU, coin-cell powered.",
-    "cover": "PCB_3D_Blue.png",
+    "cover": "PCB_3D_Blue.webp",
     "tags": ["BLE", "MIOTY", "Ki-CAD"],
     "category": "ONGOING",
     "catColor": "green",

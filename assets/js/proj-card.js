@@ -16,7 +16,7 @@ window.ProjCard = (function () {
 
   function mediaHTML(p) {
     return p.cover
-      ? '<div class="proj-card-media"><img src="/projects/' + esc(encodeURIComponent(p.folder)) + '/' + esc(encodeURIComponent(p.cover)) + '" alt="' + esc(p.title) + '" /></div>'
+      ? '<div class="proj-card-media"><img src="/projects/' + esc(encodeURIComponent(p.folder)) + '/' + esc(encodeURIComponent(p.cover)) + '" alt="' + esc(p.title) + '" loading="lazy" /></div>'
       : '<div class="proj-card-media"><div class="ph"><span>BOARD PHOTO / RENDER</span></div></div>';
   }
 

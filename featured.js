@@ -5,7 +5,7 @@
   function featuredBuildHTML(p) {
     var color = CAT_COLOR[p.catColor] || 'var(--text-faint)';
     var media = p.cover
-      ? '<img src="/projects/' + esc(encodeURIComponent(p.folder)) + '/' + esc(encodeURIComponent(p.cover)) + '" alt="' + esc(p.title) + '" />'
+      ? '<img src="/projects/' + esc(encodeURIComponent(p.folder)) + '/' + esc(encodeURIComponent(p.cover)) + '" alt="' + esc(p.title) + '" loading="lazy" />'
       : '<div class="ph"><span>BOARD PHOTO / RENDER</span></div>';
     var tags = (p.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
     return (

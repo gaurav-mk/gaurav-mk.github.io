@@ -24,7 +24,7 @@ Each course is one object in the top-level array:
 ```json
 {
   "title": "CST Studio Masterclass",
-  "cover": "8b10bencoding.png",
+  "cover": "8b10bencoding.webp",
   "tags": ["CST Studio", "EM Simulation", "Antenna", "RF"],
   "status": "current",
   "folder": "cst-studio-masterclass",

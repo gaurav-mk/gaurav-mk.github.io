@@ -5,4 +5,4 @@
 - It is meaningful to integrate the total power contained within some interval of offset frequencies (for example, 10 kHz to 10 MHz). This is the integrated phase noise over that frequency offset interval and can be readily related to the time jitter due to the phase noise within that offset frequency interval.
 - Phase noise has a detrimental effect on the performance of analog to digital converters (ADCs), digital to analog converters (DACs), and RF mixers. It lowers the achievable dynamic range of the converters and mixers, although they are affected in somewhat different ways.
 
-![[8b10bencoding.png]]
+![[8b10bencoding.webp]]
