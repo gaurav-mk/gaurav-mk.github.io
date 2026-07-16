@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "projects/ble-mioty/ble-mioty.md",
+                "file": "projects/landmine-detection-robot/landmine-detection-robot.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ble-mioty"
+              "title": "landmine-detection-robot"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/ble-mioty/ble-mioty.md",
+                "file": "projects/landmine-detection-robot/landmine-detection-robot.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for ble-mioty"
+              "title": "Backlinks for landmine-detection-robot"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/ble-mioty/ble-mioty.md",
+                "file": "projects/landmine-detection-robot/landmine-detection-robot.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from ble-mioty"
+              "title": "Outgoing links from landmine-detection-robot"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/ble-mioty/ble-mioty.md",
+                "file": "projects/landmine-detection-robot/landmine-detection-robot.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of ble-mioty"
+              "title": "Outline of landmine-detection-robot"
             }
           }
         ]
@@ -185,11 +185,12 @@
   },
   "active": "78a7a0fe532bd261",
   "lastOpenFiles": [
+    "projects/landmine-detection-robot/land.webp",
+    "projects/ble-mioty/ble-mioty.md",
     "projects/smart-home-automation-ups/smart-home-automation-ups.md",
     "projects/landmine-detection-robot/landmine-detection-robot.md",
     "projects/ble-mioty/hero.json",
     "projects/ble-mioty/hero.json.tmp.8596.f63c5929fbc6",
-    "projects/ble-mioty/ble-mioty.md",
     "projects/ble-mioty/ble-mioty.md.tmp.8596.9f06586379c3",
     "projects/7nm-finfet-standard-cell-library/7nm-finfet-standard-cell-library.md",
     "assets/css/course-note.css.tmp.8596.0de948335e71",
