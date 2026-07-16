@@ -17,7 +17,7 @@
         '<p>' + esc(p.description) + '</p>' +
         '<div class="proj-card-tags">' + tags + '</div>' +
         '<div class="cta-row" style="margin-top:2px;">' +
-          '<a class="btn btn-solid btn-sm" href="/projects/' + esc(encodeURIComponent(p.folder)) + '/">View project →</a>' +
+          '<a class="btn btn-solid btn-sm" href="' + window.ProjCard.href(p) + '">View project →</a>' +
           '<a class="btn btn-outline btn-sm" href="https://github.com/gaurav-mk" target="_blank" rel="external nofollow noopener">Design files</a>' +
         '</div>' +
       '</div>'

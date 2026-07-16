@@ -25,6 +25,10 @@
 .note-body blockquote p:last-child { margin-bottom: 0; }
 .note-body img { max-width: 100%; display: block; margin: 8px 0 20px; border: 1px solid var(--border-strong); }
 .note-body hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+.note-body table { width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid var(--border-strong); font-size: 13.5px; }
+.note-body th, .note-body td { border: 1px solid var(--border); padding: 8px 14px; text-align: left; }
+.note-body th { background: var(--bg-card); color: var(--text); font-weight: 600; }
+.note-body tr:nth-child(even) td { background: var(--bg-alt); }
 .note-body .wikilink { color: var(--link); border-bottom: 1px dashed var(--text-faint); }
 .note-empty { color: var(--text-faint); font: 400 13px var(--font-mono); padding: 40px 0; }
 .note-empty a { color: var(--accent); }

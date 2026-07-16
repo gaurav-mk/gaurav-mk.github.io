@@ -5,19 +5,17 @@
     });
   }
 
-  // Always absolute (/projects/<folder>/<file>) — this page lives *inside* the
-  // project's own folder, so a path relative to folder+file would double-nest.
-  function assetPath(folder, file) {
-    return '/projects/' + folder.split('/').map(encodeURIComponent).join('/') + '/' + encodeURIComponent(file);
+  function encodePath(folder, file) {
+    return folder.split('/').map(encodeURIComponent).join('/') + '/' + encodeURIComponent(file);
   }
 
   // Same Obsidian-style image embed as courses/course.js:
-  //   ![[image.png]]      -> ![image.png](/projects/<folder>/image.png)
-  //   ![[image.png|alt]]  -> ![alt](/projects/<folder>/image.png)
+  //   ![[image.png]]      -> ![image.png](<folder>/image.png)
+  //   ![[image.png|alt]]  -> ![alt](<folder>/image.png)
   function preprocessObsidian(md, folder) {
     return md.replace(/!\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, function (_, file, alias) {
       var alt = alias || file;
-      return '![' + alt + '](' + assetPath(folder, file.trim()) + ')';
+      return '![' + alt + '](' + encodePath(folder, file.trim()) + ')';
     });
   }
 
@@ -33,35 +31,38 @@
     window.initTocScrollspy('.note-body');
   }
 
+  var params = new URLSearchParams(window.location.search);
+  var slug = params.get('slug');
   var bodyEl = document.getElementById('note-body');
   var titleEl = document.getElementById('note-title');
 
-  // Derive this project's folder name from the page's own URL — no query
-  // param needed, since each project already lives at its own /projects/<folder>/.
-  var segs = location.pathname.split('/').filter(Boolean);
-  if (segs[segs.length - 1] === 'index.html') segs.pop();
-  var folder = decodeURIComponent(segs.pop() || '');
+  if (!slug) {
+    titleEl.textContent = 'Project not found';
+    bodyEl.innerHTML = '<p class="note-empty">No project specified. <a href="/projects/">Back to projects.</a></p>';
+    return;
+  }
 
-  fetch('/projects/projects.json')
+  fetch('projects.json')
     .then(function (r) { return r.json(); })
     .then(function (projects) {
-      var project = projects[folder];
+      var project = projects[slug];
       if (!project) {
         titleEl.textContent = 'Project not found';
-        bodyEl.innerHTML = '<p class="note-empty">No project matches "' + esc(folder) + '". <a href="/projects/">Back to projects.</a></p>';
+        bodyEl.innerHTML = '<p class="note-empty">No project matches "' + esc(slug) + '". <a href="/projects/">Back to projects.</a></p>';
         return;
       }
 
       document.getElementById('page-title').textContent = project.title + ' | Gaurav Kumar Mishra';
       titleEl.textContent = project.title;
 
-      fetch(assetPath(folder, folder + '.md'))
+      var path = encodePath(slug, slug + '.md');
+      fetch(path)
         .then(function (r) {
           if (!r.ok) throw new Error('HTTP ' + r.status);
           return r.text();
         })
         .then(function (md) {
-          bodyEl.innerHTML = window.marked.parse(preprocessObsidian(md, folder));
+          bodyEl.innerHTML = window.marked.parse(preprocessObsidian(md, slug));
           buildToc();
         })
         .catch(function (err) {

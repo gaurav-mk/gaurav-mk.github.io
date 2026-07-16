@@ -20,11 +20,20 @@ window.ProjCard = (function () {
       : '<div class="proj-card-media"><div class="ph"><span>BOARD PHOTO / RENDER</span></div></div>';
   }
 
+  // Projects migrated to the markdown-note system (p.md === true) route through
+  // the shared /projects/project.html?slug=... template; everything else still
+  // has its own hand-authored /projects/<folder>/index.html.
+  function href(p) {
+    return p.md
+      ? '/projects/project.html?slug=' + esc(encodeURIComponent(p.folder))
+      : '/projects/' + esc(encodeURIComponent(p.folder)) + '/';
+  }
+
   function render(p) {
     var color = CAT_COLOR[p.catColor] || 'var(--text-faint)';
     var tags = (p.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
     return (
-      '<a class="proj-card" data-group="' + esc(p.category) + '" href="/projects/' + esc(encodeURIComponent(p.folder)) + '/">' +
+      '<a class="proj-card" data-group="' + esc(p.category) + '" href="' + href(p) + '">' +
         mediaHTML(p) +
         '<div class="proj-card-body">' +
           '<h2>' + esc(p.title) + '</h2>' +
@@ -39,5 +48,5 @@ window.ProjCard = (function () {
     );
   }
 
-  return { render: render, esc: esc, CAT_COLOR: CAT_COLOR };
+  return { render: render, esc: esc, CAT_COLOR: CAT_COLOR, href: href };
 })();
