@@ -83,9 +83,3 @@ The system was tested by switching the ambient source light on and off: in autom
 ## From Prototype to Product
 
 The prototype meets its brief for single-lamp, low-power household use; scaling the same topology to industrial loads would need a redesign rather than a bigger battery. At projected retail volumes the estimated unit cost sits around ₹300–350, with further headroom if components are sourced at mass-production scale. The larger point of the project is the pattern, not the lamp: an always-on, battery-backed power rail with an IoT control layer bolted on top generalizes cleanly to lighting and small appliances across homes, offices, and campuses, wherever "the power should just not go out" matters more than the specific load being an LED.
-
-## Publication & Tools
-
-IEEE ICAC3N 2021, pages 799–803. DOI `10.1109/ICAC3N53548.2021.9725604`, ISBN `978-1-6654-3811-7`. Co-authored with Anirudh L, G. K. Mishra, Mathan N.
-
-`Arduino Uno` · `ATmega328` · `Bluetooth Module` · `LM317` · `LDR` · `Relay` · `MIT App Inventor`

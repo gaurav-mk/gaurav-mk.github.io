@@ -41,6 +41,7 @@
         ],
         "category": "PUBLISHED",
         "catColor": "orange",
+        "md": true,
         "visible": true
     },
     "smart-home-automation-ups": {

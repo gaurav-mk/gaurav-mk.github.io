@@ -1,0 +1,19 @@
+{
+    "Publication": {
+        "Venue": "IEEE ICAC3N 2021",
+        "Pages": "799–803",
+        "DOI": "10.1109/ICAC3N53548.2021.9725604",
+        "ISBN": "978-1-6654-3811-7",
+        "Role": "Co-author",
+        "Authors": "Anirudh L, G. K. Mishra, Mathan N."
+    },
+    "Tools & Components": [
+        "Arduino Uno",
+        "ATmega328",
+        "Bluetooth Module",
+        "LM317",
+        "LDR",
+        "Relay",
+        "MIT App Inventor"
+    ]
+}

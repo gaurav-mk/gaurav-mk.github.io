@@ -93,9 +93,3 @@ The finished robot runs on an orange-painted cast-iron chassis with the DSPIC30F
 ## Why It Matters
 
 Landmines laid decades ago can stay lethal for up to fifty years, and manual clearance remains one of the slowest, most dangerous jobs in humanitarian engineering. A robot that finds and precisely locates a mine — without a person walking the field to do it — turns demining from a search-and-hope process into a targeted one: send a team to a known coordinate instead of sweeping blind. That's the problem this prototype was built to chip away at, and the reason it's aimed squarely at defensive, humanitarian use.
-
-## Publication & Tools
-
-Academic conference paper, co-authored with L. Sankar S, B. L. Sharath, A. Dinodiya, G. K. Mishra, G. Senthil Kumar, and J. Jeevahan at Sathyabama Institute of Science & Technology.
-
-`DSPIC30F4013` · `Embedded C` · `GPS` · `GSM / SIM900A` · `RS-232` · `RF 433.92 MHz` · `Inductive Sensors`

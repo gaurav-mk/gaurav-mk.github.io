@@ -1,0 +1,17 @@
+{
+    "Publication": {
+        "Type": "Academic conference paper",
+        "Affiliation": "Sathyabama Institute of Science & Technology",
+        "Role": "Co-author",
+        "Authors": "L. Sankar S, B. L. Sharath, A. Dinodiya, G. K. Mishra, G. Senthil Kumar, J. Jeevahan"
+    },
+    "Tools & Components": [
+        "DSPIC30F4013",
+        "Embedded C",
+        "GPS",
+        "GSM / SIM900A",
+        "RS-232",
+        "RF 433.92 MHz",
+        "Inductive Sensors"
+    ]
+}

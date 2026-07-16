@@ -31,6 +31,32 @@
     window.initTocScrollspy('.note-body');
   }
 
+  // Optional per-project hero.json, sibling to the .md file. Each top-level key
+  // becomes a block: an object value renders as a key/value table (e.g.
+  // "Publication": {"Venue": "...", "Pages": "..."}), an array value renders
+  // as a tag cluster (e.g. "Tools & Process": ["ASAP7 PDK", "Cadence Virtuoso"]).
+  // No hero.json in the folder -> no hero section at all.
+  function renderHero(hero) {
+    return Object.keys(hero).map(function (key) {
+      var val = hero[key];
+      var body = Array.isArray(val)
+        ? '<div class="hero-tags">' + val.map(function (v) { return '<span>' + esc(v) + '</span>'; }).join('') + '</div>'
+        : '<div class="hero-table">' + Object.keys(val).map(function (k) {
+            return '<div class="hero-row"><span class="hero-key">' + esc(k) + '</span><span class="hero-val">' + esc(val[k]) + '</span></div>';
+          }).join('') + '</div>';
+      return '<div class="hero-block"><div class="hero-block-label">' + esc(key) + '</div>' + body + '</div>';
+    }).join('');
+  }
+
+  function loadHero(folder) {
+    var heroEl = document.getElementById('note-hero');
+    if (!heroEl) return;
+    fetch(encodePath(folder, 'hero.json'))
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (hero) { heroEl.innerHTML = renderHero(hero); })
+      .catch(function () { /* no hero.json for this project — that's fine, no hero section */ });
+  }
+
   var params = new URLSearchParams(window.location.search);
   var slug = params.get('slug');
   var bodyEl = document.getElementById('note-body');
@@ -54,6 +80,8 @@
 
       document.getElementById('page-title').textContent = project.title + ' | Gaurav Kumar Mishra';
       titleEl.textContent = project.title;
+
+      loadHero(slug);
 
       var path = encodePath(slug, slug + '.md');
       fetch(path)
