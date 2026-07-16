@@ -165,14 +165,11 @@ The whole design bends toward one constraint: run from a CR2032 coin cell. The *
 A custom four-layer PCB designed in KiCad — a compact **round board** sized to sit over a coin cell. The stackup gives the 2.4 GHz signals a clean reference plane and keeps the antenna matching network tight. The design is complete and fabricated; the bill of materials is deliberately small.
 
 <svg viewBox="0 0 1428 1309" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<pattern id="bb-grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0L0 0 0 64" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.05"></path></pattern>
-</defs>
 <rect width="1428" height="1309" fill="#0A1E30"></rect>
 <rect width="1428" height="1309" fill="url(#bb-grid)"></rect>
 <image href="/projects/ble-mioty/PCB_3D_Blue.webp" x="0" y="0" width="1428" height="1309"></image>
 <g stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round">
-<line x1="745" y1="175" x2="1048" y2="95"></line>
+<line x1="745" y1="175" x2="940" y2="95"></line>
 <line x1="500" y1="515" x2="215" y2="185"></line>
 <line x1="855" y1="770" x2="1195" y2="420"></line>
 <line x1="633" y1="935" x2="400" y2="1150"></line>
@@ -185,8 +182,8 @@ A custom four-layer PCB designed in KiCad — a compact **round board** sized to
 <circle cx="633" cy="935" r="7"></circle><circle cx="633" cy="935" r="13" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.55"></circle>
 <circle cx="1145" cy="865" r="7"></circle><circle cx="1145" cy="865" r="13" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.55"></circle>
 </g>
-<text x="1072" y="78" font-family="Roboto Mono" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="2">MEANDER-LINE</text>
-<text x="1072" y="114" font-family="Roboto Mono" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="2">INVERTED-F ANTENNA</text>
+<text x="1000" y="78" font-family="Roboto Mono" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="2">MEANDER-LINE</text>
+<text x="1000" y="114" font-family="Roboto Mono" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="2">INVERTED-F ANTENNA</text>
 <text x="1072" y="146" font-family="Roboto Mono" font-size="23" fill="#7ec8e0" letter-spacing="1">AE1 · ON-BOARD ETCHED</text>
 <text x="58" y="132" font-family="Roboto Mono" font-size="30" font-weight="600" fill="#FFFFFF" letter-spacing="2">RF MODULE</text>
 <text x="58" y="166" font-family="Roboto Mono" font-size="23" fill="#7ec8e0" letter-spacing="1">SX1280 · 2.4 GHz</text>
