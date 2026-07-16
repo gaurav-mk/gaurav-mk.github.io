@@ -1,13 +1,16 @@
-// Powers the sticky, scroll-spied sidebar TOC (.article-toc) shared by project
-// write-ups (headings/links already static in the HTML at load) and course
-// notes (course.js builds the headings/links at runtime, then calls
-// window.initTocScrollspy() itself once they exist).
-window.initTocScrollspy = function (contentSelector) {
+// Powers the sticky, scroll-spied sidebar TOC (.article-toc). Every page that
+// uses it must call window.initTocScrollspy() itself once its headings/links
+// exist — project write-ups with static markup call it inline right after
+// this script tag; courses/course.js and projects/project.js call it after
+// building the TOC at runtime, optionally passing a different content root
+// and/or heading selector (a couple of the JESD204C sub-pages track non-h2
+// sectioning elements, so this isn't always the 'h2[id]' default).
+window.initTocScrollspy = function (contentSelector, nodeSelector) {
   var toc = document.querySelector('.article-toc');
   if (!toc) return;
   var content = document.querySelector(contentSelector || '.proj-main');
   if (!content) return;
-  var nodes = [].slice.call(content.querySelectorAll('h2[id]'));
+  var nodes = [].slice.call(content.querySelectorAll(nodeSelector || 'h2[id]'));
   var links = [].slice.call(toc.querySelectorAll('a[href^="#"]'));
   var pill = toc.querySelector('.toc-pill');
 
@@ -43,7 +46,3 @@ window.initTocScrollspy = function (contentSelector) {
   window.addEventListener('scroll', update, { passive: true });
   update();
 };
-
-if (document.querySelector('.proj-main')) {
-  window.initTocScrollspy();
-}

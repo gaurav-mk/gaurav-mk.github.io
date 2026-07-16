@@ -36,13 +36,27 @@
 
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     var period = 9000;
-    requestAnimationFrame(function tick(ts) {
+    var rafId = null;
+
+    function tick(ts) {
       var ph = ((ts % period) / period) * 2 * Math.PI;
       for (var k = 0; k < paths.length; k++) {
         var m = meta[k];
         paths[k].setAttribute('d', lineD(m.i, m.horiz, m.horiz ? ph : -ph));
       }
-      requestAnimationFrame(tick);
+      rafId = requestAnimationFrame(tick);
+    }
+
+    // Pause the redraw loop while the tab is hidden — no visible change, but
+    // stops ~1,450 Math.sin calls/frame from running in every backgrounded tab.
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+      } else if (rafId === null) {
+        rafId = requestAnimationFrame(tick);
+      }
     });
+
+    if (!document.hidden) rafId = requestAnimationFrame(tick);
   }
 })();
