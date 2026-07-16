@@ -1,24 +1,29 @@
 /* ---------------------------------- note page ---------------------------------- */
 .note-header { max-width: 900px; margin: 0 auto; padding: 72px 32px 28px; }
-/* In hero mode the header lines up with the content column below it (not the
-   TOC/hero columns either side), via the same 3-column grid as .note-layout. */
-.note-header.has-hero { max-width: 1600px; display: grid; grid-template-columns: 200px minmax(0,1fr) 300px; gap: 40px; }
-.note-header.has-hero > * { grid-column: 2; }
 .note-back { display: inline-flex; align-items: center; gap: 6px; font: 500 11px var(--font-mono); letter-spacing: .5px; color: var(--text-faint); margin-bottom: 18px; }
 .note-back:hover { color: var(--accent); }
 .note-header h1 { margin: 0; font-size: 38px; line-height: 1.12; font-weight: 700; letter-spacing: -.6px; }
 
-/* .note-layout wraps the TOC + .note-content + the optional right-side .note-hero
-   sidebar (built from a project's hero.json, if one exists) — plain single column
-   by default; once a hero is actually loaded, becomes a 3-column grid so the TOC
-   is a real (sticky) column instead of viewport-math-positioned, guaranteeing it
-   can never overlap the content regardless of container width. */
+/* .note-layout wraps the TOC + .note-main (header+content together, so they can
+   never drift out of alignment with each other) + the optional right-side
+   .note-hero sidebar (built from a project's hero.json, if one exists) — plain
+   single column by default; once a hero is actually loaded, becomes a 3-column
+   grid so the TOC is a real (sticky) column instead of viewport-math-positioned,
+   guaranteeing it can never overlap the content regardless of container width. */
 .note-layout { max-width: 900px; margin: 0 auto; padding: 0 32px 100px; }
-.note-layout.has-hero { max-width: 1600px; display: grid; grid-template-columns: 200px minmax(0,1fr) 300px; gap: 40px; align-items: start; }
-.note-layout.has-hero .note-content { max-width: none; margin: 0; padding: 0; display: flex; justify-content: center; }
-.note-layout.has-hero .note-body { max-width: 720px; width: 100%; }
+.note-layout.has-hero {
+  max-width: 1600px; padding: 0 32px 100px;
+  display: grid; grid-template-columns: 340px minmax(0,1fr) 320px; gap: 40px; align-items: start;
+}
+/* .note-header/.note-content normally own their own 900px-centering + 32px
+   padding (that's what course.html relies on, where they're plain siblings).
+   Nested inside .note-layout here, .note-layout already owns that spacing —
+   so zero out the nested copies to avoid doubling up the inset/width cap. */
+.note-layout .note-header,
+.note-layout .note-content { max-width: none; margin: 0; padding-left: 0; padding-right: 0; }
+.note-main { min-width: 0; }
 
-.article-toc.has-hero { position: sticky; top: 80px; left: auto; transform: none; width: auto; max-height: none; display: block; animation: none; opacity: 1; visibility: visible; }
+.article-toc.has-hero { position: sticky; top: 80px; left: auto; transform: none; max-height: none; display: block; animation: none; opacity: 1; visibility: visible; }
 
 .note-hero { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 20px; }
 .hero-block { border: 1px solid var(--border); border-radius: 6px; background: var(--bg-card); overflow: hidden; }
@@ -61,10 +66,7 @@
 .note-empty a { color: var(--accent); }
 
 @media (max-width: 1100px) {
-  .note-header.has-hero { grid-template-columns: 1fr; gap: 0; }
-  .note-header.has-hero > * { grid-column: 1; }
-  .note-layout.has-hero { grid-template-columns: 1fr; }
-  .note-layout.has-hero .note-content { display: block; }
+  .note-layout.has-hero { max-width: 900px; grid-template-columns: 1fr; }
   .note-hero { position: static; }
   .article-toc.has-hero { display: none; }
 }
@@ -72,5 +74,5 @@
   .note-header { padding: 48px 20px 24px; }
   .note-header h1 { font-size: 28px; }
   .note-content { padding: 0 20px 80px; }
-  .note-layout.has-hero { padding-left: 20px; padding-right: 20px; }
+  .note-layout { padding-left: 20px; padding-right: 20px; }
 }
