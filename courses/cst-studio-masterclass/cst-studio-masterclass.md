@@ -43,3 +43,27 @@
 <line x1="316" y1="96" x2="336" y2="96" stroke="#3a4046" stroke-width="1"></line><polygon points="332,92 339,96 332,100" fill="#3a4046"></polygon>
 <line x1="384" y1="96" x2="404" y2="96" stroke="#3a4046" stroke-width="1"></line><polygon points="388,92 381,96 388,100" fill="#3a4046"></polygon>
 </svg>
+
+
+<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg" style="background:#12161a;">
+<circle cx="40" cy="60" r="10" fill="#7cb342">
+<animate attributeName="r" values="10;16;10" dur="1.8s" repeatCount="indefinite"></animate>
+<animate attributeName="opacity" values="1;0.4;1" dur="1.8s" repeatCount="indefinite"></animate>
+</circle>
+<text x="40" y="90" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#5f676e">GW pulse</text>
+
+<g transform="translate(150,60)">
+<rect x="-10" y="-10" width="20" height="20" fill="none" stroke="#e0a458" stroke-width="2">
+<animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="3s" repeatCount="indefinite"></animateTransform>
+</rect>
+</g>
+<text x="150" y="90" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#5f676e">rotating gate</text>
+
+<path id="track" d="M 220 60 L 280 60" fill="none" stroke="#3a4046" stroke-width="1"></path>
+<circle r="4" fill="#7cb342">
+<animateMotion dur="2s" repeatCount="indefinite" path="M 220 60 L 280 60"></animateMotion>
+</circle>
+<text x="250" y="90" text-anchor="middle" font-family="Roboto Mono" font-size="9" fill="#5f676e">packet motion</text>
+</svg>
+
+
