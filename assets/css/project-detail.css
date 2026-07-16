@@ -115,16 +115,6 @@ a { color: inherit; }
 .contact p { color: var(--text-body); max-width: 50ch; margin: 0; }
 .footnote { max-width: 1200px; margin: 32px auto 0; padding: 0 32px 16px; font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); letter-spacing: .04em; }
 
-.article-toc { position: fixed; left: calc(25vw - 385px); top: 50%; transform: translateY(-50%); width: 196px; max-height: 80vh; overflow-y: auto; z-index: 10; padding: 0 0 16px; scrollbar-width: none; opacity: 0; visibility: hidden; }
-.article-toc.ready { visibility: visible; animation: toc-enter .45s cubic-bezier(0.2,0,0,1) .08s both; }
-@keyframes toc-enter { from { opacity: 0; transform: translateY(-50%) translateX(-10px); } to { opacity: 1; transform: translateY(-50%) translateX(0); } }
-.article-toc::-webkit-scrollbar { display: none; }
-@media (max-width: 1400px) { .article-toc { display: none; } .toc-pill { display: none !important; } }
-.toc-pill { position: absolute; border-radius: 999px; pointer-events: none; z-index: 9; transition: top .32s cubic-bezier(0.2,0,0,1), left .32s cubic-bezier(0.2,0,0,1), width .32s cubic-bezier(0.2,0,0,1), height .32s cubic-bezier(0.2,0,0,1), opacity .22s cubic-bezier(0.2,0,0,1); opacity: 0; background: var(--primary-container); }
-.article-toc a { position: relative; z-index: 11; display: block; height: 32px; line-height: 32px; padding: 0 16px; font-family: var(--font-mono); font-size: 12.5px; font-weight: 450; color: var(--text-body); border-radius: 999px; margin: 2px 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: color .2s cubic-bezier(0.2,0,0,1), background .18s cubic-bezier(0.2,0,0,1); }
-.article-toc a:hover { background: color-mix(in oklab, var(--accent) 7%, transparent); color: var(--text); }
-.article-toc a.active, .article-toc a.active:hover { color: var(--on-primary-container) !important; font-weight: 600 !important; }
-
 @media (max-width: 960px) {
   .proj-body { grid-template-columns: 1fr; gap: 32px; padding: 0 20px 60px; margin-top: 32px; }
   .proj-hero { padding: 32px 20px 28px; }

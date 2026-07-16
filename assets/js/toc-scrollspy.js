@@ -1,10 +1,14 @@
-(function () {
+// Powers the sticky, scroll-spied sidebar TOC (.article-toc) shared by project
+// write-ups (headings/links already static in the HTML at load) and course
+// notes (course.js builds the headings/links at runtime, then calls
+// window.initTocScrollspy() itself once they exist).
+window.initTocScrollspy = function (contentSelector) {
   var toc = document.querySelector('.article-toc');
   if (!toc) return;
-  var content = document.querySelector('.proj-main');
+  var content = document.querySelector(contentSelector || '.proj-main');
   if (!content) return;
-  var nodes = [...content.querySelectorAll('h2[id]')];
-  var links = [...toc.querySelectorAll('a[href^="#"]')];
+  var nodes = [].slice.call(content.querySelectorAll('h2[id]'));
+  var links = [].slice.call(toc.querySelectorAll('a[href^="#"]'));
   var pill = toc.querySelector('.toc-pill');
 
   function place(link) {
@@ -24,7 +28,7 @@
     if (atBottom) {
       hit = nodes[nodes.length - 1];
     } else {
-      for (var n of nodes) { if (n.offsetTop <= top) hit = n; }
+      nodes.forEach(function (n) { if (n.offsetTop <= top) hit = n; });
     }
     var href = hit ? '#' + hit.id : '';
     var active = null;
@@ -38,4 +42,8 @@
 
   window.addEventListener('scroll', update, { passive: true });
   update();
-})();
+};
+
+if (document.querySelector('.proj-main')) {
+  window.initTocScrollspy();
+}

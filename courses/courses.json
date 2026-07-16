@@ -14,6 +14,18 @@
         "visible": true
     },
     {
+        "folder": "landmine-detection-robot",
+        "title": "Landmine Detection Robot",
+        "cover": null,
+        "tags": [
+            "Robotics",
+            "Embedded Systems"
+        ],
+        "status": "done",
+        "notesFile": null,
+        "visible": true
+    },
+    {
         "folder": "digital-ic-design",
         "title": "Digital IC Design Fundamentals",
         "cover": null,

@@ -34,6 +34,20 @@
     return file.replace(/\.md$/i, '').replace(/[-_]/g, ' ');
   }
 
+  // Builds the left-hand index from the note's own h2 sections, then hands off
+  // to the shared scroll-spy (same sticky TOC behavior as the project write-ups).
+  function buildToc() {
+    var tocEl = document.getElementById('note-toc');
+    var headings = [].slice.call(bodyEl.querySelectorAll('h2'));
+    if (!tocEl || !headings.length) return;
+    headings.forEach(function (h, i) { h.id = 'heading-' + i; });
+    tocEl.innerHTML = headings.map(function (h, i) {
+      return '<a href="#heading-' + i + '">' + esc(h.textContent) + '</a>';
+    }).join('') + '<div class="toc-pill"></div>';
+    tocEl.classList.add('ready');
+    window.initTocScrollspy('.note-body');
+  }
+
   function renderMeta(course) {
     var chip = '<span class="note-chip ' + esc(course.status) + '">' + esc(STATUS_LABEL[course.status] || course.status) + '</span>';
     var tags = '<div class="note-tags">' + (course.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') + '</div>';
@@ -94,6 +108,7 @@
         .then(function (md) {
           var processed = preprocessObsidian(md, course.folder);
           bodyEl.innerHTML = window.marked.parse(processed);
+          buildToc();
         })
         .catch(function (err) {
           bodyEl.innerHTML = '<p class="note-empty">Could not load notes (' + esc(err.message) + ').</p>';
