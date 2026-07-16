@@ -6,3 +6,5 @@
 - Phase noise has a detrimental effect on the performance of analog to digital converters (ADCs), digital to analog converters (DACs), and RF mixers. It lowers the achievable dynamic range of the converters and mixers, although they are affected in somewhat different ways.
 
 ![[8b10bencoding.webp]]
+
+[[JESD204B]]
