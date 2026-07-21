@@ -12,5 +12,44 @@
         "status": "current",
         "notesFile": "CST Antenna Design FSS & RFID Simulation Masterclass.md",
         "visible": true
+    },
+    {
+        "folder": "Embedded-Systems-Bare-Metal-Programming",
+        "title": "Embedded Systems Bare-Metal Programming Ground Up",
+        "cover": "embedded.png",
+        "tags": [
+            "Embedded Systems",
+            "Bare-Metal Programming",
+            "STM32"
+        ],
+        "status": "current",
+        "notesFile": "Embedded Systems Bare-Metal Programming Ground Up.md",
+        "visible": true
+    },
+    {
+        "folder": "Mastering Microcontroller: Timers, PWM, CAN, Low Power",
+        "title": "Mastering Microcontroller: Timers, PWM, CAN, Low Power",
+        "cover": "cover.png",
+        "tags": [
+            "Embedded Systems",
+            "Timers","PWM","CAN",
+            "STM32"
+        ],
+        "status": "current",
+        "notesFile": "Mastering Microcontroller: Timers, PWM, CAN, Low Power.md",
+        "visible": true
+    },
+    {
+        "folder": "Mastering Microcontroller and Embedded Driver Development",
+        "title": "Mastering Microcontroller and Embedded Driver Development",
+        "cover": "cover.png",
+        "tags": [
+            "Embedded Systems",
+            "Embedded Driver",
+            "STM32"
+        ],
+        "status": "current",
+        "notesFile": "Mastering Microcontroller and Embedded Driver Development.md",
+        "visible": true
     }
 ]
