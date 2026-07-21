@@ -2,7 +2,7 @@
     {
         "folder": "cst-studio-masterclass",
         "title": "CST Studio Masterclass",
-        "cover": "8b10bencoding.webp",
+        "cover": "cst.png",
         "tags": [
             "CST Studio",
             "EM Simulation",
@@ -10,44 +10,7 @@
             "RF"
         ],
         "status": "current",
-        "notesFile": "cst-studio-masterclass.md",
+        "notesFile": "CST Antenna Design FSS & RFID Simulation Masterclass.md",
         "visible": true
-    },
-    {
-        "folder": "landmine-detection-robot",
-        "title": "Landmine Detection Robot",
-        "cover": null,
-        "tags": [
-            "Robotics",
-            "Embedded Systems"
-        ],
-        "status": "done",
-        "notesFile": "landmine-detection-robot.md",
-        "visible": false
-    },
-    {
-        "folder": "digital-ic-design",
-        "title": "Digital IC Design Fundamentals",
-        "cover": null,
-        "tags": [
-            "VLSI",
-            "RTL",
-            "Verilog"
-        ],
-        "status": "done",
-        "notesFile": null,
-        "visible": false
-    },
-    {
-        "folder": "jesd204c-deep-dive",
-        "title": "JESD204C Deep Dive",
-        "cover": null,
-        "tags": [
-            "Clocking",
-            "SerDes"
-        ],
-        "status": "planned",
-        "notesFile": null,
-        "visible": false
     }
 ]
