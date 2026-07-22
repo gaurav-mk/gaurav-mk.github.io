@@ -57,36 +57,23 @@
 #### Insertion Loss = Transmitted power / Incident Power
 #### Return Loss = Reflected Power / Incident Power
 #### VSWR
-§  VSWR stands for Voltage standing wave ratio.
+- VSWR stands for Voltage standing wave ratio.
+- This is the measure of how efficiently a radio power is transmitted through a transmission line the antenna.
+- It is also the measure of the reflected standing waves along the feeder.
+- The Voltage standing wave ratio (VSWR) is an indication of the amount of mismatch between an antenna and the feed line connecting to it.
+- The range of values for VSWR in from 1 to infinity.
+- A VSWR value under 2 is considered suitable for most antenna applications. The antenna can be described as having a good match.
+- So when someone says that the antenna is poorly matched, very often it means that the VSWR value exceeds 2 for a frequency of interest.
 
-§  This is the measure of how efficiently a radio power is transmitted through a transmission line the antenna.
+#### Gain
+- It describes how much power is transmitted in the desired direction to that of the isotropic antenna.
+- A transmitting antenna with 3 dB gain means that the power received far from the antenna will be 3 dB higher (twice as much) than what would be received from a lossless isotropic antenna with same input power.
 
-§  It is also the measure of the reflected standing waves along the feeder.
+#### RCS
+- Radar Cross-section is the detectability of an object by radar.
+- It is also the ability of an object to reflect radar signal in direction of its receiver.
+- Large RCS indicates that an object is easily detectable.
 
-§  The Voltage standing wave ratio (VSWR) is an indication of the amount of mismatch between an antenna and the feed line connecting to it.
-
-§  The range of values for VSWR in from 1 to infinity.
-
-§  A VSWR value under 2 is considered suitable for most antenna applications. The antenna can be described as having a good match.
-
-§  So when someone says that the antenna is poorly matched, very often it means that the VSWR value exceeds 2 for a frequency of interest.
-
-o   G**ain:**
-
-§  It describes how much power is transmitted in the desired direction to that of the isotropic antenna.
-
-§  A transmitting antenna with 3 dB gain means that the power received far from the antenna will be 3 dB higher (twice as much) than what would be received from a lossless isotropic antenna with same input power.
-
-o   RCS:
-
-§  Radar Cross-section is the detectability of an object by radar.
-
-§  It is also the ability of an object to reflect radar signal in direction of its receiver.
-
-§  Large RCS indicates that an object is easily detectable.
-
-o   Bandwidth:
-
-§  An antenna’s bandwidth is the range of frequencies (or wavelengths) over which it works effectively.
-
-§  The broader the bandwidth, the greater the range of different radio waves you can pick up.
+#### Bandwidth
+- An antenna’s bandwidth is the range of frequencies (or wavelengths) over which it works effectively.
+- The broader the bandwidth, the greater the range of different radio waves you can pick up.

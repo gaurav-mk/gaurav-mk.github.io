@@ -2,7 +2,7 @@
     {
         "folder": "cst-studio-masterclass",
         "title": "CST Studio Masterclass",
-        "cover": "8b10bencoding.webp",
+        "cover": "cst.png",
         "tags": [
             "CST Studio",
             "EM Simulation",
@@ -10,44 +10,46 @@
             "RF"
         ],
         "status": "current",
-        "notesFile": "cst-studio-masterclass.md",
+        "notesFile": "CST Antenna Design FSS & RFID Simulation Masterclass.md",
         "visible": true
     },
     {
-        "folder": "landmine-detection-robot",
-        "title": "Landmine Detection Robot",
-        "cover": null,
+        "folder": "Embedded-Systems-Bare-Metal-Programming",
+        "title": "Embedded Systems Bare-Metal Programming Ground Up",
+        "cover": "embedded.png",
         "tags": [
-            "Robotics",
-            "Embedded Systems"
+            "Embedded Systems",
+            "Bare-Metal Programming",
+            "STM32"
         ],
-        "status": "done",
-        "notesFile": "landmine-detection-robot.md",
-        "visible": false
+        "status": "current",
+        "notesFile": "Embedded Systems Bare-Metal Programming Ground Up.md",
+        "visible": true
     },
     {
-        "folder": "digital-ic-design",
-        "title": "Digital IC Design Fundamentals",
-        "cover": null,
+        "folder": "Mastering Microcontroller: Timers, PWM, CAN, Low Power",
+        "title": "Mastering Microcontroller: Timers, PWM, CAN, Low Power",
+        "cover": "cover.png",
         "tags": [
-            "VLSI",
-            "RTL",
-            "Verilog"
+            "Embedded Systems",
+            "Timers","PWM","CAN",
+            "STM32"
         ],
-        "status": "done",
-        "notesFile": null,
-        "visible": false
+        "status": "current",
+        "notesFile": "Mastering Microcontroller: Timers, PWM, CAN, Low Power.md",
+        "visible": true
     },
     {
-        "folder": "jesd204c-deep-dive",
-        "title": "JESD204C Deep Dive",
-        "cover": null,
+        "folder": "Mastering Microcontroller and Embedded Driver Development",
+        "title": "Mastering Microcontroller and Embedded Driver Development",
+        "cover": "cover.png",
         "tags": [
-            "Clocking",
-            "SerDes"
+            "Embedded Systems",
+            "Embedded Driver",
+            "STM32"
         ],
-        "status": "planned",
-        "notesFile": null,
-        "visible": false
+        "status": "current",
+        "notesFile": "Mastering Microcontroller and Embedded Driver Development.md",
+        "visible": true
     }
 ]
