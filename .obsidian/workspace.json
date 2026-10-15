@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "a440fb2e87cfcf28",
+        "id": "45393395ecd3e52a",
         "type": "tabs",
         "children": [
           {
-            "id": "78a7a0fe532bd261",
+            "id": "3c200dc10d97012c",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -41,7 +41,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -183,42 +185,52 @@
       "bases:Create new base": false
     }
   },
-  "active": "78a7a0fe532bd261",
+  "active": "3c200dc10d97012c",
   "lastOpenFiles": [
     "courses/cst-studio-masterclass/CST Antenna Design FSS & RFID Simulation Masterclass.md",
-    "courses/cst-studio-masterclass/Frequency Simulations.md",
     "courses/cst-studio-masterclass/cst.png",
+    "courses/cst-studio-masterclass/Frequency Simulations.md",
+    "courses/cst-studio-masterclass/Parametric and Equation based Simulation.md",
+    "Pasted image 20260821122819.png",
+    "Pasted image 20260821122756.png",
+    "courses/power-electronics/Introduction to Power Elctronics (MIT Courseware).md",
+    "Untitled",
+    "courses/Clock Distribution for High Frequency Components/JESD204B Overview.md",
+    "courses/power-electronics",
+    "courses/Untitled.md",
+    "courses/Clock Distribution for High Frequency Components/JESD204B Overview.md.tmp.15732.138b69eea6b1",
+    "courses/Clock Distribution for High Frequency Components/JESD204B Overview.md.tmp.15732.9885f152b603",
+    "courses/Clock Distribution for High Frequency Components/new_svg.txt",
+    "courses/Clock Distribution for High Frequency Components/cml_block.txt",
+    "courses/Clock Distribution for High Frequency Components/lvds_block.txt",
+    "courses/Clock Distribution for High Frequency Components/full_svg.txt",
+    "courses/Clock Distribution for High Frequency Components/JESD204B Overview.md.tmp.15732.df48bcbb91b3",
+    "courses/Clock Distribution for High Frequency Components/right.txt",
+    "courses/Clock Distribution for High Frequency Components/LMX1205.md",
+    "courses/Clock Distribution for High Frequency Components/Clocking concepts.md",
+    "courses/Clock Distribution for High Frequency Components/HMC7043.md",
+    "courses/Clock Distribution for High Frequency Components/Test Setup.md",
+    "courses/Clock Distribution for High Frequency Components/Output logic Standard.md",
     "courses/Altium-workspace-user-management/ALTIUM Workspace User Management.md",
+    "courses/Clock Distribution for High Frequency Components/vcm-comparison.svg",
+    "courses/Clock Distribution for High Frequency Components/hcsl-standard.svg",
+    "courses/Clock Distribution for High Frequency Components/lvpecl-standard.svg",
+    "courses/Clock Distribution for High Frequency Components/cml-standard.svg",
+    "courses/Clock Distribution for High Frequency Components/lvds-standard.svg",
+    "courses/Clock Distribution for High Frequency Components/phase-noise-plot.svg",
+    "Pasted image 20260725233506.png",
     "courses/ADC-DAC/Data Acquisition.md",
-    "courses/Altium-workspace-user-management",
     "courses/ADC-DAC/ADC/Analog to Digital Converter.md",
-    "courses/cst-studio-masterclass/Unconfirmed 504828.crdownload",
     "courses/cst-studio-masterclass/JESD204B.md",
-    "courses/cst-studio-masterclass/8b10bencoding.webp",
     "courses/cst-studio-masterclass/cst-studio-masterclass.md",
     "courses/landmine-detection-robot/landmine-detection-robot.md",
     "courses/smith-chart/Smith Chart.md",
     "projects/landmine-detection-robot/landmine-detection-robot.md",
-    "courses/smith-chart",
-    "projects/landmine-detection-robot/land.webp",
     "projects/ble-mioty/ble-mioty.md",
     "projects/smart-home-automation-ups/smart-home-automation-ups.md",
-    "projects/ble-mioty/hero.json",
-    "projects/ble-mioty/hero.json.tmp.8596.f63c5929fbc6",
-    "projects/ble-mioty/ble-mioty.md.tmp.8596.9f06586379c3",
     "projects/7nm-finfet-standard-cell-library/7nm-finfet-standard-cell-library.md",
-    "assets/css/course-note.css.tmp.8596.0de948335e71",
-    "assets/css/course-note.css.tmp.8596.94591304ec06",
-    "assets/css/course-note.css.tmp.8596.e12e0b705192",
-    "assets/css/course-note.css.tmp.8596.a8ccef9c05cd",
     "projects/README.md",
     "projects/USB2Optical-Converter/USB2Optical-Converter.md",
-    "courses/landmine-detection-robot/JESD204B.md",
-    "courses/landmine-detection-robot/landmine.webp",
-    "courses/landmine-detection-robot/cst-studio-masterclass.md",
-    "courses/landmine-detection-robot/8b10bencoding.webp",
-    "courses/cst-studio-masterclass - Copy/JESD204B.md",
-    "courses/cst-studio-masterclass - Copy/cst-studio-masterclass.md",
-    "courses/cst-studio-masterclass - Copy/8b10bencoding.webp"
+    "courses/landmine-detection-robot/JESD204B.md"
   ]
 }
