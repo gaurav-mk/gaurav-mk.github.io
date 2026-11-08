@@ -1,0 +1,33 @@
+/* Auto-number headings: # -> 1, ## -> 1.1, ### -> 1.1.1, #### -> 1.1.1.1
+   Display only - does not change the note text. */
+
+/* ---------- Reading view ---------- */
+.markdown-preview-sizer { counter-reset: h1; }
+.markdown-preview-sizer > .el-h1 { counter-increment: h1; counter-reset: h2; }
+.markdown-preview-sizer > .el-h2 { counter-increment: h2; counter-reset: h3; }
+.markdown-preview-sizer > .el-h3 { counter-increment: h3; counter-reset: h4; }
+.markdown-preview-sizer > .el-h4 { counter-increment: h4; }
+
+.markdown-preview-sizer > .el-h1 > h1::before { content: counter(h1) ". "; }
+.markdown-preview-sizer > .el-h2 > h2::before { content: counter(h1) "." counter(h2) " "; }
+.markdown-preview-sizer > .el-h3 > h3::before { content: counter(h1) "." counter(h2) "." counter(h3) " "; }
+.markdown-preview-sizer > .el-h4 > h4::before { content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) " "; }
+
+/* ---------- Live Preview / Source mode ---------- */
+.markdown-source-view.mod-cm6 .cm-content { counter-reset: h1; }
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-1 { counter-increment: h1; counter-reset: h2; }
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-2 { counter-increment: h2; counter-reset: h3; }
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-3 { counter-increment: h3; counter-reset: h4; }
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-4 { counter-increment: h4; }
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-1::before { content: counter(h1) ". "; }
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-2::before { content: counter(h1) "." counter(h2) " "; }
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-3::before { content: counter(h1) "." counter(h2) "." counter(h3) " "; }
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-4::before { content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) " "; }
+
+/* Number styling */
+.markdown-preview-sizer > [class^="el-h"] > :is(h1, h2, h3, h4)::before,
+.markdown-source-view.mod-cm6 .cm-line[class*="HyperMD-header-"]::before {
+  color: var(--text-muted);
+  margin-right: 0.35em;
+}

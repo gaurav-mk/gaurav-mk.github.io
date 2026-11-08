@@ -55,6 +55,21 @@
 .note-body pre code { background: none; border: none; padding: 0; color: var(--text-body); }
 .note-body blockquote { margin: 0 0 16px; padding: 4px 18px; border-left: 3px solid var(--accent); background: var(--bg-alt); color: var(--text-body); }
 .note-body blockquote p:last-child { margin-bottom: 0; }
+/* Obsidian callouts (> [!tip] Title), built by renderCallouts() in course.js */
+.note-body .callout { --callout: 124,179,66; margin: 0 0 16px; padding: 12px 16px; border-left: 3px solid rgb(var(--callout)); border-radius: 0 6px 6px 0; background: rgba(var(--callout),.08); }
+.note-body .callout-title { color: rgb(var(--callout)); font-weight: 600; margin-bottom: 4px; }
+.note-body summary.callout-title { cursor: pointer; }
+.note-body details.callout:not([open]) > .callout-title { margin-bottom: 0; }
+.note-body .callout-content > :last-child { margin-bottom: 0; }
+.note-body .callout-note, .note-body .callout-info { --callout: 140,170,238; }
+.note-body .callout-abstract, .note-body .callout-tip { --callout: 129,200,190; }
+.note-body .callout-warning { --callout: 239,159,118; }
+.note-body .callout-example { --callout: 202,158,230; }
+/* [!grid]: card layout, matching the vault-polish snippet in Obsidian */
+.note-body .callout-grid { padding: 0; border: 0; background: none; }
+.note-body .callout-grid > .callout-title { display: none; }
+.note-body .callout-grid > .callout-content { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.note-body .callout-grid .callout { margin: 0; }
 .note-body img { max-width: 100%; display: block; margin: 8px 0 20px; border: 1px solid var(--border-strong); }
 .note-body hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
 .note-body table { width: 100%; border-collapse: collapse; margin: 0 0 20px; border: 1px solid var(--border-strong); font-size: 13.5px; }

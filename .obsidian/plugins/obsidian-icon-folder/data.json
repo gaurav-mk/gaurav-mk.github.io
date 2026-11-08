@@ -1,0 +1,64 @@
+{
+  "settings": {
+    "migrated": 6,
+    "iconColor": null,
+    "iconInTabsEnabled": true,
+    "rules": [
+      {
+        "rule": "^Media$",
+        "icon": "LiImage",
+        "for": "folders",
+        "order": 0,
+        "useFilePath": false
+      },
+      {
+        "rule": "^Templates$",
+        "icon": "LiLayoutTemplate",
+        "for": "folders",
+        "order": 1,
+        "useFilePath": false
+      }
+    ],
+    "iconPacksPath": ".obsidian/icons",
+    "fontSize": 16,
+    "emojiStyle": "native",
+    "recentlyUsedIcons": [],
+    "recentlyUsedIconsSize": 5,
+    "extraMargin": {
+      "top": 0,
+      "right": 4,
+      "bottom": 0,
+      "left": 0
+    },
+    "iconInTitleEnabled": false,
+    "iconInTitlePosition": "above",
+    "iconInFrontmatterEnabled": false,
+    "iconInFrontmatterFieldName": "icon",
+    "iconColorInFrontmatterFieldName": "iconColor",
+    "iconsBackgroundCheckEnabled": false,
+    "iconsInNotesEnabled": true,
+    "iconsInLinksEnabled": true,
+    "iconIdentifier": ":",
+    "lucideIconPackType": "native",
+    "debugMode": false,
+    "useInternalPlugins": false
+  },
+  "Home.md": "LiHome",
+  "00 Thesis": "LiGraduationCap",
+  "01 Devices": "LiCpu",
+  "01 Devices/LMX1205": "LiCircuitBoard",
+  "01 Devices/HMC7043": "LiCircuitBoard",
+  "01 Devices/LMX1205/Register Word": "LiTable",
+  "01 Devices/LMX1205/Registers": "LiBinary",
+  "02 Standards": "LiScrollText",
+  "02 Standards/JESD204": "LiScrollText",
+  "03 Concepts": "LiBookOpen",
+  "04 Hardware Design": "LiWrench",
+  "04 Hardware Design/Balun": "LiRadioTower",
+  "04 Hardware Design/PCB": "LiLayers",
+  "05 Literature": "LiLibrary",
+  "06 Problems": "LiBug",
+  "99 Meta": "LiSettings",
+  "07 Software": "LiCode",
+  "08 Tasks": "LiListChecks"
+}

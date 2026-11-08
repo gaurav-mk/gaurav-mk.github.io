@@ -1,0 +1,93 @@
+/* ==========================================================================
+   Vault polish: Masters Thesis notes
+   Theme-agnostic (uses Obsidian / AnuPpuccin CSS variables only).
+   ========================================================================== */
+
+/* ---------- Dashboard card grid --------------------------------------------
+   Usage:
+   > [!grid]
+   > > [!info] Card title
+   > > - item
+   >
+   > > [!tip] Another card
+   ------------------------------------------------------------------------- */
+.callout[data-callout="grid"] {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 1em 0;
+}
+.callout[data-callout="grid"] > .callout-title {
+  display: none;
+}
+.callout[data-callout="grid"] > .callout-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0.75rem;
+  padding: 0;
+}
+.callout[data-callout="grid"] > .callout-content > .callout {
+  margin: 0;
+  height: 100%;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.callout[data-callout="grid"] > .callout-content > .callout:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-s);
+}
+.callout[data-callout="grid"] > .callout-content > .callout ul {
+  padding-inline-start: 1.1em;
+}
+
+/* ---------- Dashboard page (cssclasses: dashboard) ------------------------- */
+.dashboard .inline-title,
+.dashboard .metadata-container {
+  display: none;
+}
+.dashboard .callout[data-callout="abstract"]:first-of-type .callout-content {
+  font-size: 1.05em;
+}
+
+/* ---------- Wide Mermaid diagrams: scroll horizontally -------------------- */
+.block-language-mermaid,
+.mermaid {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.block-language-mermaid svg,
+.mermaid svg {
+  width: max-content !important;
+  max-width: none !important;
+}
+
+/* ---------- Custom callout: [!list] (collapsible indexes) ------------------ */
+.callout[data-callout="list"] {
+  --callout-icon: lucide-list;
+}
+
+/* ---------- 16-column register bit map (cssclasses: register-map) ---------- */
+.register-map table {
+  font-size: 0.72em;
+  font-family: var(--font-monospace);
+}
+.register-map table th,
+.register-map table td {
+  white-space: nowrap;
+  padding: 2px 6px;
+  text-align: center;
+}
+.register-map table td:first-child,
+.register-map table th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--background-primary);
+  font-weight: 600;
+}
+
+/* ---------- Dataview tables: a little tighter ------------------------------ */
+.table-view-table > tbody > tr > td {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}

@@ -1,22 +1,100 @@
 {
   "collapse-filter": true,
-  "search": "",
+  "search": "-path:\"99 Meta\"",
   "showTags": false,
   "showAttachments": false,
   "hideUnresolved": false,
   "showOrphans": true,
-  "collapse-color-groups": true,
-  "colorGroups": [],
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "path:\"01 Devices/LMX1205/Registers\" OR path:\"01 Devices/LMX1205/Register Word\"",
+      "color": {
+        "a": 1,
+        "rgb": 7567764
+      }
+    },
+    {
+      "query": "path:\"00 Thesis\" OR file:Home",
+      "color": {
+        "a": 1,
+        "rgb": 15703926
+      }
+    },
+    {
+      "query": "path:\"01 Devices/LMX1205\"",
+      "color": {
+        "a": 1,
+        "rgb": 9218798
+      }
+    },
+    {
+      "query": "path:\"01 Devices\"",
+      "color": {
+        "a": 1,
+        "rgb": 13278950
+      }
+    },
+    {
+      "query": "path:\"02 Standards\"",
+      "color": {
+        "a": 1,
+        "rgb": 15059088
+      }
+    },
+    {
+      "query": "path:\"03 Concepts\"",
+      "color": {
+        "a": 1,
+        "rgb": 10932617
+      }
+    },
+    {
+      "query": "path:\"04 Hardware Design\"",
+      "color": {
+        "a": 1,
+        "rgb": 8505534
+      }
+    },
+    {
+      "query": "path:\"05 Literature\"",
+      "color": {
+        "a": 1,
+        "rgb": 8765916
+      }
+    },
+    {
+      "query": "path:\"06 Problems\"",
+      "color": {
+        "a": 1,
+        "rgb": 15172228
+      }
+    },
+    {
+      "query": "path:\"07 Software\"",
+      "color": {
+        "a": 1,
+        "rgb": 16038116
+      }
+    },
+    {
+      "query": "path:\"08 Tasks\"",
+      "color": {
+        "a": 1,
+        "rgb": 12237809
+      }
+    }
+  ],
   "collapse-display": true,
   "showArrow": false,
   "textFadeMultiplier": 0,
   "nodeSizeMultiplier": 1,
   "lineSizeMultiplier": 1,
-  "collapse-forces": true,
+  "collapse-forces": false,
   "centerStrength": 0.518713248970312,
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 1,
+  "scale": 0.3122736720562388,
   "close": false
 }

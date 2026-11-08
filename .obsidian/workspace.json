@@ -1,24 +1,24 @@
 {
   "main": {
-    "id": "58ed1cadf43c0ef6",
+    "id": "5324373015726ba8",
     "type": "split",
     "children": [
       {
-        "id": "45393395ecd3e52a",
+        "id": "4509724f8bf84da7",
         "type": "tabs",
         "children": [
           {
-            "id": "3c200dc10d97012c",
+            "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "courses/cst-studio-masterclass/Frequency Simulations.md",
+                "file": "courses/cst-studio-masterclass/Shortcuts.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Frequency Simulations"
+              "title": "Shortcuts"
             }
           }
         ]
@@ -27,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "415692a821a69905",
+    "id": "529f085950293891",
     "type": "split",
     "children": [
       {
-        "id": "2072a86c0634010c",
+        "id": "7e8cd88bd45f747f",
         "type": "tabs",
         "children": [
           {
-            "id": "6d506def97e0e7b6",
+            "id": "91229d1ef1602266",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -50,7 +50,7 @@
             }
           },
           {
-            "id": "6772b723b87f8c42",
+            "id": "01bd03c7c8aca6d1",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -67,11 +67,14 @@
             }
           },
           {
-            "id": "bfc28d420ee8267a",
+            "id": "8d54d88041b70eb6",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
-              "state": {},
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
               "icon": "lucide-bookmark",
               "title": "Bookmarks"
             }
@@ -83,20 +86,19 @@
     "width": 300
   },
   "right": {
-    "id": "d5832fe0726f1edc",
+    "id": "f5161820ca57e777",
     "type": "split",
     "children": [
       {
-        "id": "d9db6870a149056e",
+        "id": "d513f2cf546f94ff",
         "type": "tabs",
         "children": [
           {
-            "id": "15a4695e2d9de771",
+            "id": "d45a0c39380705d0",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "projects/landmine-detection-robot/landmine-detection-robot.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -106,25 +108,24 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for landmine-detection-robot"
+              "title": "Backlinks"
             }
           },
           {
-            "id": "ef438572a6527ee2",
+            "id": "022696e4a9566a8a",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "projects/landmine-detection-robot/landmine-detection-robot.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from landmine-detection-robot"
+              "title": "Outgoing links"
             }
           },
           {
-            "id": "d311f86e972c06b7",
+            "id": "3a9e438418d5dbea",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -139,7 +140,7 @@
             }
           },
           {
-            "id": "59cfb7a2045e71ca",
+            "id": "64e4492e51f6d76a",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -153,18 +154,17 @@
             }
           },
           {
-            "id": "d08e8f6b03bc910d",
+            "id": "e5bbd2c8250429b5",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "projects/landmine-detection-robot/landmine-detection-robot.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of landmine-detection-robot"
+              "title": "Outline"
             }
           }
         ]
@@ -182,55 +182,57 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "bases:Create new base": false
+      "bases:Create new base": false,
+      "homepage:Open homepage": false
     }
   },
-  "active": "3c200dc10d97012c",
+  "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "courses/cst-studio-masterclass/35. Semi Elliptical Wideband Antenna.md",
+    "courses/cst-studio-masterclass/34. Dual Band Dipole Antenna for WLAN.md",
+    "courses/cst-studio-masterclass/33. Printed Loop Antenna with LCD Frame.md",
+    "courses/cst-studio-masterclass/32. Dual Fed Circularly Polarized Loop Antenna.md",
+    "courses/cst-studio-masterclass/31. Compact Planar Loop Dipole Antenna.md",
+    "courses/cst-studio-masterclass/30. Rectangular Wire Loop Antenna.md",
+    "courses/cst-studio-masterclass/29. Multiple Ring Loop Antenna.md",
+    "courses/cst-studio-masterclass/28. Circular Loop Antenna.md",
+    "courses/cst-studio-masterclass/27. Rectangular Loop Antenna.md",
+    "courses/cst-studio-masterclass/26. Wideband Quasi Yagi Antenna.md",
+    "courses/cst-studio-masterclass/25. Printed Yagi Antenna.md",
     "courses/cst-studio-masterclass/CST Antenna Design FSS & RFID Simulation Masterclass.md",
-    "courses/cst-studio-masterclass/cst.png",
-    "courses/cst-studio-masterclass/Frequency Simulations.md",
-    "courses/cst-studio-masterclass/Parametric and Equation based Simulation.md",
-    "Pasted image 20260821122819.png",
-    "Pasted image 20260821122756.png",
-    "courses/power-electronics/Introduction to Power Elctronics (MIT Courseware).md",
-    "Untitled",
-    "courses/Clock Distribution for High Frequency Components/JESD204B Overview.md",
-    "courses/power-electronics",
-    "courses/Untitled.md",
-    "courses/Clock Distribution for High Frequency Components/JESD204B Overview.md.tmp.15732.138b69eea6b1",
-    "courses/Clock Distribution for High Frequency Components/JESD204B Overview.md.tmp.15732.9885f152b603",
-    "courses/Clock Distribution for High Frequency Components/new_svg.txt",
-    "courses/Clock Distribution for High Frequency Components/cml_block.txt",
-    "courses/Clock Distribution for High Frequency Components/lvds_block.txt",
-    "courses/Clock Distribution for High Frequency Components/full_svg.txt",
-    "courses/Clock Distribution for High Frequency Components/JESD204B Overview.md.tmp.15732.df48bcbb91b3",
-    "courses/Clock Distribution for High Frequency Components/right.txt",
-    "courses/Clock Distribution for High Frequency Components/LMX1205.md",
-    "courses/Clock Distribution for High Frequency Components/Clocking concepts.md",
-    "courses/Clock Distribution for High Frequency Components/HMC7043.md",
-    "courses/Clock Distribution for High Frequency Components/Test Setup.md",
-    "courses/Clock Distribution for High Frequency Components/Output logic Standard.md",
-    "courses/Altium-workspace-user-management/ALTIUM Workspace User Management.md",
-    "courses/Clock Distribution for High Frequency Components/vcm-comparison.svg",
-    "courses/Clock Distribution for High Frequency Components/hcsl-standard.svg",
-    "courses/Clock Distribution for High Frequency Components/lvpecl-standard.svg",
-    "courses/Clock Distribution for High Frequency Components/cml-standard.svg",
-    "courses/Clock Distribution for High Frequency Components/lvds-standard.svg",
-    "courses/Clock Distribution for High Frequency Components/phase-noise-plot.svg",
-    "Pasted image 20260725233506.png",
-    "courses/ADC-DAC/Data Acquisition.md",
-    "courses/ADC-DAC/ADC/Analog to Digital Converter.md",
-    "courses/cst-studio-masterclass/JESD204B.md",
-    "courses/cst-studio-masterclass/cst-studio-masterclass.md",
-    "courses/landmine-detection-robot/landmine-detection-robot.md",
-    "courses/smith-chart/Smith Chart.md",
-    "projects/landmine-detection-robot/landmine-detection-robot.md",
-    "projects/ble-mioty/ble-mioty.md",
-    "projects/smart-home-automation-ups/smart-home-automation-ups.md",
-    "projects/7nm-finfet-standard-cell-library/7nm-finfet-standard-cell-library.md",
-    "projects/README.md",
-    "projects/USB2Optical-Converter/USB2Optical-Converter.md",
-    "courses/landmine-detection-robot/JESD204B.md"
+    "courses/cst-studio-masterclass/9. Chipless RFID Unit Cell Design.md",
+    "courses/cst-studio-masterclass/24. Printed Quasi Yagi Antenna.md",
+    "courses/cst-studio-masterclass/23. Yagi Uda Antenna.md",
+    "courses/cst-studio-masterclass/22. Semi Elliptical Wideband Folded Dipole.md",
+    "courses/cst-studio-masterclass/21. Dual Band Dipole Antenna.md",
+    "courses/cst-studio-masterclass/20. Microstrip Fed Folded Dipole Antenna.md",
+    "courses/cst-studio-masterclass/10. Dual Polarized RFID Tag.md",
+    "courses/cst-studio-masterclass/11. Patch Antenna Fundamentals.md",
+    "courses/cst-studio-masterclass/13. Coaxial Fed Patch Antenna.md",
+    "courses/cst-studio-masterclass/14. Circular Patch Antenna.md",
+    "courses/cst-studio-masterclass/15. Monopole Antenna.md",
+    "courses/cst-studio-masterclass/16. Wideband Monopole Antenna.md",
+    "courses/cst-studio-masterclass/17. UWB Monopole Antenna.md",
+    "courses/cst-studio-masterclass/19. Dipole Antenna.md",
+    "sedFeU9l8",
+    "AGENTS.md.tmp.17900.19d03b0aac63",
+    "courses/cst-studio-masterclass/Pasted image 20260821122819.png",
+    "AGENTS.md.tmp.17900.89e7680ef8c9",
+    "04 Hardware Design/PCB/JLCPCB 4-Layer Stackup.md.tmp.548.bbda0e33cdf2",
+    "03 Concepts/Eye and Jitter Parameters.md.tmp.548.004569d39090",
+    "03 Concepts/Eye and Jitter Parameters.md.tmp.548.df196c7b3c9e",
+    "03 Concepts/Media/Reflection Eye.svg",
+    "03 Concepts/Media/Reflection Bounces.svg",
+    "03 Concepts/Media/Reflection Discontinuity.svg",
+    "03 Concepts/Media/Eye Impairments.svg",
+    "03 Concepts/Media/Pasted image 20261031113141.png",
+    "03 Concepts/Media/Eye Parameters.svg",
+    "03 Concepts/Eye Diagram.md.tmp.548.e58ccc0a8b80",
+    "03 Concepts/Media/Eye Anatomy.svg",
+    "03 Concepts/Media/Eye Anatomy.svg.tmp.548.e987da10356f",
+    "03 Concepts/Media/Eye Construction.svg",
+    "03 Concepts/Media/Data Link Eye.svg",
+    "03 Concepts/Signal Integrity.md.tmp.548.d090cc7a3229",
+    "03 Concepts/Media/Skin Effect.svg.tmp.548.1c3b0d5dd8c8"
   ]
 }

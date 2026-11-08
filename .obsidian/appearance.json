@@ -1,1 +1,13 @@
-{}
+{
+  "theme": "moonstone",
+  "cssTheme": "AnuPpuccin",
+  "baseFontSizeAction": true,
+  "monospaceFontFamily": "Bell MT",
+  "accentColor": "",
+  "showViewHeader": true,
+  "showRibbon": true,
+  "nativeMenus": false,
+  "enabledCssSnippets": [
+    "vault-polish"
+  ]
+}

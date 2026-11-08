@@ -6,3 +6,4 @@ description: Portfolio of Gaurav Kumar Mishra, hardware developer and M.Sc. ICT 
 exclude:
   - README.md
   - Templates/
+  - AGENTS.md

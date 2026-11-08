@@ -46,6 +46,35 @@
     window.initTocScrollspy('.note-body');
   }
 
+  // Turns Obsidian callouts (> [!tip] Title) into styled boxes. marked leaves them
+  // as plain blockquotes, so without this the site shows the raw [!tip] text.
+  // A - or + after the type makes one foldable, starting closed or open, as in Obsidian.
+  function renderCallouts() {
+    [].forEach.call(bodyEl.querySelectorAll('blockquote'), function (quote) {
+      var first = quote.firstElementChild;
+      var match = first && first.tagName === 'P' && first.innerHTML.match(/^\[!([\w-]+)\]([+-]?)[ \t]*(.*)\n?/);
+      if (!match) return;
+
+      var type = match[1].toLowerCase();
+      var foldable = !!match[2];
+      var box = document.createElement(foldable ? 'details' : 'div');
+      var title = document.createElement(foldable ? 'summary' : 'div');
+      var content = document.createElement('div');
+      box.className = 'callout callout-' + type;
+      if (match[2] === '+') box.open = true;
+      title.className = 'callout-title';
+      title.innerHTML = match[3] || type.charAt(0).toUpperCase() + type.slice(1);
+      content.className = 'callout-content';
+
+      first.innerHTML = first.innerHTML.slice(match[0].length);
+      if (!first.innerHTML.trim()) first.remove();
+      while (quote.firstChild) content.appendChild(quote.firstChild);
+      box.appendChild(title);
+      box.appendChild(content);
+      quote.parentNode.replaceChild(box, quote);
+    });
+  }
+
   var params = new URLSearchParams(window.location.search);
   var slug = params.get('slug');
   var noteParam = params.get('note');
@@ -97,6 +126,7 @@
         .then(function (md) {
           var processed = preprocessObsidian(md, course.folder);
           bodyEl.innerHTML = window.marked.parse(processed);
+          renderCallouts();
           buildToc();
         })
         .catch(function (err) {

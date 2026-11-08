@@ -1,83 +1,182 @@
-## Antenna Fundamentals
+> [!abstract] About these notes
+> Notes for the CST Antenna Design, FSS and RFID Simulation Masterclass, with one note per course section.
 
->CST: Computer Simulation Technology
+## 0.1 Course Sections
+> [!grid]
+> > [!info] Section 1
+> > **[[1. Getting Started and Antenna Fundamentals|Getting Started and Antenna Fundamentals]]**
+> >
+> > CST basics, S-parameters, S11, VSWR, gain, RCS and bandwidth.
+>
+> > [!tip] Section 2
+> > **[[2. Antenna Shape Design|Antenna Shape Design]]**
+> >
+> > Bricks, cylinders, parameters, Boolean operations, copies, slots and holes.
+>
+> > [!example] Section 3
+> > **[[3. Patch Antenna Design|Patch Antenna Design]]**
+> >
+> > Building a patch antenna, simulating it, reading S11 and gain, and tuning it with sweeps.
+>
+> > [!note] Section 4
+> > **[[4. Equation Based Antenna Design|Equation Based Antenna Design]]**
+> >
+> > Patch design equations, tuning a 13 GHz patch with sweeps, VSWR and efficiency.
+>
+> > [!warning] Section 5
+> > **[[5. Bandstop FSS Design|Bandstop FSS Design]]**
+> >
+> > What an FSS is, the unit cell, the full sheet, sweeps and angle of incidence.
+>
+> > [!info] Section 6
+> > **[[6. Bandpass FSS Design|Bandpass FSS Design]]**
+> >
+> > A double-sided loop and patch cell, the passband, sweeps and angle stability.
+>
+> > [!tip] Section 7
+> > **[[7. Wideband FSS Design|Wideband FSS Design]]**
+> >
+> > Two different patterns merge into one wide stop band, plus a comparison of all three FSS designs.
+>
+> > [!example] Section 8
+> > **[[8. Chipless RFID Fundamentals|Chipless RFID Fundamentals]]**
+> >
+> > RFID basics, how notches store bits, a 7-bit tag, RCS simulation, angle and polarization.
+>
+> > [!info] Section 9
+> > **[[9. Chipless RFID Unit Cell Design|Chipless RFID Unit Cell Design]]**
+> >
+> > A 5-bit tag of nested square rings, ring coordinates, solver accuracy and polarization.
+>
+> > [!warning] Section 10
+> > **[[10. Dual Polarized RFID Tag|Dual Polarized RFID Tag]]**
+> >
+> > Straight slots, slot length encoding, true dual polarization, and all three tags compared.
+>
+> > [!abstract] Section 11
+> > **[[11. Patch Antenna Fundamentals|Patch Antenna Fundamentals]]**
+> >
+> > How a patch radiates, feeds, impedance matching, inset feeds and waveguide ports.
+>
+> > [!tip] Section 12
+> > **[[12. Patch Antenna Without Insets|Patch Antenna Without Insets]]**
+> >
+> > Why a dip on target can be the wrong resonance, shown by the lecture's own numbers.
+>
+> > [!warning] Section 13
+> > **[[13. Coaxial Fed Patch Antenna|Coaxial Fed Patch Antenna]]**
+> >
+> > These videos repeat Section 12, so this note only points to the right places.
+>
+> > [!note] Section 14
+> > **[[14. Circular Patch Antenna|Circular Patch Antenna]]**
+> >
+> > Radius and resonance, an inset slot, a hand-sized port, and a comparison with the rectangular patch.
+>
+> > [!example] Section 15
+> > **[[15. Monopole Antenna|Monopole Antenna]]**
+> >
+> > Mirror images, types of monopole, the doughnut pattern, partial ground, and tuning the height.
+>
+> > [!info] Section 16
+> > **[[16. Wideband Monopole Antenna|Wideband Monopole Antenna]]**
+> >
+> > A printed monopole with partial ground, 72% bandwidth, and narrowband vs wideband.
+>
+> > [!warning] Section 17
+> > **[[17. UWB Monopole Antenna|UWB Monopole Antenna]]**
+> >
+> > Defected ground, a band of nearly 6:1, how the pattern changes, and three monopoles compared.
+>
+> > [!tip] Section 18
+> > **[[18. Rectangular Wideband Monopole Antenna|Rectangular Wideband Monopole]]**
+> >
+> > Four design steps with stubs and slots, and what each change really does.
+>
+> > [!abstract] Section 19
+> > **[[19. Dipole Antenna|Dipole Antenna]]**
+> >
+> > Current and voltage on the arms, types of dipole, 73 Ω vs 50 Ω, and one-step tuning.
+>
+> > [!info] Section 20
+> > **[[20. Microstrip Fed Folded Dipole Antenna|Microstrip Fed Folded Dipole]]**
+> >
+> > One line feeding two arms, monopole to dipole, bent vs folded, and a GSM version.
+>
+> > [!warning] Section 21
+> > **[[21. Dual Band Dipole Antenna|Dual Band Dipole Antenna]]**
+> >
+> > A stacked parallel-strip feed, two WLAN bands, what each part tunes, and a missed target.
+>
+> > [!tip] Section 22
+> > **[[22. Semi Elliptical Wideband Folded Dipole|Semi Elliptical Folded Dipole]]**
+> >
+> > Petal arms, a microstrip-to-slot feed, and a slot missing from the lecture's model.
+>
+> > [!abstract] Section 23
+> > **[[23. Yagi Uda Antenna|Yagi Uda Antenna]]**
+> >
+> > Parasitic elements, 6 and 10 element models, tuning with a scale factor, and what it costs.
+>
+> > [!info] Section 24
+> > **[[24. Printed Quasi Yagi Antenna|Printed Quasi Yagi Antenna]]**
+> >
+> > Printed monopoles on a ground edge, no balun, and why S11 alone can't prove a Yagi works.
+>
+> > [!warning] Section 25
+> > **[[25. Printed Yagi Antenna|Printed Yagi Antenna]]**
+> >
+> > One strip as feed return and reflector, a via feed, and reading the right pattern cut.
+>
+> > [!tip] Section 26
+> > **[[26. Wideband Quasi Yagi Antenna|Wideband Quasi Yagi Antenna]]**
+> >
+> > The ground edge as reflector, a microstrip-to-slot feed, and all four Yagis compared.
+>
+> > [!abstract] Section 27
+> > **[[27. Rectangular Loop Antenna|Rectangular Loop Antenna]]**
+> >
+> > Small vs one-wavelength loops, patterns, and why the match stops at -7 dB.
+>
+> > [!info] Section 28
+> > **[[28. Circular Loop Antenna|Circular Loop Antenna]]**
+> >
+> > Sizing a ring from its circumference, a radius sweep, and square vs circle.
+>
+> > [!warning] Section 29
+> > **[[29. Multiple Ring Loop Antenna|Multiple Ring Loop Antenna]]**
+> >
+> > One fed ring, two parasitic rings, a better match, and the three loops compared.
+>
+> > [!tip] Section 30
+> > **[[30. Rectangular Wire Loop Antenna|Rectangular Wire Loop Antenna]]**
+> >
+> > Titled capacitive loading, but a plain wire loop: what loading is, and a perimeter rule.
+>
+> > [!abstract] Section 31
+> > **[[31. Compact Planar Loop Dipole Antenna|Compact Planar Loop Dipole]]**
+> >
+> > A dipole and loop coupled through the board, a one-sided beam, and two bands, not one.
+>
+> > [!info] Section 32
+> > **[[32. Dual Fed Circularly Polarized Loop Antenna|Dual Fed CP Loop Antenna]]**
+> >
+> > What circular polarization needs, three design steps, and what was never tested.
+>
+> > [!warning] Section 33
+> > **[[33. Printed Loop Antenna with LCD Frame|Printed Loop with LCD Frame]]**
+> >
+> > The frame as part of the antenna, a U-shaped element, and a loop that never reaches ground.
+>
+> > [!tip] Section 34
+> > **[[34. Dual Band Dipole Antenna for WLAN|Dual Band Dipole for WLAN]]**
+> >
+> > These videos repeat Section 21, so this note only maps them.
+>
+> > [!abstract] Section 35
+> > **[[35. Semi Elliptical Wideband Antenna|Semi Elliptical Wideband Antenna]]**
+> >
+> > These videos repeat Section 22, so this note only maps them.
 
-### RF Parameters
-#### S-Parameters
-- Describe how RF energy travels between ports in a network.
-- Used to model input-output behavior in multiport systems.
-- Common parameters: S11, S12, S21, S22.
-- Reflection parameters: S11 and S22.
-- Transmission parameters: S12 and S21.
-- S-parameters help calculate return loss, impedance, admittance, VSWR, gain/loss, phase, and group delay.
-
-#### S11 Parameter
-- Input-port reflection coefficient.
-- Measures power reflected back from port 1.
-- Used to check antenna matching.
-- Good match: S11 < -10 dB (≈ 90% power accepted).
-- At -3 dB, transmitted and reflected power are equal.
-
-#### S22 Parameter
-- Output-port reflection coefficient.
-- Measures power reflected back from port 2.
-- Works like S11 for the second port.
-- Together with S11, it gives return loss, impedance, admittance, and VSWR for both ports.
-
-#### S12 Parameter
-- Reverse transmission coefficient.
-- Measures power from port 2 delivered back to port 1.
-- Useful for evaluating reverse coupling.
-
-#### S21 Parameter
-- Forward transmission coefficient.
-- Measures power from port 1 delivered to port 2.
-- Used to evaluate insertion loss or gain.
-- Important for EBG/FSS structures to assess how much signal passes through or is absorbed.
-- Also gives phase and group delay information.
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300" font-family="Cambria, Georgia, serif">
-  <defs>
-    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7f9fc4"/>
-    </marker>
-  </defs>
-  <rect x="230" y="55" width="180" height="180" rx="28" fill="none" stroke="#8fa8c8" stroke-width="1.5"/>
-  <text x="320" y="152" font-size="22" text-anchor="middle" fill="#ffffff">Component</text>
-  <line x1="40" y1="100" x2="222" y2="100" stroke="#7f9fc4" stroke-width="2.5" marker-end="url(#arr)"/>
-  <line x1="410" y1="150" x2="600" y2="150" stroke="#7f9fc4" stroke-width="2.5" marker-end="url(#arr)"/>
-  <line x1="230" y1="195" x2="48" y2="195" stroke="#7f9fc4" stroke-width="2.5" marker-end="url(#arr)"/>
-  <text x="42" y="45" font-size="22" fill="#ffffff">Incident</text>
-  <text x="42" y="75" font-size="22" fill="#ffffff">Power</text>
-  <text x="425" y="105" font-size="22" fill="#ffffff">Transmitted</text>
-  <text x="425" y="135" font-size="22" fill="#ffffff">Power</text>
-  <text x="45" y="235" font-size="22" fill="#ffffff">Reflected</text>
-  <text x="45" y="265" font-size="22" fill="#ffffff">Power</text>
-</svg>
-
-#### Insertion Loss
-- Insertion Loss = Transmitted power / Incident power.
-
-#### Return Loss
-- Return Loss = Reflected power / Incident power.
-
-#### VSWR
-- Voltage Standing Wave Ratio.
-- Measures mismatch between antenna and feed line.
-- Indicates reflected standing waves along the feeder.
-- Range: 1 to infinity.
-- VSWR < 2 is generally acceptable.
-- VSWR > 2 means poor matching at that frequency.
-
-#### Gain
-- Ratio of power radiated in a direction to power from an isotropic antenna.
-- 3 dB gain means twice the power in that direction compared to isotropic.
-
-#### RCS
-- Radar Cross Section.
-- Describes how detectable an object is by radar.
-- Large RCS means easier detection.
-
-#### Bandwidth
-- Frequency range over which the antenna works effectively.
-- Wider bandwidth covers more radio frequencies.
+## 0.2 Reference
+- [[Shortcuts]]: every keyboard shortcut used in the course.
