@@ -51,5 +51,18 @@
         "status": "current",
         "notesFile": "Mastering Microcontroller and Embedded Driver Development.md",
         "visible": true
+    },
+    {
+        "folder": "Embedded Systems Design by Altium-Renesas",
+        "title": "Basic Embedded Systems Design",
+        "tags": [
+            "Embedded Systems",
+            "Microcontrollers",
+            "Renesas",
+            "Altium"
+        ],
+        "status": "current",
+        "notesFile": "Basic Embedded Systems Design.md",
+        "visible": true
     }
 ]

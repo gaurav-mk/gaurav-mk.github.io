@@ -66,3 +66,14 @@ Notes must look right in both Obsidian and the site, so only use features that w
 - Next: nothing is pending. Video frames were checked from Section 20 onward. Sections 4 to 19 were checked from transcripts only, so frame checks there are an offered follow-up.
 - Workflow the owner asked for: read every transcript in a section, write that section's note, then move to the next section. Quality comes first, so recalculate the instructor's numbers and check the conclusions.
 - If a later video looks like a repeat, compare exact video lengths and the result plots before writing notes.
+
+**Basic Embedded Systems Design** (Altium Education and Renesas, training.altium.com), in `courses/Embedded Systems Design by Altium-Renesas/`
+
+- Index: `Basic Embedded Systems Design.md`
+- Module notes: `1. Introduction to Embedded Systems.md`, `2. Microprocessors and Microcontrollers Part 1.md`, `3. Microprocessors and Microcontrollers Part 2.md`, `4. Introduction to Communication Protocols.md`
+- The course has 6 modules. Each lesson is an Articulate Storyline SCORM package, not a video. Read its slide text and caption files through the owner's logged-in Chrome; the method is in Claude's memory. Skip the quizzes, surveys and Module Review Checklists, which are feedback forms the owner fills in.
+- `Microprocessors and Microcontrllers.md` and `Case Study.md` are the owner's earlier pasted screenshots. Their images sit in the repo root, so they don't show on the site.
+- A lesson can span several pages (`?page=N`), each its own package. Lesson 2.1 has 3 pages, lesson 2.2 has 4, lesson 3.1 has 4 and the Module 4 lesson has 5.
+- Modules unlock one at a time for the owner. A locked lesson page stays on "validating your access". The Module 5 lesson is at `introduction-to-development-tools-hardware-and-software/introduction-to-development-tools-hardware-and-software`.
+- Done: Modules 1 to 4. Next: Modules 5 (Development Tools) and 6 (Product Design to PCB Layout), both still locked on 2026-11-08.
+- Image-only slides that weren't captured: the Module 2 RA family, the power distribution module reference design and the barcode scanner block diagram; the Module 3 SAR example image, the BMS case study and the "Timers in Concert" thermostat.

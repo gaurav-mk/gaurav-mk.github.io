@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "courses/cst-studio-masterclass/Shortcuts.md",
+                "file": "courses/Embedded Systems Design by Altium-Renesas/4. Introduction to Communication Protocols.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Shortcuts"
+              "title": "4. Introduction to Communication Protocols"
             }
           }
         ]
@@ -188,6 +188,21 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "courses/Embedded Systems Design by Altium-Renesas/3. Microprocessors and Microcontrollers Part 2.md",
+    "courses/Embedded Systems Design by Altium-Renesas/4. Introduction to Communication Protocols.md",
+    "courses/Embedded Systems Design by Altium-Renesas/2. Microprocessors and Microcontrollers Part 1.md",
+    "AGENTS.md",
+    "AGENTS.md.tmp.4800.beaab2771592",
+    "AGENTS.md.tmp.4800.00723da4616a",
+    "Pasted image 20260821122756.png",
+    "Pasted image 20260725233506.png",
+    "profile_pic.webp",
+    "README.md",
+    "courses/Embedded Systems Design by Altium-Renesas/Basic Embedded Systems Design.md",
+    "courses/Embedded Systems Design by Altium-Renesas/Microprocessors and Microcontrllers.md",
+    "courses/Embedded Systems Design by Altium-Renesas/Case Study.md",
+    "courses/Embedded Systems Design by Altium-Renesas/1. Introduction to Embedded Systems.md",
+    "courses/cst-studio-masterclass/Shortcuts.md",
     "courses/cst-studio-masterclass/35. Semi Elliptical Wideband Antenna.md",
     "courses/cst-studio-masterclass/34. Dual Band Dipole Antenna for WLAN.md",
     "courses/cst-studio-masterclass/33. Printed Loop Antenna with LCD Frame.md",
@@ -204,16 +219,6 @@
     "courses/cst-studio-masterclass/24. Printed Quasi Yagi Antenna.md",
     "courses/cst-studio-masterclass/23. Yagi Uda Antenna.md",
     "courses/cst-studio-masterclass/22. Semi Elliptical Wideband Folded Dipole.md",
-    "courses/cst-studio-masterclass/21. Dual Band Dipole Antenna.md",
-    "courses/cst-studio-masterclass/20. Microstrip Fed Folded Dipole Antenna.md",
-    "courses/cst-studio-masterclass/10. Dual Polarized RFID Tag.md",
-    "courses/cst-studio-masterclass/11. Patch Antenna Fundamentals.md",
-    "courses/cst-studio-masterclass/13. Coaxial Fed Patch Antenna.md",
-    "courses/cst-studio-masterclass/14. Circular Patch Antenna.md",
-    "courses/cst-studio-masterclass/15. Monopole Antenna.md",
-    "courses/cst-studio-masterclass/16. Wideband Monopole Antenna.md",
-    "courses/cst-studio-masterclass/17. UWB Monopole Antenna.md",
-    "courses/cst-studio-masterclass/19. Dipole Antenna.md",
     "sedFeU9l8",
     "AGENTS.md.tmp.17900.19d03b0aac63",
     "courses/cst-studio-masterclass/Pasted image 20260821122819.png",
@@ -228,11 +233,6 @@
     "03 Concepts/Media/Pasted image 20261031113141.png",
     "03 Concepts/Media/Eye Parameters.svg",
     "03 Concepts/Eye Diagram.md.tmp.548.e58ccc0a8b80",
-    "03 Concepts/Media/Eye Anatomy.svg",
-    "03 Concepts/Media/Eye Anatomy.svg.tmp.548.e987da10356f",
-    "03 Concepts/Media/Eye Construction.svg",
-    "03 Concepts/Media/Data Link Eye.svg",
-    "03 Concepts/Signal Integrity.md.tmp.548.d090cc7a3229",
-    "03 Concepts/Media/Skin Effect.svg.tmp.548.1c3b0d5dd8c8"
+    "03 Concepts/Media/Eye Anatomy.svg.tmp.548.e987da10356f"
   ]
 }
