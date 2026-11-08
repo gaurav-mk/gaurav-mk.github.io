@@ -24,7 +24,7 @@
         ],
         "status": "current",
         "notesFile": "Embedded Systems Bare-Metal Programming Ground Up.md",
-        "visible": true
+        "visible": false
     },
     {
         "folder": "Mastering Microcontroller: Timers, PWM, CAN, Low Power",
@@ -32,12 +32,14 @@
         "cover": "cover.png",
         "tags": [
             "Embedded Systems",
-            "Timers","PWM","CAN",
+            "Timers",
+            "PWM",
+            "CAN",
             "STM32"
         ],
         "status": "current",
         "notesFile": "Mastering Microcontroller: Timers, PWM, CAN, Low Power.md",
-        "visible": true
+        "visible": false
     },
     {
         "folder": "Mastering Microcontroller and Embedded Driver Development",
@@ -50,11 +52,12 @@
         ],
         "status": "current",
         "notesFile": "Mastering Microcontroller and Embedded Driver Development.md",
-        "visible": true
+        "visible": false
     },
     {
         "folder": "Embedded Systems Design by Altium-Renesas",
         "title": "Basic Embedded Systems Design",
+        "cover": "cover.png",
         "tags": [
             "Embedded Systems",
             "Microcontrollers",
